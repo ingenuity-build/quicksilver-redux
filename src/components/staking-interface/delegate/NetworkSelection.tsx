@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
 import { setNetworkAddress, setNetworkWallet, setNetworkBalance, balancesNetworkSelector, addressNetworkSelector } from "../../../slices/selectedNetworkWallet";
+import { _loadValsAsync } from "../../../slices/validatorList";
 import Select from "react-select";
 import { initKeplrWithNetwork } from "../../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
@@ -69,6 +70,13 @@ export default function NetworkSelection() {
         dispatch(setSelectedNetworkFunc(selected));
         
   }
+
+  let fetchValidators = (chainId: string) => {
+
+    // @ts-expect-error
+        dispatch(_loadValsAsync(chainId));
+        
+  }
     return (
         <>
     <h1>Network Selection </h1> 
@@ -80,6 +88,7 @@ export default function NetworkSelection() {
         />
         <p>{selectedNetwork.local_denom}</p>
         <p>{selectedNetwork.base_denom}</p>
+        <button onClick={() => fetchValidators(selectedNetwork.chain_id)}> LOAD VALIDATOR LIST </button>
     </>
 
     )

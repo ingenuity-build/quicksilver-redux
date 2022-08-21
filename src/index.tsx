@@ -11,7 +11,7 @@ import './index.css';
 import { configureStore } from '@reduxjs/toolkit'
 import {BrowserRouter as Router}  from "react-router-dom";
 import rootReducer from './slices/index';
-
+import 'bootstrap/dist/css/bootstrap.css';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
@@ -20,11 +20,11 @@ const store = configureStore({ reducer: rootReducer,
   getDefaultMiddleware({
     serializableCheck: {
       // Ignore these action types
-      ignoredActions: ['quicksilver-wallet/setWalletQSSuccess'],
+      ignoredActions: ['quicksilver-wallet/setWalletQSSuccess', 'selected-network-wallet/setWalletNetworkSuccess'],
       // Ignore these field paths in all actions
       ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
       // Ignore these paths in the state
-      ignoredPaths: ['quicksilver.balances', 'quicksilver.walletQS'],
+      ignoredPaths: ['quicksilver.balances', 'quicksilver.walletQS', 'selectedNetworkWallet.networkBalances', 'selectedNetworkWallet.networkWallet'],
     },
   }), },
   )

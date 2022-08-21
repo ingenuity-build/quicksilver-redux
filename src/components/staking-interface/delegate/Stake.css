@@ -1,0 +1,52 @@
+.stake-options {
+    margin-left: 400px;
+}
+
+.content {
+    background: #1A1A1A;
+    color: #fff;
+    margin-top:58px !important;
+}
+
+.stepper {
+    background: #333333;
+    margin-top: 58px !important;
+
+}
+
+.stepper .line {
+    width: 1px;
+    background-color: #fff !important;
+    height: 45px !important;
+  }
+
+  .stepper .step {
+      margin-left: 0.5rem;
+  }
+
+  .logo {
+      height: 30px;
+  }
+
+  .step-text-bold {
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 700;
+  }
+
+  .step-text-gray {
+      font-size: 1rem;
+      color: #ADADAD;
+      font-weight: 500;
+  }
+
+  .staking-interface .social-media-icons {
+    left: 2rem;
+    position: fixed;
+    bottom: 10%;
+  }
+  
+  .staking-interface {
+    /* min-height: calc(100vh-76px) !important; */
+    min-height: 100vh !important;
+  }

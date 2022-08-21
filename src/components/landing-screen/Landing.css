@@ -1,0 +1,50 @@
+.landing-page {
+    height: 100vh;
+    width: 100vw;
+    background: #1A1A1A;
+    color: #fff;
+    font-family: 'Nexa';
+    letter-spacing: 4px;
+}
+
+.landing-page .logo {
+    height: 30vh;
+    margin-top: 20vh;
+}
+
+.landing-page .landing-page-content a {
+    background: #D35100;
+border-radius: 20px;
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+color: #FFFFFF;
+text-decoration: none;
+z-index: 2;
+letter-spacing: normal;
+}
+
+.landing-page  .landing-page-content  a:hover {
+    color: #D35100;
+
+background: #FFFFFF;
+cursor:pointer;
+}
+
+
+.social-media-icons, .landing-page .social-media-icons a , .landing-page  .landing-page-content{
+    z-index: 2;
+}
+
+.social-media-icons a {
+    color: white;
+    text-decoration: none;
+}
+.social-media-icons a:hover {
+    color: #D35100;
+}
+
+.landing-page .social-media-icons {
+    margin-left: 2rem;
+}

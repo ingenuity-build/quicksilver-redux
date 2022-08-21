@@ -37,3 +37,32 @@
     transform: translateY(0px);
   }
 } */
+
+
+@font-face {
+  font-family: 'Nexa';
+  src: local('Nexa'), url(../fonts/Nexa-Trial-Regular.otf) format('opentype');
+}
+
+.logo-stroke {
+
+  height: 70vh;
+
+}
+
+.logo-home {
+  left: 25%;
+}
+
+.logo-others {
+  left: 40%;
+}
+
+.img-logo {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

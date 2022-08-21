@@ -1,0 +1,65 @@
+.navbar .logo {
+    height: 50px;
+    margin-left: 2rem;
+}
+
+.navbar {
+    background: #1A1A1A;
+    position: fixed !important;
+    width:100vw !important;
+    z-index: 4;
+}
+
+.navbar-nav .nav-item a {
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+text-decoration: none;
+color: #FFFFFF;
+}
+
+.navbar .connect-wallet, .navbar .connect-wallet-button {
+background: #D35100;
+border-radius: 20px;
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+color: #FFFFFF;
+}
+
+
+.navbar .connect-wallet-button:hover{
+    color: #D35100;
+    background: #FFFFFF;
+    }
+
+.navbar .connect-wallet img {
+    height: 20px;
+}
+
+.active-link {
+   color: #D35100 !important;
+   font-weight: 700 !important;
+}
+
+.navbar .navbar-logo {
+    background: #333333;
+}
+
+
+.navbar .nav-icon-stake {
+    height: 30px;
+    margin-right:1px;
+}
+
+.navbar .nav-icon-pools {
+    height: 17px;
+    margin-right:2px;
+}
+
+.navbar .nav-icon-airdrop {
+    height: 17px;
+    margin-right:5px;
+}
