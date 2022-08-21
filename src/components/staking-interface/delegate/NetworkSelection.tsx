@@ -1,12 +1,18 @@
 import React , { useEffect } from "react"
 // import the redux hook
 
-import { useDispatch, useSelector } from 'react-redux'	
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 // import our recipes selector
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
+import { setNetworkAddress, setNetworkWallet, setNetworkBalance, balancesNetworkSelector, addressNetworkSelector } from "../../../slices/selectedNetworkWallet";
 import Select from "react-select";
+import { initKeplrWithNetwork } from "../../../utils/chains";
+import { SigningStargateClient } from "@cosmjs/stargate";
+import { getKeplrFromWindow } from '@keplr-wallet/stores';
 
 export default function NetworkSelection() {
     const dispatch = useDispatch()
@@ -21,6 +27,37 @@ export default function NetworkSelection() {
         // dispatch(setSelectedNetworkFunc('Apple'));
 
       }, [dispatch])
+
+      useEffect(() => {
+        if (selectedNetwork !== "Select a network") {
+          connectNetwork(selectedNetwork.chain_id);
+        }
+      }, [selectedNetwork])
+
+    
+    
+      const connectNetwork = async (network: string) => {
+
+        initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
+         // @ts-expect-error
+         dispatch(setNetworkWallet(key, val))
+
+    
+          let keplr = await getKeplrFromWindow();
+          let chainId = await val.getChainId();
+          let pubkey = await keplr?.getKey(chainId);
+          let bech32 = pubkey?.bech32Address;
+          // props.setNetworkAddress(bech32);
+     // @ts-expect-error
+          dispatch(setNetworkAddress(bech32))
+          if (bech32) {
+            let roBalance = await val.getAllBalances(bech32);
+                  // @ts-expect-error
+              dispatch(setNetworkBalance(roBalance));
+          }
+        }, network);
+      }
+    
 
    
     // console.log('Networks: ', networks);	

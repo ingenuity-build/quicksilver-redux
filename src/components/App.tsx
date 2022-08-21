@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import { Routes, Route, useLocation} from "react-router-dom";
 import Navbar from './navbar/Navbar';
 import Delegate from './staking-interface/delegate/Delegate';
@@ -21,8 +21,8 @@ function App() {
     <div className="img-logo text-center">
 
     </div>
-
-  {location.pathname !== '/' && <Navbar />}
+    <Navbar/>
+  {/* {location.pathname !== '/' && <Navbar />} */}
    <Routes>
                       <Route path="/" element={<Landing/>}/>
                 

@@ -1,18 +1,36 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { Buffer } from 'buffer';
+
+
 
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-
-const container = document.getElementById('root')!;
-const root = createRoot(container);
 import { configureStore } from '@reduxjs/toolkit'
 import {BrowserRouter as Router}  from "react-router-dom";
 import rootReducer from './slices/index';
-const store = configureStore({ reducer: rootReducer })
 
+const container = document.getElementById('root')!;
+const root = createRoot(container);
+
+const store = configureStore({ reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware({
+    serializableCheck: {
+      // Ignore these action types
+      ignoredActions: ['quicksilver-wallet/setWalletQSSuccess'],
+      // Ignore these field paths in all actions
+      ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
+      // Ignore these paths in the state
+      ignoredPaths: ['quicksilver.balances', 'quicksilver.walletQS'],
+    },
+  }), },
+  )
+
+// @ts-ignore
+window.Buffer = Buffer;
 
 root.render(
   <React.StrictMode>
