@@ -4,7 +4,7 @@ import { useLocation} from "react-router-dom";
 import { initKeplrWithQuickSilver } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet, walletQSSelector,setQSWalletConnected, setQSBalance, balancesQSSelector } from '../../slices/quicksilver';
+import { setQSWallet, walletQSSelector,setQSWalletConnected, setQSBalance, balancesQSSelector , isQSWalletConnectedSelector } from '../../slices/quicksilver';
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -20,6 +20,8 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const location = useLocation()
   const balances = useSelector(balancesQSSelector);
+  const isWalletConnected = useSelector(isQSWalletConnectedSelector);
+
   const connectKeplr = async () => {
 
     initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
@@ -39,6 +41,7 @@ export default function Navbar() {
               // @ts-expect-error
           dispatch(setQSBalance(roBalance));
       }
+      console.log('isWalletConnected', isWalletConnected);
     });
  
   }
@@ -77,8 +80,10 @@ export default function Navbar() {
 
     </ul>
      
-<button onClick={connectKeplr} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
-      </button>
+{!isWalletConnected && <button onClick={connectKeplr} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
+      </button>}
+      {isWalletConnected && <h5>HEY</h5> }
+      {isWalletConnected}
  
   </div>
 </nav>

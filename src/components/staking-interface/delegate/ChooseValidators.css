@@ -1,0 +1,45 @@
+.validator-card{
+    max-width: 300px;
+}
+.validator-card {
+    background: #282828;
+border: 2px solid #282828;
+border-radius: 5px;
+padding: 1rem;
+}
+
+.validator-card .card-details {
+    margin-left: 10px;
+}
+
+
+.val-active {
+    border: 2px solid #D35100;
+    
+}
+.validator-card:hover{
+    border: 2px solid #D35100;
+    cursor: pointer;
+}
+
+.validator-selection-pane .button-container, .validator-selection-pane .validators, .validator-selection-pane input {
+    z-index: 3;
+} 
+
+.validator-selection-pane .validators {
+    max-height: 41vh;
+    overflow-y: auto;
+}
+
+.max-button {
+    background: #4D4D4D;
+    border-radius: 5px;
+    border:2px solid #4d4d4d; 
+    color: #fff;
+}
+
+
+.next-button:disabled {
+    background: #D87D44;
+    border: #D87D44;
+}

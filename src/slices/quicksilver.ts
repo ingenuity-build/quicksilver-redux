@@ -1,6 +1,7 @@
 
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { createSlice } from '@reduxjs/toolkit'
+import { stat } from "fs"
 export const initialState = {
   isQSWalletConnected: false,
 //   balancesQS: new Map<string, Map<string, number>>(),
@@ -31,6 +32,7 @@ const quicksilverNetworkSlice = createSlice({
 export const { setIsQSWalletConnected, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
 export const balancesQSSelector = (state:any)  => state.balancesQS;
 export const walletQSSelector = (state: any) => state.walletQS;
+export const isQSWalletConnectedSelector = (state: any) => state.isQSWalletConnected;
 // The reducer
 export default quicksilverNetworkSlice.reducer;
 export function setQSWalletConnected() {

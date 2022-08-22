@@ -4,6 +4,7 @@ export const initialState = {
   loading: false,
   hasErrors: false,
   validatorList: [],
+  selectedValidatorList: []
 }
 
 const validatorListSlice = createSlice({
@@ -18,6 +19,11 @@ const validatorListSlice = createSlice({
       state.loading = false
       state.hasErrors = false
     },
+    setSelectedValidatorListSuccess : (state, { payload }) => {
+      state.selectedValidatorList = payload;
+         state.loading = false
+      state.hasErrors = false
+    },
     getValidatorListFailure: state => {
       state.loading = false
       state.hasErrors = true
@@ -25,10 +31,11 @@ const validatorListSlice = createSlice({
   },
 })
 
-export const { getValidatorList, getValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
+export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
 
 
-
+export const validatorListSelector = (state:any)  => state.validatorList;
+export const selectedValidatorListSelector = (state: any) => state.selectedValidatorList;
 // The reducer
 export default validatorListSlice.reducer;
 
@@ -161,4 +168,15 @@ export interface Data {
     name: string;
     address: string;
     logo: string;
+  }
+
+  export function setSelectedValidatorList(val: any) {
+    return async (dispatch: any) => {
+  
+      try {
+        dispatch(setSelectedValidatorListSuccess(val))
+      } catch (error) {
+
+      }
+    }
   }

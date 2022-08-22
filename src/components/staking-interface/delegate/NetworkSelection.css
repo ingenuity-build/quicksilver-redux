@@ -1,0 +1,61 @@
+.wallet-details {
+    align-items: center;
+    border-radius: 30px;
+    width: 60%;
+    padding: 20px;
+    background: #282828;
+    justify-content: center;
+}
+
+.wallet-content {
+    width: 100%;
+    justify-content: center;
+}
+
+.dropdown a, .dropdown-menu  {
+ width: 70%;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.prev-button {
+    background: hwb(0 100% 0%);
+border-radius: 10px;
+font-weight: 400;
+font-size: 18px;
+color: #D35100;
+padding: 5px 20px;
+}
+
+.prev-button:hover {
+    border: 2px solid #D35100;
+}
+
+.stake-liquid-atoms-button, .stake-existing-delegations-button, .next-button {
+background: #D35100;
+border-radius: 10px;
+font-size: 18px;
+line-height: 30px;
+font-weight: 400;
+color: #FFFFFF;
+padding: 5px 20px;
+border: 2px solid #D35100;
+}
+
+.stake-existing-delegations-button:disabled,  .stake-liquid-atoms-button:disabled{
+    background: #D87D44;
+    border: #D87D44;
+  }
+
+.network-selection-pane .button-container {
+      z-index: 3;
+  }
+
+  .network-selection-pane .custom-class {
+    z-index: 5;
+      color: rgba(0,0,0,0.7);
+  }
+
+  

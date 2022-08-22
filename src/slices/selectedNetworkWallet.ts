@@ -7,8 +7,8 @@ export const initialState = {
 //   walletQS: new Map<string, SigningStargateClient>(),
 networkBalances: new Map<string, Map<string, number>>(),
 networkWallet: new Map<string, SigningStargateClient>(),
-networkAddress: '',
-  loading: false
+networkAddress: '123',
+  loading: false,
 }
 const selectedNetworkWalletSlice = createSlice({
   name: 'selected-network-wallet',
@@ -29,13 +29,15 @@ const selectedNetworkWalletSlice = createSlice({
     },
     setNetworkAddressSuccess :  (state, { payload }) => {
         state.networkAddress = payload
-  }
+  },
+
 }
 })
-export const { setIsNetworkWalletConnected, setIsQSWalletConnectedSuccees, setBalancesNetworkSuccess, setWalletNetworkSuccess , setNetworkAddressSuccess} = selectedNetworkWalletSlice.actions
+export const { setIsNetworkWalletConnected,  setIsQSWalletConnectedSuccees, setBalancesNetworkSuccess, setWalletNetworkSuccess , setNetworkAddressSuccess} = selectedNetworkWalletSlice.actions
 export const balancesNetworkSelector = (state:any)  => state.networkBalances;
 export const walletNetworkSelector = (state: any) => state.networkWallet;
-export const addressNetworkSelector = (state:any) => state.networkAddress;
+export const addressNetworkSelector = (state:any) => state.selectedNetworkWallet.networkAddress;
+
 
 // The reducer
 export default selectedNetworkWalletSlice.reducer;
@@ -65,7 +67,7 @@ export function setQSWalletConnected() {
                 }
             }
 
-            export function setNetworkAddress(val: any) {
+    export function setNetworkAddress(val: any) {
                 return async (dispatch: any) => {
                     try {
                         dispatch(setNetworkAddressSuccess(val))
@@ -73,3 +75,5 @@ export function setQSWalletConnected() {
                       }
                     }
                 }
+
+              

@@ -30,7 +30,7 @@ export function increaseStakingStep() {
 
   
       try {  
-        dispatch(increaseStakingStep());
+        dispatch(increaseStep());
       } catch (error) {
       }
     }
@@ -42,7 +42,7 @@ export function increaseStakingStep() {
 
   
       try {  
-        dispatch(decreaseStakingStep());
+        dispatch(decreaseStep());
       } catch (error) {
       }
     }

@@ -4,7 +4,6 @@ export const initialState = {
   loading: false,
   hasErrors: false,
   selectedNetwork: "Please select a network",
-  
 }
 
 const selectedNetworkSlice = createSlice({
