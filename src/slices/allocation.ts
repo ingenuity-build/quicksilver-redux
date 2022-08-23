@@ -43,7 +43,7 @@ export function setStakingAllocationProp(val: any) {
     return async (dispatch: any) => {
   
       try {
-        dispatch(setStakingAmountSuccess(val))
+        dispatch(setStakingAllocationPropSuccess(val))
       } catch (error) {
       }
     }

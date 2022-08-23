@@ -36,8 +36,8 @@ export default function Delegate() {
         {activeStep === 1 && <ConnectWallet/>}
         {activeStep === 2 && <NetworkSelection/>}
         {activeStep === 3 && <ChooseValidators/>}
-        {/* {activeStep === 4 && <ChooseAllocations/>} */}
-        {activeStep === 4 && <ChoosExistingDelegations/>}
+        {activeStep === 4 && <ChooseAllocations/>}
+        {/* {activeStep === 4 && <ChoosExistingDelegations/>} */}
         {activeStep === 5 && <SummaryExistingDelegations/>}
         </>
     )

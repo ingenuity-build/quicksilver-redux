@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { validatorListSelector} from "../../../slices/validatorList";
+import {quicksilverSelector} from '../../../slices/quicksilver';
+
 
 export default function ChooseAllocations() {
     const dispatch = useDispatch();
@@ -16,9 +18,38 @@ export default function ChooseAllocations() {
 
     const {selectedValidatorList} = useSelector(validatorListSelector);
     const {stakingAmount, stakingAllocationProp} = useSelector(stakingAllocationSelector)
-    const [sum, setSum] = useState(selectedValidatorList.length);
-    const {networkAddress} = useSelector(selectedNetworkWalletSelector);
+ 
+    const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
+    const {balances} = useSelector(quicksilverSelector);
+
+    const [sum, setSum] = useState(selectedValidatorList.length);
+
+    const [QCKBalance, setQCKBalance] = useState(0);
+  const [zoneBalance, setZoneBalance] = useState(0);
+
+  useEffect(() => {
+    if(balances !== []) {
+         let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
+         if(balance) {
+          console.log(balance)
+          setQCKBalance((balance.amount)/1000000);
+         }
+     
+    }
+
+}, [balances, selectedNetwork])
+
+useEffect(() => {
+
+  if(networkBalances !== []) {
+    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
+    if(balance) {
+     setZoneBalance((balance.amount)/1000000);
+    }
+
+}
+}, [networkBalances])
 
     useEffect(() => {
         if(selectedValidatorList.length > 0) {
@@ -93,29 +124,29 @@ export default function ChooseAllocations() {
     }
     
     
-    // const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
+    const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
 
-    //     let maxBal = +(networkBalance/1000000) - 0.3;
-    //     let temp = '0'+maxBal.toFixed(6).toString();
-    //     if(stakingAmount != temp) {
-    //   //    @ts-expect-error
-    //   dispatch(setStakingAmount('0'+maxBal.toFixed(6)))
+        let maxBal = +(zoneBalance) - 0.3;
+        let temp = '0'+maxBal.toFixed(6).toString();
+        if(stakingAmount != temp) {
+      //    @ts-expect-error
+      dispatch(setStakingAmount('0'+maxBal.toFixed(6)))
 
-    //   isMax.current = true;
-    //   setShowMaxMsg(true);
-    //     } else {
-    //         setisMaxClicked(true);
-    //     }
+      isMax.current = true;
+      setShowMaxMsg(true);
+        } else {
+            setisMaxClicked(true);
+        }
         
   
     
    
-    //      console.log(isMax.current);
-    //      console.log(maxBal);
+         console.log(isMax.current);
+         console.log(maxBal);
      
 
 
-    // }
+    }
 
     const handleAllocationChange = (e: any) => {
       if(e.target.value !== "") {
@@ -140,22 +171,18 @@ export default function ChooseAllocations() {
         console.log(e.target.value);
                     //    @ts-expect-error
                   dispatch(setStakingAmount(e.target.value));
-        // props.setStakingAmountValidators(e.target.value);
         isMax.current = false;
         setisMaxClicked(false);
-        // if(e.target.value !=  +((networkBalance/1000000) - 0.3).toFixed(6)) {
-        // setShowMaxMsg(false);
-        // }
+        if(e.target.value !=  +(zoneBalance - 0.3).toFixed(6)) {
+        setShowMaxMsg(false);
+        }
     
     }
     }
 
     const onClickNext = (e: any) => {
                  //    @ts-expect-error
-        props.setAllocationProp(allocationProp)
-           //    @ts-expect-error
-props.next();
-
+                dispatch( setStakingAllocationProp(allocationProp));
     }
 
     const renderValidators = () => {
@@ -171,52 +198,51 @@ props.next();
         )
     }
     return (
-//     <div className="allocation-pane d-flex flex-column align-items-center">
-//  {networkAddress && selectedNetwork !== "Select a network" && props.balances && <div className="wallet-details d-flex flex-column mt-3">
-//                 <h4> My Wallet</h4>
-//                 <h6>{networkAddress}</h6>
-//                 <div className="row wallet-content mt-4">
-//                 <div className="col-3 text-center">
-//                        <h5 className="font-bold">{networkBalance/1000000}</h5>
-//                        <p> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</p>
-//                     </div>
-//                     <div className="col-3 text-center">
-//                     <h5 className="font-bold">{networkQBalance/1000000}</h5>
-//                     <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>
-//                         </div>
+    <div className="allocation-pane d-flex flex-column align-items-center">
+ {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
+                <h4> My Wallet</h4>
+                <h6>{networkAddress}</h6>
+                <div className="row wallet-content mt-4">
+                <div className="col-3 text-center">
+                       <h5 className="font-bold">{zoneBalance}</h5>
+                       <p> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</p>
+                    </div>
+                    <div className="col-3 text-center">
+                    <h5 className="font-bold">{QCKBalance}</h5>
+                    <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>
+                        </div>
                   
-//                 </div>
-//             </div> }
-//            {(networkBalance/1000000) <= 0.5 &&  <div className="mt-3">
-//                 You don't have enough   {props.selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to stake! 
-//             </div>}
-//            {(networkBalance/1000000) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
-//                 <h4>Stake</h4> 
+                </div>
+            </div> }
+           {zoneBalance <= 0.5 &&  <div className="mt-3">
+                You don't have enough   {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to stake! 
+            </div>}
+           {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
+                <h4>Stake</h4> 
 
-//                 <div className="d-flex mt-3 align-items-center">
-//                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
-//                     <input className="mx-3" type="text" value={props.stakingAmountValidators?.toString()} onChange={ changeAmount}/>
-//                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
+                <div className="d-flex mt-3 align-items-center">
+                    <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
+                    <input className="mx-3" type="text" value={stakingAmount?.toString()} onChange={ changeAmount}/>
+                    <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
 
-//                 </div>
+                </div>
 
-//                 {renderValidators()}
-//                 {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + props.selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
-//             </div>}
-//             {(networkBalance/1000000) > 0.5 &&  <div className="mt-4 text-center">
-//             {props.stakingAmountValidators > ((networkBalance/1000000) - 0.3) ? `The max that you can allocate is ${ ((networkBalance/1000000) - 0.3).toFixed(6) } atom ` : ''}
-//             { props.stakingAmountValidators > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available atoms. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
-//             { props.stakingAmountValidators > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of atoms to continue </p>}
-//        </div>}
-//         <div className="button-containers mt-4 mb-4">
-//             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-//         <button disabled={sum < 99.9  || sum  > 100 || props.stakingAmountValidators > ((networkBalance/1000000) - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
-// </div>
-//         </div> 
-//     );
-<h1> Hey </h1>
-    )
+                {renderValidators()}
+                {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
+            </div>}
+            {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
+            {stakingAmount> ((zoneBalance) - 0.3) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6) } atom ` : ''}
+            { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available atoms. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
+            { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of atoms to continue </p>}
+       </div>}
+        <div className="button-containers mt-4 mb-4">
+            {/* <button className="prev-button mx-3" onClick={onPrev}> Previous </button> */}
+        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+</div>
+        </div> 
+    );
+    
 
 
 }
