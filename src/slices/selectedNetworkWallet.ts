@@ -5,7 +5,7 @@ export const initialState = {
   isNetworkWalletConnected: false,
 //   balancesQS: new Map<string, Map<string, number>>(),
 //   walletQS: new Map<string, SigningStargateClient>(),
-networkBalances: new Map<string, Map<string, number>>(),
+networkBalances: [],
 networkWallet: new Map<string, SigningStargateClient>(),
 networkAddress: '',
   loading: false,

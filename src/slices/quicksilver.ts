@@ -6,7 +6,8 @@ export const initialState = {
   isQSWalletConnected: false,
 //   balancesQS: new Map<string, Map<string, number>>(),
 //   walletQS: new Map<string, SigningStargateClient>(),
-balances: new Map<string, Map<string, number>>(),
+// balances: new Map<string, Map<string, number>>(),
+balances: [],
 walletQS: new Map<string, SigningStargateClient>(),
   loading: false
 }
@@ -30,9 +31,8 @@ const quicksilverNetworkSlice = createSlice({
   },
 })
 export const { setIsQSWalletConnected, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
-export const balancesQSSelector = (state:any)  => state.balancesQS;
-export const walletQSSelector = (state: any) => state.walletQS;
-export const isQSWalletConnectedSelector = (state: any) => state.isQSWalletConnected;
+export const quicksilverSelector = (state:any)  => state.quicksilver;
+
 // The reducer
 export default quicksilverNetworkSlice.reducer;
 export function setQSWalletConnected() {

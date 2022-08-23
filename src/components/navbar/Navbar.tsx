@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import { useLocation} from "react-router-dom";
-import { initKeplrWithQuickSilver } from "../../utils/chains";
-import { SigningStargateClient } from "@cosmjs/stargate"
-import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet, walletQSSelector,setQSWalletConnected, setQSBalance, balancesQSSelector , isQSWalletConnectedSelector } from '../../slices/quicksilver';
+
+
+import Select from "react-select";
+
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -17,23 +17,105 @@ import Stakes from '../../assets/icons/stakes.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
+import {quicksilverSelector} from '../../slices/quicksilver';
+import { networksSelector, fetchNetworks } from '../../slices/networks'	;
+import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../slices/selectedNetwork";
+import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../slices/selectedNetworkWallet";
+import { _loadValsAsync } from "../../slices/validatorList";
+import { initKeplrWithNetwork } from "../../utils/chains";
+import { SigningStargateClient } from "@cosmjs/stargate";
+import { getKeplrFromWindow } from '@keplr-wallet/stores';
 interface PropComponent {
   handleClickOpen? : { (): void};
 }
 
 export default function Navbar(props: PropComponent) {
 
-  
+
+  const { networks, loading, hasErrors } = useSelector(networksSelector);
+  const {selectedNetwork} = useSelector(selectedNetworkSelector);
+ const {networkAddress} = useSelector(selectedNetworkWalletSelector);
+
   const dispatch = useDispatch()
   const location = useLocation()
-  const balances = useSelector(balancesQSSelector);
+  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
   // const { isWalletConnected }= useSelector(isQSWalletConnectedSelector);
   const {isModalOpen} = useSelector(connectWalletModalSelector)
+
+  const [QCKBalance, setQCKBalance] = useState(0);
+
+
+  useEffect(() => {
+    if(balances !== []) {
+         let balance = balances.find((bal: any) => bal.denom === 'uqck');
+         if(balance) {
+          setQCKBalance((balance.amount)/1000000);
+         }
+     
+    }
+
+}, [balances])
 
   const onButtonClick = () => {
       // @ts-expect-error
     dispatch(setModalOpen());
 
+
+  }
+
+  useEffect(() => {
+
+    // @ts-expect-error
+      dispatch(fetchNetworks())
+      // // @ts-expect-error
+      // dispatch(setSelectedNetworkFunc('Apple'));
+
+    }, [dispatch])
+
+    useEffect(() => {
+      if (selectedNetwork !== "Select a network") {
+        connectNetwork(selectedNetwork.chain_id);
+  
+      // dispatch(_loadValsAsync(selectedNetwork.chain_id));
+      }
+    }, [selectedNetwork])
+   
+  const connectNetwork = async (network: string) => {
+
+    initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
+     // @ts-expect-error
+     dispatch(setNetworkWallet(key, val))
+
+      // @ts-expect-error
+      dispatch(setClient(val));
+      let keplr = await getKeplrFromWindow();
+      let chainId = await val.getChainId();
+      let pubkey = await keplr?.getKey(chainId);
+      let bech32 = pubkey?.bech32Address;
+      // props.setNetworkAddress(bech32);
+ // @ts-expect-error
+      dispatch(setNetworkAddress(bech32))
+      if (bech32) {
+        let roBalance = await val.getAllBalances(bech32);
+              // @ts-expect-error
+          dispatch(setNetworkBalance(roBalance));
+      }
+    }, network);
+  }
+
+
+  let fetchValidators = (chainId: string) => {
+
+    // @ts-expect-error
+        dispatch(_loadValsAsync(chainId));
+        
+  }
+
+  let handleNetworkChange = (selected: any) => {
+    console.log(selected);
+    // @ts-expect-error
+        dispatch(setSelectedNetworkFunc(selected));
+        
   }
     return (
 
@@ -68,11 +150,18 @@ export default function Navbar(props: PropComponent) {
       </li> */}
 
     </ul>
-<button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
-      </button>
-      {isModalOpen && (
-        <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>
-      )}
+{!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
+      </button>}
+      {isQSWalletConnected &&   <Select className="custom-class mb-3"
+        //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
+          options={networks}
+          onChange={handleNetworkChange}
+
+        />}
+        {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
+      
+        {QCKBalance !==0 && isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance} QCK</p>}
+      
       { isModalOpen && <Backdrop />}
  
   </div>
