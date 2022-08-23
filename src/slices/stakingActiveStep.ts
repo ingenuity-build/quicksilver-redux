@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
-  stakingActiveStep : 2
+  stakingActiveStep : 1
 }
 
 const stakingActiveStepSlice = createSlice({

@@ -29,9 +29,7 @@ export default function ChooseAllocations() {
             setAllocationProp(temp);
         }
          // @ts-expect-error
-         dispatch(setStakingAmount(0))
-
-                    
+         dispatch(setStakingAmount(0))            
     }, [])
 
     useEffect(() => {
@@ -136,10 +134,6 @@ export default function ChooseAllocations() {
       }
           }
           
-        
-    
-
-
     const changeAmount = (e: any) => {
         
         if ( e.target.value.match(/^\d{1,}(\.\d{0,6})?$/) ){
@@ -221,7 +215,7 @@ props.next();
 // </div>
 //         </div> 
 //     );
-<h1> HeY </h1>
+<h1> Hey </h1>
     )
 
 

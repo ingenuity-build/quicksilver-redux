@@ -10,7 +10,7 @@ import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync , validatorListSelector, setSelectedValidatorList} from "../../../slices/validatorList";
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
 import {_loadExistingValsAsync} from '../../../slices/existingDelegations';
-
+import SummaryExistingDelegations from './SummaryExistingDelegations';
 
 
 export default function Delegate() {
@@ -38,6 +38,7 @@ export default function Delegate() {
         {activeStep === 3 && <ChooseValidators/>}
         {/* {activeStep === 4 && <ChooseAllocations/>} */}
         {activeStep === 4 && <ChoosExistingDelegations/>}
+        {activeStep === 5 && <SummaryExistingDelegations/>}
         </>
     )
 }

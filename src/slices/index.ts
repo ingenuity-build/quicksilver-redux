@@ -8,6 +8,7 @@ import validatorListReducer from './validatorList'
 import stakingActiveStepReducer from './stakingActiveStep'
 import stakingAllocationReducer from './allocation';
 import existingDelegationsReducer from './existingDelegations';
+import connectWalletModalReducer from './connectWalletModal'
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   validatorList: validatorListReducer,
   stakingActiveStep: stakingActiveStepReducer,
   stakingAllocation: stakingAllocationReducer,
-  existingDelegations: existingDelegationsReducer
+  existingDelegations: existingDelegationsReducer,
+  connectWalletModal: connectWalletModalReducer
 })
 
 export default rootReducer;

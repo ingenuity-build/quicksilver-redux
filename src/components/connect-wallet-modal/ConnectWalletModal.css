@@ -1,0 +1,38 @@
+.connect-wallet-modal {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    padding: 1rem;
+    min-width: 30rem;
+    z-index: 10;
+    position: fixed;
+    top: 10vh;
+    left: calc(50% - 15rem);
+  }
+
+  .connect-wallet-modal .keplr {
+    border:none;
+background: #D35100;
+color: white;
+border-radius: 5px;
+font-weight: 600;
+  }
+
+  .connect-wallet-modal .cosmos-station {
+    border:none;
+    background: rgba(0, 0, 0, 0.1);;
+    color: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+
+  }
+
+  .connect-wallet-modal .keplr:hover {
+    border:1px solid #D35100;
+background: white;
+color: #D35100;
+  }
+
+  .connect-wallet-modal .heading {
+    color: black;
+    font-weight: 400;
+  }

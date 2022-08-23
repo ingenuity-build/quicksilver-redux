@@ -9,6 +9,7 @@ networkBalances: new Map<string, Map<string, number>>(),
 networkWallet: new Map<string, SigningStargateClient>(),
 networkAddress: '',
   loading: false,
+  client: {}
 }
 const selectedNetworkWalletSlice = createSlice({
   name: 'selected-network-wallet',
@@ -30,10 +31,13 @@ const selectedNetworkWalletSlice = createSlice({
     setNetworkAddressSuccess :  (state, { payload }) => {
         state.networkAddress = payload
   },
+  setClientSuccess: (state, { payload }) => {
+    state.client = payload
+  }
 
 }
 })
-export const { setIsNetworkWalletConnected,  setIsQSWalletConnectedSuccees, setBalancesNetworkSuccess, setWalletNetworkSuccess , setNetworkAddressSuccess} = selectedNetworkWalletSlice.actions
+export const { setIsNetworkWalletConnected,  setClientSuccess, setIsQSWalletConnectedSuccees, setBalancesNetworkSuccess, setWalletNetworkSuccess , setNetworkAddressSuccess} = selectedNetworkWalletSlice.actions
 // export const balancesNetworkSelector = (state:any)  => state.networkBalances;
 // export const walletNetworkSelector = (state: any) => state.networkWallet;
 // export const addressNetworkSelector = (state:any) => state.selectedNetworkWallet.networkAddress;
@@ -77,4 +81,14 @@ export function setQSWalletConnected() {
                     }
                 }
 
+
+                export function setClient(val: any) {
+                  return async (dispatch: any) => {
+                      try {
+                          dispatch(setClientSuccess(val))
+                        } catch (error) {
+                        }
+                      }
+                  }
+  
               

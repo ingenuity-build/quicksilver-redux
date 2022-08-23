@@ -9,7 +9,7 @@ import {increaseStakingStep} from '../../../slices/stakingActiveStep';
 
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
-import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector,  } from "../../../slices/selectedNetworkWallet";
+import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../../slices/selectedNetworkWallet";
 import { _loadValsAsync } from "../../../slices/validatorList";
 import Select from "react-select";
 import { initKeplrWithNetwork } from "../../../utils/chains";
@@ -22,7 +22,6 @@ export default function NetworkSelection() {
     const { networks, loading, hasErrors } = useSelector(networksSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
    const {networkAddress} = useSelector(selectedNetworkWalletSelector);
-   console.log('network add', networkAddress)
 
 
     useEffect(() => {
@@ -50,7 +49,8 @@ export default function NetworkSelection() {
          // @ts-expect-error
          dispatch(setNetworkWallet(key, val))
 
-    
+          // @ts-expect-error
+          dispatch(setClient(val));
           let keplr = await getKeplrFromWindow();
           let chainId = await val.getChainId();
           let pubkey = await keplr?.getKey(chainId);

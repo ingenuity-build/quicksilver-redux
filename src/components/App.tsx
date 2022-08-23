@@ -15,18 +15,65 @@ import Redelegate from './staking-interface/redelegate/Relegate';
 import NetworkSelection from './staking-interface/delegate/NetworkSelection';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
 import Delegate from './staking-interface/delegate/Delegate';
-
+import { initKeplrWithQuickSilver} from '../utils/chains';
+import { SigningStargateClient } from "@cosmjs/stargate"
+import { getKeplrFromWindow } from '@keplr-wallet/stores';
+import { setQSWallet, walletQSSelector,setQSWalletConnected, setQSBalance, balancesQSSelector , isQSWalletConnectedSelector } from '../slices/quicksilver';
+import { useDispatch, useSelector } from 'react-redux'
+import {  setModalClose } from '../slices/connectWalletModal';
+import { increaseStakingStep } from "../slices/stakingActiveStep";
 
 function App() {
+  const dispatch = useDispatch();
 
   const location = useLocation();
+  const isWalletConnected = useSelector(isQSWalletConnectedSelector);
+
+  const handleClickOpen = () => {
+    // @ts-expect-error
+  if (window &&  !window.keplr) {
+    alert("Please install keplr extension");
+}  else {
+connectKeplr();
+}
+};
+
+
+const connectKeplr = async () => {
+
+  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+    // @ts-expect-error
+    dispatch(setQSWallet(key, val));
+     // @ts-expect-error
+    dispatch(setQSWalletConnected())
+    // setWallets(new Map<string, SigningStargateClient>(wallets.set(key, val)));
+    // setWalletConnection(true);
+    let keplr = await getKeplrFromWindow();
+    let chainId = await val.getChainId();
+    let pubkey = await keplr?.getKey(chainId);
+    let bech32 = pubkey?.bech32Address;
+    console.log(bech32);
+    if (bech32) {
+      let roBalance = await val.getAllBalances(bech32);
+            // @ts-expect-error
+        dispatch(setQSBalance(roBalance));
+    }
+    console.log('isWalletConnected', isWalletConnected);
+        // @ts-expect-error
+  dispatch(setModalClose());
+                 // @ts-expect-error
+                 dispatch(increaseStakingStep());
+
+  });
+
+}
 
   return (
     <>
     {/* <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
     </div> */}
-  {location.pathname !== '/' && <Navbar />}
+  {location.pathname !== '/' && <Navbar handleClickOpen={handleClickOpen} />}
    <Routes>
                       <Route path="/" element={<Landing/>}/>
                 

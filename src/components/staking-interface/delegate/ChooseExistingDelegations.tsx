@@ -6,6 +6,7 @@ import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWa
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { validatorListSelector} from "../../../slices/validatorList";
 import {existingDelegationsSelector, setSelectedExistingDelegations} from "../../../slices/existingDelegations";
+import { increaseStakingStep } from "../../../slices/stakingActiveStep";
 
 export default function ChoosExistingDelegations() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function ChoosExistingDelegations() {
   const {validatorList} = useSelector(validatorListSelector);
   const {existingDelegations, selectedExistingDelegations} = useSelector(existingDelegationsSelector);
   const [selectedLocalExistingDelegations, setSelectedLocalExistingDelegations] = useState<Array<any>>(selectedExistingDelegations);
+  const [existingDelegationsLocal, setExistingDelegations] = React.useState(existingDelegations);
     useEffect(() => {
         console.log(networkAddress)
         if (selectedNetwork !== "Select a network" && networkAddress !== '') {
@@ -24,7 +26,23 @@ export default function ChoosExistingDelegations() {
         }
       }, [selectedNetwork])
 
+      React.useEffect(() => {
+        if(existingDelegations){
+        let newData = existingDelegations.map((val: any) => 
+Object.assign({}, val, {active:false})
+)
+        console.log(newData);
+        setExistingDelegations(newData);
+        }
+    
+}, [existingDelegations])
+
       const addDelegation = (e: React.MouseEvent<HTMLElement>, delegation: any) => {
+    //     let newData = validators.map((val: any) => 
+    //     Object.assign({}, val, {active:false})
+    // )
+    //             console.log(newData);
+    //             setValidators(newData);
         let position = selectedLocalExistingDelegations.findIndex((val: any) => delegation.validator_address === val.validator_address );
         if(position === -1) {
             delegation.active = true;
@@ -37,11 +55,26 @@ export default function ChoosExistingDelegations() {
         }
     }
 
+
+    const onNext = () => {
+
+          selectedLocalExistingDelegations.forEach((x) => {
+            x.name = validatorList.find((y: any) => y.address === x.validator_address )?.name
+          })
+             //   @ts-expect-error
+       dispatch(setSelectedExistingDelegations(selectedLocalExistingDelegations));
+               // @ts-expect-error
+    dispatch(increaseStakingStep());
+
+      
+    }
+
       return (
+      
         <div className="existing-delegations-pane d-flex flex-column align-items-center ">
         <h2 className="mt-3"> Choose existing delegations </h2>
-               {existingDelegations.length > 0 && <div className="mt-3 delegations row w-100 justify-content-center">
-                {existingDelegations.map((row: any) =>
+               {existingDelegationsLocal.length > 0 && <div className="mt-3 delegations row w-100 justify-content-center">
+                {existingDelegationsLocal.map((row: any) =>
           <>   
           <div onClick={ (e) => addDelegation(e,row)} className={`validator-card col-3 m-3 ${row.active ? 'val-active' : ''}`}>
                <div className="d-flex align-items-start"> 
@@ -53,8 +86,11 @@ export default function ChoosExistingDelegations() {
                 </div>
               </div>
                 </div>
+              
 
           </>
+          
+   
   
 )}
 
@@ -65,6 +101,7 @@ export default function ChoosExistingDelegations() {
                 <button onClick={props.prev} className="prev-button mx-3"> Previous</button>
                 <button disabled={ selectedLocalExistingDelegations.length === 0 ?  true: false} onClick={onNext} className="next-button mx-3" >Next</button>
             </div> */}
+                            <button  onClick={onNext} className="next-button mx-3" >Next</button>
         </div>
     );
 

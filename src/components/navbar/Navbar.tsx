@@ -14,38 +14,27 @@ import Wallet from '../../assets/icons/wallet.svg';
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
+import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
+import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
+import Backdrop from '../../components/backdrop/Backdrop';
+interface PropComponent {
+  handleClickOpen? : { (): void};
+}
 
+export default function Navbar(props: PropComponent) {
 
-export default function Navbar() {
+  
   const dispatch = useDispatch()
   const location = useLocation()
   const balances = useSelector(balancesQSSelector);
-  const isWalletConnected = useSelector(isQSWalletConnectedSelector);
+  // const { isWalletConnected }= useSelector(isQSWalletConnectedSelector);
+  const {isModalOpen} = useSelector(connectWalletModalSelector)
 
-  const connectKeplr = async () => {
-
-    initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+  const onButtonClick = () => {
       // @ts-expect-error
-      dispatch(setQSWallet(key, val));
-       // @ts-expect-error
-      dispatch(setQSWalletConnected())
-      // setWallets(new Map<string, SigningStargateClient>(wallets.set(key, val)));
-      // setWalletConnection(true);
-      let keplr = await getKeplrFromWindow();
-      let chainId = await val.getChainId();
-      let pubkey = await keplr?.getKey(chainId);
-      let bech32 = pubkey?.bech32Address;
-      console.log(bech32);
-      if (bech32) {
-        let roBalance = await val.getAllBalances(bech32);
-              // @ts-expect-error
-          dispatch(setQSBalance(roBalance));
-      }
-      console.log('isWalletConnected', isWalletConnected);
-    });
- 
-  }
+    dispatch(setModalOpen());
 
+  }
     return (
 
 
@@ -79,11 +68,12 @@ export default function Navbar() {
       </li> */}
 
     </ul>
-     
-{!isWalletConnected && <button onClick={connectKeplr} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
-      </button>}
-      {isWalletConnected && <h5>HEY</h5> }
-      {isWalletConnected}
+<button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
+      </button>
+      {isModalOpen && (
+        <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>
+      )}
+      { isModalOpen && <Backdrop />}
  
   </div>
 </nav>
