@@ -14,6 +14,7 @@ import Undelegate from './staking-interface/undelegate/Undelegate';
 import Redelegate from './staking-interface/redelegate/Relegate';
 import NetworkSelection from './staking-interface/delegate/NetworkSelection';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
+import Delegate from './staking-interface/delegate/Delegate';
 
 
 function App() {
@@ -30,9 +31,9 @@ function App() {
                       <Route path="/" element={<Landing/>}/>
                 
                       <Route path="/stake" element={<Stake/>} >
-          {/* <Route path="delegate" element={<ConnectWallet/>} />
+          <Route path="delegate" element={<Delegate/>} />
           <Route path="undelegate" element={<Undelegate />} />
-          <Route path="redelegate" element={<Redelegate />} />  */}
+          <Route path="redelegate" element={<Redelegate />} /> 
         </Route>
                       <Route path="/pools" element={<Pools  />}/>
                       <Route path="/airdrop" element={<Airdrop  />}/>

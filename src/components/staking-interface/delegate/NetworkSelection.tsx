@@ -9,7 +9,7 @@ import {increaseStakingStep} from '../../../slices/stakingActiveStep';
 
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
-import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, balancesNetworkSelector, addressNetworkSelector } from "../../../slices/selectedNetworkWallet";
+import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector,  } from "../../../slices/selectedNetworkWallet";
 import { _loadValsAsync } from "../../../slices/validatorList";
 import Select from "react-select";
 import { initKeplrWithNetwork } from "../../../utils/chains";
@@ -21,7 +21,7 @@ export default function NetworkSelection() {
     const dispatch = useDispatch()
     const { networks, loading, hasErrors } = useSelector(networksSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
-   const {networkAddress} = useSelector(addressNetworkSelector);
+   const {networkAddress} = useSelector(selectedNetworkWalletSelector);
    console.log('network add', networkAddress)
 
 

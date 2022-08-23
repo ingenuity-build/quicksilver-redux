@@ -4,8 +4,7 @@ import ConnectWallet from './ConnectWallet';
 import './Stake.css';
 import { useSelector } from 'react-redux'
 import {stakingActiveStep} from '../../../slices/stakingActiveStep';
-import NetworkSelection from './NetworkSelection';
-import ChooseValidators from './ChooseValidators';
+
 
 export default function Stake() {
   const activeStep = useSelector(stakingActiveStep);
@@ -71,16 +70,14 @@ export default function Stake() {
             </div>
             <div className="content col-10">
             <div className="mt-5 stake-options">
-        {/* <Link to="delegate">Delegate</Link>
+        <Link to="delegate">Delegate</Link>
         <Link to="redelegate">Redelegate</Link>
-        <Link to="undelegate">Undelegate</Link> */}
+        <Link to="undelegate">Undelegate</Link>
         </div>
 
         
             <Outlet/>
-            {activeStep === 1 && <ConnectWallet/>}
-            {activeStep === 2 && <NetworkSelection/>}
-            {activeStep === 3 && <ChooseValidators/>}
+
                 </div>
             </div>
         </>

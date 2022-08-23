@@ -10,7 +10,7 @@ export default function Landing() {
              <img alt="Quicksilver Logo" className="logo" src={Logo}/>
              <h2 className="my-3"> QUICKSILVER</h2>
              <p className="mb-5">THE COSMOS LIQUID STAKING ZONE</p> 
-        <Link className="px-5 py-3  mt-5" to="/stake">Get Started</Link> 
+        <Link className="px-5 py-3  mt-5" to="/stake/delegate">Get Started</Link> 
         </div>
         <div className="social-media-icons mt-5">
         <a href="https://t.me/quicksilverzone" target="_blank" rel="nofollow noreferrer" title="Telegram">

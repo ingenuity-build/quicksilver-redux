@@ -7,7 +7,7 @@ export const initialState = {
 //   walletQS: new Map<string, SigningStargateClient>(),
 networkBalances: new Map<string, Map<string, number>>(),
 networkWallet: new Map<string, SigningStargateClient>(),
-networkAddress: '123',
+networkAddress: '',
   loading: false,
 }
 const selectedNetworkWalletSlice = createSlice({
@@ -34,9 +34,10 @@ const selectedNetworkWalletSlice = createSlice({
 }
 })
 export const { setIsNetworkWalletConnected,  setIsQSWalletConnectedSuccees, setBalancesNetworkSuccess, setWalletNetworkSuccess , setNetworkAddressSuccess} = selectedNetworkWalletSlice.actions
-export const balancesNetworkSelector = (state:any)  => state.networkBalances;
-export const walletNetworkSelector = (state: any) => state.networkWallet;
-export const addressNetworkSelector = (state:any) => state.selectedNetworkWallet.networkAddress;
+// export const balancesNetworkSelector = (state:any)  => state.networkBalances;
+// export const walletNetworkSelector = (state: any) => state.networkWallet;
+// export const addressNetworkSelector = (state:any) => state.selectedNetworkWallet.networkAddress;
+export const selectedNetworkWalletSelector = (state: any) => state.selectedNetworkWallet;
 
 
 // The reducer

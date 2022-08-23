@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const initialState = {
   loading: false,
   hasErrors: false,
-  selectedNetwork: "Please select a network",
+  selectedNetwork: "Select a network",
 }
 
 const selectedNetworkSlice = createSlice({

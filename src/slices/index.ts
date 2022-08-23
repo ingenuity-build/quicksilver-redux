@@ -6,6 +6,8 @@ import quicksilverReducer from './quicksilver'
 import selectedNetworkWalletReducer from './selectedNetworkWallet'
 import validatorListReducer from './validatorList'
 import stakingActiveStepReducer from './stakingActiveStep'
+import stakingAllocationReducer from './allocation';
+import existingDelegationsReducer from './existingDelegations';
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -15,7 +17,9 @@ const rootReducer = combineReducers({
   quicksilver: quicksilverReducer,
   selectedNetworkWallet: selectedNetworkWalletReducer,
   validatorList: validatorListReducer,
-  stakingActiveStep: stakingActiveStepReducer
+  stakingActiveStep: stakingActiveStepReducer,
+  stakingAllocation: stakingAllocationReducer,
+  existingDelegations: existingDelegationsReducer
 })
 
 export default rootReducer;

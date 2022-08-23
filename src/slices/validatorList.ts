@@ -21,8 +21,6 @@ const validatorListSlice = createSlice({
     },
     setSelectedValidatorListSuccess : (state, { payload }) => {
       state.selectedValidatorList = payload;
-         state.loading = false
-      state.hasErrors = false
     },
     getValidatorListFailure: state => {
       state.loading = false
@@ -35,7 +33,7 @@ export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorLi
 
 
 export const validatorListSelector = (state:any)  => state.validatorList;
-export const selectedValidatorListSelector = (state: any) => state.selectedValidatorList;
+// export const selectedValidatorListSelector = (state: any) => state.selectedValidatorList;
 // The reducer
 export default validatorListSlice.reducer;
 

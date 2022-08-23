@@ -61,12 +61,12 @@ export default function Navbar() {
     
       <li className="nav-item mx-4">
       <img className="nav-icon-stake" alt="Stakes" src={Stakes}/>
-      <Link className={`${location.pathname === '/stake/delegate'  ? 'active-link' : ''}`} to="/stake">STAKE</Link> 
+      <Link className={`${location.pathname === '/stake/delegate'  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
       </li>
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" onClick={ (event) => event.preventDefault() }>POOLS</Link> 
+               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
