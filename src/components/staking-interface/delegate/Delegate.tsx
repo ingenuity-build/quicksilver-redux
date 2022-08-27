@@ -11,12 +11,17 @@ import { _loadValsAsync , validatorListSelector, setSelectedValidatorList} from 
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
 import {_loadExistingValsAsync} from '../../../slices/existingDelegations';
 import SummaryExistingDelegations from './SummaryExistingDelegations';
+import SummaryValidators from './SummaryValidators';
+import CongratulationsPane from './CongratulationsPane';
+
 
 
 export default function Delegate() {
     const dispatch = useDispatch();
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
+    const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
+
     useEffect(() => {
         if (selectedNetwork !== "Select a network") {
             console.log(selectedNetwork.chain_id)
@@ -27,6 +32,10 @@ export default function Delegate() {
         }
       }, [selectedNetwork])
 
+
+
+
+
  
 
 
@@ -35,10 +44,12 @@ export default function Delegate() {
         <>
         {activeStep === 1 && <ConnectWallet/>}
         {activeStep === 2 && <NetworkSelection/>}
-        {activeStep === 3 && <ChooseValidators/>}
+        {activeStep === 3 && <ChooseValidators  />}
         {activeStep === 4 && <ChooseAllocations/>}
-        {/* {activeStep === 4 && <ChoosExistingDelegations/>} */}
-        {activeStep === 5 && <SummaryExistingDelegations/>}
+        {activeStep === 5 && <SummaryValidators/>}
+        {activeStep === 6 && <ChoosExistingDelegations/>}
+        {activeStep === 7 && <SummaryExistingDelegations/>}
+        {activeStep === 8 && <CongratulationsPane/>}
         </>
     )
 }

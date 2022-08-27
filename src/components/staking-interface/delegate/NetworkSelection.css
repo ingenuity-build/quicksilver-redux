@@ -42,6 +42,7 @@ font-weight: 400;
 color: #FFFFFF;
 padding: 5px 20px;
 border: 2px solid #D35100;
+width: 200px;
 }
 
 .stake-existing-delegations-button:disabled,  .stake-liquid-atoms-button:disabled{

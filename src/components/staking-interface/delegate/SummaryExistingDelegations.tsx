@@ -13,6 +13,8 @@ export default function SummaryExistingDelegations() {
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {selectedExistingDelegations } = useSelector(existingDelegationsSelector);
     const {networkAddress, client} = useSelector(selectedNetworkWalletSelector);
+
+    
     useEffect(() => {
         let sum = 0;
         selectedExistingDelegations.forEach((x: any) => {
@@ -50,7 +52,7 @@ export default function SummaryExistingDelegations() {
                 "gas": "1000000",
                 "amount": [
                   {
-                    "denom": "uatom",
+                    "denom": "umuon",
                     "amount": "300"
                   }
                 ]
@@ -86,7 +88,7 @@ export default function SummaryExistingDelegations() {
                    "gas": "200000",
                    "amount": [
                      {
-                       "denom": "uatom",
+                       "denom": "umuon",
                        "amount": "300"
                      }
                    ]

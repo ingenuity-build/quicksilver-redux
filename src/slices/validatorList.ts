@@ -43,7 +43,7 @@ const loadValData = async (chainId: string): Promise<ValResponse> => {
 
     // TODO - make chainId dynamic
     const result = await fetch(
-        `https://data.${chainId}.quicksilver.zone/v1/graphql`,
+        `https://data.${chainId}.test.quicksilver.zone/v1/graphql`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -120,6 +120,7 @@ export function _loadValsAsync(chainId: string)  {
                     address : line.validator.validator_info.operator_address,
                     logo: "",
                   }});
+                  
                   dispatch(getValidatorListSuccess(vals))
             }
         ).catch(

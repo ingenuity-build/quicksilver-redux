@@ -1,0 +1,17 @@
+.allocation-pane .button-containers {
+    z-index: 3;
+}
+
+.allocation-pane .staking-pane {
+    z-index: 3;
+    align-items: center;
+    border-radius: 30px;
+    width: 60%;
+    padding: 20px;
+    background: #282828;
+    justify-content: center;
+}
+
+.allocation-pane input[type=number] {
+    width: 100px;
+}

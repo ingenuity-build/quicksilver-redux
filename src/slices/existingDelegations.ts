@@ -56,7 +56,7 @@ export function setSelectedExistingDelegations(val: any) {
 
    const loadExistingDelegations = async (networkAddress: string, chainId: number): Promise<any> => {
     const result = await fetch(
-        `https://data.${chainId}.quicksilver.zone/v1/graphql`,
+        `https://data.${chainId}.test.quicksilver.zone/v1/graphql`,
         {
           method: "POST",
           body: JSON.stringify({

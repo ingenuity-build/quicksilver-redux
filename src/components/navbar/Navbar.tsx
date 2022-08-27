@@ -25,6 +25,7 @@ import { _loadValsAsync } from "../../slices/validatorList";
 import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
+import { setStakingStep} from "../../slices/stakingActiveStep";
 interface PropComponent {
   handleClickOpen? : { (): void};
 }
@@ -104,17 +105,14 @@ export default function Navbar(props: PropComponent) {
   }
 
 
-  let fetchValidators = (chainId: string) => {
 
-    // @ts-expect-error
-        dispatch(_loadValsAsync(chainId));
-        
-  }
 
   let handleNetworkChange = (selected: any) => {
     console.log(selected);
     // @ts-expect-error
         dispatch(setSelectedNetworkFunc(selected));
+        // @ts-expect-error
+        dispatch(setStakingStep(2));
         
   }
     return (
@@ -137,7 +135,7 @@ export default function Navbar(props: PropComponent) {
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
+               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" onClick={ (event) => event.preventDefault()}  >POOLS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
@@ -160,7 +158,7 @@ export default function Navbar(props: PropComponent) {
         />}
         {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
       
-        {QCKBalance !==0 && isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance} QCK</p>}
+        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
       
       { isModalOpen && <Backdrop />}
  

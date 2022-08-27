@@ -14,11 +14,14 @@ const stakingActiveStepSlice = createSlice({
       decreaseStep: state => {
         state.stakingActiveStep = state.stakingActiveStep - 1
       },
- 
-    },
-  })
+      setActiveStep: (state, { payload }) => {
+        state.stakingActiveStep = payload
+      },
+    }
+  }
+)
 
-  export const { increaseStep, decreaseStep } = stakingActiveStepSlice.actions
+  export const { increaseStep, decreaseStep, setActiveStep } = stakingActiveStepSlice.actions
 
 export const stakingActiveStep = (state:any)  => state.stakingActiveStep.stakingActiveStep
 
@@ -44,6 +47,20 @@ export function increaseStakingStep() {
       try {  
         dispatch(decreaseStep());
       } catch (error) {
-      }
+      
     }
   }
+  }
+
+  export function setStakingStep(val: number) {
+    return async (dispatch: any) => {
+
+  
+      try {  
+        dispatch(setActiveStep(val));
+      } catch (error) {
+      }
+    }
+
+  }
+  

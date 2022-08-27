@@ -6,7 +6,8 @@ import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWa
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { validatorListSelector} from "../../../slices/validatorList";
 import {quicksilverSelector} from '../../../slices/quicksilver';
-
+import {increaseStakingStep, decreaseStakingStep} from '../../../slices/stakingActiveStep';
+import './ChooseAllocations.css';
 
 export default function ChooseAllocations() {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export default function ChooseAllocations() {
 
     const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
+  
 
   useEffect(() => {
     if(balances !== []) {
@@ -75,7 +77,6 @@ useEffect(() => {
 
     useEffect(() => {
         if(isMaxClicked) {
-
             calculateMax()
             setisMaxClicked(false);
         
@@ -183,7 +184,15 @@ useEffect(() => {
     const onClickNext = (e: any) => {
                  //    @ts-expect-error
                 dispatch( setStakingAllocationProp(allocationProp));
+                        // @ts-expect-error
+                dispatch(increaseStakingStep());
     }
+
+    const onPrev = (e: any) => {
+      
+               // @ts-expect-error
+               dispatch(decreaseStakingStep());
+}
 
     const renderValidators = () => {
         return ( selectedValidatorList.map((val: any) => <>
@@ -237,7 +246,7 @@ useEffect(() => {
             { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of atoms to continue </p>}
        </div>}
         <div className="button-containers mt-4 mb-4">
-            {/* <button className="prev-button mx-3" onClick={onPrev}> Previous </button> */}
+            <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
         <button disabled={sum < 99.9  || sum  > 100 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 

@@ -5,10 +5,10 @@ import {options} from './options';
 
 
 const QuickSilverChainInfo : ChainInfo = {
-    chainId: "killerqueen-1",
+    chainId: "innuendo-1",
     chainName: "Quicksilver Test",
-    rpc: "https://rpc.killerqueen-1.quicksilver.zone",
-    rest: "https://lcd.killerqueen-1.quicksilver.zone",
+    rpc: "https://rpc.test.quicksilver.zone",
+    rest: "https://lcd.test.quicksilver.zone",
     bip44: {
         coinType: 118,
     },
@@ -28,8 +28,8 @@ const QuickSilverChainInfo : ChainInfo = {
             coinGeckoId: "quicksilver",
         },
         {
-            coinDenom: "qATOM",
-            coinMinimalDenom: "uqatom",
+            coinDenom: "qMUON",
+            coinMinimalDenom: "uqmuon",
             coinDecimals: 6,
             coinGeckoId: "quicksilver",
         },
@@ -65,10 +65,11 @@ const QuickSilverChainInfo : ChainInfo = {
 const ChainInfos: ChainInfo[] = [
     QuickSilverChainInfo,
 {
-    chainId: "kqcosmos-1",
-    chainName: "Cosmos Test",
-    rpc: "https://rpc.kqcosmos-1.quicksilver.zone",
-    rest: "https://lcd.kqcosmos-1.quicksilver.zone",
+    chainId: "fauxgaia-1",
+    chainName: "FauxGaia Test",
+    rpc: "https://rpc.fauxgaia-1.test.quicksilver.zone",
+    rest: "https://lcd.fauxgaia-1.test.quicksilver.zone",
+    
     bip44: {
         coinType: 118,
     },
@@ -82,23 +83,23 @@ const ChainInfos: ChainInfo[] = [
     },
     currencies: [
         {
-            coinDenom: "ATOM",
-            coinMinimalDenom: "uatom",
+            coinDenom: "MUON",
+            coinMinimalDenom: "umuon",
             coinDecimals: 6,
             coinGeckoId: "cosmos",
         },
     ],
     feeCurrencies: [
         {
-            coinDenom: "ATOM",
-            coinMinimalDenom: "uatom",
+            coinDenom: "MUON",
+            coinMinimalDenom: "umuon",
             coinDecimals: 6,
             coinGeckoId: "cosmos",
         },
     ],
     stakeCurrency: {
-        coinDenom: "ATOM",
-        coinMinimalDenom: "uatom",
+        coinDenom: "MUON",
+        coinMinimalDenom: "umuon",
         coinDecimals: 6,
         coinGeckoId: "cosmos",
     },

@@ -37,7 +37,7 @@ export function fetchNetworks() {
     dispatch(getNetworks())
 
     try {
-      const response = await fetch('https://lcd.killerqueen-1.quicksilver.zone/quicksilver/interchainstaking/v1/zones')
+      const response = await fetch('https://lcd.test.quicksilver.zone/quicksilver/interchainstaking/v1/zones')
       const data = await response.json()
 
       dispatch(getNetworksSuccess(manipulateData(data.zones)))

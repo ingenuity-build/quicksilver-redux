@@ -1,0 +1,14 @@
+.congratulations-pane .stake, .congratulations-pane .use-qassets {
+    background: #D35100;
+border-radius: 10px;
+font-size: 18px;
+line-height: 30px;
+font-weight: 400;
+color: #FFFFFF;
+padding: 5px 20px;
+border: 2px solid #D35100;
+}
+
+.congratulations-pane .button-container {
+    z-index: 3;
+}
