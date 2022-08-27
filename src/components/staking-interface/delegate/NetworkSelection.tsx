@@ -54,25 +54,20 @@ useEffect(() => {
 
     return (
         <>
-    {/* <h1>Network Selection </h1> 
-    <Select className="custom-class mb-3"
-        //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
-          options={networks}
-          onChange={handleNetworkChange}
 
-        />
-        <p>{selectedNetwork.local_denom}</p>
-        <p>{selectedNetwork.base_denom}</p>
-        <button onClick={() => fetchValidators(selectedNetwork.chain_id)}> LOAD VALIDATOR LIST </button> */}
         <div className="network-selection-pane d-flex flex-column align-items-center ">
 
-{selectedNetwork !== "Select a network" &&  <div className="wallet-details d-flex flex-column mt-5">
+
+<div className="text-center">
+  <h2 className="mt-4">Choose your network </h2>
+      <p className="mt-2">Please choose the network from the dropdown in the navbar</p> 
+</div>
+{selectedNetwork !== "Select a network" && zoneBalance && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
   <h4> My Wallet</h4>
-  {networkAddress && <h6>Network Address: {networkAddress}</h6>}
+  {networkAddress && <h6> {networkAddress}</h6>}
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
-    {zoneBalance !==0 && <h5 className="font-bold">{zoneBalance}</h5>}
-      {/* <p> {props.selectedNetwork.base_denom.substring(1)} </p> */}
+    {zoneBalance && <h5 className="font-bold">{zoneBalance}</h5>}
      {selectedNetwork.base_denom && <p> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</p>}
     </div>
     <div className="col-3 text-center">
@@ -83,13 +78,6 @@ useEffect(() => {
 
   </div>
 </div>}
-<div className="text-center">
-  <h2 className="mt-4">Choose your network </h2>
-
-
-
-
-</div>
 
 <div className="mt-5 button-container">
 
