@@ -4,6 +4,7 @@ import Confetti from 'react-confetti'
 import './CongratulationsPane.css';
 import { setStakingStep } from "../../../slices/stakingActiveStep";
 import { useSelector, useDispatch } from 'react-redux'
+import {  setSelectedValidatorList } from "../../../slices/validatorList";
 
 
 export default function CongratulationsPane() {
@@ -13,12 +14,9 @@ export default function CongratulationsPane() {
       const stakeAnotherNetwork = () => {
             // @ts-expect-error
         dispatch(setStakingStep(2));
-        //   props.setActiveStep(2);
-        //  props.setIsStaked(false);
-        //  props.setSelectedNetwork("Select a network");
-        //  props.setShowAllocationsPane(false);
-        //  props.setStateExistingDelegations([]);
-        //  props.setSelectedValidators([]);
+                //    @ts-expect-error
+    dispatch(setSelectedValidatorList([]))
+
 
       }
     return (

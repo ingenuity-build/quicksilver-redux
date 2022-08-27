@@ -60,9 +60,9 @@ useEffect(() => {
 
 <div className="text-center">
   <h2 className="mt-4">Choose your network </h2>
-      <p className="mt-2">Please choose the network from the dropdown in the navbar</p> 
+      <p className="mt-2">Choose the network from the dropdown in the Navbar</p> 
 </div>
-{selectedNetwork !== "Select a network" && zoneBalance && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
+{selectedNetwork !== "Select a network" && zoneBalance && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress}</h6>}
   <div className="row wallet-content mt-4">
