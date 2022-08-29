@@ -72,7 +72,7 @@ export default function Stake() {
             <div className="mt-5 stake-options d-flex justify-content-center">
         <Link to="delegate" className="mx-3 px-2 link active-link">Delegate</Link>
         <Link to="redelegate" className="mx-3  px-2 link" onClick={ (event) => event.preventDefault()}>Redelegate</Link>
-        <Link to="undelegate" className="mx-3 px-2 link" onClick={ (event) => event.preventDefault()}>Undelegate</Link>
+        <Link to="undelegate" className="mx-3 px-2 link">Undelegate</Link>
         </div>
 
         

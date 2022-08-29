@@ -76,9 +76,9 @@ const connectKeplr = async () => {
 
   return (
     <>
-    <div className="img-logo text-center">
+    {/* <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
-    </div>
+    </div> */}
   {location.pathname !== '/' && <Navbar handleClickOpen={handleClickOpen} />}
    <Routes>
                       <Route path="/" element={<Landing/>}/>
