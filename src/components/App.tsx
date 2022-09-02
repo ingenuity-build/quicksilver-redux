@@ -17,7 +17,7 @@ import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector } from '../slices/quicksilver';
+import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector , setClient} from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
@@ -47,12 +47,14 @@ connectKeplr();
 const connectKeplr = async () => {
 
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+     // @ts-expect-error
+     dispatch(setClient(val));
     // @ts-expect-error
     dispatch(setQSWallet(key, val));
      // @ts-expect-error
-    dispatch(setQSWalletConnected())
-    // setWallets(new Map<string, SigningStargateClient>(wallets.set(key, val)));
-    // setWalletConnection(true);
+    dispatch(setQSWalletConnected());
+     
+    
     let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
     let pubkey = await keplr?.getKey(chainId);
@@ -64,7 +66,6 @@ const connectKeplr = async () => {
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
     }
-    // console.log('isWalletConnected', isWalletConnected);
         // @ts-expect-error
   dispatch(setModalClose());
          // @ts-expect-error

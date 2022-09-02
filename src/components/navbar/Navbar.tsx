@@ -140,7 +140,7 @@ export default function Navbar(props: PropComponent) {
   
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/claims'  ? 'active-link' : ''}`} to="/claims" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
+      <Link  className={`pl-2 ${location.pathname === '/claims'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
       
       </li>
       {/* <li className="nav-item mx-4">

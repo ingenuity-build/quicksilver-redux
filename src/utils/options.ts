@@ -5,6 +5,7 @@ import { GeneratedType, Registry} from "@cosmjs/proto-signing";
 
 
 import * as _m0 from "protobufjs/minimal";
+import { isRejectedWithValue } from "@reduxjs/toolkit";
 
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -121,6 +122,38 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       }
     }
   }
+
+
+  export function createMsgRequestRedemptions(): Record<string, AminoConverter | "not_supported_by_chain"> {
+    return {
+      "/quicksilver.interchainstaking.v1.MsgRequestRedemption": {
+        aminoType: "quicksilver/MsgRequestRedemption",
+        toAmino: ({
+          destinationAddress,
+          fromAddress,
+          value,
+        }: MsgRequestRedemption): AminoMsgRequestRedemption["value"] => {
+          return {
+            destination_address: destinationAddress,
+            from_address: fromAddress,
+            value: value,
+          };
+        },
+        fromAmino: ({
+          destination_address,
+          from_address,
+          value,
+        }: AminoMsgRequestRedemption["value"]): MsgRequestRedemption => ({
+          destinationAddress: destination_address,
+          fromAddress: from_address,
+          value: value,
+
+        }),
+      }
+    }
+  }
+
+  
   
   export interface AminoMsgTokenizeShares extends AminoMsg {
     readonly type: "cosmos-sdk/MsgTokenizeShares";
@@ -134,6 +167,25 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     };
   }
   
+
+  export interface AminoMsgRequestRedemption extends AminoMsg {
+    readonly type: "quicksilver/MsgRequestRedemption";
+    readonly value: {
+      /** Bech32 encoded delegator address */
+      readonly destination_address: string;
+      /** Bech32 encoded validator address */
+      readonly from_address: string;
+      readonly value: Coin | undefined;
+    };
+  }
+
+  export interface MsgRequestRedemption{
+    destinationAddress: string;
+    fromAddress: string;
+    value?: Coin;
+  }
+  
+
   export interface MsgTokenizeShares {
     delegatorAddress: string;
     validatorAddress: string;
@@ -151,7 +203,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createStakingAminoConverters(prefix),
       ...createIbcAminoConverters(),
       ...createFreegrantAminoConverters(),
-      ...createLiquidStakingTypes()
+      ...createLiquidStakingTypes(),
+      ...createMsgRequestRedemptions()
     };
   }
   
@@ -161,7 +214,13 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   function createBaseMsgTokenizeShares(): MsgTokenizeShares {
     return { delegatorAddress: "", validatorAddress: "", amount: undefined, "tokenizedShareOwner": "" };
   }
+  
 
+
+  function createBaseMsgRequestRedemption(): MsgRequestRedemption {
+    return { destinationAddress: "", fromAddress: "", value: undefined};
+  }
+  
   export const MsgTokenizeShares = {
     encode(message: MsgTokenizeShares, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
       if (message.delegatorAddress !== "") {
@@ -235,9 +294,74 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     },
   };
 
+  export const MsgRequestRedemption = {
+    encode(message: MsgRequestRedemption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+      if (message.destinationAddress !== "") {
+        writer.uint32(10).string(message.destinationAddress);
+      }
+      if (message.fromAddress !== "") {
+        writer.uint32(18).string(message.fromAddress);
+      }
+      if (message.value !== undefined) {
+        Coin1.encode(message.value, writer.uint32(26).fork()).ldelim();
+      }
+      return writer;
+    },
+  
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRequestRedemption {
+      const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+      let end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseMsgRequestRedemption();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1:
+            message.destinationAddress = reader.string();
+            break;
+          case 2:
+            message.fromAddress = reader.string();
+            break;
+          case 3:
+            message.value = Coin1.decode(reader, reader.uint32());
+            break;
+          default:
+            reader.skipType(tag & 7);
+            break;
+        }
+      }
+      return message;
+    },
+  
+    fromJSON(object: any): MsgRequestRedemption {
+      return {
+        destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
+        fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+        value: isSet(object.amount) ? Coin1.fromJSON(object.value) : undefined,
+      };
+    },
+  
+    toJSON(message: MsgRequestRedemption): unknown {
+      const obj: any = {};
+      message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
+      message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
+      message.value !== undefined && (obj.amount = message.value ? Coin1.toJSON(message.value) : undefined);
+
+      return obj;
+    },
+  
+    fromPartial<I extends Exact<DeepPartial<MsgRequestRedemption>, I>>(object: I): MsgRequestRedemption {
+      const message = createBaseMsgRequestRedemption();
+      message.destinationAddress = object.destinationAddress ?? "";
+      message.fromAddress = object.fromAddress ?? "";
+      message.value =
+        object.value !== undefined && object.value !== null ? Coin1.fromPartial(object.value) : undefined;
+
+      return message;
+    },
+  };
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-   
+   ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
     
    ...defaultRegistryTypes

@@ -8,8 +8,8 @@ import { selectedNetworkSelector } from "../../../slices/selectedNetwork";
 
 import './Undelegate.css';
 export default function Undelegate() {
-    const {networkAddress, client} = useSelector(selectedNetworkWalletSelector);
-    const {isQSWalletConnected} = useSelector(quicksilverSelector);
+    const {networkAddress} = useSelector(selectedNetworkWalletSelector);
+    const {isQSWalletConnected, quicksilverClient} = useSelector(quicksilverSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const [unstakingAmount, setUnstakingAmount] = useState(0);
     const dispatch = useDispatch();
@@ -30,28 +30,27 @@ export default function Undelegate() {
     
     
     }
-    const onBond = async (e: any) => {
-
+    const onUnbond = async () => {
         let msg = {
-          typeUrl: "quicksilver/MsgRequestRedemption",
+          typeUrl: "quicksilver.interchainstaking.v1.MsgRequestRedemption",
           value: {
-            destination_address: networkAddress,
-            from_address: "quick104p28ww3lry6ww74r3atggpq0sptsdnax4zax0",
-            amount: {
+            destinationAddress: networkAddress,
+            fromAddress: "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+            value: {
               "amount": unstakingAmount,
-              "denom": "qmuon"
+              "denom": "uqmuon"
             },
           }
         }
-    
-        const broadcastResult = await client.signAndBroadcast(
-          networkAddress,
+
+        const broadcastResult = await quicksilverClient.signAndBroadcast(
+          "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
           [msg],
           {
             "gas": "100000",
             "amount": [
                 {
-                    "denom": "umuon",
+                    "denom": "uqck",
                     "amount": "300"
                   }
             ]
@@ -86,7 +85,7 @@ export default function Undelegate() {
 
                 </div>
                 <div className="d-flex justify-content-center">
-        <button className="unbond text-center mt-5 " onClick={onBond}> UNBOND </button>
+        <button className="unbond text-center mt-5 " onClick={() => onUnbond()}> UNBOND </button>
         </div>
         </div>}
         </>
