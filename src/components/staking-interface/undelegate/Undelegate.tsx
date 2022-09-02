@@ -32,7 +32,7 @@ export default function Undelegate() {
     }
     const onUnbond = async () => {
         let msg = {
-          typeUrl: "quicksilver.interchainstaking.v1.MsgRequestRedemption",
+          typeUrl: "/quicksilver.interchainstaking.v1.MsgRequestRedemption",
           value: {
             destinationAddress: networkAddress,
             fromAddress: "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
