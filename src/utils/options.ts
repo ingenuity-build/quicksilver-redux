@@ -154,6 +154,34 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   }
 
   
+  export function createMsgClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
+    return {
+      "/quicksilver.airdrop.v1.MsgClaim": {
+        aminoType: "quicksilver/MsgClaim",
+        toAmino: ({
+          chainID,
+          fromAddress,
+          action,
+        }: MsgClaim): AminoMsgClaim["value"] => {
+          return {
+            chain_id: chainID,
+            from_address: fromAddress,
+            action: action,
+          };
+        },
+        fromAmino: ({
+          chain_id,
+          from_address,
+          action,
+        }: AminoMsgClaim["value"]): MsgClaim => ({
+          chainID: chain_id,
+          fromAddress: from_address,
+          action: action,
+
+        }),
+      }
+    }
+  }
   
   export interface AminoMsgTokenizeShares extends AminoMsg {
     readonly type: "cosmos-sdk/MsgTokenizeShares";
@@ -179,6 +207,23 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     };
   }
 
+  export interface AminoMsgClaim extends AminoMsg {
+    readonly type: "quicksilver/MsgClaim";
+    readonly value: {
+      readonly chain_id: string;
+      /** Bech32 encoded validator address */
+      readonly from_address: string;
+      readonly action: string;
+    };
+  }
+
+  export interface MsgClaim {
+    chainID: string;
+    fromAddress: string;
+    action: string;
+  }
+  
+ 
   export interface MsgRequestRedemption{
     destinationAddress: string;
     fromAddress: string;
@@ -204,7 +249,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createIbcAminoConverters(),
       ...createFreegrantAminoConverters(),
       ...createLiquidStakingTypes(),
-      ...createMsgRequestRedemptions()
+      ...createMsgRequestRedemptions(),
+      ...createMsgClaim()
     };
   }
   
@@ -221,6 +267,10 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     return { destinationAddress: "", fromAddress: "", value: undefined};
   }
   
+  function createBaseMsgClaim(): MsgClaim {
+    return { chainID: "", fromAddress: "", action: ""};
+  }
+
   export const MsgTokenizeShares = {
     encode(message: MsgTokenizeShares, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
       if (message.delegatorAddress !== "") {
@@ -360,9 +410,75 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     },
   };
 
+  export const MsgClaim = {
+    encode(message: MsgClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+      if (message.chainID !== "") {
+        writer.string(message.chainID);
+      }
+      if (message.fromAddress !== "") {
+        writer.uint32(18).string(message.fromAddress);
+      }
+      if (message.action !== undefined) {
+        writer.string(message.action)
+      }
+      return writer;
+    },
+  
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgClaim {
+      const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+      let end = length === undefined ? reader.len : reader.pos + length;
+      const message = createBaseMsgClaim();
+      while (reader.pos < end) {
+        const tag = reader.uint32();
+        switch (tag >>> 3) {
+          case 1:
+            message.chainID = reader.string();
+            break;
+          case 2:
+            message.fromAddress = reader.string();
+            break;
+          case 3:
+            message.action = reader.string();
+            break;
+          default:
+            reader.skipType(tag & 7);
+            break;
+        }
+      }
+      return message;
+    },
+  
+    fromJSON(object: any): MsgClaim {
+      return {
+        chainID: isSet(object.chainID) ? String(object.chainID) : "",
+        fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
+        action: isSet(object.action) ? String(object.action) : "",
+      };
+    },
+  
+    toJSON(message: MsgClaim): unknown {
+      const obj: any = {};
+      message.chainID !== undefined && (obj.chainID = message.chainID);
+      message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
+      message.action !== undefined && (obj.action = message.action)
+     
+
+      return obj;
+    },
+  
+    fromPartial<I extends Exact<DeepPartial<MsgClaim>, I>>(object: I): MsgClaim {
+      const message = createBaseMsgClaim();
+      message.chainID = object.chainID ?? "";
+      message.fromAddress = object.fromAddress ?? "";
+      message.action = object.action ?? "";
+      return message;
+    },
+  };
+
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
    ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
+    ["/quicksilver.airdrop.v1.MsgClaim", MsgClaim],
     
    ...defaultRegistryTypes
  ];

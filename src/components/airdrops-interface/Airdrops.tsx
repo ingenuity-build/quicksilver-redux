@@ -12,10 +12,10 @@ export default function Airdrop() {
     const {quicksilverClient} = useSelector(quicksilverSelector);
     const Claim =  async (actionID: any) => {
 
-        let msg =  {typeUrl: "quicksilver/MsgClaim",
+        let msg =  {typeUrl: "/quicksilver.airdrop.v1.MsgClaim",
         value: {
-                  chain_id: 'fauxgaia-1',
-                  address: 'quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq',
+                  chainID: 'fauxgaia-1',
+                  fromAddress: 'quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq',
                   action: actionID
                 }
               }
