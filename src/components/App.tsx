@@ -21,18 +21,46 @@ import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector } 
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
+// @ts-ignore
+import createActivityDetector from 'activity-detector';
 
+
+function useIdle(options: any) {
+  const [isIdle, setIsIdle] = React.useState(false)
+  React.useEffect(() => {
+    const activityDetector = createActivityDetector(options)
+    activityDetector.on('idle', () => setIsIdle(true) )
+    activityDetector.on('active', () => {setIsIdle(false); 
+   } )
+    return () => activityDetector.stop()
+  }, [])
+  return isIdle
+}
 
 function App() {
   const dispatch = useDispatch();
-  const balances = useSelector(quicksilverSelector);
+  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
   const location = useLocation();
   // const isWalletConnected = useSelector(isQSWalletConnectedSelector);
+  const isIdle = useIdle({timeToIdle: 10000});
+  const [val, setVal] = React.useState<SigningStargateClient>();
 
-  useEffect(() => {
-    let QCKBalance;
 
-}, [balances])
+
+  React.useEffect(() => {
+    let timer: any;
+    if(!isIdle) {
+      timer = setInterval( () => {
+        if(isQSWalletConnected) {
+          //connectKeplr();
+          fetchKeplrDetails(val);
+          console.log('hey');
+         // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
+        }
+    }, 2000)
+    } 
+    return () => clearInterval(timer);
+  }, [isIdle])
 
   const handleClickOpen = () => {
     // @ts-expect-error
@@ -51,9 +79,20 @@ const connectKeplr = async () => {
     dispatch(setQSWallet(key, val));
      // @ts-expect-error
     dispatch(setQSWalletConnected())
-    // setWallets(new Map<string, SigningStargateClient>(wallets.set(key, val)));
-    // setWalletConnection(true);
-    let keplr = await getKeplrFromWindow();
+       
+    setVal(val);
+        fetchKeplrDetails(val)
+         // @ts-expect-error
+  dispatch(setModalClose());
+         // @ts-expect-error
+  dispatch(increaseStakingStep());
+
+  });
+
+}
+
+const fetchKeplrDetails = async (val: any) => {
+  let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
     let pubkey = await keplr?.getKey(chainId);
     let bech32 = pubkey?.bech32Address;
@@ -64,14 +103,6 @@ const connectKeplr = async () => {
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
     }
-    // console.log('isWalletConnected', isWalletConnected);
-        // @ts-expect-error
-  dispatch(setModalClose());
-         // @ts-expect-error
-  dispatch(increaseStakingStep());
-
-  });
-
 }
 
   return (
