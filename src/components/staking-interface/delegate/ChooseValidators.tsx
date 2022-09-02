@@ -56,7 +56,7 @@ export default function ChooseValidators() {
             setValidators(newData);
         }  else {
             let newData = validators.map((val: any) => {
-                if(selectedValidatorList.find((x: any) => x.name === val.name)) {
+                if(selectedValidatorList.find((x: any) => x.address === val.address)) {
                    return Object.assign({}, val, {active: true})
                 } else {
                    return Object.assign({}, val, {active:false})
@@ -77,7 +77,7 @@ export default function ChooseValidators() {
    }
 
    const addValidator = (e: React.MouseEvent<HTMLElement>, validator: Data) => {
-    let position = selectedValidators.findIndex((val) => validator.name === val.name);
+    let position = selectedValidators.findIndex((val) => validator.address === val.address);
     if(position === -1) {
          validator.active = true;
         setSelectedValidators([...selectedValidators, validator]);
@@ -135,7 +135,6 @@ const onNext = () => {
                 </div>
 
             </div>
-         
           </>
   
 )}

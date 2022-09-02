@@ -63,3 +63,16 @@ color: #FFFFFF;
     height: 17px;
     margin-right:5px;
 }
+
+/* 
+Dropdown styles */
+.css-1s2u09g-control {
+    background-color: transparent !important;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
+
+.css-qc6sy-singleValue{
+color: white !important;
+text-transform: uppercase !important;
+}
