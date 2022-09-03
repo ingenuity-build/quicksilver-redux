@@ -135,10 +135,10 @@ export default function Navbar(props: PropComponent) {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchNetworkDetails(val);
-          console.log('hey');
+          console.log('hey from navbar');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 60000)
+    }, 2000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])

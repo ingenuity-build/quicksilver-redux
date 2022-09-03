@@ -42,7 +42,7 @@ function App() {
   const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
   const location = useLocation();
   // const isWalletConnected = useSelector(isQSWalletConnectedSelector);
-  const isIdle = useIdle({timeToIdle: 10000});
+  const isIdle = useIdle({timeToIdle: 1800000});
   const [val, setVal] = React.useState<SigningStargateClient>();
 
 
@@ -57,7 +57,7 @@ function App() {
           console.log('hey');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 2000)
+    }, 6000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
