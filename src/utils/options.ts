@@ -2,7 +2,7 @@
 import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters, } from "@cosmjs/stargate";
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing";
-
+import { Type, Field } from "protobufjs";
 
 import * as _m0 from "protobufjs/minimal";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
@@ -386,7 +386,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       return {
         destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
         fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-        value: isSet(object.amount) ? Coin1.fromJSON(object.value) : undefined,
+        value: isSet(object.value) ? Coin1.fromJSON(object.value) : undefined,
       };
     },
   
@@ -394,7 +394,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       const obj: any = {};
       message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
       message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
-      message.value !== undefined && (obj.amount = message.value ? Coin1.toJSON(message.value) : undefined);
+      message.value !== undefined && (obj.value = message.value ? Coin1.toJSON(message.value) : undefined);
 
       return obj;
     },
@@ -413,13 +413,13 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   export const MsgClaim = {
     encode(message: MsgClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
       if (message.chainID !== "") {
-        writer.string(message.chainID);
+        writer.uint32(10).string(message.chainID);
       }
       if (message.fromAddress !== "") {
         writer.uint32(18).string(message.fromAddress);
       }
       if (message.action !== undefined) {
-        writer.string(message.action)
+        writer.uint32(26).string(message.action)
       }
       return writer;
     },
