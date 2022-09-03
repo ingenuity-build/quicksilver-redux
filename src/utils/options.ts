@@ -2,11 +2,12 @@
 import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters, } from "@cosmjs/stargate";
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing";
-import { Type, Field } from "protobufjs";
+
+import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
+import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
+
 
 import * as _m0 from "protobufjs/minimal";
-import { isRejectedWithValue } from "@reduxjs/toolkit";
-
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
@@ -26,7 +27,7 @@ export type Exact<P, I extends P> = P extends Builtin
   : Partial<T>;
 
 
-  function isSet(value: any): boolean {
+  function isSet(value: any): boolean { 
     return value !== null && value !== undefined;
   }
 
@@ -155,29 +156,50 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
 
   
   export function createMsgClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
+    function claimActionToString(action: number): string {
+      let actions: Array<string> = [
+        'ActionClaim'
+      ];
+      return actions[action]
+    }
+
+    function claimActionFromString(action: string): number {
+      interface IDictionary {
+        [index: string]: number;
+      }
+      let actions = {
+        "ActionClaim": 0
+      } as IDictionary;
+
+      return actions[action]
+    }
+
     return {
       "/quicksilver.airdrop.v1.MsgClaim": {
         aminoType: "quicksilver/MsgClaim",
         toAmino: ({
-          chainID,
-          fromAddress,
+          chainId,
+          address,
           action,
+          proofs,
         }: MsgClaim): AminoMsgClaim["value"] => {
           return {
-            chain_id: chainID,
-            from_address: fromAddress,
-            action: action,
+            chain_id: chainId,
+            from_address: address,
+            action: claimActionToString(action),
+            proofs: proofs,
           };
         },
         fromAmino: ({
           chain_id,
           from_address,
           action,
+          proofs,
         }: AminoMsgClaim["value"]): MsgClaim => ({
-          chainID: chain_id,
-          fromAddress: from_address,
-          action: action,
-
+          chainId: chain_id,
+          address: from_address,
+          action: claimActionFromString(action),
+          proofs: proofs,
         }),
       }
     }
@@ -214,22 +236,9 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       /** Bech32 encoded validator address */
       readonly from_address: string;
       readonly action: string;
+      readonly proofs: Proof[];
     };
   }
-
-  export interface MsgClaim {
-    chainID: string;
-    fromAddress: string;
-    action: string;
-  }
-  
- 
-  export interface MsgRequestRedemption{
-    destinationAddress: string;
-    fromAddress: string;
-    value?: Coin;
-  }
-  
 
   export interface MsgTokenizeShares {
     delegatorAddress: string;
@@ -253,24 +262,12 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createMsgClaim()
     };
   }
-  
-
- 
+   
 
   function createBaseMsgTokenizeShares(): MsgTokenizeShares {
     return { delegatorAddress: "", validatorAddress: "", amount: undefined, "tokenizedShareOwner": "" };
   }
   
-
-
-  function createBaseMsgRequestRedemption(): MsgRequestRedemption {
-    return { destinationAddress: "", fromAddress: "", value: undefined};
-  }
-  
-  function createBaseMsgClaim(): MsgClaim {
-    return { chainID: "", fromAddress: "", action: ""};
-  }
-
   export const MsgTokenizeShares = {
     encode(message: MsgTokenizeShares, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
       if (message.delegatorAddress !== "") {
@@ -344,139 +341,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     },
   };
 
-  export const MsgRequestRedemption = {
-    encode(message: MsgRequestRedemption, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-      if (message.destinationAddress !== "") {
-        writer.uint32(10).string(message.destinationAddress);
-      }
-      if (message.fromAddress !== "") {
-        writer.uint32(18).string(message.fromAddress);
-      }
-      if (message.value !== undefined) {
-        Coin1.encode(message.value, writer.uint32(26).fork()).ldelim();
-      }
-      return writer;
-    },
-  
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRequestRedemption {
-      const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-      let end = length === undefined ? reader.len : reader.pos + length;
-      const message = createBaseMsgRequestRedemption();
-      while (reader.pos < end) {
-        const tag = reader.uint32();
-        switch (tag >>> 3) {
-          case 1:
-            message.destinationAddress = reader.string();
-            break;
-          case 2:
-            message.fromAddress = reader.string();
-            break;
-          case 3:
-            message.value = Coin1.decode(reader, reader.uint32());
-            break;
-          default:
-            reader.skipType(tag & 7);
-            break;
-        }
-      }
-      return message;
-    },
-  
-    fromJSON(object: any): MsgRequestRedemption {
-      return {
-        destinationAddress: isSet(object.destinationAddress) ? String(object.destinationAddress) : "",
-        fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-        value: isSet(object.value) ? Coin1.fromJSON(object.value) : undefined,
-      };
-    },
-  
-    toJSON(message: MsgRequestRedemption): unknown {
-      const obj: any = {};
-      message.destinationAddress !== undefined && (obj.destinationAddress = message.destinationAddress);
-      message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
-      message.value !== undefined && (obj.value = message.value ? Coin1.toJSON(message.value) : undefined);
-
-      return obj;
-    },
-  
-    fromPartial<I extends Exact<DeepPartial<MsgRequestRedemption>, I>>(object: I): MsgRequestRedemption {
-      const message = createBaseMsgRequestRedemption();
-      message.destinationAddress = object.destinationAddress ?? "";
-      message.fromAddress = object.fromAddress ?? "";
-      message.value =
-        object.value !== undefined && object.value !== null ? Coin1.fromPartial(object.value) : undefined;
-
-      return message;
-    },
-  };
-
-  export const MsgClaim = {
-    encode(message: MsgClaim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-      if (message.chainID !== "") {
-        writer.uint32(10).string(message.chainID);
-      }
-      if (message.fromAddress !== "") {
-        writer.uint32(18).string(message.fromAddress);
-      }
-      if (message.action !== undefined) {
-        writer.uint32(26).string(message.action)
-      }
-      return writer;
-    },
-  
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgClaim {
-      const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-      let end = length === undefined ? reader.len : reader.pos + length;
-      const message = createBaseMsgClaim();
-      while (reader.pos < end) {
-        const tag = reader.uint32();
-        switch (tag >>> 3) {
-          case 1:
-            message.chainID = reader.string();
-            break;
-          case 2:
-            message.fromAddress = reader.string();
-            break;
-          case 3:
-            message.action = reader.string();
-            break;
-          default:
-            reader.skipType(tag & 7);
-            break;
-        }
-      }
-      return message;
-    },
-  
-    fromJSON(object: any): MsgClaim {
-      return {
-        chainID: isSet(object.chainID) ? String(object.chainID) : "",
-        fromAddress: isSet(object.fromAddress) ? String(object.fromAddress) : "",
-        action: isSet(object.action) ? String(object.action) : "",
-      };
-    },
-  
-    toJSON(message: MsgClaim): unknown {
-      const obj: any = {};
-      message.chainID !== undefined && (obj.chainID = message.chainID);
-      message.fromAddress !== undefined && (obj.fromAddress = message.fromAddress);
-      message.action !== undefined && (obj.action = message.action)
-     
-
-      return obj;
-    },
-  
-    fromPartial<I extends Exact<DeepPartial<MsgClaim>, I>>(object: I): MsgClaim {
-      const message = createBaseMsgClaim();
-      message.chainID = object.chainID ?? "";
-      message.fromAddress = object.fromAddress ?? "";
-      message.action = object.action ?? "";
-      return message;
-    },
-  };
-
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-   ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
+    ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
     ["/quicksilver.airdrop.v1.MsgClaim", MsgClaim],
     
