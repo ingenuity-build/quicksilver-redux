@@ -13,10 +13,11 @@ export default function Airdrop() {
     const Claim =  async (actionID: any) => {
 
         let msg =  {typeUrl: "/quicksilver.airdrop.v1.MsgClaim",
-        value: {
-                  chainID: 'fauxgaia-1',
-                  fromAddress: 'quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq',
-                  action: actionID
+                  value: {
+                  chainId: 'fauxgaia-1',
+                  address: 'quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq',
+                  action: actionID,
+                  proofs: []
                 }
               }
 
@@ -47,7 +48,7 @@ export default function Airdrop() {
     <h4> Mission 1 </h4>
     <div className="d-flex justify-content-between">
     <p> Initial claim action </p>
-    <button onClick={() => Claim('ActionInitialClaim')}> CLAIM </button>
+    <button onClick={() => Claim(0)}> CLAIM </button>
     </div>
   </div>
     <div className="mission">
