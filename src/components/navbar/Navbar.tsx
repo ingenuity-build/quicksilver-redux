@@ -26,12 +26,30 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
+// @ts-ignore
+import createActivityDetector from 'activity-detector';
+
+
+function useIdle(options: any) {
+  const [isIdle, setIsIdle] = React.useState(false)
+  React.useEffect(() => {
+    const activityDetector = createActivityDetector(options)
+    activityDetector.on('idle', () => setIsIdle(true) )
+    activityDetector.on('active', () => {setIsIdle(false); 
+   } )
+    return () => activityDetector.stop()
+  }, [])
+  return isIdle
+}
+
+
 interface PropComponent {
   handleClickOpen? : { (): void};
 }
 
 export default function Navbar(props: PropComponent) {
-
+  const isIdle = useIdle({timeToIdle: 1800000});
+  const [val, setVal] = React.useState<SigningStargateClient>();
 
   const { networks, loading, hasErrors } = useSelector(networksSelector);
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
@@ -80,15 +98,8 @@ export default function Navbar(props: PropComponent) {
       // dispatch(_loadValsAsync(selectedNetwork.chain_id));
       }
     }, [selectedNetwork])
-   
-  const connectNetwork = async (network: string) => {
 
-    initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
-     // @ts-expect-error
-     dispatch(setNetworkWallet(key, val))
-
-      // @ts-expect-error
-      dispatch(setClient(val));
+    const fetchNetworkDetails = async (val: any) => {
       let keplr = await getKeplrFromWindow();
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
@@ -101,10 +112,36 @@ export default function Navbar(props: PropComponent) {
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
       }
+    }
+   
+  const connectNetwork = async (network: string) => {
+
+    initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
+     // @ts-expect-error
+     dispatch(setNetworkWallet(key, val))
+
+      // @ts-expect-error
+      dispatch(setClient(val));
+      setVal(val);
+      fetchNetworkDetails(val)
+     
     }, network);
   }
 
-
+  React.useEffect(() => {
+    let timer: any;
+    if(!isIdle) {
+      timer = setInterval( () => {
+        if(isQSWalletConnected) {
+          //connectKeplr();
+          fetchNetworkDetails(val);
+          console.log('hey from navbar');
+         // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
+        }
+    }, 2000)
+    } 
+    return () => clearInterval(timer);
+  }, [isIdle])
 
 
   let handleNetworkChange = (selected: any) => {
