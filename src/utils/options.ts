@@ -154,11 +154,46 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     }
   }
 
+  /**
+   * 
+  // Initial claim action
+  ActionInitialClaim = 0;
+  // Deposit tier 1 (e.g. > 5% of base_value)
+  ActionDepositT1 = 1;
+  // Deposit tier 2 (e.g. > 10% of base_value)
+  ActionDepositT2 = 2;
+  // Deposit tier 3 (e.g. > 15% of base_value)
+  ActionDepositT3 = 3;
+  // Deposit tier 4 (e.g. > 22% of base_value)
+  ActionDepositT4 = 4;
+  // Deposit tier 5 (e.g. > 30% of base_value)
+  ActionDepositT5 = 5;
+  // Active QCK delegation
+  ActionStakeQCK = 6;
+  // Intent is set
+  ActionSignalIntent = 7;
+  // Cast governance vote on QS
+  ActionQSGov = 8;
+  // Governance By Proxy (GbP): cast vote on remote zone
+  ActionGbP = 9;
+  // Provide liquidity on Osmosis
+  ActionOsmosis = 10;
+   */
   
   export function createMsgClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
     function claimActionToString(action: number): string {
       let actions: Array<string> = [
-        'ActionClaim'
+        'ActionInitialClaim', 
+        'ActionDepositT1', 
+        'ActionDepositT2', 
+        'ActionDepositT3', 
+        'ActionDepositT4', 
+        'ActionDepositT5', 
+        'ActionStakeQCK', 
+        'ActionSignalIntent', 
+        'ActionQSGov', 
+        'ActionGbP', 
+        'ActionOsmosis'
       ];
       return actions[action]
     }
@@ -168,7 +203,17 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
         [index: string]: number;
       }
       let actions = {
-        "ActionClaim": 0
+        'ActionInitialClaim': 0, 
+        'ActionDepositT1': 1, 
+        'ActionDepositT2': 2, 
+        'ActionDepositT3': 3, 
+        'ActionDepositT4': 4, 
+        'ActionDepositT5': 5, 
+        'ActionStakeQCK': 6, 
+        'ActionSignalIntent': 7, 
+        'ActionQSGov': 8, 
+        'ActionGbP': 9, 
+        'ActionOsmosis': 10
       } as IDictionary;
 
       return actions[action]
