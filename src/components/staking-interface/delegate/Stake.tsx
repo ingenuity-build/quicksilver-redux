@@ -5,17 +5,19 @@ import { useSelector } from 'react-redux'
 import {stakingActiveStep} from '../../../slices/stakingActiveStep';
 import LogoWhite from '../../../assets/icons/logo-whitestroke.svg';
 import LogoGray from '../../../assets/icons/logo-graystroke.png';
+import { useLocation} from "react-router-dom";
 
 
 
 export default function Stake() {
   const activeStep = useSelector(stakingActiveStep);
+  const location = useLocation()
   console.log('active step', activeStep)
     return  (
         <>
      
             <div className="staking-interface row mx-0">
-            <div className="stepper col-2 d-flex flex-column ">
+           {location.pathname === '/stake/delegate' &&  <div className="stepper col-2 d-flex flex-column ">
             <div className="step d-flex mt-5 ml-4 mb-1">
       <div className="d-flex flex-column pr-4 align-items-center">
      <img className="logo" alt="Quicksilver logo" src={LogoWhite}/>
@@ -67,7 +69,9 @@ export default function Stake() {
 								</a>
         </div>
               
-            </div>
+            </div>}
+            {location.pathname !== '/stake/delegate' && <div className="stepper col-2 d-flex flex-column">
+              </div>}
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
         <Link to="delegate" className="mx-3 px-2 link">Delegate</Link>

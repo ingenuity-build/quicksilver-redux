@@ -140,7 +140,7 @@ export default function Navbar(props: PropComponent) {
   
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/claims'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
+      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
       
       </li>
       {/* <li className="nav-item mx-4">
@@ -150,12 +150,12 @@ export default function Navbar(props: PropComponent) {
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
-      {isQSWalletConnected &&   <Select className="custom-class mb-3 mt-2 "
+        <Select className="custom-class mb-3 mt-2 "
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks}
           onChange={handleNetworkChange}
 
-        />}
+        />
         {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
       
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}

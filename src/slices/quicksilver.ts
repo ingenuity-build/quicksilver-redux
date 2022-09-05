@@ -11,6 +11,7 @@ balances: [],
 walletQS: new Map<string, SigningStargateClient>(),
   loading: false,
   quicksilverClient: {},
+  quicksilverAddress: ''
 
 }
 const quicksilverNetworkSlice = createSlice({
@@ -32,10 +33,13 @@ const quicksilverNetworkSlice = createSlice({
     },
     setClientSuccess: (state, { payload }) => {
       state.quicksilverClient = payload
-    }
+    },
+    setQuicksilverAddressSuccess :  (state, { payload }) => {
+      state.quicksilverAddress = payload
+},
   },
 })
-export const { setIsQSWalletConnected, setClientSuccess, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
+export const { setIsQSWalletConnected, setQuicksilverAddressSuccess, setClientSuccess, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
 export const quicksilverSelector = (state:any)  => state.quicksilver;
 
 // The reducer
@@ -74,3 +78,13 @@ export function setQSWalletConnected() {
                     }
                   }
               }
+
+
+              export function setQuicksilverAddress(val: any) {
+                return async (dispatch: any) => {
+                    try {
+                        dispatch(setQuicksilverAddressSuccess(val))
+                      } catch (error) {
+                      }
+                    }
+                }

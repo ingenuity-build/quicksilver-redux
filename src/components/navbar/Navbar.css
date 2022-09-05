@@ -76,3 +76,8 @@ Dropdown styles */
 color: white !important;
 text-transform: uppercase !important;
 }
+
+.custom-class.mb-3.mt-2.css-b62m3t-container {
+    margin: 0 !important;
+}
+

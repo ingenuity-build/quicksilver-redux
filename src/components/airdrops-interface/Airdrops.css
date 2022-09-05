@@ -15,12 +15,11 @@ h2 {
   }
 
   button {
-
   background: #D35100;
   border: 1px solid #D35100;
   border-radius: 5px;
     padding: 0.5rem;
     font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   color: #FFFFFF;
   }

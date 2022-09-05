@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import {  setModalOpen } from '../../../slices/connectWalletModal';
 import { selectedNetworkSelector } from "../../../slices/selectedNetwork";
+import { coins } from "@cosmjs/launchpad"
 
 
 import './Undelegate.css';
+import { normalize } from 'path';
 export default function Undelegate() {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
-    const {isQSWalletConnected, quicksilverClient} = useSelector(quicksilverSelector);
+    const {isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const [unstakingAmount, setUnstakingAmount] = useState(0);
     const dispatch = useDispatch();
@@ -30,13 +32,14 @@ export default function Undelegate() {
     
     
     }
+    
     const onUnbond = async () => {
   
         let msg = {
           typeUrl: "/quicksilver.interchainstaking.v1.MsgRequestRedemption",
           value: {
             destinationAddress: networkAddress,
-            fromAddress: "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+            fromAddress: quicksilverAddress,
             value: {
               "amount": unstakingAmount,
               "denom": "uqmuon"
@@ -45,7 +48,7 @@ export default function Undelegate() {
         }
 
         const broadcastResult = await quicksilverClient.signAndBroadcast(
-          "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+          quicksilverAddress,
           [msg],
           {
             "gas": "100000",
@@ -59,7 +62,37 @@ export default function Undelegate() {
           'Unbonding'
         );
         console.log(broadcastResult);
+
+    //   const msgSend = {
+    //     fromAddress: quicksilverAddress,
+    //     toAddress: 'quick1sdynpqmczvlsahs8ws2eqmc6anlyx7kzdcv442',
+    //     amount: coins((1 * 1000000), 'uqck'),
+    //   };
+      
+    //   const msgAny = {
+    //       typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+    //     value: msgSend,
+    //   };
+      
+
+
+    //  const broadcastResult = await quicksilverClient.signAndBroadcast(
+    //     quicksilverAddress,
+    //     [msgAny],
+    //    {
+    //       "gas": "200000",
+    //       "amount": [
+    //         {
+    //           "denom": "uqck",
+    //           "amount": "300"
+    //         }
+    //       ]
+    //     },
+    //     'Checking issue!!'
+    //   );
+    //   console.log(broadcastResult)
       }
+
     return (
         <> 
         {!isQSWalletConnected && <div>
@@ -86,7 +119,7 @@ export default function Undelegate() {
 
                 </div>
                 <div className="d-flex justify-content-center">
-        <button className="unbond text-center mt-5 " onClick={() => onUnbond()}> UNBOND </button>
+        <button className="unbond text-center mt-5 " onClick={ onUnbond}> UNBOND </button>
         </div>
         </div>}
         </>

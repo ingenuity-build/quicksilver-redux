@@ -54,12 +54,19 @@ useEffect(() => {
 }, [networkBalances])
 
     useEffect(() => {
-        if(selectedValidatorList.length > 0) {
+        if(selectedValidatorList.length > 1) {
           let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
                     acc[curr.name] = {...curr, value: 1}
                     return acc;
             }, allocationProp);
             setAllocationProp(temp);
+        } else if(selectedValidatorList.length === 1) {
+            let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
+                acc[curr.name] = {...curr, value: 100}
+                return acc;
+                }, allocationProp);
+            setAllocationProp(temp);
+            console.log(temp)
         }
          // @ts-expect-error
          dispatch(setStakingAmount(0))            
@@ -103,7 +110,7 @@ useEffect(() => {
 
     const calculateMax = () => {
         let value = +(stakingAmount/selectedValidatorList.length);
-        if(selectedValidatorList.length !== 6) {
+        if(selectedValidatorList.length !== 6 && selectedValidatorList.length > 1) {
 
        console.log('Amount' , stakingAmount);
        console.log('Length' , selectedValidatorList.length);
@@ -113,6 +120,7 @@ useEffect(() => {
 
        newAllocationProp[x.name]['value'] = +(value/stakingAmount) * 100;
        setAllocationProp(newAllocationProp) }) ;
+
        onNext();
         } else {
             selectedValidatorList.forEach((x: any) => {      
@@ -195,7 +203,9 @@ useEffect(() => {
 }
 
     const renderValidators = () => {
-        return ( selectedValidatorList.map((val: any) => <>
+        
+        return ( 
+            selectedValidatorList.map((val: any) => <>
         <div className="d-flex mt-3">
             <h5 className=" mx-2">{val.name}</h5>
             <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.name]['value'] : 1 } name={val.name} min="1" max="100"   />
@@ -208,7 +218,7 @@ useEffect(() => {
     }
     return (
     <div className="allocation-pane d-flex flex-column align-items-center">
- {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
+ {/* {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
                 <h4> My Wallet</h4>
                 <h6>{networkAddress}</h6>
                 <div className="row wallet-content mt-4">
@@ -222,22 +232,24 @@ useEffect(() => {
                         </div>
                   
                 </div>
-            </div> }
+            </div> } */}
            {zoneBalance <= 0.5 &&  <div className="mt-3">
                 You don't have enough   {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to stake! 
             </div>}
            {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4>Stake</h4> 
-
+                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {QCKBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
+            
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
                     <input className="mx-3" type="text" value={stakingAmount?.toString()} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
 
                 </div>
-
-                {renderValidators()}
+                <div>
+                {selectedValidatorList.length > 1 && renderValidators()}
+                </div>
                 {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">

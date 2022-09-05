@@ -17,22 +17,49 @@ import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector , setClient} from '../slices/quicksilver';
+import { setQSWallet,setQSWalletConnected, setQSBalance,  setQuicksilverAddress, quicksilverSelector, setClient } from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
+// @ts-ignore
+import createActivityDetector from 'activity-detector';
 
+
+function useIdle(options: any) {
+  const [isIdle, setIsIdle] = React.useState(false)
+  React.useEffect(() => {
+    const activityDetector = createActivityDetector(options)
+    activityDetector.on('idle', () => setIsIdle(true) )
+    activityDetector.on('active', () => {setIsIdle(false); 
+   } )
+    return () => activityDetector.stop()
+  }, [])
+  return isIdle
+}
 
 function App() {
   const dispatch = useDispatch();
-  const balances = useSelector(quicksilverSelector);
+  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
   const location = useLocation();
   // const isWalletConnected = useSelector(isQSWalletConnectedSelector);
+  const isIdle = useIdle({timeToIdle: 1800000});
+  const [val, setVal] = React.useState<SigningStargateClient>();
 
-  useEffect(() => {
-    let QCKBalance;
 
-}, [balances])
+
+  React.useEffect(() => {
+    let timer: any;
+    if(!isIdle) {
+      timer = setInterval( () => {
+        if(isQSWalletConnected) {
+         
+          fetchKeplrDetails(val);
+         // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
+        }
+    }, 6000)
+    } 
+    return () => clearInterval(timer);
+  }, [isIdle])
 
   const handleClickOpen = () => {
     // @ts-expect-error
@@ -47,18 +74,34 @@ connectKeplr();
 const connectKeplr = async () => {
 
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
-     // @ts-expect-error
-     dispatch(setClient(val));
     // @ts-expect-error
+    dispatch(setClient(val));
+    // @ts-expect-error
+   
+   
     dispatch(setQSWallet(key, val));
-     // @ts-expect-error
-    dispatch(setQSWalletConnected());
-     
     
-    let keplr = await getKeplrFromWindow();
+     // @ts-expect-error
+    dispatch(setQSWalletConnected())
+       
+    setVal(val);
+        fetchKeplrDetails(val)
+         // @ts-expect-error
+  dispatch(setModalClose());
+         // @ts-expect-error
+  dispatch(increaseStakingStep());
+
+  });
+
+}
+
+const fetchKeplrDetails = async (val: any) => {
+  let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
     let pubkey = await keplr?.getKey(chainId);
     let bech32 = pubkey?.bech32Address;
+          // @ts-expect-error
+    dispatch(setQuicksilverAddress(bech32));
     console.log(bech32);
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
@@ -66,12 +109,8 @@ const connectKeplr = async () => {
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
     }
-        // @ts-expect-error
-  dispatch(setModalClose());
-         // @ts-expect-error
-  dispatch(increaseStakingStep());
 
-  });
+
 
 }
 

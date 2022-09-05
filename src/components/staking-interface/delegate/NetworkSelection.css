@@ -66,3 +66,12 @@ border: 2px solid #D35100;
       color: rgba(0,0,0,0.7);
   }
 
+.copy-button {
+    background: white;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #D35100;
+    padding: 3px 8px;
+    border: 2px solid white;
+}
