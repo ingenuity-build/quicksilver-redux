@@ -93,6 +93,7 @@ useEffect(() => {
     const onNext = (e?: any) => {
        
         let sum = 0;
+        if(selectedValidatorList.length > 1) {
         selectedValidatorList.forEach((x: any) => {      
           
         sum = sum + allocationProp[x.name]['value'] ;  console.log(allocationProp[x.name]['value'])})
@@ -105,12 +106,25 @@ useEffect(() => {
             console.log("please proceed");
         }
         setSum(sum);
+    } 
+    else if(selectedValidatorList.length === 1) {
+        setSum(100);
+    }
 
     }
 
     const calculateMax = () => {
         let value = +(stakingAmount/selectedValidatorList.length);
-        if(selectedValidatorList.length !== 6 && selectedValidatorList.length > 1) {
+        if(selectedValidatorList.length === 1) {
+            let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
+                acc[curr.name] = {...curr, value: 100}
+                return acc;
+                }, allocationProp);
+            setAllocationProp(temp);
+            onNext();
+
+        }
+       else if(selectedValidatorList.length !== 6 && selectedValidatorList.length > 1) {
 
        console.log('Amount' , stakingAmount);
        console.log('Length' , selectedValidatorList.length);
@@ -184,6 +198,9 @@ useEffect(() => {
         setisMaxClicked(false);
         if(e.target.value !=  +(zoneBalance - 0.3).toFixed(6)) {
         setShowMaxMsg(false);
+        }
+        if(selectedValidatorList.length === 1) {
+            setSum(100);
         }
     
     }

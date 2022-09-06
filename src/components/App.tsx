@@ -70,6 +70,15 @@ connectKeplr();
 }
 };
 
+const disconnectKeplr = () => {
+      // @ts-expect-error
+  dispatch(setClient({}));
+   
+
+    
+
+}
+
 
 const connectKeplr = async () => {
 
