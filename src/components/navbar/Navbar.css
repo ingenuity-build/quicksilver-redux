@@ -35,6 +35,11 @@ color: #FFFFFF;
     background: #FFFFFF;
     }
 
+ .navbar .connect-wallet:hover {
+    background: #D35100;
+    color: #fff;
+    border: 1px solid #D35100;
+    }
 .navbar .connect-wallet img {
     height: 20px;
 }
@@ -79,5 +84,6 @@ text-transform: uppercase !important;
 
 .custom-class.mb-3.mt-2.css-b62m3t-container {
     margin: 0 !important;
+    width: 200px;
 }
 

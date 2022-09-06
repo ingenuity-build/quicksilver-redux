@@ -150,16 +150,16 @@ export default function Navbar(props: PropComponent) {
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
-        <Select className="custom-class mb-3 mt-2 "
+        {isQSWalletConnected && <Select className="custom-class mb-3 mt-2 "
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks}
           onChange={handleNetworkChange}
-
-        />
+    
+        />}
         {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
       
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
-      
+        {/* {isQSWalletConnected && <button> Logout</button>} */}
       { isModalOpen && <Backdrop />}
  
   </div>
