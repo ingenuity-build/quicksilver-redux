@@ -56,13 +56,13 @@ useEffect(() => {
     useEffect(() => {
         if(selectedValidatorList.length > 1) {
           let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
-                    acc[curr.name] = {...curr, value: 1}
+                    acc[curr.address] = {...curr, value: 1}
                     return acc;
             }, allocationProp);
             setAllocationProp(temp);
         } else if(selectedValidatorList.length === 1) {
             let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
-                acc[curr.name] = {...curr, value: 100}
+                acc[curr.address] = {...curr, value: 100}
                 return acc;
                 }, allocationProp);
             setAllocationProp(temp);
@@ -96,7 +96,7 @@ useEffect(() => {
         if(selectedValidatorList.length > 1) {
         selectedValidatorList.forEach((x: any) => {      
           
-        sum = sum + allocationProp[x.name]['value'] ;  console.log(allocationProp[x.name]['value'])})
+        sum = sum + allocationProp[x.address]['value'] ;  console.log(allocationProp[x.address]['value'])})
         console.log(sum);
         if(sum < 100) {
             console.log("Please allocation more atoms");
@@ -117,7 +117,7 @@ useEffect(() => {
         let value = +(stakingAmount/selectedValidatorList.length);
         if(selectedValidatorList.length === 1) {
             let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
-                acc[curr.name] = {...curr, value: 100}
+                acc[curr.address] = {...curr, value: 100}
                 return acc;
                 }, allocationProp);
             setAllocationProp(temp);
@@ -132,7 +132,7 @@ useEffect(() => {
        selectedValidatorList.forEach((x: any) => {      
            let newAllocationProp : any = {...allocationProp};
 
-       newAllocationProp[x.name]['value'] = +(value/stakingAmount) * 100;
+       newAllocationProp[x.address]['value'] = +(value/stakingAmount) * 100;
        setAllocationProp(newAllocationProp) }) ;
 
        onNext();
@@ -140,7 +140,7 @@ useEffect(() => {
             selectedValidatorList.forEach((x: any) => {      
                 let newAllocationProp : any = {...allocationProp};
      
-            newAllocationProp[x.name]['value'] = +(16.66);
+            newAllocationProp[x.address]['value'] = +(16.66);
             setAllocationProp(newAllocationProp) }) ;
             onNext();
         }
@@ -225,8 +225,8 @@ useEffect(() => {
             selectedValidatorList.map((val: any) => <>
         <div className="d-flex mt-3">
             <h5 className=" mx-2">{val.name}</h5>
-            <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.name]['value'] : 1 } name={val.name} min="1" max="100"   />
-            <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.name]['value']: '1' } name={val.name}  type="number" min="1" step=".5"></input>%
+            <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.address]['value'] : 1 } name={val.address} min="1" max="100"   />
+            <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
            </div>
             </>
                 
