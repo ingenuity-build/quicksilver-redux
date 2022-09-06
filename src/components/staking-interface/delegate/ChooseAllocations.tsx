@@ -264,7 +264,7 @@ useEffect(() => {
                 
 
                 </div>
-                <div>
+                <div className="d-flex flex-column align-items-end mt-2">
                 {selectedValidatorList.length > 1 && renderValidators()}
                 </div>
                 {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
