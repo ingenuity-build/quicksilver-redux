@@ -5,7 +5,7 @@ import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync , validatorListSelector, setSelectedValidatorList, getValidatorListSuccess, } from "../../../slices/validatorList";
 import './ChooseValidators.css';
 import { increaseStakingStep, decreaseStakingStep } from "../../../slices/stakingActiveStep";
-import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
+import { setSourceMapRange } from "typescript";
 
 
 export interface Data {
@@ -33,7 +33,7 @@ export default function ChooseValidators() {
     
 
       const filterData = () => {
-        setValidators(validatorList.filter((val: any) => val.name.toLowerCase().includes(searchTerm.toLowerCase())));
+        setValidators(validators.filter((val: any) => val.name.toLowerCase().includes(searchTerm.toLowerCase())));
      }
     
      React.useEffect(() => {
@@ -54,6 +54,7 @@ export default function ChooseValidators() {
             )       
             console.log(newData);
             setValidators(newData);
+            
         }  else {
             let newData = validators.map((val: any) => {
                 if(selectedValidatorList.find((x: any) => x.address === val.address)) {
@@ -120,7 +121,7 @@ const onNext = () => {
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3"> Choose validators </h2>
         
-        {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
+        <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/>
 
           <div className="mt-3 validators row w-100 justify-content-center">
           {validators.map((row: any) =>

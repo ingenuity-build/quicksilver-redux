@@ -55,11 +55,18 @@ useEffect(() => {
 
     useEffect(() => {
         if(selectedValidatorList.length > 1) {
+            let value = +(stakingAmount/selectedValidatorList.length);
           let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
-                    acc[curr.address] = {...curr, value: 1}
+                    acc[curr.address] = {...curr, value: +(value/stakingAmount) * 100}
                     return acc;
             }, allocationProp);
+            setSum(100);
             setAllocationProp(temp);
+        // selectedValidatorList.forEach((x: any) => {      
+        //     let newAllocationProp : any = {...allocationProp};
+ 
+        // newAllocationProp[x.address]['value'] = +(value/stakingAmount) * 100;
+        // setAllocationProp(newAllocationProp) }) ;
         } else if(selectedValidatorList.length === 1) {
             let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
                 acc[curr.address] = {...curr, value: 100}
@@ -67,9 +74,10 @@ useEffect(() => {
                 }, allocationProp);
             setAllocationProp(temp);
             console.log(temp)
+            setSum(100);
         }
          // @ts-expect-error
-         dispatch(setStakingAmount(0))            
+         dispatch(setStakingAmount(1))            
     }, [])
 
     useEffect(() => {
@@ -150,10 +158,10 @@ useEffect(() => {
     const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
 
         let maxBal = +(zoneBalance) - 0.3;
-        let temp = '0'+maxBal.toFixed(6).toString();
+        let temp = maxBal.toFixed(6).toString();
         if(stakingAmount != temp) {
       //    @ts-expect-error
-      dispatch(setStakingAmount('0'+maxBal.toFixed(6)))
+      dispatch(setStakingAmount(maxBal.toFixed(6)))
 
       isMax.current = true;
       setShowMaxMsg(true);
@@ -190,7 +198,7 @@ useEffect(() => {
           
     const changeAmount = (e: any) => {
         
-        if ( e.target.value.match(/^\d{1,}(\.\d{0,6})?$/) ){
+
         console.log(e.target.value);
                     //    @ts-expect-error
                   dispatch(setStakingAmount(e.target.value));
@@ -203,7 +211,7 @@ useEffect(() => {
             setSum(100);
         }
     
-    }
+    
     }
 
     const onClickNext = (e: any) => {
@@ -259,7 +267,7 @@ useEffect(() => {
                 <div className="d-flex mt-3 align-items-center">
             
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
-                    <input className="mx-3" type="text" value={stakingAmount?.toString()} onChange={ changeAmount}/>
+                    <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
 
@@ -276,7 +284,7 @@ useEffect(() => {
        </div>}
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 1 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 
     );

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import Cosmos from '../assets/Cosmos.png';
 
 export const initialState = {
   loading: false,
@@ -48,5 +49,11 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.charAt(0).toUpperCase() + zone.account_prefix.slice(1), value: zone}})
+  //    @ts-expect-error
+   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.charAt(0).toUpperCase() + zone.account_prefix.slice(1), value: zone, image: images[zone.chain_id]}})
 }
+
+const images = {
+  'fauxgaia-1' : Cosmos,
+}
+

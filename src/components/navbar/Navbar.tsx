@@ -153,6 +153,12 @@ export default function Navbar(props: PropComponent) {
         {isQSWalletConnected && <Select className="custom-class mb-3 mt-2 "
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks}
+          formatOptionLabel={network => (
+            <div className="network-option">
+              <img className="network-logo" src={network.image} alt="network-image" />
+              <span>{network.label}</span>
+            </div>
+          )}
           onChange={handleNetworkChange}
     
         />}
