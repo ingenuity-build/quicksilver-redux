@@ -100,6 +100,8 @@ export default function Navbar(props: PropComponent) {
     }, [selectedNetwork])
 
     const fetchNetworkDetails = async (val: any) => {
+             // @ts-expect-error
+             dispatch(setNetworkBalance([]));
       let keplr = await getKeplrFromWindow();
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
@@ -114,7 +116,7 @@ export default function Navbar(props: PropComponent) {
       }
     }
    
-  const connectNetwork = async (network: string) => {
+  const connectNetwork =  async (network: string) => {
 
     initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
      // @ts-expect-error
@@ -127,6 +129,8 @@ export default function Navbar(props: PropComponent) {
      
     }, network);
   }
+
+
 
   React.useEffect(() => {
     let timer: any;

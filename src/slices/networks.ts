@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import env from "react-dotenv";
 
 export const initialState = {
   loading: false,
@@ -37,11 +38,14 @@ export function fetchNetworks() {
     dispatch(getNetworks())
 
     try {
-      const response = await fetch('https://lcd.test.quicksilver.zone/quicksilver/interchainstaking/v1/zones')
+      console.log(env.QUICKSILVER_API);
+      console.log(env)
+      const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
 
       dispatch(getNetworksSuccess(manipulateData(data.zones)))
     } catch (error) {
+
       dispatch(getNetworksFailure())
     }
   }
