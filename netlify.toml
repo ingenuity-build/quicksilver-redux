@@ -1,0 +1,13 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.main.environment]
+  NODE_ENV = "prod"
+
+[context.test.environment]
+  NODE_ENV = "test"
+
+[context.develop.environment]
+  NODE_ENV = "dev"
