@@ -188,9 +188,9 @@ export default function Navbar(props: PropComponent) {
       <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
       
       </li>
-      {/* <li className="nav-item mx-4">
-      <Link  className={`${location.pathname === '/gov'  ? 'active-link' : ''}`} to="/gov" onClick={ (event) => event.preventDefault() }>GOVERNANCE</Link> 
-      </li> */}
+      <li className="nav-item mx-4">
+      <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
+      </li>
 
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet

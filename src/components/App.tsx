@@ -122,6 +122,7 @@ const fetchKeplrDetails = async (val: any) => {
                       <Route path="/pools" element={<Pools  />}/>
                       <Route path="/airdrop" element={<Airdrop  />}/>
                       <Route path="/assets" element={<Assets />}/>
+                      <Route path="/pools" element={<Pools />}/>
                     
    </Routes>
 
