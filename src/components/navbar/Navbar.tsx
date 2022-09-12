@@ -26,6 +26,8 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
+import {  setSelectedValidatorList } from "../../slices/validatorList";
+
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -113,6 +115,7 @@ export default function Navbar(props: PropComponent) {
         let roBalance = await val.getAllBalances(bech32);
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
+          console.log('roBalance',roBalance);
       }
     }
    
@@ -142,7 +145,7 @@ export default function Navbar(props: PropComponent) {
           console.log('hey from navbar');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 2000)
+    }, 20000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
@@ -154,7 +157,8 @@ export default function Navbar(props: PropComponent) {
         dispatch(setSelectedNetworkFunc(selected));
         // @ts-expect-error
         dispatch(setStakingStep(2));
-        
+                        //    @ts-expect-error
+    dispatch(setSelectedValidatorList([]))
   }
     return (
 
@@ -176,12 +180,12 @@ export default function Navbar(props: PropComponent) {
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" onClick={ (event) => event.preventDefault()}  >POOLS</Link> 
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/claims'  ? 'active-link' : ''}`} to="/claims" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
+      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
       
       </li>
       {/* <li className="nav-item mx-4">

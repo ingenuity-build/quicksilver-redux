@@ -29,6 +29,9 @@ export default function NetworkSelection() {
          if(balance) {
           console.log(balance)
           setQCKBalance((balance.amount)/1000000);
+         } else 
+         {
+           setQCKBalance(0);
          }
      
     }
@@ -41,10 +44,13 @@ useEffect(() => {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
+    } else 
+    {
+      setZoneBalance(0);
     }
 
 }
-}, [networkBalances])
+}, [networkBalances, selectedNetwork])
 
   let onNext = () => {
         // @ts-expect-error
@@ -62,9 +68,9 @@ useEffect(() => {
   <h2 className="mt-4">Choose your network </h2>
       <p className="mt-2">Choose the network from the dropdown in the Navbar</p> 
 </div>
-{selectedNetwork !== "Select a network" && zoneBalance && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
+{selectedNetwork !== "Select a network" &&  <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
-  {networkAddress && <h6> {networkAddress}</h6>}
+ <h6> {networkAddress}</h6>
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
     {zoneBalance && <h5 className="font-bold">{zoneBalance}</h5>}
@@ -78,6 +84,7 @@ useEffect(() => {
 
   </div>
 </div>}
+
 
 <div className="mt-5 button-container">
 

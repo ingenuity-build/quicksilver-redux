@@ -66,3 +66,7 @@ border: 2px solid #D35100;
       color: rgba(0,0,0,0.7);
   }
 
+
+  #text {
+    display: none !important
+  }

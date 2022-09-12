@@ -38,14 +38,11 @@ export function fetchNetworks() {
     dispatch(getNetworks())
 
     try {
-      console.log(env.QUICKSILVER_API);
-      console.log(env)
       const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
 
       dispatch(getNetworksSuccess(manipulateData(data.zones)))
     } catch (error) {
-
       dispatch(getNetworksFailure())
     }
   }

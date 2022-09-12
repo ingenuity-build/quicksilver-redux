@@ -31,7 +31,7 @@ export const DevQuickSilverChainInfo : ChainInfo = {
         },
         {
             coinDenom: "qSTARS",
-            coinMinimalDenom: "uqstarts",
+            coinMinimalDenom: "uqstars",
             coinDecimals: 6,
             coinGeckoId: "stargaze",
         },
