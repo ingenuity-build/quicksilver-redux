@@ -48,6 +48,3 @@ export function fetchOsmosisPools() {
   }
 }
 
-const manipulateData = (zones: any) => {
-   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.charAt(0).toUpperCase() + zone.account_prefix.slice(1), value: zone}})
-}
