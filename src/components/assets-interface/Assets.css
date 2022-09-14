@@ -43,3 +43,8 @@ h2 {
   img {
     height:50px;
   }
+
+  .amount {
+    color: #D35100;
+    font-weight: bold; 
+  }

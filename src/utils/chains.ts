@@ -21,7 +21,7 @@ const Chains : { [index:string] : ChainInfo[] } = {
   "dev": DevChainInfos,
 }
 
-const QuickSilverChainInfo : ChainInfo = QuickSilverChains[env.NODE_ENV]
+export const QuickSilverChainInfo : ChainInfo = QuickSilverChains[env.NODE_ENV]
 
 const ChainInfos: ChainInfo[] = Chains[env.NODE_ENV]
 

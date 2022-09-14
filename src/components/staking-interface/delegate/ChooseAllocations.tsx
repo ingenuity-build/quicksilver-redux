@@ -1,4 +1,3 @@
-
 import React , {useEffect, useState, useRef} from 'react';
 import {setStakingAmount, setStakingAllocationProp, stakingAllocationSelector} from '../../../slices/allocation';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,15 +53,30 @@ useEffect(() => {
 }, [networkBalances])
 
     useEffect(() => {
-        if(selectedValidatorList.length > 0) {
+        if(selectedValidatorList.length > 1) {
+            let value = +(stakingAmount/selectedValidatorList.length);
           let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
-                    acc[curr.name] = {...curr, value: 1}
+                    acc[curr.address] = {...curr, value: +(value/stakingAmount) * 100}
                     return acc;
             }, allocationProp);
+            setSum(100);
             setAllocationProp(temp);
+        // selectedValidatorList.forEach((x: any) => {      
+        //     let newAllocationProp : any = {...allocationProp};
+ 
+        // newAllocationProp[x.address]['value'] = +(value/stakingAmount) * 100;
+        // setAllocationProp(newAllocationProp) }) ;
+        } else if(selectedValidatorList.length === 1) {
+            let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
+                acc[curr.address] = {...curr, value: 100}
+                return acc;
+                }, allocationProp);
+            setAllocationProp(temp);
+            console.log(temp)
+            setSum(100);
         }
          // @ts-expect-error
-         dispatch(setStakingAmount(0))            
+         dispatch(setStakingAmount(1))            
     }, [])
 
     useEffect(() => {
@@ -86,9 +100,10 @@ useEffect(() => {
     const onNext = (e?: any) => {
        
         let sum = 0;
+        if(selectedValidatorList.length > 1) {
         selectedValidatorList.forEach((x: any) => {      
           
-        sum = sum + allocationProp[x.name]['value'] ;  console.log(allocationProp[x.name]['value'])})
+        sum = sum + allocationProp[x.address]['value'] ;  console.log(allocationProp[x.address]['value'])})
         console.log(sum);
         if(sum < 100) {
             console.log("Please allocation more atoms");
@@ -98,12 +113,25 @@ useEffect(() => {
             console.log("please proceed");
         }
         setSum(sum);
+    } 
+    else if(selectedValidatorList.length === 1) {
+        setSum(100);
+    }
 
     }
 
     const calculateMax = () => {
         let value = +(stakingAmount/selectedValidatorList.length);
-        if(selectedValidatorList.length !== 6) {
+        if(selectedValidatorList.length === 1) {
+            let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
+                acc[curr.address] = {...curr, value: 100}
+                return acc;
+                }, allocationProp);
+            setAllocationProp(temp);
+            onNext();
+
+        }
+       else if(selectedValidatorList.length !== 6 && selectedValidatorList.length > 1) {
 
        console.log('Amount' , stakingAmount);
        console.log('Length' , selectedValidatorList.length);
@@ -111,14 +139,15 @@ useEffect(() => {
        selectedValidatorList.forEach((x: any) => {      
            let newAllocationProp : any = {...allocationProp};
 
-       newAllocationProp[x.name]['value'] = +(value/stakingAmount) * 100;
+       newAllocationProp[x.address]['value'] = +(value/stakingAmount) * 100;
        setAllocationProp(newAllocationProp) }) ;
+
        onNext();
         } else {
             selectedValidatorList.forEach((x: any) => {      
                 let newAllocationProp : any = {...allocationProp};
      
-            newAllocationProp[x.name]['value'] = +(16.66);
+            newAllocationProp[x.address]['value'] = +(16.66);
             setAllocationProp(newAllocationProp) }) ;
             onNext();
         }
@@ -128,10 +157,10 @@ useEffect(() => {
     const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
 
         let maxBal = +(zoneBalance) - 0.3;
-        let temp = '0'+maxBal.toFixed(6).toString();
+        let temp = maxBal.toFixed(6).toString();
         if(stakingAmount != temp) {
       //    @ts-expect-error
-      dispatch(setStakingAmount('0'+maxBal.toFixed(6)))
+      dispatch(setStakingAmount(maxBal.toFixed(6)))
 
       isMax.current = true;
       setShowMaxMsg(true);
@@ -168,7 +197,7 @@ useEffect(() => {
           
     const changeAmount = (e: any) => {
         
-        if ( e.target.value.match(/^\d{1,}(\.\d{0,6})?$/) ){
+
         console.log(e.target.value);
                     //    @ts-expect-error
                   dispatch(setStakingAmount(e.target.value));
@@ -177,8 +206,11 @@ useEffect(() => {
         if(e.target.value !=  +(zoneBalance - 0.3).toFixed(6)) {
         setShowMaxMsg(false);
         }
+        if(selectedValidatorList.length === 1) {
+            setSum(100);
+        }
     
-    }
+    
     }
 
     const onClickNext = (e: any) => {
@@ -195,11 +227,13 @@ useEffect(() => {
 }
 
     const renderValidators = () => {
-        return ( selectedValidatorList.map((val: any) => <>
+        
+        return ( 
+            selectedValidatorList.map((val: any) => <>
         <div className="d-flex mt-3">
             <h5 className=" mx-2">{val.name}</h5>
-            <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.name]['value'] : 1 } name={val.name} min="1" max="100"   />
-            <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.name]['value']: '1' } name={val.name}  type="number" min="1" step=".5"></input>%
+            <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.address]['value'] : 1 } name={val.address} min="1" max="100"   />
+            <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
            </div>
             </>
                 
@@ -208,7 +242,7 @@ useEffect(() => {
     }
     return (
     <div className="allocation-pane d-flex flex-column align-items-center">
- {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
+ {/* {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
                 <h4> My Wallet</h4>
                 <h6>{networkAddress}</h6>
                 <div className="row wallet-content mt-4">
@@ -222,22 +256,24 @@ useEffect(() => {
                         </div>
                   
                 </div>
-            </div> }
+            </div> } */}
            {zoneBalance <= 0.5 &&  <div className="mt-3">
                 You don't have enough   {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to stake! 
             </div>}
            {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4>Stake</h4> 
-
+                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {QCKBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
+            
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
-                    <input className="mx-3" type="text" value={stakingAmount?.toString()} onChange={ changeAmount}/>
+                    <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
 
                 </div>
-
-                {renderValidators()}
+                <div className="d-flex flex-column align-items-end mt-2">
+                {selectedValidatorList.length > 1 && renderValidators()}
+                </div>
                 {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
@@ -247,7 +283,7 @@ useEffect(() => {
        </div>}
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 1 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 
     );

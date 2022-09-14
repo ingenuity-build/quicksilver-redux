@@ -68,3 +68,18 @@ border: 2px solid #D35100;
 
 
  
+  .copy-button {
+    background: white;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #D35100;
+    padding: 3px 8px;
+    border: 2px solid white;
+}
+
+
+.custom-class.mb-3.mt-2.css-b62m3t-container {
+    margin: 0 !important;
+    width: 200px;
+}

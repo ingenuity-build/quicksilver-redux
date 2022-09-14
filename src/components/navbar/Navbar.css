@@ -76,3 +76,19 @@ Dropdown styles */
 color: white !important;
 text-transform: uppercase !important;
 }
+
+.navbar .connect-wallet:hover {
+    background: #D35100;
+    color: #fff;
+    border: 1px solid #D35100;
+    }
+
+    custom-class.mb-3.mt-2.css-b62m3t-container {
+        margin: 0 !important;
+        width: 200px;
+    }
+    
+    
+    .network-logo {
+        height: 30px;
+    }

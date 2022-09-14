@@ -70,7 +70,10 @@ useEffect(() => {
 </div>
 {selectedNetwork !== "Select a network" &&  <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
- <h6> {networkAddress}</h6>
+  {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
+  onClick={() =>  console.log(networkAddress)}>
+  Copy
+</button></h6>}
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
     {zoneBalance && <h5 className="font-bold">{zoneBalance}</h5>}

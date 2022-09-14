@@ -10,7 +10,6 @@ import LogoGray from '../../../assets/icons/logo-graystroke.png';
 
 export default function Stake() {
   const activeStep = useSelector(stakingActiveStep);
-  console.log('active step', activeStep)
     return  (
         <>
      
