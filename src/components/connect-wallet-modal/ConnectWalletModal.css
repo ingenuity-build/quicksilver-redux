@@ -36,3 +36,9 @@ color: #D35100;
     color: black;
     font-weight: 400;
   }
+
+  .keplr:disabled {
+    border:1px solid #D35100;
+background: white;
+color: #D35100;
+  }

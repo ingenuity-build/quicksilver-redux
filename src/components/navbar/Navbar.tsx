@@ -47,6 +47,8 @@ function useIdle(options: any) {
 
 interface PropComponent {
   handleClickOpen? : { (): void};
+  loading: boolean;
+  setLoading: any
 }
 
 export default function Navbar(props: PropComponent) {
@@ -145,7 +147,7 @@ export default function Navbar(props: PropComponent) {
           console.log('hey from navbar');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 20000)
+    }, 60000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
@@ -165,7 +167,7 @@ export default function Navbar(props: PropComponent) {
 
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
-          <div className={`${location.pathname === '/stake/delegate' || location.pathname === '/stake/undelegate' || location.pathname === '/stake/redelegate' ? 'col-2 navbar-logo ' : 'col-2'}`} >
+          <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo ' : 'col-2'}`} >
                <Link to="/">    <img className="logo mt-2" alt="Quicksilver Logo" src={Logo}/></Link> 
   </div>
 
@@ -201,7 +203,7 @@ export default function Navbar(props: PropComponent) {
           onChange={handleNetworkChange}
 
         />}
-        {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
+        {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
       
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
       

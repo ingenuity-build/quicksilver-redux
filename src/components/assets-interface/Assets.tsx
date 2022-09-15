@@ -26,17 +26,19 @@ params['uqstars'] = qStar
 
 export default function Assets() {
   const [sum, setsum] = useState(0);
-  const [showAssets, setShowAssets] = useState(false);
+  const [showAssets, setShowAssets] = useState(true);
+
+  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
+  const { networks } = useSelector(networksSelector);
 
   useEffect(() => {
 
   fetchSum()
 
-  }, [])
+  }, [balances, networks])
 
   const fetchSum =  () => {
 
-    let arr3: { id: string; amount: number }[] = [];
     QuickSilverChainInfo.currencies.forEach(async (curr) => {
       
       try {
@@ -49,7 +51,7 @@ export default function Assets() {
          amount = 0.5;
       }
       // console.log(amount);
-      fetchData(curr.coinGeckoId, amount)
+      fetchData(curr.coinMinimalDenom, amount)
     
       } 
       catch(err) {
@@ -64,29 +66,39 @@ export default function Assets() {
     
   }
 
-  console.log('sum', sum)
-  const fetchData = (id: any, amount: any) => {
-    let network = {};
-    let calc = 0;
-    balances.forEach((x: any) => {
-          if(x.denom !== 'uqck') {
-              network = networks.find((y:any) => y.value.local_denom == x.denom); 
-              // @ts-expect-error
-              calc = +(x.amount)/1000000 * +(network?.value.redemption_rate);
+ 
+  // const maps : any = { 
+  //   'cosmos': 'uqatom', 'stargaze': 'uqstars', 'quicksilver': 'uqck'
+  // }
+  
 
-              console.log('hey');
-              setsum((prevSum) => prevSum + (amount * (+(x.amount)/1000000)))
+  const fetchData = (id: any, amount: any) => {
+    console.log(id, amount)
+    let balance = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
+          if(id !== 'uqck') {
+           let network = networks.find((y:any) => y.value.local_denom === id); 
+           let redemptionRate = +(network?.value.redemption_rate);
+
+           console.log( redemptionRate * balance * amount)
+
+           setsum((prev) => prev + (amount * balance * redemptionRate))
+          }
+          if(id === 'uqck') {
+            setsum((prev) => prev + (amount * balance))
+            
+          }
+          // if(x.denom !== 'uqck') {
+          //     network = networks.find((y:any) => y.value.local_denom == x.denom); 
+          //     // @ts-expect-error
+          //     calc = +(x.amount)/1000000 * +(network?.value.redemption_rate);
               
-              
-          } else if (x.denom === 'uqck' && id === 'quicksilver') {
-            console.log('bye')
-            setsum((prevSum) => prevSum + (amount * (+(x.amount)/1000000)))
-          } 
-        })
+          //     // id = cosmos, uqatom , stargaze: uqstars
+          // } else if (x.denom === 'uqck' && id === 'quicksilver') {
+          //   console.log('bye')
+          //   setsum((prevSum) => prevSum + (amount * (+(x.amount)/1000000)))
+          // } 
       }
 
-    const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
-    const { networks } = useSelector(networksSelector);
     return (
         <>
           <div className="assets-interface row mx-0">
@@ -111,7 +123,7 @@ export default function Assets() {
                 {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
                 {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
                 </div>
-               
+      
             </div>
 
          

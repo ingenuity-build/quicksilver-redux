@@ -63,5 +63,10 @@ color: #FFFFFF;
   }
 
   .link:hover {
-color: #D35100 !important
+color: #D35100 !important;
+cursor: pointer;
+  }
+
+  .stake-options .active-link,   .stake-options .link {
+    z-index: 3
   }

@@ -11,6 +11,7 @@ import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../../slices/selectedNetworkWallet";
 import {quicksilverSelector} from '../../../slices/quicksilver';
+import { validatorListSelector } from "../../../slices/validatorList";
 
 
 export default function NetworkSelection() {
@@ -19,7 +20,7 @@ export default function NetworkSelection() {
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
    const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
    const {balances} = useSelector(quicksilverSelector);
-
+  const {validatorList} = useSelector(validatorListSelector);
   const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
 
@@ -68,7 +69,7 @@ useEffect(() => {
   <h2 className="mt-4">Choose your network </h2>
       <p className="mt-2">Choose the network from the dropdown in the Navbar</p> 
 </div>
-{selectedNetwork !== "Select a network" &&  <div className="wallet-details d-flex flex-column mt-3">
+{selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
   onClick={() =>  console.log(networkAddress)}>
@@ -95,7 +96,7 @@ useEffect(() => {
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
 </div>
-
+      {validatorList.length}
 {!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>}
 
 </div>
