@@ -165,7 +165,7 @@ export default function Navbar(props: PropComponent) {
 
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
-          <div className="col-2 navbar-logo">
+          <div className={`${location.pathname === '/stake/delegate' || location.pathname === '/stake/undelegate' || location.pathname === '/stake/redelegate' ? 'col-2 navbar-logo ' : 'col-2'}`} >
                <Link to="/">    <img className="logo mt-2" alt="Quicksilver Logo" src={Logo}/></Link> 
   </div>
 

@@ -262,7 +262,7 @@ useEffect(() => {
             </div>}
            {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4>Stake</h4> 
-                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {QCKBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
+                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
             
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>

@@ -12,13 +12,6 @@ import { Zone } from '../../utils/protodefs/quicksilver/interchainstaking/v1/gen
 
 
 
-
-// const images = {
-//   'uqck' : QuicksilverLogo,
-//   'uqatom' : qAtom,
-//   'uqstars' : qStar
-// }
-
 interface IImages {
   [index: string]: string;
 }
@@ -33,6 +26,7 @@ params['uqstars'] = qStar
 
 export default function Assets() {
   const [sum, setsum] = useState(0);
+  const [showAssets, setShowAssets] = useState(false);
 
   useEffect(() => {
 
@@ -78,10 +72,10 @@ export default function Assets() {
           if(x.denom !== 'uqck') {
               network = networks.find((y:any) => y.value.local_denom == x.denom); 
               // @ts-expect-error
-              calc = +(x.amount)/1000000 / +(network?.value.redemption_rate);
+              calc = +(x.amount)/1000000 * +(network?.value.redemption_rate);
 
               console.log('hey');
-              setsum((prevSum) => prevSum + (calc * (+(x.amount)/1000000)))
+              setsum((prevSum) => prevSum + (amount * (+(x.amount)/1000000)))
               
               
           } else if (x.denom === 'uqck' && id === 'quicksilver') {
@@ -96,9 +90,8 @@ export default function Assets() {
     return (
         <>
           <div className="assets-interface row mx-0">
-        
-<div className="col-8 mx-auto mt-5">
-  <div className="participation-rewards">
+          {showAssets && <div className="col-8 mx-auto mt-5">
+<div className="participation-rewards">
     <div className="d-flex p-5 justify-content-between">
     <h3> Claim Participation Rewards </h3>
     <button > COMING SOON </button>
@@ -131,7 +124,12 @@ export default function Assets() {
   <h5 className="mt-5"> You currently do not have any assets on the quicksilver chain.</h5>
 </div>}
 
-</div>  
+</div>  }
+{!showAssets && <div className="col-12 max-auto mt-5">
+  <div className="mt-5 d-flex justify-content-center align-items-center">
+    <h4 className="text-center"> Coming Soon!</h4>
+    </div>
+  </div>}
 
     </div>
     </>

@@ -5,11 +5,12 @@ import { useSelector } from 'react-redux'
 import {stakingActiveStep} from '../../../slices/stakingActiveStep';
 import LogoWhite from '../../../assets/icons/logo-whitestroke.svg';
 import LogoGray from '../../../assets/icons/logo-graystroke.png';
-
+import { useLocation} from "react-router-dom";
 
 
 export default function Stake() {
   const activeStep = useSelector(stakingActiveStep);
+  const location = useLocation();
     return  (
         <>
      
@@ -69,9 +70,9 @@ export default function Stake() {
             </div>
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
-        <Link to="delegate" className="mx-3 px-2 link active-link">Delegate</Link>
-        <Link to="redelegate" className="mx-3  px-2 link" onClick={ (event) => event.preventDefault()}>Redelegate</Link>
-        <Link to="undelegate" className="mx-3 px-2 link" onClick={ (event) => event.preventDefault()}>Undelegate</Link>
+        <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
+        <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Redelegate</Link>
+        <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
         </div>
 
         

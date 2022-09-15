@@ -61,3 +61,7 @@ color: #FFFFFF;
   .stake-options .active-link {
     text-decoration: underline;
   }
+
+  .link:hover {
+color: #D35100 !important
+  }
