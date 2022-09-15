@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
+import env from "react-dotenv";
+
 
 export const initialState = {
   loading: false,
@@ -43,7 +45,7 @@ const loadValData = async (chainId: string): Promise<ValResponse> => {
 
     // TODO - make chainId dynamic
     const result = await fetch(
-        `https://data.${chainId}.test.quicksilver.zone/v1/graphql`,
+        `https://data.${chainId}.${env.ZONE_URL}/v1/graphql`,
         {
           method: "POST",
           body: JSON.stringify({

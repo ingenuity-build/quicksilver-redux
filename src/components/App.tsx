@@ -43,6 +43,7 @@ function App() {
   const location = useLocation();
   // const isWalletConnected = useSelector(isQSWalletConnectedSelector);
   const isIdle = useIdle({timeToIdle: 1800000});
+  const [loading, setLoading] = React.useState(false);
   const [val, setVal] = React.useState<SigningStargateClient>();
 
 
@@ -73,7 +74,7 @@ connectKeplr();
 
 
 const connectKeplr = async () => {
-
+  setLoading(true);
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
     // @ts-expect-error
     dispatch(setQSWallet(key, val));
@@ -84,6 +85,7 @@ const connectKeplr = async () => {
         fetchKeplrDetails(val)
          // @ts-expect-error
   dispatch(setModalClose());
+  setLoading(false);
          // @ts-expect-error
   dispatch(increaseStakingStep());
 
@@ -110,7 +112,7 @@ const fetchKeplrDetails = async (val: any) => {
     <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
     </div>
-  {location.pathname !== '/' && <Navbar handleClickOpen={handleClickOpen} />}
+  {location.pathname !== '/' && <Navbar loading={loading} setLoading={setLoading} handleClickOpen={handleClickOpen} />}
    <Routes>
                       <Route path="/" element={<Landing/>}/>
                 
@@ -121,7 +123,8 @@ const fetchKeplrDetails = async (val: any) => {
         </Route>
                       <Route path="/pools" element={<Pools  />}/>
                       <Route path="/airdrop" element={<Airdrop  />}/>
-                      <Route path="/claims" element={<Assets  />}/>
+                      <Route path="/assets" element={<Assets />}/>
+                      <Route path="/pools" element={<Pools />}/>
                     
    </Routes>
 

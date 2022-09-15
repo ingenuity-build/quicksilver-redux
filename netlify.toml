@@ -5,9 +5,15 @@
 
 [context.main.environment]
   NODE_ENV = "prod"
+  QUICKSILVER_API_URL = "https://lcd.quicksilver.zone"
+  ZONE_URL = "quicksilver.zone"
 
 [context.test.environment]
   NODE_ENV = "test"
+  QUICKSILVER_API_URL = "https://lcd.test.quicksilver.zone"
+  ZONE_URL = "test.quicksilver.zone"
 
 [context.develop.environment]
   NODE_ENV = "dev"
+  QUICKSILVER_API_URL = "https://lcd.test.quicksilver.zone"
+  ZONE_URL = "dev.quicksilver.zone"

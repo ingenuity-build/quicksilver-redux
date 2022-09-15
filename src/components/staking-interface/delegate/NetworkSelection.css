@@ -5,11 +5,13 @@
     padding: 20px;
     background: #282828;
     justify-content: center;
+    z-index: 4;
 }
 
 .wallet-content {
     width: 100%;
     justify-content: center;
+
 }
 
 .dropdown a, .dropdown-menu  {
@@ -66,3 +68,21 @@ border: 2px solid #D35100;
       color: rgba(0,0,0,0.7);
   }
 
+
+ 
+  .copy-button {
+    background: white;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #D35100;
+    padding: 3px 8px;
+    border: 2px solid white;
+
+}
+
+
+.custom-class.mb-3.mt-2.css-b62m3t-container {
+    margin: 0 !important;
+    width: 200px;
+}

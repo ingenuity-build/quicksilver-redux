@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
-  stakingAmount: 0,
+  stakingAmount: 1,
   stakingAllocationProp: {}
 }
 

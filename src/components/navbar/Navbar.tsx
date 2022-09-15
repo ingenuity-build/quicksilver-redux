@@ -26,6 +26,8 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
+import {  setSelectedValidatorList } from "../../slices/validatorList";
+
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -45,6 +47,8 @@ function useIdle(options: any) {
 
 interface PropComponent {
   handleClickOpen? : { (): void};
+  loading: boolean;
+  setLoading: any
 }
 
 export default function Navbar(props: PropComponent) {
@@ -100,6 +104,8 @@ export default function Navbar(props: PropComponent) {
     }, [selectedNetwork])
 
     const fetchNetworkDetails = async (val: any) => {
+             // @ts-expect-error
+             dispatch(setNetworkBalance([]));
       let keplr = await getKeplrFromWindow();
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
@@ -111,10 +117,11 @@ export default function Navbar(props: PropComponent) {
         let roBalance = await val.getAllBalances(bech32);
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
+          console.log('roBalance',roBalance);
       }
     }
    
-  const connectNetwork = async (network: string) => {
+  const connectNetwork =  async (network: string) => {
 
     initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
      // @ts-expect-error
@@ -128,6 +135,8 @@ export default function Navbar(props: PropComponent) {
     }, network);
   }
 
+
+
   React.useEffect(() => {
     let timer: any;
     if(!isIdle) {
@@ -138,7 +147,7 @@ export default function Navbar(props: PropComponent) {
           console.log('hey from navbar');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 2000)
+    }, 60000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
@@ -150,14 +159,15 @@ export default function Navbar(props: PropComponent) {
         dispatch(setSelectedNetworkFunc(selected));
         // @ts-expect-error
         dispatch(setStakingStep(2));
-        
+                        //    @ts-expect-error
+    dispatch(setSelectedValidatorList([]))
   }
     return (
 
 
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
-          <div className="col-2 navbar-logo">
+          <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo ' : 'col-2'}`} >
                <Link to="/">    <img className="logo mt-2" alt="Quicksilver Logo" src={Logo}/></Link> 
   </div>
 
@@ -172,17 +182,17 @@ export default function Navbar(props: PropComponent) {
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" onClick={ (event) => event.preventDefault()}  >POOLS</Link> 
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/claims'  ? 'active-link' : ''}`} to="/claims" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
+      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
       
       </li>
-      {/* <li className="nav-item mx-4">
-      <Link  className={`${location.pathname === '/gov'  ? 'active-link' : ''}`} to="/gov" onClick={ (event) => event.preventDefault() }>GOVERNANCE</Link> 
-      </li> */}
+      <li className="nav-item mx-4">
+      <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
+      </li>
 
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
@@ -193,7 +203,7 @@ export default function Navbar(props: PropComponent) {
           onChange={handleNetworkChange}
 
         />}
-        {isModalOpen && <ConnectWalletModal handleClickOpen={props.handleClickOpen}/>}
+        {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
       
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
       
