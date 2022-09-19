@@ -7,7 +7,7 @@ export const protobufPackage = "quicksilver.airdrop.v1";
 
 export interface MsgClaim {
   chainId: string;
-  action: number;
+  action: Long;
   address: string;
   proofs: Proof[];
 }
@@ -24,7 +24,7 @@ export interface Proof {
 }
 
 function createBaseMsgClaim(): MsgClaim {
-  return { chainId: "", action: 0, address: "", proofs: [] };
+  return { chainId: "", action: Long.ZERO, address: "", proofs: [] };
 }
 
 export const MsgClaim = {
@@ -32,8 +32,8 @@ export const MsgClaim = {
     if (message.chainId !== "") {
       writer.uint32(10).string(message.chainId);
     }
-    if (message.action !== 0) {
-      writer.uint32(16).int32(message.action);
+    if (!message.action.isZero()) {
+      writer.uint32(16).int64(message.action);
     }
     if (message.address !== "") {
       writer.uint32(26).string(message.address);
@@ -55,7 +55,7 @@ export const MsgClaim = {
           message.chainId = reader.string();
           break;
         case 2:
-          message.action = reader.int32();
+          message.action = reader.int64() as Long;
           break;
         case 3:
           message.address = reader.string();
@@ -74,7 +74,7 @@ export const MsgClaim = {
   fromJSON(object: any): MsgClaim {
     return {
       chainId: isSet(object.chainId) ? String(object.chainId) : "",
-      action: isSet(object.action) ? Number(object.action) : 0,
+      action: isSet(object.action) ? Long.fromValue(object.action) : Long.ZERO,
       address: isSet(object.address) ? String(object.address) : "",
       proofs: Array.isArray(object?.proofs) ? object.proofs.map((e: any) => Proof.fromJSON(e)) : [],
     };
@@ -83,7 +83,7 @@ export const MsgClaim = {
   toJSON(message: MsgClaim): unknown {
     const obj: any = {};
     message.chainId !== undefined && (obj.chainId = message.chainId);
-    message.action !== undefined && (obj.action = Math.round(message.action));
+    message.action !== undefined && (obj.action = (message.action || Long.ZERO).toString());
     message.address !== undefined && (obj.address = message.address);
     if (message.proofs) {
       obj.proofs = message.proofs.map((e) => e ? Proof.toJSON(e) : undefined);
@@ -96,7 +96,9 @@ export const MsgClaim = {
   fromPartial<I extends Exact<DeepPartial<MsgClaim>, I>>(object: I): MsgClaim {
     const message = createBaseMsgClaim();
     message.chainId = object.chainId ?? "";
-    message.action = object.action ?? 0;
+    message.action = (object.action !== undefined && object.action !== null)
+      ? Long.fromValue(object.action)
+      : Long.ZERO;
     message.address = object.address ?? "";
     message.proofs = object.proofs?.map((e) => Proof.fromPartial(e)) || [];
     return message;

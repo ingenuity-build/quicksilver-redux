@@ -17,7 +17,7 @@ import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector } from '../slices/quicksilver';
+import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setClient, setQuicksilverAddress } from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
@@ -78,6 +78,8 @@ const connectKeplr = async () => {
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
     // @ts-expect-error
     dispatch(setQSWallet(key, val));
+        // @ts-expect-error
+        dispatch(setClient(val));
      // @ts-expect-error
     dispatch(setQSWalletConnected())
        
@@ -104,14 +106,16 @@ const fetchKeplrDetails = async (val: any) => {
      
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
+                  // @ts-expect-error
+    dispatch(setQuicksilverAddress(bech32));
     }
 }
 
   return (
     <>
-    <div className="img-logo text-center">
+    {/* <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
-    </div>
+    </div> */}
   {location.pathname !== '/' && <Navbar loading={loading} setLoading={setLoading} handleClickOpen={handleClickOpen} />}
    <Routes>
                       <Route path="/" element={<Landing/>}/>
