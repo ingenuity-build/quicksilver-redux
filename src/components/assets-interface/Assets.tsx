@@ -25,7 +25,7 @@ params['uqstars'] = qStar
 
 
 export default function Assets() {
-  const [sum, setsum] = useState(0);
+  const [sum, setsum] = useState<number>(0);
   const [showAssets, setShowAssets] = useState(true);
 
   const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
@@ -33,7 +33,8 @@ export default function Assets() {
 
   useEffect(() => {
 
-  fetchSum()
+  fetchSum();
+  console.log(sum);
 
   }, [balances, networks])
 
@@ -51,7 +52,8 @@ export default function Assets() {
          amount = 0.5;
       }
       // console.log(amount);
-      fetchData(curr.coinMinimalDenom, amount)
+      fetchData(curr.coinMinimalDenom, amount);
+  
     
       } 
       catch(err) {
@@ -72,19 +74,19 @@ export default function Assets() {
   // }
   
 
-  const fetchData = (id: any, amount: any) => {
+  const fetchData = (id: any, amount: number) => {
     console.log(id, amount)
-    let balance = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
+    let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
           if(id !== 'uqck') {
-           let network = networks.find((y:any) => y.value.local_denom === id); 
-           let redemptionRate = +(network?.value.redemption_rate);
+           let network  = networks.find((y:any) => y.value.local_denom === id); 
+           let redemptionRate : number = +(network?.value.redemption_rate);
 
-           console.log( redemptionRate * balance * amount)
-
-           setsum((prev) => prev + (amount * balance * redemptionRate))
+            if(network && redemptionRate && balance && amount) {
+           setsum((prev) => +prev + (amount * balance * redemptionRate))
+            }
           }
-          if(id === 'uqck') {
-            setsum((prev) => prev + (amount * balance))
+          if(id === 'uqck' && amount && balance) {
+            setsum((prev) => +prev + (amount * balance))
             
           }
           // if(x.denom !== 'uqck') {
@@ -111,11 +113,12 @@ export default function Assets() {
 
   </div>
   <h3 className="mt-5">My Assets</h3> 
-    <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across quicksilver chain</h5>
+   {sum && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across quicksilver chain</h5>}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
-  {balances.map((bal: Coin) =>
-          <>
-            <div className="asset-card col-3 m-3">
+  {balances.map((bal: Coin, i: number) =>
+       
+            <div className="asset-card col-3 m-3" key={i}>
+     
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
@@ -127,7 +130,7 @@ export default function Assets() {
             </div>
 
          
-          </>
+    
   
 )}
 
