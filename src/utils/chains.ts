@@ -23,7 +23,7 @@ const Chains : { [index:string] : ChainInfo[] } = {
 
 export const QuickSilverChainInfo : ChainInfo =  QuickSilverChains[env.NODE_ENV] 
 
-const ChainInfos: ChainInfo[] =  Chains[env.NODE_ENV] 
+export const ChainInfos: ChainInfo[] =  Chains[env.NODE_ENV] 
 
 export const initKeplr = async (fn: Function):Promise<void> => { 
     const keplr = await getKeplrFromWindow();

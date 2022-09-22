@@ -108,7 +108,6 @@ export default function SummaryValidators() {
             <h5 className="mt-4"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</span></h5>
             <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(8)} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></h5>
             <h5>qTokens Received:  <span className="font-bold">{stakingAmount/(selectedNetwork?.redemption_rate)}</span></h5>
-            <p> {selectedNetwork?.redemption_rate}</p>
             <h6 className="mt-4"> Validator List: </h6>
         {renderValidators()}
         

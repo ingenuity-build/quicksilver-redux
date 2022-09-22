@@ -23,10 +23,11 @@ import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
-
+import { useParams } from "react-router-dom";
 
 function useIdle(options: any) {
   const [isIdle, setIsIdle] = React.useState(false)
+
   React.useEffect(() => {
     const activityDetector = createActivityDetector(options)
     activityDetector.on('idle', () => setIsIdle(true) )
@@ -45,6 +46,7 @@ function App() {
   const isIdle = useIdle({timeToIdle: 1800000});
   const [loading, setLoading] = React.useState(false);
   const [val, setVal] = React.useState<SigningStargateClient>();
+  let params = useParams();
 
 
 
@@ -55,7 +57,6 @@ function App() {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchKeplrDetails(val);
-          console.log('hey');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
     }, 6000)
@@ -72,22 +73,27 @@ connectKeplr();
 }
 };
 
+React.useEffect(() => {
+  console.log(location);
+  if(params.zone && params.address) {
+    handleClickOpen();
+  }
+}, [])
 
 const connectKeplr = async () => {
   setLoading(true);
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
     // @ts-expect-error
     dispatch(setQSWallet(key, val));
-     // @ts-expect-error
-    dispatch(setQSWalletConnected())
-       
+
     setVal(val);
-        fetchKeplrDetails(val)
+    fetchKeplrDetails(val)
          // @ts-expect-error
   dispatch(setModalClose());
   setLoading(false);
-         // @ts-expect-error
-  dispatch(increaseStakingStep());
+
+  //        // @ts-expect-error
+  // dispatch(increaseStakingStep());
 
   });
 
@@ -104,6 +110,8 @@ const fetchKeplrDetails = async (val: any) => {
      
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
+               // @ts-expect-error
+       dispatch(setQSWalletConnected())
     }
 }
 
@@ -118,6 +126,7 @@ const fetchKeplrDetails = async (val: any) => {
                 
                       <Route path="/stake" element={<Stake/>} >
           <Route path="delegate" element={<Delegate/>} />
+          <Route path="delegate/:zone/:address" element={<Delegate handleClickOpen={handleClickOpen}/> } />
           <Route path="undelegate" element={<Undelegate />} />
           <Route path="redelegate" element={<Redelegate />} /> 
         </Route>
