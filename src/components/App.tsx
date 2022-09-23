@@ -92,8 +92,8 @@ const connectKeplr = async () => {
   dispatch(setModalClose());
   setLoading(false);
 
-  //        // @ts-expect-error
-  // dispatch(increaseStakingStep());
+         // @ts-expect-error
+  dispatch(increaseStakingStep());
 
   });
 
