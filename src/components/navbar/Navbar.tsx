@@ -182,17 +182,17 @@ export default function Navbar(props: PropComponent) {
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" onClick={ (event) => event.preventDefault() }>ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" >AIRDROP</Link> 
+      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
       
       </li>
-      <li className="nav-item mx-4">
+      {/* <li className="nav-item mx-4">
       <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
-      </li>
+      </li> */}
 
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
