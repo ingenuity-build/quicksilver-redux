@@ -72,7 +72,8 @@ useEffect(() => {
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
-  onClick={() =>  console.log(networkAddress)}>
+  onClick={() => {navigator.clipboard.writeText(networkAddress)}}
+  >
   Copy
 </button></h6>}
   <div className="row wallet-content mt-4">
