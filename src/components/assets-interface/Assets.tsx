@@ -34,7 +34,7 @@ export default function Assets() {
   useEffect(() => {
 
   fetchSum();
-  console.log(sum);
+  console.log('HEYYYY');
 
   }, [balances, networks])
 

@@ -45,10 +45,11 @@ useEffect(() => {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
-    } else 
-    {
-      setZoneBalance(0);
-    }
+    } 
+   else 
+         {
+           setZoneBalance(0);
+         }
 
 }
 }, [networkBalances, selectedNetwork])
@@ -83,7 +84,7 @@ useEffect(() => {
     <div className="col-3 text-center">
     <h5 className="font-bold">{QCKBalance}</h5>
       {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>}
-
+      {}
     </div>
 
   </div>

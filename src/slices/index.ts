@@ -10,6 +10,7 @@ import stakingAllocationReducer from './allocation';
 import existingDelegationsReducer from './existingDelegations';
 import connectWalletModalReducer from './connectWalletModal'
 import poolsReducer from './pools'
+import unbondingReducer from './unbonding';
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   stakingAllocation: stakingAllocationReducer,
   existingDelegations: existingDelegationsReducer,
   connectWalletModal: connectWalletModalReducer,
-  osmosisPools: poolsReducer
+  osmosisPools: poolsReducer,
+  unbondings: unbondingReducer
 })
 
 export default rootReducer;
