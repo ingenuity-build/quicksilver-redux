@@ -32,9 +32,9 @@ export default function Assets() {
   const { networks } = useSelector(networksSelector);
 
   useEffect(() => {
-
+    if(!sum) {
   fetchSum();
-  console.log('HEYYYY');
+    }
 
   }, [balances, networks])
 
