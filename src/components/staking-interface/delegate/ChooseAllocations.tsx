@@ -7,16 +7,19 @@ import { validatorListSelector} from "../../../slices/validatorList";
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import {increaseStakingStep, decreaseStakingStep} from '../../../slices/stakingActiveStep';
 import './ChooseAllocations.css';
+import { useParams } from "react-router-dom";
 
 export default function ChooseAllocations() {
     const dispatch = useDispatch();
     const [allocationProp, setAllocationProp] = useState<any>({});
-
+    const [errorValidatorMsg, setErrorValidatorMsg] = useState(false);
+    const [validatorRedirectVar, setValidatorRedirectVar] = useState(false);
+    let params = useParams();
     const isMax = useRef(false);
     const [isMaxClicked, setisMaxClicked] = useState(false);;
     const [showMaxMsg, setShowMaxMsg] = React.useState(false);
 
-    const {selectedValidatorList} = useSelector(validatorListSelector);
+    const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
     const {stakingAmount, stakingAllocationProp} = useSelector(stakingAllocationSelector)
  
     const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
@@ -27,11 +30,13 @@ export default function ChooseAllocations() {
 
     const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
+  const [validatorRedirect, setValidatorRedirect] = useState('');
   
+
 
   useEffect(() => {
     if(balances !== []) {
-         let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
+         let balance = balances.find((bal: any) => bal.denom === selectedNetwork?.local_denom);
          if(balance) {
           console.log(balance)
           setQCKBalance((balance.amount)/1000000);
@@ -44,7 +49,7 @@ export default function ChooseAllocations() {
 useEffect(() => {
 
   if(networkBalances !== []) {
-    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
+    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork?.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
     }
@@ -61,11 +66,6 @@ useEffect(() => {
             }, allocationProp);
             setSum(100);
             setAllocationProp(temp);
-        // selectedValidatorList.forEach((x: any) => {      
-        //     let newAllocationProp : any = {...allocationProp};
- 
-        // newAllocationProp[x.address]['value'] = +(value/stakingAmount) * 100;
-        // setAllocationProp(newAllocationProp) }) ;
         } else if(selectedValidatorList.length === 1) {
             let temp =  selectedValidatorList.reduce((acc: any, curr: any) => {
                 acc[curr.address] = {...curr, value: 100}
@@ -74,10 +74,32 @@ useEffect(() => {
             setAllocationProp(temp);
             console.log(temp)
             setSum(100);
-        }
-         // @ts-expect-error
+        } else if(params.zone && params.address) {
+            if(validatorList) {
+                let validator;
+            validator = validatorList.find((y:any) => y.address === params.address); 
+            if(validator === undefined)  {
+                console.log(validator);
+                setValidatorRedirectVar(true);
+            }
+            if(validator !== undefined) {
+                setValidatorRedirect(validator?.name);
+                setValidatorRedirectVar(false);
+            }        
+       
+            let valAdd = validator?.address;
+            var temp : any = {};
+             temp[valAdd] = {...validator, value: 100}}
+             setAllocationProp(temp)
+            console.log('VARR', temp)
+            setSum(100);
+            }
+            
+        
+
+         // @ts-expect-errors
          dispatch(setStakingAmount(1))            
-    }, [])
+    }, [validatorList])
 
     useEffect(() => {
         console.log('Checking use Effect');
@@ -242,30 +264,16 @@ useEffect(() => {
     }
     return (
     <div className="allocation-pane d-flex flex-column align-items-center">
- {/* {networkAddress && selectedNetwork !== "Select a network" && balances && <div className="wallet-details d-flex flex-column mt-3">
-                <h4> My Wallet</h4>
-                <h6>{networkAddress}</h6>
-                <div className="row wallet-content mt-4">
-                <div className="col-3 text-center">
-                       <h5 className="font-bold">{zoneBalance}</h5>
-                       <p> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</p>
-                    </div>
-                    <div className="col-3 text-center">
-                    <h5 className="font-bold">{QCKBalance}</h5>
-                    <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>
-                        </div>
-                  
-                </div>
-            </div> } */}
+        {!validatorRedirectVar && <>
            {zoneBalance <= 0.5 &&  <div className="mt-3">
-                You don't have enough   {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to stake! 
+                You don't have enough   {selectedNetwork?.base_denom?.charAt(1).toUpperCase() + selectedNetwork?.base_denom?.slice(2)} to stake! 
             </div>}
            {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4>Stake</h4> 
-                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
+                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork?.base_denom?.charAt(1).toUpperCase() + selectedNetwork?.base_denom?.slice(2)} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork?.base_denom.charAt(1).toUpperCase() + selectedNetwork?.base_denom.slice(2)} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
             
-                    <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
+                    <p className="m-0 mx-3"> Number of {selectedNetwork?.base_denom?.charAt(1).toUpperCase() + selectedNetwork?.base_denom?.slice(2)}  to: {validatorRedirect} </p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
@@ -274,17 +282,20 @@ useEffect(() => {
                 <div className="d-flex flex-column align-items-end mt-2">
                 {selectedValidatorList.length > 1 && renderValidators()}
                 </div>
-                {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} to cover future transaction fees</p> }
+                {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork?.base_denom?.charAt(1).toUpperCase() + selectedNetwork?.base_denom?.slice(2)} to cover future transaction fees</p> }
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
             {stakingAmount> ((zoneBalance) - 0.3) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6) } atom ` : ''}
             { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available atoms. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
             { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of atoms to continue </p>}
        </div>}
+
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
         <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 1 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
+</>}
+{validatorRedirectVar && <h4 className="mt-5 text-center"> Please check the zone ID and the valoper address! </h4>}
         </div> 
     );
     

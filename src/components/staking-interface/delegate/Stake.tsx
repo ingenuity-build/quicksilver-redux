@@ -70,7 +70,7 @@ export default function Stake() {
             </div>
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
-        <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
+        <Link to="delegate"  className={`${location.pathname.includes('/stake/delegate') ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
         <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Redelegate</Link>
         <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
         </div>

@@ -55,6 +55,7 @@ export default function Navbar(props: PropComponent) {
   const isIdle = useIdle({timeToIdle: 1800000});
   const [val, setVal] = React.useState<SigningStargateClient>();
 
+
   const { networks, loading, hasErrors } = useSelector(networksSelector);
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
  const {networkAddress} = useSelector(selectedNetworkWalletSelector);
