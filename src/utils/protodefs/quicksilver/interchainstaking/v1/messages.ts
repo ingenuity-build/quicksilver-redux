@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { ValidatorIntent } from "./genesis";
+import { ValidatorIntent } from "./interchainstaking";
 
 export const protobufPackage = "quicksilver.interchainstaking.v1";
 
