@@ -20,11 +20,11 @@ const store = configureStore({ reducer: rootReducer,
   getDefaultMiddleware({
     serializableCheck: {
       // Ignore these action types
-      ignoredActions: ['quicksilver-wallet/setWalletQSSuccess', 'selected-network-wallet/setWalletNetworkSuccess', 'selected-network-wallet/setClientSuccess'],
+      ignoredActions: ['quicksilver-wallet/setWalletQSSuccess',  'quicksilver-wallet/setClientSuccess', 'quicksilver-wallet/setQuicksilverAddressSuccess','selected-network-wallet/setWalletNetworkSuccess', 'selected-network-wallet/setClientSuccess'],
       // Ignore these field paths in all actions
       ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
       // Ignore these paths in the state
-      ignoredPaths: ['quicksilver.balances', 'selectedNetworkWallet.client', 'quicksilver.walletQS', 'selectedNetworkWallet.networkBalances', 'selectedNetworkWallet.networkWallet'],
+      ignoredPaths: ['quicksilver.balances', 'selectedNetworkWallet.client', 'quicksilver.walletQS', 'selectedNetworkWallet.networkBalances', 'selectedNetworkWallet.networkWallet',  'quicksilver.quicksilverClient' , 'quicksilver.quicksilverAddress'],
     },
   }), },
   )

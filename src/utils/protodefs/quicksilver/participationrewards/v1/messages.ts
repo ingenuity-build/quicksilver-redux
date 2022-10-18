@@ -13,18 +13,23 @@ export interface MsgSubmitClaim {
   userAddress: string;
   zone: string;
   proofType: Long;
-  key: Uint8Array[];
-  data: Uint8Array[];
-  proofOps: ProofOps[];
-  height: Long;
+  proofs: Proof[];
 }
 
 /** MsgSubmitClaimResponse defines the MsgSubmitClaim response type. */
 export interface MsgSubmitClaimResponse {
 }
 
+/** Proof defines a type used to cryptographically prove a claim. */
+export interface Proof {
+  key: Uint8Array;
+  data: Uint8Array;
+  proofOps?: ProofOps;
+  height: Long;
+}
+
 function createBaseMsgSubmitClaim(): MsgSubmitClaim {
-  return { userAddress: "", zone: "", proofType: Long.ZERO, key: [], data: [], proofOps: [], height: Long.ZERO };
+  return { userAddress: "", zone: "", proofType: Long.ZERO, proofs: [] };
 }
 
 export const MsgSubmitClaim = {
@@ -38,17 +43,8 @@ export const MsgSubmitClaim = {
     if (!message.proofType.isZero()) {
       writer.uint32(24).int64(message.proofType);
     }
-    for (const v of message.key) {
-      writer.uint32(34).bytes(v!);
-    }
-    for (const v of message.data) {
-      writer.uint32(42).bytes(v!);
-    }
-    for (const v of message.proofOps) {
-      ProofOps.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
-    if (!message.height.isZero()) {
-      writer.uint32(56).int64(message.height);
+    for (const v of message.proofs) {
+      Proof.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -70,16 +66,7 @@ export const MsgSubmitClaim = {
           message.proofType = reader.int64() as Long;
           break;
         case 4:
-          message.key.push(reader.bytes());
-          break;
-        case 5:
-          message.data.push(reader.bytes());
-          break;
-        case 6:
-          message.proofOps.push(ProofOps.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.height = reader.int64() as Long;
+          message.proofs.push(Proof.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -94,10 +81,7 @@ export const MsgSubmitClaim = {
       userAddress: isSet(object.userAddress) ? String(object.userAddress) : "",
       zone: isSet(object.zone) ? String(object.zone) : "",
       proofType: isSet(object.proofType) ? Long.fromValue(object.proofType) : Long.ZERO,
-      key: Array.isArray(object?.key) ? object.key.map((e: any) => bytesFromBase64(e)) : [],
-      data: Array.isArray(object?.data) ? object.data.map((e: any) => bytesFromBase64(e)) : [],
-      proofOps: Array.isArray(object?.proofOps) ? object.proofOps.map((e: any) => ProofOps.fromJSON(e)) : [],
-      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+      proofs: Array.isArray(object?.proofs) ? object.proofs.map((e: any) => Proof.fromJSON(e)) : [],
     };
   },
 
@@ -106,22 +90,11 @@ export const MsgSubmitClaim = {
     message.userAddress !== undefined && (obj.userAddress = message.userAddress);
     message.zone !== undefined && (obj.zone = message.zone);
     message.proofType !== undefined && (obj.proofType = (message.proofType || Long.ZERO).toString());
-    if (message.key) {
-      obj.key = message.key.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
+    if (message.proofs) {
+      obj.proofs = message.proofs.map((e) => e ? Proof.toJSON(e) : undefined);
     } else {
-      obj.key = [];
+      obj.proofs = [];
     }
-    if (message.data) {
-      obj.data = message.data.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
-    } else {
-      obj.data = [];
-    }
-    if (message.proofOps) {
-      obj.proofOps = message.proofOps.map((e) => e ? ProofOps.toJSON(e) : undefined);
-    } else {
-      obj.proofOps = [];
-    }
-    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
     return obj;
   },
 
@@ -132,12 +105,7 @@ export const MsgSubmitClaim = {
     message.proofType = (object.proofType !== undefined && object.proofType !== null)
       ? Long.fromValue(object.proofType)
       : Long.ZERO;
-    message.key = object.key?.map((e) => e) || [];
-    message.data = object.data?.map((e) => e) || [];
-    message.proofOps = object.proofOps?.map((e) => ProofOps.fromPartial(e)) || [];
-    message.height = (object.height !== undefined && object.height !== null)
-      ? Long.fromValue(object.height)
-      : Long.ZERO;
+    message.proofs = object.proofs?.map((e) => Proof.fromPartial(e)) || [];
     return message;
   },
 };
@@ -177,6 +145,88 @@ export const MsgSubmitClaimResponse = {
 
   fromPartial<I extends Exact<DeepPartial<MsgSubmitClaimResponse>, I>>(_: I): MsgSubmitClaimResponse {
     const message = createBaseMsgSubmitClaimResponse();
+    return message;
+  },
+};
+
+function createBaseProof(): Proof {
+  return { key: new Uint8Array(), data: new Uint8Array(), proofOps: undefined, height: Long.ZERO };
+}
+
+export const Proof = {
+  encode(message: Proof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key.length !== 0) {
+      writer.uint32(10).bytes(message.key);
+    }
+    if (message.data.length !== 0) {
+      writer.uint32(18).bytes(message.data);
+    }
+    if (message.proofOps !== undefined) {
+      ProofOps.encode(message.proofOps, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.height.isZero()) {
+      writer.uint32(32).int64(message.height);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): Proof {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProof();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = reader.bytes();
+          break;
+        case 2:
+          message.data = reader.bytes();
+          break;
+        case 3:
+          message.proofOps = ProofOps.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.height = reader.int64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Proof {
+    return {
+      key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      proofOps: isSet(object.proofOps) ? ProofOps.fromJSON(object.proofOps) : undefined,
+      height: isSet(object.height) ? Long.fromValue(object.height) : Long.ZERO,
+    };
+  },
+
+  toJSON(message: Proof): unknown {
+    const obj: any = {};
+    message.key !== undefined
+      && (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
+    message.data !== undefined
+      && (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    message.proofOps !== undefined && (obj.proofOps = message.proofOps ? ProofOps.toJSON(message.proofOps) : undefined);
+    message.height !== undefined && (obj.height = (message.height || Long.ZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<Proof>, I>>(object: I): Proof {
+    const message = createBaseProof();
+    message.key = object.key ?? new Uint8Array();
+    message.data = object.data ?? new Uint8Array();
+    message.proofOps = (object.proofOps !== undefined && object.proofOps !== null)
+      ? ProofOps.fromPartial(object.proofOps)
+      : undefined;
+    message.height = (object.height !== undefined && object.height !== null)
+      ? Long.fromValue(object.height)
+      : Long.ZERO;
     return message;
   },
 };

@@ -33,13 +33,13 @@ export const initKeplr = async (fn: Function):Promise<void> => {
             .enable(val.chainId)
             .then(async () => { 
                 let signer = keplr.getOfflineSignerOnlyAmino(val.chainId); 
-                let offlineSigner = await SigningStargateClient.connectWithSigner(val.rpc, signer)
+                let offlineSigner = await SigningStargateClient.connectWithSigner(val.rpc, signer, options)
                 fn(val.chainId, offlineSigner)
                 console.log("Enabled for chainid " + val.chainId)
             }, (reason) => { 
                 keplr.experimentalSuggestChain(val).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(val.chainId); 
-                    let offlineSigner = await SigningStargateClient.connectWithSigner(val.rpc, signer);
+                    let offlineSigner = await SigningStargateClient.connectWithSigner(val.rpc, signer, options);
                     fn(val.chainId, offlineSigner)
                     console.log("Added to Keplr for chainid " + val.chainId) 
                 }) 
@@ -57,13 +57,13 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
             .enable(QuickSilverChainInfo.chainId)
             .then(async () => { 
                 let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
-                let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer)
+                let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer, options)
                 fn(QuickSilverChainInfo.chainId, offlineSigner)
                 console.log("Enabled for chainid " + QuickSilverChainInfo.chainId)
             }, (reason: any) => { 
                 keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
-                    let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer)
+                    let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer, options)
                     fn(QuickSilverChainInfo.chainId, offlineSigner)
                     console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
                 }) 
