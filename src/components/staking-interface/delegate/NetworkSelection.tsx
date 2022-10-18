@@ -45,10 +45,11 @@ useEffect(() => {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
-    } else 
-    {
-      setZoneBalance(0);
-    }
+    } 
+   else 
+         {
+           setZoneBalance(0);
+         }
 
 }
 }, [networkBalances, selectedNetwork])
@@ -72,7 +73,8 @@ useEffect(() => {
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
-  onClick={() =>  console.log(networkAddress)}>
+  onClick={() => {navigator.clipboard.writeText(networkAddress)}}
+  >
   Copy
 </button></h6>}
   <div className="row wallet-content mt-4">
@@ -83,7 +85,7 @@ useEffect(() => {
     <div className="col-3 text-center">
     <h5 className="font-bold">{QCKBalance}</h5>
       {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>}
-
+      {}
     </div>
 
   </div>
@@ -96,7 +98,6 @@ useEffect(() => {
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
 </div>
-      {validatorList.length}
 {!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>}
 
 </div>

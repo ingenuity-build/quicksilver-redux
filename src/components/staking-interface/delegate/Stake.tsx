@@ -16,7 +16,9 @@ export default function Stake() {
      
             <div className="staking-interface row mx-0">
             <div className="stepper col-2 d-flex flex-column ">
-            <div className="step d-flex mt-5 ml-4 mb-1">
+          
+             {location.pathname === '/stake/delegate' && <>
+              <div className="step d-flex mt-5 ml-4 mb-1">
       <div className="d-flex flex-column pr-4 align-items-center">
      <img className="logo" alt="Quicksilver logo" src={LogoWhite}/>
         <div className="line h-100"></div>
@@ -67,7 +69,9 @@ export default function Stake() {
 								</a>
         </div>
               
+              </>}
             </div>
+
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
         <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
