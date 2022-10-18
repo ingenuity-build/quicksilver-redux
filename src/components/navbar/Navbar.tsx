@@ -182,7 +182,7 @@ export default function Navbar(props: PropComponent) {
    
       <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" onClick={ (event) => event.preventDefault() }>ASSETS</Link> 
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">

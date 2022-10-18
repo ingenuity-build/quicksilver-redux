@@ -5,10 +5,12 @@ import { GeneratedType, Registry} from "@cosmjs/proto-signing";
 
 import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
 import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
+import { MsgSubmitClaim, ClaimProof } from "./protodefs/quicksilver/participationrewards/v1/messages";
 
 
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
+import { ClaimType } from "./protodefs/quicksilver/participationrewards/v1/participationrewards";
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
@@ -155,6 +157,44 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     }
   }
 
+  export function createMsgSubmitClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
+    return {
+      "/quicksilver.participationrewards.v1.MsgSubmitClaim": {
+        aminoType: "quicksilver/MsgSubmitClaim",
+        toAmino: ({
+          userAddress,
+          zone,
+          srcZone,
+          claimType,
+          proofs
+
+        }: MsgSubmitClaim): AminoMsgSubmitClaim["value"] => {
+          return {
+           user_address: userAddress,
+            zone: zone,
+            src_zone: srcZone,
+            claim_type: claimType,
+            proofs: proofs
+          };
+        },
+        fromAmino: ({
+          user_address,
+          zone,
+          src_zone,
+          claim_type,
+          proofs
+        }: AminoMsgSubmitClaim["value"]): MsgSubmitClaim => ({
+          userAddress: user_address,
+          zone: zone,
+          srcZone: src_zone,
+          claimType: claim_type,
+          proofs: proofs
+
+        }),
+      }
+    }
+  }
+
   /**
    * 
   // Initial claim action
@@ -237,6 +277,18 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     };
   }
 
+  export interface AminoMsgSubmitClaim extends AminoMsg {
+    readonly type: "quicksilver/MsgSubmitClaim";
+    readonly value: {
+      readonly user_address: string;
+      readonly zone: string;
+      readonly src_zone: string;
+      readonly claim_type: ClaimType;
+      readonly proofs: ClaimProof[]
+    }
+  }
+
+
   export interface AminoMsgClaim extends AminoMsg {
     readonly type: "quicksilver/MsgClaim";
     readonly value: {
@@ -269,7 +321,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createFreegrantAminoConverters(),
       ...createLiquidStakingTypes(),
       ...createMsgRequestRedemptions(),
-      ...createMsgClaim()
+      ...createMsgClaim(),
+      ...createMsgSubmitClaim()
     };
   }
    
@@ -355,6 +408,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
     ["/quicksilver.airdrop.v1.MsgClaim", MsgClaim],
+    ["/quicksilver.participationrewards.v1.MsgSubmitClaim", MsgSubmitClaim],
     
    ...defaultRegistryTypes
  ];

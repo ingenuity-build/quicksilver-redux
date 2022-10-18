@@ -15,7 +15,7 @@ export interface MsgSubmitClaim {
   zone: string;
   srcZone: string;
   claimType: ClaimType;
-  proofs: Proof[];
+  proofs: ClaimProof[];
 }
 
 /** MsgSubmitClaimResponse defines the MsgSubmitClaim response type. */
@@ -23,7 +23,7 @@ export interface MsgSubmitClaimResponse {
 }
 
 /** Proof defines a type used to cryptographically prove a claim. */
-export interface Proof {
+export interface ClaimProof {
   key: Uint8Array;
   data: Uint8Array;
   proofOps?: ProofOps;
@@ -159,12 +159,12 @@ export const MsgSubmitClaimResponse = {
   },
 };
 
-function createBaseProof(): Proof {
+function createBaseProof(): ClaimProof {
   return { key: new Uint8Array(), data: new Uint8Array(), proofOps: undefined, height: Long.ZERO, proofType: "" };
 }
 
 export const Proof = {
-  encode(message: Proof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: ClaimProof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
     }
@@ -183,7 +183,7 @@ export const Proof = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Proof {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ClaimProof {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProof();
@@ -213,7 +213,7 @@ export const Proof = {
     return message;
   },
 
-  fromJSON(object: any): Proof {
+ fromJSON(object: any): ClaimProof {
     return {
       key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
@@ -223,7 +223,7 @@ export const Proof = {
     };
   },
 
-  toJSON(message: Proof): unknown {
+  toJSON(message: ClaimProof): unknown {
     const obj: any = {};
     message.key !== undefined
       && (obj.key = base64FromBytes(message.key !== undefined ? message.key : new Uint8Array()));
@@ -235,7 +235,7 @@ export const Proof = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Proof>, I>>(object: I): Proof {
+  fromPartial<I extends Exact<DeepPartial<ClaimProof>, I>>(object: I): ClaimProof {
     const message = createBaseProof();
     message.key = object.key ?? new Uint8Array();
     message.data = object.data ?? new Uint8Array();
