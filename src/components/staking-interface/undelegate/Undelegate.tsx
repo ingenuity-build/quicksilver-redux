@@ -7,10 +7,10 @@ import { selectedNetworkSelector } from "../../../slices/selectedNetwork";
 import { fetchUnbondings, unbondingsSelector } from "../../../slices/unbonding";
 import { epochsSelector, fetchEpoch } from '../../../slices/epoch';
 import Moment from 'moment';
-
-import { coins } from "@cosmjs/launchpad"
 import './Undelegate.css';
-import { normalize } from 'path';
+import Collapsible from 'react-collapsible';
+import { SpinnerCircular } from 'spinners-react';
+
 export default function Undelegate() {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {isQSWalletConnected, balances, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
@@ -21,6 +21,8 @@ export default function Undelegate() {
     const [epochStartTime, setEpochStartTime] = useState("");
     const [epochDuration, setEpochDuration] = useState("")
     const [QCKBalance, setQCKBalance] = useState(0);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState('');
     const [transactionSuccessful, setTransactionSuccessful] = useState(false);
     const [time, setTime] = useState(new Date());
     const [unbondingSum, setUnbondingSum] = useState(0);
@@ -51,17 +53,11 @@ useEffect(() => {
     let epoch =  epochs.find((y:any) => y.identifier === "epoch"); 
 
      const date = new Date(epoch?.current_epoch_start_time);
-     console.log('DATE', date);
      let unbondingPeriod = +(selectedNetwork?.unbonding_period)/1000000000;
-     console.log('unbonding period', unbondingPeriod);
      let duration = +(epoch?.duration.slice(0, -1))
-     console.log('duration', duration)
-    //  console.log('date', date.setSeconds(date.getSeconds() + duration + unbondingPeriod));
     let time = unbondingPeriod + duration;
     let finalTime = addSeconds(time, date);
     setTime(finalTime)
-    //  let xyz =   date.setSeconds(date.getSeconds() + +(epoch?.duration.slice(0, -1)) + unbondingPeriod);
-    //  console.log(xyz);
   }
 }, [epochs, selectedNetwork])
 
@@ -87,6 +83,11 @@ function addSeconds(numOfSeconds: any, date = new Date()) {
 
   return date;
 }
+
+const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
+
+setUnstakingAmount(QCKBalance);
+}
     const Unbond =  async (actionID: any) => {
 
         let msg =  {typeUrl: "/quicksilver.interchainstaking.v1.MsgRequestRedemption",
@@ -100,6 +101,9 @@ function addSeconds(numOfSeconds: any, date = new Date()) {
         destinationAddress: networkAddress
       }
     }
+    try {
+      setLoading(true);
+
         const broadcastResult = await quicksilverClient.signAndBroadcast(
            quicksilverAddress,
             [msg],
@@ -114,13 +118,17 @@ function addSeconds(numOfSeconds: any, date = new Date()) {
             },
             'MEMO'
           );
-          console.log(broadcastResult);
           if(broadcastResult.code === 0 ) {
+            setLoading(false);
             setTransactionSuccessful(true);
                   // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
-       
       }
+    } catch(err: any) {
+      setLoading(false);
+      console.log(err);
+      setError('The transaction failed! Please try again.');
+    }
       }
     return (
         <>
@@ -140,44 +148,69 @@ function addSeconds(numOfSeconds: any, date = new Date()) {
         {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
    
         <div className='mt-5'>
-        <h3 className="mt-5 mb-5 text-center">Unbond your qAtom tokens in exchange for Atomssss </h3>
-        {withdrawals.length}
-        <br/>
-        {unbondingSum}
-        {withdrawals.map((row: any) =>
-          <>
-           
-                <div className="d-flex align-items-start"> 
-                     {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
-               <div className="card-details">
-           
-                <h6> {row?.amount[0].amount/1000000} {row?.amount[0].denom} </h6>
-                {row.status === 1 && <p> A few minutes later.. </p>}
-                {row.status === 2 && <p> {Moment(time).format('MMMM Do YYYY, h:mm:ss')}</p>} 
-                {row.status === 3 && <p> {new Date(row.completion_time).toLocaleString()}</p>}
-                {row.status === 4 && <p> A few minutes later..</p>}
-                {row.status === 5 && <p> Completed</p>}
+        <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} in exchange for  {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</h3>
+          <div>
+            <div className="col-8 m-auto">
+          <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}>
+          
+<table className="table mt-3">
 
+  <tbody className="mt-3">
+  {withdrawals.map((row: any) =>
+          <>
+
+         
+                <tr>
+      <td>{row?.amount[0].amount/1000000} {row?.amount[0].denom} </td>
+                {row.status === 1 && <td> A few minutes later.. </td>}
+                {row.status === 2 && <td> {Moment(time).format('MMMM Do YYYY, h:mm a')}</td>} 
+                {row.status === 3 && <td>{Moment(row.completion_time).format('MMMM Do YYYY, h:mm a').toLocaleString()} </td>}
+                {row.status === 4 && <td> A few minutes later..</td>}
+                {row.status === 5 && <td> Completed</td>}
+                {row.status === 1 && <td> Tokenize </td>}
+                {row.status === 2 && <td> Queued</td>} 
+                {row.status === 3 && <td> Unbonding</td>}
+                {row.status === 4 && <td> Sending</td>}
+                {row.status === 5 && <td> Completed</td>}
+    </tr>
+          
+               
+           
       
-                </div>
+   
        
 
-            </div>
+            
          
           </>
   
+
 )}
+   
+  </tbody>
+</table>
+  
+    </Collapsible>
+    </div>  
+
+</div>
         <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</span></h5>
         </div>
 
         <div className="d-flex mt-3 align-items-center justify-content-center">
                     <p className="m-0 mx-3"> Number of  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2 ).toUpperCase() + selectedNetwork.local_denom.slice(3)} you want to unbond:</p>
                     <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
+                    <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                     {/* <button className="mx-3 p-1 max-button"> MAX </button>  */}
                 </div>
                 <div className="d-flex justify-content-center">
         <button className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
- <p> Your transaction is successful. Your withdrawal request will be completed on {Moment(time).format('MMMM Do YYYY, h:mm:ss a')} Revisit this page to check the status of your unbonding request.</p>
+        <div className="spinner">
+        {loading && <SpinnerCircular />}
+        </div>
+        {loading && <p> Transaction in progress... </p>}
+        {error !== '' && !loading && <p className="mt-3"> {error}</p>}
+{!loading && transactionSuccessful && <p>Your transaction is successful. Your withdrawal request will be completed on {Moment(time).format('MMMM Do YYYY, h:mm a')} Revisit this page to check the status of your unbonding request.</p> }
         </div>
         </div>}
         </>
