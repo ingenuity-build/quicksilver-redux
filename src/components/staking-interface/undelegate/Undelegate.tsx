@@ -203,15 +203,19 @@ setUnstakingAmount(QCKBalance);
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                     {/* <button className="mx-3 p-1 max-button"> MAX </button>  */}
                 </div>
+
                 <div className="d-flex justify-content-center">
-        <button className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
+        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> Unbond </button>
+
+        </div>
+        <div className="d-flex flex-column mt-3 justify-content-center align-items-center">
         <div className="spinner">
         {loading && <SpinnerCircular />}
         </div>
         {loading && <p> Transaction in progress... </p>}
-        {error !== '' && !loading && <p className="mt-3"> {error}</p>}
+        {error !== '' && !loading && !transactionSuccessful && <p className="mt-3"> {error}</p>}
 {!loading && transactionSuccessful && <p>Your transaction is successful. Your withdrawal request will be completed on {Moment(time).format('MMMM Do YYYY, h:mm a')} Revisit this page to check the status of your unbonding request.</p> }
-        </div>
+      </div>
         </div>}
         </>
     )
