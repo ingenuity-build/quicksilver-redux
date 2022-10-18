@@ -265,7 +265,7 @@ useEffect(() => {
                 <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
             
-                    <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake</p>
+                    <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} you want to stake {selectedValidatorList.length === 1 && <span> to {selectedValidatorList[0].name } :</span>}</p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                 
