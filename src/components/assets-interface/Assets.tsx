@@ -23,63 +23,64 @@ params['uqatom'] = qAtom;
 params['uqstars'] = qStar
 // var foo = params['heart']; // foo:string
 
-let messages = [
-  {
-    "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
-    "zone": "quickgaia-1",
-    "src_zone": "quickosmo-1",
-    "claim_type": 2,
-    "proofs": [
-      {
-        "key": "Av8AAAAAAAAAAQ==",
-        "data": "CAESK29zbW8xanN3Y2w0aGd1bjd5dnNkODBjOGtweDB0ZTQwNWwwcTI4NmZobjYaBAiA9SQiCwiAkrjDmP7///8BKioKC2dhbW0vcG9vbC8xEhs2MDAwMDAyOTk5OTk5OTk5OTk5OTk5OTk5MDA=",
-        "proof_ops": {
-          "ops": [
-            {
-              "type": "ics23:iavl",
-              "key": "Av8AAAAAAAAAAQ==",
-              "data": "CpYCCgoC/wAAAAAAAAABEm4IARIrb3NtbzFqc3djbDRoZ3VuN3l2c2Q4MGM4a3B4MHRlNDA1bDBxMjg2ZmhuNhoECID1JCILCICSuMOY/v///wEqKgoLZ2FtbS9wb29sLzESGzYwMDAwMDI5OTk5OTk5OTk5OTk5OTk5OTkwMBoNCAEYASABKgUAAtaPVyIrCAESJwIE1o9XINLPcAjN7eKi4nJdt8WLXO9EbKvIQ27uh86JOl3bNNf/ICItCAESBgQI1o9XIBohIOcCdmHreWW5E3u4b5kYNxjCvAJf/RQY9719+9JuKNUXIi0IARIGCBLWj1cgGiEgINv25aYKdcSRVkpiG5UVGCTuoqQWGNLTbKtsTZ+lBi0="
-            },
-            {
-              "type": "ics23:simple",
-              "key": "bG9ja3Vw",
-              "data": "Cv4BCgZsb2NrdXASIBExRKDB3fSRM56B4LOgRKIP05t0eo3lAepeesW6vCG6GgkIARgBIAEqAQAiJwgBEgEBGiD5Vt5/BBmvQQnMGXTh8TcjCr0rjLn1J3de7MoaiBcPIiInCAESAQEaIIV93pFvflxZWT6xKXEZXId8fEEGbG+rO3bui3xe8AkBIiUIARIhAS7v60tTpICm3JSOpIeNNarn11avC4ubFJS/qecg07zUIiUIARIhAXuFuxEr9UR9XvXGTNtxcyIxNKk3gg+1yRdguGtz2Bw3IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
-            }
-          ]
-        },
-        "height": 761806
-      }
-    ]
-  },
-  {
-    "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
-    "zone": "quickgaia-1",
-    "src_zone": "quickosmo-1",
-    "claim_type": 1,
-    "proofs": [
-      {
-        "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
-        "data": "CkRpYmMvMzAyMDkyMkI3NTc2RkM3NUJCRTA1N0EwMjkwQTlBRUVGRjQ4OUJCMTExM0U2RTM2NUNFNDcyRDRCRkI3RkZBMxIHOTk5OTk5OA==",
-        "proof_ops": {
-          "ops": [
-            {
-              "type": "ics23:iavl",
-              "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
-              "data": "CqEDCloCFJQdj9bo5PxGQad+D2CZ681fT7wKaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSTwpEaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSBzk5OTk5OTgaDQgBGAEgASoFAAK61AQiKwgBEicCBLrUBCAup5nGbv96/QJrM5WEdwshew9BpjNJ/E/7lZvdyvX6RiAiLQgBEgYEBrrUBCAaISAu8wdUQ/yQs2WM7qdwKjrurRW6H4aa1VDfDk9AD6wl3SIrCAESJwYO1o9XIBFQmoai/fnqGyRj2Y6ALjIjH0DU5xSETD08lbkr5qVFICItCAESBgoe1o9XIBohIHHvA7th2ErqSALeeN4qTwLZvigABQz/FDD10CqLDcBvIisIARInDC7Wj1cg9mXIFqE08mhA6f/04Ps2LJ5AUsFq8/C5NiOK+n4rR6Ig"
-            },
-            {
-              "type": "ics23:simple",
-              "key": "YmFuaw==",
-              "data": "Cv4BCgRiYW5rEiBQ3D4uJpPHmXI7hCt0xs7G2wOmucTxsMIwqMg5XO7pZRoJCAEYASABKgEAIicIARIBARogZKYF+s8f0j824Zwni4r7U8nl3sKkV1fBh3nE0/a0mjwiJQgBEiEBC0BZcpAVqgx7Ponxxm3lGDE5dixYwlgZyGuAqhhJ+tkiJwgBEgEBGiCCRkIic5RGnUnEjk3PDIOcndUI0sueiVJijVX/xaY4MiInCAESAQEaIItc08xd5RnpeOv43VUrIS3vPZ+vAC1thmyRwszX52l7IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
-            }
-          ]
-        },
-        "height": 761806
-      }
-    ]
-  }
-]
-
+  let messages = [
+    {
+      "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+      "zone": "quickgaia-1",
+      "src_zone": "quickosmo-1",
+      "claim_type": 2,
+      "proofs": [
+        {
+          "key": "Av8AAAAAAAAAAQ==",
+          "data": "CAESK29zbW8xanN3Y2w0aGd1bjd5dnNkODBjOGtweDB0ZTQwNWwwcTI4NmZobjYaBAiA9SQiCwiAkrjDmP7///8BKioKC2dhbW0vcG9vbC8xEhs2MDAwMDAyOTk5OTk5OTk5OTk5OTk5OTk5MDA=",
+          "proofops": {
+            "ops": [
+              {
+                "type": "ics23:iavl",
+                "key": "Av8AAAAAAAAAAQ==",
+                "data": "CpYCCgoC/wAAAAAAAAABEm4IARIrb3NtbzFqc3djbDRoZ3VuN3l2c2Q4MGM4a3B4MHRlNDA1bDBxMjg2ZmhuNhoECID1JCILCICSuMOY/v///wEqKgoLZ2FtbS9wb29sLzESGzYwMDAwMDI5OTk5OTk5OTk5OTk5OTk5OTkwMBoNCAEYASABKgUAAtaPVyIrCAESJwIE1o9XINLPcAjN7eKi4nJdt8WLXO9EbKvIQ27uh86JOl3bNNf/ICItCAESBgQI1o9XIBohIOcCdmHreWW5E3u4b5kYNxjCvAJf/RQY9719+9JuKNUXIi0IARIGCBLWj1cgGiEgINv25aYKdcSRVkpiG5UVGCTuoqQWGNLTbKtsTZ+lBi0="
+              },
+              {
+                "type": "ics23:simple",
+                "key": "bG9ja3Vw",
+                "data": "Cv4BCgZsb2NrdXASIBExRKDB3fSRM56B4LOgRKIP05t0eo3lAepeesW6vCG6GgkIARgBIAEqAQAiJwgBEgEBGiD5Vt5/BBmvQQnMGXTh8TcjCr0rjLn1J3de7MoaiBcPIiInCAESAQEaIIV93pFvflxZWT6xKXEZXId8fEEGbG+rO3bui3xe8AkBIiUIARIhAS7v60tTpICm3JSOpIeNNarn11avC4ubFJS/qecg07zUIiUIARIhAXuFuxEr9UR9XvXGTNtxcyIxNKk3gg+1yRdguGtz2Bw3IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
+              }
+            ]
+          },
+          "height": 761806,
+          "prooftype": "lockup/\u0002�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001"
+        }
+      ]
+    },
+    {
+      "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+      "zone": "quickgaia-1",
+      "src_zone": "quickosmo-1",
+      "claim_type": 1,
+      "proofs": [
+        {
+          "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
+          "data": "CkRpYmMvMzAyMDkyMkI3NTc2RkM3NUJCRTA1N0EwMjkwQTlBRUVGRjQ4OUJCMTExM0U2RTM2NUNFNDcyRDRCRkI3RkZBMxIHOTk5OTk5OA==",
+          "proofops": {
+            "ops": [
+              {
+                "type": "ics23:iavl",
+                "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
+                "data": "CqEDCloCFJQdj9bo5PxGQad+D2CZ681fT7wKaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSTwpEaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSBzk5OTk5OTgaDQgBGAEgASoFAAK61AQiKwgBEicCBLrUBCAup5nGbv96/QJrM5WEdwshew9BpjNJ/E/7lZvdyvX6RiAiLQgBEgYEBrrUBCAaISAu8wdUQ/yQs2WM7qdwKjrurRW6H4aa1VDfDk9AD6wl3SIrCAESJwYO1o9XIBFQmoai/fnqGyRj2Y6ALjIjH0DU5xSETD08lbkr5qVFICItCAESBgoe1o9XIBohIHHvA7th2ErqSALeeN4qTwLZvigABQz/FDD10CqLDcBvIisIARInDC7Wj1cg9mXIFqE08mhA6f/04Ps2LJ5AUsFq8/C5NiOK+n4rR6Ig"
+              },
+              {
+                "type": "ics23:simple",
+                "key": "YmFuaw==",
+                "data": "Cv4BCgRiYW5rEiBQ3D4uJpPHmXI7hCt0xs7G2wOmucTxsMIwqMg5XO7pZRoJCAEYASABKgEAIicIARIBARogZKYF+s8f0j824Zwni4r7U8nl3sKkV1fBh3nE0/a0mjwiJQgBEiEBC0BZcpAVqgx7Ponxxm3lGDE5dixYwlgZyGuAqhhJ+tkiJwgBEgEBGiCCRkIic5RGnUnEjk3PDIOcndUI0sueiVJijVX/xaY4MiInCAESAQEaIItc08xd5RnpeOv43VUrIS3vPZ+vAC1thmyRwszX52l7IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
+              }
+            ]
+          },
+          "height": 761806,
+          "prooftype": "bank/\u0002\u0014�\u001d�����FA�~\u000f`���_O�\nibc/3020922B7576FC75BBE057A0290A9AEEFF489BB1113E6E365CE472D4BFB7FFA3"
+        }
+      ]
+    }
+  ]
 
 export default function Assets() {
   const [sum, setsum] = useState<number>(0);
@@ -132,21 +133,25 @@ export default function Assets() {
   const onClaimsClick = async (e: any) => {
 
     let msg = [];
-        msg = messages.map((message: any) => { return {
-      typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: MsgSubmitClaim.fromJSON(message)}
-            });
+      //   msg = messages.map((message: any) => { return {
+      // typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+      // value: MsgSubmitClaim.fromJSON(message)}
+      //       });
 
-    // msg = messages.map((message: any) => { return {
-    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   value: {
-    //     userAddress: message.user_address,
-    //     zone: message.zone,
-    //     srcZone: message.src_zone,
-    //     claimType: message.claim_type,
-    //     proofs: message.proofs
-    //           }}
-    //         });
+    msg = messages.map((message: any) => { return {
+      typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+      value: {
+        userAddress: message.user_address,
+        zone: message.zone,
+        srcZone: message.src_zone,
+        claimType: message.claim_type,
+        proofs: message.proofs.map((proof: any) => {
+          return {
+            
+          }
+        })
+              }}
+            });
 
     
     // const msgAny = {
@@ -220,7 +225,8 @@ export default function Assets() {
 
   </div>
   <h3 className="mt-5">My Assets</h3> 
-   {sum && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across quicksilver chain</h5>}
+  {sum === 0 && <h5 className="mt-4">Calculating...</h5>}
+   {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across quicksilver chain</h5>}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
   {balances.map((bal: Coin, i: number) =>
        
