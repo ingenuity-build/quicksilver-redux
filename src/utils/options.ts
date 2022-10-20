@@ -10,7 +10,9 @@ import { MsgSubmitClaim, ClaimProof } from "./protodefs/quicksilver/participatio
 
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
-import { ClaimType } from "./protodefs/quicksilver/participationrewards/v1/participationrewards";
+// import { ClaimType } from "./protodefs/quicksilver/participationrewards/v1/participationrewards";
+import { ClaimType} from "../../src/utils/protodefs/quicksilver/claimsmanager/v1/claimsmanager"
+
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;

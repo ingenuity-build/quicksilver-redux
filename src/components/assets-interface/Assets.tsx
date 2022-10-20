@@ -133,25 +133,25 @@ export default function Assets() {
   const onClaimsClick = async (e: any) => {
 
     let msg = [];
-      //   msg = messages.map((message: any) => { return {
-      // typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      // value: MsgSubmitClaim.fromJSON(message)}
-      //       });
-
-    msg = messages.map((message: any) => { return {
+        msg = messages.map((message: any) => { return {
       typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: {
-        userAddress: message.user_address,
-        zone: message.zone,
-        srcZone: message.src_zone,
-        claimType: message.claim_type,
-        proofs: message.proofs.map((proof: any) => {
-          return {
-            
-          }
-        })
-              }}
+      value: MsgSubmitClaim.fromJSON(message)}
             });
+
+    // msg = messages.map((message: any) => { return {
+    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+    //   value: {
+    //     userAddress: message.user_address,
+    //     zone: message.zone,
+    //     srcZone: message.src_zone,
+    //     claimType: message.claim_type,
+    //     proofs: message.proofs.map((proof: any) => {
+    //       return {
+
+    //       }
+    //     })
+    //           }}
+    //         });
 
     
     // const msgAny = {
@@ -220,7 +220,7 @@ export default function Assets() {
 <div className="participation-rewards">
     <div className="d-flex p-5 justify-content-between">
     <h3> Claim Participation Rewards </h3>
-    <button onClick={onClaimsClick}> COMING SOON </button>
+    <button onClick={onClaimsClick}> CLAIMS </button>
     </div>
 
   </div>
