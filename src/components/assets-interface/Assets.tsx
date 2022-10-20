@@ -33,7 +33,7 @@ params['uqstars'] = qStar
         {
           "key": "Av8AAAAAAAAAAQ==",
           "data": "CAESK29zbW8xanN3Y2w0aGd1bjd5dnNkODBjOGtweDB0ZTQwNWwwcTI4NmZobjYaBAiA9SQiCwiAkrjDmP7///8BKioKC2dhbW0vcG9vbC8xEhs2MDAwMDAyOTk5OTk5OTk5OTk5OTk5OTk5MDA=",
-          "proofops": {
+          "proof_ops": {
             "ops": [
               {
                 "type": "ics23:iavl",
@@ -48,7 +48,7 @@ params['uqstars'] = qStar
             ]
           },
           "height": 761806,
-          "prooftype": "lockup/\u0002�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001"
+          "proof_type": "lockup/\u0002�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001"
         }
       ]
     },
@@ -61,7 +61,7 @@ params['uqstars'] = qStar
         {
           "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
           "data": "CkRpYmMvMzAyMDkyMkI3NTc2RkM3NUJCRTA1N0EwMjkwQTlBRUVGRjQ4OUJCMTExM0U2RTM2NUNFNDcyRDRCRkI3RkZBMxIHOTk5OTk5OA==",
-          "proofops": {
+          "proof_ops": {
             "ops": [
               {
                 "type": "ics23:iavl",
@@ -76,7 +76,7 @@ params['uqstars'] = qStar
             ]
           },
           "height": 761806,
-          "prooftype": "bank/\u0002\u0014�\u001d�����FA�~\u000f`���_O�\nibc/3020922B7576FC75BBE057A0290A9AEEFF489BB1113E6E365CE472D4BFB7FFA3"
+          "proof_type": "bank/\u0002\u0014�\u001d�����FA�~\u000f`���_O�\nibc/3020922B7576FC75BBE057A0290A9AEEFF489BB1113E6E365CE472D4BFB7FFA3"
         }
       ]
     }
