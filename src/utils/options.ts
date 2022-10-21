@@ -6,7 +6,7 @@ import { GeneratedType, Registry} from "@ingenuity/quicksilverjs/node_modules/@c
 
 import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
 import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
-import { MsgSubmitClaim, ClaimProof } from "@ingenuity/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
+import { MsgSubmitClaim , ClaimProof} from "@ingenuity/quicksilverjs/src/codegen/quicksilver/participationrewards/v1/messages";
 
 
 import { ClaimType} from "../../src/utils/protodefs/quicksilver/claimsmanager/v1/claimsmanager"
