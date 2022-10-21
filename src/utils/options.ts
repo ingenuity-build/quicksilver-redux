@@ -4,15 +4,11 @@ import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, Sig
 import {AminoMsg, Coin} from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino"
 import { GeneratedType, Registry} from "@ingenuity/quicksilverjs/node_modules/@cosmjs/proto-signing"
 
-import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
-import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
-import { MsgSubmitClaim , ClaimProof} from "@ingenuity/quicksilverjs/src/codegen/quicksilver/participationrewards/v1/messages";
 
-
-import { ClaimType} from "../../src/utils/protodefs/quicksilver/claimsmanager/v1/claimsmanager"
 
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
+
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
@@ -130,72 +126,9 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   }
 
 
-  export function createMsgRequestRedemptions(): Record<string, AminoConverter | "not_supported_by_chain"> {
-    return {
-      "/quicksilver.interchainstaking.v1.MsgRequestRedemption": {
-        aminoType: "quicksilver/MsgRequestRedemption",
-        toAmino: ({
-          destinationAddress,
-          fromAddress,
-          value,
-        }: MsgRequestRedemption): AminoMsgRequestRedemption["value"] => {
-          return {
-            destination_address: destinationAddress,
-            from_address: fromAddress,
-            value: value,
-          };
-        },
-        fromAmino: ({
-          destination_address,
-          from_address,
-          value,
-        }: AminoMsgRequestRedemption["value"]): MsgRequestRedemption => ({
-          destinationAddress: destination_address,
-          fromAddress: from_address,
-          value: value,
 
-        }),
-      }
-    }
-  }
 
-  export function createMsgSubmitClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
-    return {
-      "/quicksilver.participationrewards.v1.MsgSubmitClaim": {
-        aminoType: "quicksilver/MsgSubmitClaim",
-        toAmino: ({
-          userAddress,
-          zone,
-          srcZone,
-          claimType,
-          proofs
 
-        }: MsgSubmitClaim): AminoMsgSubmitClaim["value"] => {
-          return {
-           user_address: userAddress,
-            zone: zone,
-            src_zone: srcZone,
-            claim_type: claimType,
-            proofs: proofs
-          };
-        },
-        fromAmino: ({
-          user_address,
-          zone,
-          src_zone,
-          claim_type,
-          proofs
-        }: AminoMsgSubmitClaim["value"]): MsgSubmitClaim => ({
-          userAddress: user_address,
-          zone: zone,
-          srcZone: src_zone,
-          claimType: claim_type,
-          proofs: proofs
-
-        }),
-      }
-    }
-  }
 
   /**
    * 
@@ -223,36 +156,16 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   ActionOsmosis = 10;
    */
   
-  export function createMsgClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
-    return {
-      "/quicksilver.airdrop.v1.MsgClaim": {
-        aminoType: "quicksilver/MsgClaim",
-        toAmino: ({
-          chainId,
-          address,
-          action,
-          proofs,
-        }: MsgClaim): AminoMsgClaim["value"] => {
-          return {
-            chain_id: chainId,
-            address: address,
-            action: action.toString(),
-            proofs: proofs,
-          };
-        },
-        fromAmino: ({
-          chain_id,
-          address,
-          action,
-          proofs,
-        }: AminoMsgClaim["value"]): MsgClaim => ({
-          chainId: chain_id,
-          address: address,
-          action: new Long(parseInt(action)),
-          proofs: proofs,
-        }),
-      }
-    }
+
+
+ 
+
+
+  export interface MsgTokenizeShares {
+    delegatorAddress: string;
+    validatorAddress: string;
+    amount?: Coin;
+    tokenizedShareOwner: string;
   }
   
   export interface AminoMsgTokenizeShares extends AminoMsg {
@@ -266,49 +179,6 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       readonly tokenized_share_owner: string;
     };
   }
-  
-
-  export interface AminoMsgRequestRedemption extends AminoMsg {
-    readonly type: "quicksilver/MsgRequestRedemption";
-    readonly value: {
-      /** Bech32 encoded delegator address */
-      readonly destination_address: string;
-      /** Bech32 encoded validator address */
-      readonly from_address: string;
-      readonly value: Coin | undefined;
-    };
-  }
-
-  export interface AminoMsgSubmitClaim extends AminoMsg {
-    readonly type: "quicksilver/MsgSubmitClaim";
-    readonly value: {
-      readonly user_address: string;
-      readonly zone: string;
-      readonly src_zone: string;
-      readonly claim_type: ClaimType;
-      readonly proofs: ClaimProof[]
-    }
-  }
-
-
-  export interface AminoMsgClaim extends AminoMsg {
-    readonly type: "quicksilver/MsgClaim";
-    readonly value: {
-      readonly chain_id: string;
-      /** Bech32 encoded validator address */
-      readonly address: string;
-      readonly action: string;
-      readonly proofs: Proof[];
-    };
-  }
-
-  export interface MsgTokenizeShares {
-    delegatorAddress: string;
-    validatorAddress: string;
-    amount?: Coin;
-    tokenizedShareOwner: string;
-  }
-  
 
   
   
@@ -322,9 +192,6 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createIbcAminoConverters(),
       ...createFeegrantAminoConverters(),
       ...createLiquidStakingTypes(),
-      ...createMsgRequestRedemptions(),
-      ...createMsgClaim(),
-      ...createMsgSubmitClaim()
     };
   }
    
@@ -407,11 +274,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   };
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-    ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-    ["/quicksilver.airdrop.v1.MsgClaim", MsgClaim],
-    ["/quicksilver.participationrewards.v1.MsgSubmitClaim", MsgSubmitClaim],
-    
    ...defaultRegistryTypes
  ];
 
