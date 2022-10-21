@@ -1,7 +1,7 @@
 
 import React, {useEffect} from 'react';
 
-import { parseCoins } from "@cosmjs/stargate";
+import { parseCoins } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/stargate";
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { useSelector, useDispatch } from 'react-redux'
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';

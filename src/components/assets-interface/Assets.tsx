@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.png';
-import { Coin } from "@cosmjs/amino";
+import { Coin } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 
@@ -220,7 +220,7 @@ export default function Assets() {
 <div className="participation-rewards">
     <div className="d-flex p-5 justify-content-between">
     <h3> Claim Participation Rewards </h3>
-    <button onClick={onClaimsClick}> CLAIMS </button>
+    <button onClick={onClaimsClick}> Claim </button>
     </div>
 
   </div>

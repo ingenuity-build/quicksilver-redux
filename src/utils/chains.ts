@@ -1,6 +1,6 @@
 import { ChainInfo } from "@keplr-wallet/types";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { SigningStargateClient,  } from "@cosmjs/stargate"
+import { SigningStargateClient,  } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/stargate"
 import {options} from './options';
 
 import { ProdQuickSilverChainInfo, ProdChainInfos } from './chains/prod'
