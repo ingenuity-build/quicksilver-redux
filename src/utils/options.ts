@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/stargate"
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate"
 // import { AminoMsg, Coin } from "@cosmjs/amino";
-import {AminoMsg, Coin} from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/amino"
-import { GeneratedType, Registry} from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/proto-signing"
+import {AminoMsg, Coin} from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino"
+import { GeneratedType, Registry} from "@ingenuity/quicksilverjs/node_modules/@cosmjs/proto-signing"
 
 import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
 import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
-import { MsgSubmitClaim, ClaimProof } from "@joe-bowman/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
+import { MsgSubmitClaim, ClaimProof } from "@ingenuity/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
 
 
 import { ClaimType} from "../../src/utils/protodefs/quicksilver/claimsmanager/v1/claimsmanager"

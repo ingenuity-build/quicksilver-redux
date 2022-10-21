@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.png';
-import { Coin } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/amino";
+import { Coin } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 
 // import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
-import {MsgSubmitClaim} from "@joe-bowman/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
+// import {MsgSubmitClaim} from "@joe-bowman/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
 
 
 

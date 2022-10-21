@@ -1,5 +1,5 @@
 
-import { SigningStargateClient } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/stargate"
+import { SigningStargateClient } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate"
 import { createSlice } from '@reduxjs/toolkit'
 export const initialState = {
   isNetworkWalletConnected: false,
