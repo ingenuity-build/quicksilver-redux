@@ -9,6 +9,7 @@ import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilve
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
 
+
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
 export type Exact<P, I extends P> = P extends Builtin
