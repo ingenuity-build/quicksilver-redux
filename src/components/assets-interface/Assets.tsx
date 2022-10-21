@@ -147,11 +147,8 @@ export default function Assets() {
         zone: message.zone,
         srcZone: message.src_zone,
         claimType: message.claim_type,
-        proofs: message.proofs.map((proof: any) => {
-          return {
-
-          }
-        })
+        proofs: message.proofs
+     
               }}
             });
 
