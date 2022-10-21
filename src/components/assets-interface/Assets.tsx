@@ -9,7 +9,8 @@ import { Coin } from "@joe-bowman/quicksilverjs/node_modules/@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 
-import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
+// import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
+import {MsgSubmitClaim} from "@joe-bowman/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
 
 
 
@@ -133,9 +134,10 @@ export default function Assets() {
   const onClaimsClick = async (e: any) => {
 
     let msg = [];
+    // @ts-ignore
         msg = messages.map((message: any) => { return {
       typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: MsgSubmitClaim.fromJSON(message)}
+      value: message}
             });
 
     // msg = messages.map((message: any) => { return {
