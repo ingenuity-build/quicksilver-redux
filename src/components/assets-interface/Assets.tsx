@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.png';
-import { Coin } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino";
+import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 
-// import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
-// import {MsgSubmitClaim} from "@joe-bowman/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
+ import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
+
 
 
 
@@ -135,25 +135,25 @@ export default function Assets() {
 
     let msg = [];
     // @ts-ignore
-        msg = messages.map((message: any) => { return {
+      //   msg = messages.map((message: any) => { return {
+      // typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+      // value: message}
+      //       });
+
+    msg = messages.map((message: any) => { return {
       typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: message}
+      value: {
+        userAddress: message.user_address,
+        zone: message.zone,
+        srcZone: message.src_zone,
+        claimType: message.claim_type,
+        proofs: message.proofs.map((proof: any) => {
+          return {
+
+          }
+        })
+              }}
             });
-
-    // msg = messages.map((message: any) => { return {
-    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   value: {
-    //     userAddress: message.user_address,
-    //     zone: message.zone,
-    //     srcZone: message.src_zone,
-    //     claimType: message.claim_type,
-    //     proofs: message.proofs.map((proof: any) => {
-    //       return {
-
-    //       }
-    //     })
-    //           }}
-    //         });
 
     
     // const msgAny = {
