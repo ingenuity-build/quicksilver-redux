@@ -23,7 +23,7 @@ import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } f
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../slices/selectedNetworkWallet";
 import { _loadValsAsync } from "../../slices/validatorList";
 import { initKeplrWithNetwork } from "../../utils/chains";
-import { SigningStargateClient } from "@cosmjs/stargate";
+import { SigningStargateClient } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
 import {  setSelectedValidatorList } from "../../slices/validatorList";

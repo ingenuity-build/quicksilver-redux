@@ -5,6 +5,7 @@
   "dependencies": {
     "@cosmjs/stargate": "^0.28.4",
     "@ingenuity/quicksilverjs": "github:ingenuity-build/quicksilverjs",
+    "@joe-bowman/quicksilverjs": "github:ingenuity-build/quicksilverjs",
     "@keplr-wallet/stores": "^0.10.3",
     "@keplr-wallet/types": "^0.10.3",
     "@reduxjs/toolkit": "^1.8.5",

@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.png';
-import { Coin } from "@cosmjs/amino";
+import { Coin } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 
- import {MsgSubmitClaim} from '../../utils/protodefs/quicksilver/participationrewards/v1/messages';
+import {MsgSubmitClaim} from "@ingenuity/quicksilverjs/main/codegen/quicksilver/participationrewards/v1/messages";
 
 
 
@@ -142,22 +142,7 @@ export default function Assets() {
 
     msg = messages.map((message: any) => { return {
       typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: {
-        userAddress: message.user_address,
-        zone: message.zone,
-        srcZone: message.src_zone,
-        claimType: message.claim_type,
-        proofs: message.proofs.map((proof: any) => {
-                return {
-                  key: proof.key,
-                  data: proof.data,
-                  proofOps: proof.proof_ops,
-                  proofType: proof.proof_type,
-                  height: proof.height
-                }
-        })
-     
-              }}
+      value: message}
             });
 
     

@@ -1,10 +1,10 @@
 /* eslint-disable */
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters, } from "@cosmjs/stargate";
-import { AminoMsg, Coin } from "@cosmjs/amino";
-import { GeneratedType, Registry} from "@cosmjs/proto-signing";
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters, } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate";
+import { AminoMsg, Coin } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino";
+import { GeneratedType, Registry} from "@ingenuity/quicksilverjs/node_modules/@cosmjs/proto-signing";
 import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
 import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
-import { MsgSubmitClaim, ClaimProof } from "./protodefs/quicksilver/participationrewards/v1/messages";
+import { MsgSubmitClaim, ClaimProof } from "@ingenuity/quicksilverjs/src/codegen/quicksilver/participationrewards/v1/messages";
 
 
 import { ClaimType} from "../../src/utils/protodefs/quicksilver/claimsmanager/v1/claimsmanager"
@@ -300,7 +300,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createGovAminoConverters(),
       ...createStakingAminoConverters(prefix),
       ...createIbcAminoConverters(),
-      ...createFreegrantAminoConverters(),
+      ...createFeegrantAminoConverters(),
       ...createLiquidStakingTypes(),
       ...createMsgRequestRedemptions(),
       ...createMsgClaim(),
