@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.png';
-import { Coin } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/amino";
+import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 

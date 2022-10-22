@@ -1,7 +1,8 @@
 import { ChainInfo } from "@keplr-wallet/types";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { SigningStargateClient,  } from "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate"
-import {options} from './options';
+import { getSigningQuicksilverClient } from "quicksilverjs/src/codegen/quicksilver/client";
+import { SigningStargateClient } from "@cosmjs/stargate"
+import { options } from './options';
 
 import { ProdQuickSilverChainInfo, ProdChainInfos } from './chains/prod'
 import { TestQuickSilverChainInfo, TestChainInfos } from './chains/test'
@@ -57,13 +58,13 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
             .enable(QuickSilverChainInfo.chainId)
             .then(async () => { 
                 let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
-                let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer, options)
+                let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                 fn(QuickSilverChainInfo.chainId, offlineSigner)
                 console.log("Enabled for chainid " + QuickSilverChainInfo.chainId)
             }, (reason: any) => { 
                 keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
-                    let offlineSigner = await SigningStargateClient.connectWithSigner(QuickSilverChainInfo.rpc, signer, options)
+                    let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                     fn(QuickSilverChainInfo.chainId, offlineSigner)
                     console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
                 }) 

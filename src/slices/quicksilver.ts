@@ -1,5 +1,5 @@
 
-import { SigningStargateClient } from  "@ingenuity/quicksilverjs/node_modules/@cosmjs/stargate";
+import { SigningStargateClient } from  "@cosmjs/stargate";
 import { createSlice } from '@reduxjs/toolkit'
 import { stat } from "fs"
 export const initialState = {
