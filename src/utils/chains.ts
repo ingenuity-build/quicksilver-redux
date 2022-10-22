@@ -1,6 +1,6 @@
 import { ChainInfo } from "@keplr-wallet/types";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { getSigningQuicksilverClient } from "quicksilverjs/src/codegen/quicksilver/client";
+import { getSigningQuicksilverClient } from "quicksilverjs";
 import { SigningStargateClient } from "@cosmjs/stargate"
 import { options } from './options';
 
@@ -9,6 +9,8 @@ import { TestQuickSilverChainInfo, TestChainInfos } from './chains/test'
 import { DevQuickSilverChainInfo, DevChainInfos } from './chains/dev'
 
 import env from "react-dotenv";
+
+
 
 const QuickSilverChains : { [index:string] : ChainInfo } = {
   "prod": ProdQuickSilverChainInfo,

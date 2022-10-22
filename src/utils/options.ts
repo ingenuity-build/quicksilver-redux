@@ -3,7 +3,7 @@ import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, cre
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing"
 import { SigningStargateClientOptions } from "@cosmjs/stargate"
-import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs/src/codegen/quicksilver/client"
+import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
 
 
 import * as _m0 from "protobufjs/minimal";
