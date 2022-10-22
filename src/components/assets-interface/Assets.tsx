@@ -26,7 +26,7 @@ params['uqstars'] = qStar
 
   let messages = [
     {
-      "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+      "user_address": "quick1kv4ez0rgrd679m6da96apnqxkcamh28cyphd64",
       "zone": "quickgaia-1",
       "src_zone": "quickosmo-1",
       "claim_type": 2,
@@ -54,7 +54,7 @@ params['uqstars'] = qStar
       ]
     },
     {
-      "user_address": "quick17v9kk34km3w6hdjs2sn5s5qjdu2zrm0m3rgtmq",
+      "user_address": "quick1kv4ez0rgrd679m6da96apnqxkcamh28cyphd64",
       "zone": "quickgaia-1",
       "src_zone": "quickosmo-1",
       "claim_type": 1,
@@ -135,25 +135,29 @@ export default function Assets() {
 
     let msg = [];
     // @ts-ignore
-        msg = messages.map((message: any) => { return {
+      //   msg = messages.map((message: any) => { return {
+      // typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+      // value: message}
+      //       });
+
+    msg = messages.map((message: any) => { return {
       typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: message}
+      value: {
+        userAddress: message.user_address,
+        zone: message.zone,
+        srcZone: message.src_zone,
+        claimType: message.claim_type,
+        proofs: message.proofs.map((proof: any) => {
+          return {
+              key: proof.key,
+              data: proof.data,
+              proofOps: proof.proof_ops,
+              proofType: proof.proof_type,
+              height: proof.height,
+          }
+        })
+              }}
             });
-
-    // msg = messages.map((message: any) => { return {
-    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   value: {
-    //     userAddress: message.user_address,
-    //     zone: message.zone,
-    //     srcZone: message.src_zone,
-    //     claimType: message.claim_type,
-    //     proofs: message.proofs.map((proof: any) => {
-    //       return {
-
-    //       }
-    //     })
-    //           }}
-    //         });
 
     
     // const msgAny = {

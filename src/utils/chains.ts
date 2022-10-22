@@ -60,13 +60,21 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
             .enable(QuickSilverChainInfo.chainId)
             .then(async () => { 
                 let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+<<<<<<< HEAD
                 let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+=======
+                let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer})
+>>>>>>> b3e2137 (get telescope integration working)
                 fn(QuickSilverChainInfo.chainId, offlineSigner)
                 console.log("Enabled for chainid " + QuickSilverChainInfo.chainId)
             }, (reason: any) => { 
                 keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+<<<<<<< HEAD
                     let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+=======
+                    let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer})
+>>>>>>> b3e2137 (get telescope integration working)
                     fn(QuickSilverChainInfo.chainId, offlineSigner)
                     console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
                 }) 

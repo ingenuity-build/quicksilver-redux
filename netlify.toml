@@ -15,5 +15,5 @@
 
 [context.develop.environment]
   NODE_ENV = "dev"
-  QUICKSILVER_API_URL = "https://lcd.test.quicksilver.zone"
+  QUICKSILVER_API_URL = "https://lcd.dev.quicksilver.zone"
   ZONE_URL = "dev.quicksilver.zone"
