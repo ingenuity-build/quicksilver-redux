@@ -147,7 +147,15 @@ export default function Assets() {
         zone: message.zone,
         srcZone: message.src_zone,
         claimType: message.claim_type,
-        proofs: message.proofs
+        proofs: message.proofs.map((proof: any) => {
+                return {
+                  key: proof.key,
+                  data: proof.data,
+                  proofOps: proof.proof_ops,
+                  proofType: proof.proof_type,
+                  height: proof.height
+                }
+        })
      
               }}
             });
