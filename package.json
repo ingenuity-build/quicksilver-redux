@@ -20,7 +20,11 @@
     "crypto-js": "^4.1.1",
     "moment": "^2.29.4",
     "path-browserify": "^1.0.1",
+<<<<<<< HEAD
     "quicksilverjs": "^0.6.0",
+=======
+    "quicksilverjs": "^0.3.0",
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
     "react": "^18.2.0",
     "react-bootstrap-accordion": "^1.0.0",
     "react-collapsible": "^2.10.0",

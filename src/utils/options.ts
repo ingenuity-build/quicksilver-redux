@@ -3,12 +3,15 @@ import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, cre
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing"
 import { SigningStargateClientOptions } from "@cosmjs/stargate"
+<<<<<<< HEAD
 import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
+=======
+import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs/src/codegen/quicksilver/client"
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
 
 
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
-
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
@@ -124,7 +127,11 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       }
     }
   }
+<<<<<<< HEAD
   
+=======
+ 
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
   export interface AminoMsgTokenizeShares extends AminoMsg {
     readonly type: "cosmos-sdk/MsgTokenizeShares";
     readonly value: {
@@ -136,16 +143,22 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       readonly tokenized_share_owner: string;
     };
   }
+<<<<<<< HEAD
   
+=======
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
   export interface MsgTokenizeShares {
     delegatorAddress: string;
     validatorAddress: string;
     amount?: Coin;
     tokenizedShareOwner: string;
   }
+<<<<<<< HEAD
   
 
   
+=======
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
   
   function createCustomTypes(prefix: string): AminoConverters {
     return {
@@ -245,4 +258,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
      ...quicksilverProtoRegistry
   ];
 
+<<<<<<< HEAD
  export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+=======
+ export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+>>>>>>> 35a8a92 (replace @ingenuity/quicksilverjs with quicksilverjs)
