@@ -15,7 +15,7 @@ import Redelegate from './staking-interface/redelegate/Relegate';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
 import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
-import { SigningStargateClient } from "@cosmjs/stargate"
+import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setClient, setQuicksilverAddress } from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'

@@ -1,10 +1,9 @@
 /* eslint-disable */
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters, } from "@cosmjs/stargate";
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters } from "@cosmjs/stargate"
 import { AminoMsg, Coin } from "@cosmjs/amino";
-import { GeneratedType, Registry} from "@cosmjs/proto-signing";
-
-import { MsgRequestRedemption } from "./protodefs/quicksilver/interchainstaking/v1/messages"
-import { MsgClaim, Proof } from "./protodefs/quicksilver/airdrop/v1/messages"
+import { GeneratedType, Registry} from "@cosmjs/proto-signing"
+import { SigningStargateClientOptions } from "@cosmjs/stargate"
+import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
 
 
 import * as _m0 from "protobufjs/minimal";
@@ -84,9 +83,9 @@ export type Exact<P, I extends P> = P extends Builtin
     },
   };
   
-  function createBaseCoin(): Coin {
-    return { denom: "", amount: "" };
-  }
+  // function createBaseCoin(): Coin {
+  //   return { denom: "", amount: "" };
+  // }
 
   function createBaseCoinFrom(denom: string, amount: string): Coin {
     return { denom: denom, amount: amount };
@@ -124,94 +123,6 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       }
     }
   }
-
-
-  export function createMsgRequestRedemptions(): Record<string, AminoConverter | "not_supported_by_chain"> {
-    return {
-      "/quicksilver.interchainstaking.v1.MsgRequestRedemption": {
-        aminoType: "quicksilver/MsgRequestRedemption",
-        toAmino: ({
-          destinationAddress,
-          fromAddress,
-          value,
-        }: MsgRequestRedemption): AminoMsgRequestRedemption["value"] => {
-          return {
-            destination_address: destinationAddress,
-            from_address: fromAddress,
-            value: value,
-          };
-        },
-        fromAmino: ({
-          destination_address,
-          from_address,
-          value,
-        }: AminoMsgRequestRedemption["value"]): MsgRequestRedemption => ({
-          destinationAddress: destination_address,
-          fromAddress: from_address,
-          value: value,
-
-        }),
-      }
-    }
-  }
-
-  /**
-   * 
-  // Initial claim action
-  ActionInitialClaim = 0;
-  // Deposit tier 1 (e.g. > 5% of base_value)
-  ActionDepositT1 = 1;
-  // Deposit tier 2 (e.g. > 10% of base_value)
-  ActionDepositT2 = 2;
-  // Deposit tier 3 (e.g. > 15% of base_value)
-  ActionDepositT3 = 3;
-  // Deposit tier 4 (e.g. > 22% of base_value)
-  ActionDepositT4 = 4;
-  // Deposit tier 5 (e.g. > 30% of base_value)
-  ActionDepositT5 = 5;
-  // Active QCK delegation
-  ActionStakeQCK = 6;
-  // Intent is set
-  ActionSignalIntent = 7;
-  // Cast governance vote on QS
-  ActionQSGov = 8;
-  // Governance By Proxy (GbP): cast vote on remote zone
-  ActionGbP = 9;
-  // Provide liquidity on Osmosis
-  ActionOsmosis = 10;
-   */
-  
-  export function createMsgClaim(): Record<string, AminoConverter | "not_supported_by_chain"> {
-    return {
-      "/quicksilver.airdrop.v1.MsgClaim": {
-        aminoType: "quicksilver/MsgClaim",
-        toAmino: ({
-          chainId,
-          address,
-          action,
-          proofs,
-        }: MsgClaim): AminoMsgClaim["value"] => {
-          return {
-            chain_id: chainId,
-            address: address,
-            action: action.toString(),
-            proofs: proofs,
-          };
-        },
-        fromAmino: ({
-          chain_id,
-          address,
-          action,
-          proofs,
-        }: AminoMsgClaim["value"]): MsgClaim => ({
-          chainId: chain_id,
-          address: address,
-          action: new Long(parseInt(action)),
-          proofs: proofs,
-        }),
-      }
-    }
-  }
   
   export interface AminoMsgTokenizeShares extends AminoMsg {
     readonly type: "cosmos-sdk/MsgTokenizeShares";
@@ -225,38 +136,12 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     };
   }
   
-
-  export interface AminoMsgRequestRedemption extends AminoMsg {
-    readonly type: "quicksilver/MsgRequestRedemption";
-    readonly value: {
-      /** Bech32 encoded delegator address */
-      readonly destination_address: string;
-      /** Bech32 encoded validator address */
-      readonly from_address: string;
-      readonly value: Coin | undefined;
-    };
-  }
-
-  export interface AminoMsgClaim extends AminoMsg {
-    readonly type: "quicksilver/MsgClaim";
-    readonly value: {
-      readonly chain_id: string;
-      /** Bech32 encoded validator address */
-      readonly address: string;
-      readonly action: string;
-      readonly proofs: Proof[];
-    };
-  }
-
   export interface MsgTokenizeShares {
     delegatorAddress: string;
     validatorAddress: string;
     amount?: Coin;
     tokenizedShareOwner: string;
   }
-  
-
-  
   
   function createCustomTypes(prefix: string): AminoConverters {
     return {
@@ -268,8 +153,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createIbcAminoConverters(),
       ...createFreegrantAminoConverters(),
       ...createLiquidStakingTypes(),
-      ...createMsgRequestRedemptions(),
-      ...createMsgClaim()
+      ...quicksilverAminoConverters,
     };
   }
    
@@ -352,11 +236,9 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   };
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-    ["/quicksilver.interchainstaking.v1.MsgRequestRedemption", MsgRequestRedemption],
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-    ["/quicksilver.airdrop.v1.MsgClaim", MsgClaim],
-    
-   ...defaultRegistryTypes
- ];
+     ...defaultRegistryTypes,
+     ...quicksilverProtoRegistry
+  ];
 
- export const options = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+ export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }

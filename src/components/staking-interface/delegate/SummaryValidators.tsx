@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { coins } from "@cosmjs/launchpad"
+import {coins} from "@cosmjs/amino"
 import './SummaryValidators.css';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { useSelector, useDispatch } from 'react-redux'
