@@ -11,7 +11,7 @@ import ConnectWallet from './staking-interface/delegate/ConnectWallet';
 
 import './App.css';
 import Undelegate from './staking-interface/undelegate/Undelegate';
-import Redelegate from './staking-interface/redelegate/Relegate';
+import Redelegate from './staking-interface/redelegate/Redelegate';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
 import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
