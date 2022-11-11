@@ -9,6 +9,10 @@ import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 import { quicksilver } from "quicksilverjs"
+import { claimsSelector, fetchClaims } from '../../slices/claims';
+import  {  claimRewardModalSelector, setModalOpen } from '../../slices/claimRewardModal';
+import ClaimRewardModal from './ClaimRewardModal';
+
 
 const {
     submitClaim
@@ -25,81 +29,108 @@ params['uqstars'] = qStar
 // var foo = params['heart']; // foo:string
 
   let messages = []
-  //   {
-  //     "user_address": "quick1kv4ez0rgrd679m6da96apnqxkcamh28cyphd64",
-  //     "zone": "quickgaia-1",
-  //     "src_zone": "quickosmo-1",
-  //     "claim_type": 2,
-  //     "proofs": [
-  //       {
-  //         "key": "Av8AAAAAAAAAAQ==",
-  //         "data": "CAESK29zbW8xanN3Y2w0aGd1bjd5dnNkODBjOGtweDB0ZTQwNWwwcTI4NmZobjYaBAiA9SQiCwiAkrjDmP7///8BKioKC2dhbW0vcG9vbC8xEhs2MDAwMDAyOTk5OTk5OTk5OTk5OTk5OTk5MDA=",
-  //         "proof_ops": {
-  //           "ops": [
-  //             {
-  //               "type": "ics23:iavl",
-  //               "key": "Av8AAAAAAAAAAQ==",
-  //               "data": "CpYCCgoC/wAAAAAAAAABEm4IARIrb3NtbzFqc3djbDRoZ3VuN3l2c2Q4MGM4a3B4MHRlNDA1bDBxMjg2ZmhuNhoECID1JCILCICSuMOY/v///wEqKgoLZ2FtbS9wb29sLzESGzYwMDAwMDI5OTk5OTk5OTk5OTk5OTk5OTkwMBoNCAEYASABKgUAAtaPVyIrCAESJwIE1o9XINLPcAjN7eKi4nJdt8WLXO9EbKvIQ27uh86JOl3bNNf/ICItCAESBgQI1o9XIBohIOcCdmHreWW5E3u4b5kYNxjCvAJf/RQY9719+9JuKNUXIi0IARIGCBLWj1cgGiEgINv25aYKdcSRVkpiG5UVGCTuoqQWGNLTbKtsTZ+lBi0="
-  //             },
-  //             {
-  //               "type": "ics23:simple",
-  //               "key": "bG9ja3Vw",
-  //               "data": "Cv4BCgZsb2NrdXASIBExRKDB3fSRM56B4LOgRKIP05t0eo3lAepeesW6vCG6GgkIARgBIAEqAQAiJwgBEgEBGiD5Vt5/BBmvQQnMGXTh8TcjCr0rjLn1J3de7MoaiBcPIiInCAESAQEaIIV93pFvflxZWT6xKXEZXId8fEEGbG+rO3bui3xe8AkBIiUIARIhAS7v60tTpICm3JSOpIeNNarn11avC4ubFJS/qecg07zUIiUIARIhAXuFuxEr9UR9XvXGTNtxcyIxNKk3gg+1yRdguGtz2Bw3IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
-  //             }
-  //           ]
-  //         },
-  //         "height": 761806,
-  //         "proof_type": "lockup/\u0002�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     "user_address": "quick1kv4ez0rgrd679m6da96apnqxkcamh28cyphd64",
-  //     "zone": "quickgaia-1",
-  //     "src_zone": "quickosmo-1",
-  //     "claim_type": 1,
-  //     "proofs": [
-  //       {
-  //         "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
-  //         "data": "CkRpYmMvMzAyMDkyMkI3NTc2RkM3NUJCRTA1N0EwMjkwQTlBRUVGRjQ4OUJCMTExM0U2RTM2NUNFNDcyRDRCRkI3RkZBMxIHOTk5OTk5OA==",
-  //         "proof_ops": {
-  //           "ops": [
-  //             {
-  //               "type": "ics23:iavl",
-  //               "key": "AhSUHY/W6OT8RkGnfg9gmevNX0+8CmliYy8zMDIwOTIyQjc1NzZGQzc1QkJFMDU3QTAyOTBBOUFFRUZGNDg5QkIxMTEzRTZFMzY1Q0U0NzJENEJGQjdGRkEz",
-  //               "data": "CqEDCloCFJQdj9bo5PxGQad+D2CZ681fT7wKaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSTwpEaWJjLzMwMjA5MjJCNzU3NkZDNzVCQkUwNTdBMDI5MEE5QUVFRkY0ODlCQjExMTNFNkUzNjVDRTQ3MkQ0QkZCN0ZGQTMSBzk5OTk5OTgaDQgBGAEgASoFAAK61AQiKwgBEicCBLrUBCAup5nGbv96/QJrM5WEdwshew9BpjNJ/E/7lZvdyvX6RiAiLQgBEgYEBrrUBCAaISAu8wdUQ/yQs2WM7qdwKjrurRW6H4aa1VDfDk9AD6wl3SIrCAESJwYO1o9XIBFQmoai/fnqGyRj2Y6ALjIjH0DU5xSETD08lbkr5qVFICItCAESBgoe1o9XIBohIHHvA7th2ErqSALeeN4qTwLZvigABQz/FDD10CqLDcBvIisIARInDC7Wj1cg9mXIFqE08mhA6f/04Ps2LJ5AUsFq8/C5NiOK+n4rR6Ig"
-  //             },
-  //             {
-  //               "type": "ics23:simple",
-  //               "key": "YmFuaw==",
-  //               "data": "Cv4BCgRiYW5rEiBQ3D4uJpPHmXI7hCt0xs7G2wOmucTxsMIwqMg5XO7pZRoJCAEYASABKgEAIicIARIBARogZKYF+s8f0j824Zwni4r7U8nl3sKkV1fBh3nE0/a0mjwiJQgBEiEBC0BZcpAVqgx7Ponxxm3lGDE5dixYwlgZyGuAqhhJ+tkiJwgBEgEBGiCCRkIic5RGnUnEjk3PDIOcndUI0sueiVJijVX/xaY4MiInCAESAQEaIItc08xd5RnpeOv43VUrIS3vPZ+vAC1thmyRwszX52l7IicIARIBARogIp0vA44ek/iIjxCjTjCSGys1+XqEBj/uwQ8zCQhFJrs="
-  //             }
-  //           ]
-  //         },
-  //         "height": 761806,
-  //         "proof_type": "bank/\u0002\u0014�\u001d�����FA�~\u000f`���_O�\nibc/3020922B7576FC75BBE057A0290A9AEEFF489BB1113E6E365CE472D4BFB7FFA3"
-  //       }
-  //     ]
-  //   }
-  // ]
+ 
 
 export default function Assets() {
   const [sum, setsum] = useState<number>(0);
   const [showAssets, setShowAssets] = useState(true);
-
+  const dispatch = useDispatch();
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks } = useSelector(networksSelector);
+  const {previousEpochMessages, existingClaims, previousEpochAssets} = useSelector(claimsSelector)
+  const {isModalOpen} = useSelector(claimRewardModalSelector)
+        let obj = {};
 
   useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchClaims(quicksilverAddress))
     if(!sum) {
   fetchSum();
     }
 
-    if(messages.length == 0) {
-      queryXccLookup();
-    }
+    // if(messages.length == 0) {
+    // queryXccLookup();
+    // }
 
   }, [balances, networks])
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(fetchClaims(quicksilverAddress))
+    if(!sum) {
+  fetchSum();
+    }
+    
+    // if(messages.length == 0) {
+    // queryXccLookup();
+    // }
+
+  }, [])
+
+  useEffect(() => {
+    if(existingClaims !== []) {
+  
+existingClaims.forEach((claim) => {
+  obj[claim.chain_id] = (obj[claim.chain_id] || 0) + parseInt(claim.amount);
+    }, [existingClaims])
+  }
+})
+//   let obj = {};
+// existingClaims.forEach((claim) => {
+//   obj[claim.chain_id] = (obj[claim.chain_id] || 0) + parseInt(claim.amount);
+// });
+// console.log(obj);
+
+
+// let assets = previousEpochAssets["quickosmo-1"];
+let assets = {"quickosmo-1": [{"Type": "osmosispool",
+"Amount": [{"denom": "uqatom",
+"amount": "72000"
+},
+{"denom": "uqstars",
+"amount": "170570"
+}
+]
+},
+{"Type": "liquid",
+"Amount": [{"denom": "uqatom",
+"amount": "243999"
+},
+{"denom": "uqstars",
+"amount": "165731"
+}
+]
+}
+],
+"quickgaia-1": [{"Type": "osmosispool",
+"Amount": [{"denom": "uqatom",
+"amount": "72000"
+},
+{"denom": "uqstars",
+"amount": "170570"
+}
+]
+},
+{"Type": "liquid",
+"Amount": [{"denom": "uqatom",
+"amount": "243999"
+},
+{"denom": "uqstars",
+"amount": "165731"
+}
+]
+}
+]
+}
+console.log(Object.keys(assets))
+// Object.keys(assets).forEach((asset) => {
+//   asset["Amount"].forEach((asset) => { 
+//     obj[asset.denom] = (obj[asset.denom] || 0 ) + parseInt(asset.amount)
+//   })
+// })
+console.log(obj)
+
+
 
   const fetchSum =  () => {
 
@@ -126,19 +157,19 @@ export default function Assets() {
     )
   }
 
-  const queryXccLookup = async () => {
+  // const queryXccLookup = async () => {
 
-      try {
+  //     try {
 
-      const res = await fetch(`https://claim.dev.quicksilver.zone/${quicksilverAddress}/epoch`);
-      const data = await res.json();
-        messages = data.messages;
-        // update assets
-      } 
-      catch(err) {
-        console.log(err)
-      }
-  }
+  //     const res = await fetch(`https://claim.dev.quicksilver.zone/${quicksilverAddress}/epoch`);
+  //     const data = await res.json();
+  //       messages = data.messages;
+  //       // update assets
+  //     } 
+  //     catch(err) {
+  //       console.log(err)
+  //     }
+  // }
 
  
   // const maps : any = { 
@@ -146,69 +177,68 @@ export default function Assets() {
   // }
   const onClaimsClick = async (e: any) => {
 
-    if (messages.length == 0) {
-      alert("nope!")
-      return
-    }
-
-    let msg = [];
-    // @ts-ignore
-      // msg = messages.map((message: any) => { return {
-      //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      //   value: message}
-      // });
-
-      //msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return submitClaim({claimType: message.claim_type, Proofs: message.proofs, SrcZone: message.src_zone, UserAddres: message.user_address, Zone: message.zone}) })
-      msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return {
-      typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: {
-        userAddress: message.user_address,
-        zone: message.zone,
-        srcZone: message.src_zone,
-        claimType: message.claim_type,
-        proofs: message.proofs.map((proof: any) => {
-          return {
-              key: proof.key,
-              data: proof.data,
-              proofOps: proof.proof_ops,
-              proofType: proof.proof_type,
-              height: proof.height,
-          }
-        })
-              }}
-            });
-
-    
-    // const msgAny = {
-    //     typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   value: messages.map((e: any) => 
+        // @ts-expect-error
+  dispatch(setModalOpen());
+    // if (previousEpochMessages.length == 0) {
+    //   alert("nope!")
+    //   return
     // }
+
+    // let msg = [];
+    // // @ts-ignore
+    //   // msg = messages.map((message: any) => { return {
+    //   //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+    //   //   value: message}
+    //   // });
+
+    //   //msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return submitClaim({claimType: message.claim_type, Proofs: message.proofs, SrcZone: message.src_zone, UserAddres: message.user_address, Zone: message.zone}) })
+    //   msg = previousEpochMessages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return {
+    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+    //   value: {
+    //     userAddress: message.user_address,
+    //     zone: message.zone,
+    //     srcZone: message.src_zone,
+    //     claimType: message.claim_type,
+    //     proofs: message.proofs.map((proof: any) => {
+    //       return {
+    //           key: proof.key,
+    //           data: proof.data,
+    //           proofOps: proof.proof_ops,
+    //           proofType: proof.proof_type,
+    //           height: proof.height,
+    //       }
+    //     })
+    //           }}
+    //         });
+
     
-    try {
 
-   const broadcastResult = await quicksilverClient.signAndBroadcast(
-    quicksilverAddress,
-      [...msg],
-     {
-        "gas": "200000",
-        "amount": [
-          {
-            "denom": "umuon",
-            "amount": "300"
-          }
-        ]
-      },
-      'Claims Transaction'
-    );  
-    console.log(broadcastResult);
-    if(broadcastResult.code === 0 ) {
+    
+//     try {
 
-    }
-} catch(err: any) {
+//    const broadcastResult = await quicksilverClient.signAndBroadcast(
+//     quicksilverAddress,
+//       [...msg],
+//      {
+//         "gas": "200000",
+//         "amount": [
+//           {
+//             "denom": "umuon",
+//             "amount": "300"
+//           }
+//         ]
+//       },
+//       'Claims Transaction'
+//     );  
+//     console.log(broadcastResult);
+//     if(broadcastResult.code === 0 ) {
 
-  console.log(err);
+//     }
+// } catch(err: any) {
 
-}
+//   console.log(err);
+
+// }
 }
 
   const fetchData = (id: any, amount: number) => {
@@ -246,6 +276,7 @@ export default function Assets() {
     <div className="d-flex p-5 justify-content-between">
     <h3> Claim Participation Rewards </h3>
     <button onClick={onClaimsClick}> Claim </button>
+    {isModalOpen && <ClaimRewardModal/>}
     </div>
 
   </div>
@@ -283,7 +314,9 @@ export default function Assets() {
     <h4 className="text-center"> Coming Soon!</h4>
     </div>
   </div>}
-
+   {existingClaims.length === 0 &&  <h5>You do not have any existing claims yet</h5>}
+   {existingClaims.length !==0 && <h5> {existingClaims.length}</h5>}
+    
     </div>
     </>
     )
