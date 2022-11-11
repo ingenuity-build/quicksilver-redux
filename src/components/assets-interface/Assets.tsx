@@ -33,6 +33,7 @@ params['uqstars'] = qStar
 
 export default function Assets() {
   const [sum, setsum] = useState<number>(0);
+  const [claimsArray, setClaimsArray] = useState([]);
   const [showAssets, setShowAssets] = useState(true);
   const dispatch = useDispatch();
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
@@ -40,6 +41,7 @@ export default function Assets() {
   const {previousEpochMessages, existingClaims, previousEpochAssets} = useSelector(claimsSelector)
   const {isModalOpen} = useSelector(claimRewardModalSelector)
         let obj = {};
+      
 
   useEffect(() => {
     // @ts-ignore
@@ -54,27 +56,38 @@ export default function Assets() {
 
   }, [balances, networks])
 
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(fetchClaims(quicksilverAddress))
-    if(!sum) {
-  fetchSum();
-    }
-    
-    // if(messages.length == 0) {
-    // queryXccLookup();
-    // }
-
-  }, [])
 
   useEffect(() => {
     if(existingClaims !== []) {
   
 existingClaims.forEach((claim) => {
-  obj[claim.chain_id] = (obj[claim.chain_id] || 0) + parseInt(claim.amount);
-    }, [existingClaims])
+  // obj[claim.chain_id] = (obj[claim.chain_id]['total'] || obj[claim.chain_id]['total']) + parseInt(claim.amount);
+if(obj[claim.chain_id]) {
+  obj[claim.chain_id]['total'] = obj[claim.chain_id]['total'] + parseInt(claim.amount)
+} else {
+  obj[claim.chain_id] = { total : 0}
+}
+    })
+    console.log(obj)
+    displayClaims(obj)
+  // @ts-ignore
+    // setClaimsArray(Object.entries(obj));
+    // console.log('claimsarray', claimsArray)
+    
   }
-})
+}, [existingClaims])
+
+const displayClaims =  (obj: any) => {
+ // {"quickgaia-1": "1234", "quickstar-1": "5645"}
+  let obj1 = {...obj}
+  Object.keys(obj).map((x: any) => {
+    let network = networks.find((network: any) => network.value.chain_id === x).value;
+      obj1 = {...obj1, [x]: {...obj1[x], "denom": network?.local_denom, "prefix": network?.account_prefix}}
+  })
+  console.log(obj1);
+  return 'hey';
+}
+
 //   let obj = {};
 // existingClaims.forEach((claim) => {
 //   obj[claim.chain_id] = (obj[claim.chain_id] || 0) + parseInt(claim.amount);
@@ -122,13 +135,13 @@ let assets = {"quickosmo-1": [{"Type": "osmosispool",
 }
 ]
 }
-console.log(Object.keys(assets))
+// console.log(Object.keys(assets))
 // Object.keys(assets).forEach((asset) => {
 //   asset["Amount"].forEach((asset) => { 
 //     obj[asset.denom] = (obj[asset.denom] || 0 ) + parseInt(asset.amount)
 //   })
 // })
-console.log(obj)
+// console.log(obj)
 
 
 
@@ -241,6 +254,27 @@ console.log(obj)
 // }
 }
 
+const renderClaims = () => {
+    const claims = claimsArray.map((claim: any) => {
+    let network = networks.find((network: any) => network.value.chain_id === claim[0]).value;
+    claim.push(network?.local_denom);
+    claim.push(network?.account_prefix)
+
+    return (
+      <>
+        <p className="mt-3">{ claim[3].toUpperCase()} {+(claim[1]/1000000)} {claim[2][1]  + claim[2].slice(2).toUpperCase()}  </p>
+        <img className="d-block mx-auto" src={params[claim[2]]}/>
+      </>
+
+    )
+    
+  })
+
+  return claims
+}
+
+
+
   const fetchData = (id: any, amount: number) => {
     console.log(id, amount)
     let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
@@ -300,23 +334,29 @@ console.log(obj)
 
          
     
-  
+
+
 )}
 
 </div>}
 {balances.length === 0 && <div className="row w-100 justify-content-start">
   <h5 className="mt-5"> You currently do not have any assets on the quicksilver chain.</h5>
 </div>}
-
+{existingClaims.length === 0 &&  <h5>You do not have any existing claims yet</h5>}
+{existingClaims.length !==0 &&  <div>
+   <h5 className="mt-4">Existing Claims</h5>
+      {/* {renderClaims()} */}
+      {displayClaims(obj)}
+      <h6> Something missing? Try claiming again...</h6>
+      <button onClick={onClaimsClick}> Claim</button>
+    </div>}
 </div>  }
 {!showAssets && <div className="col-12 max-auto mt-5">
   <div className="mt-5 d-flex justify-content-center align-items-center">
     <h4 className="text-center"> Coming Soon!</h4>
     </div>
   </div>}
-   {existingClaims.length === 0 &&  <h5>You do not have any existing claims yet</h5>}
-   {existingClaims.length !==0 && <h5> {existingClaims.length}</h5>}
-    
+ 
     </div>
     </>
     )
