@@ -150,8 +150,8 @@ setUnstakingAmount(QCKBalance);
         <div className='mt-5'>
         <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} in exchange for  {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</h3>
           <div>
-            <div className="col-8 m-auto">
-          <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}>
+          {unbondingSum > 0 &&  <div className="col-8 m-auto">
+       <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}>
           
 <table className="table mt-3">
 
@@ -191,10 +191,10 @@ setUnstakingAmount(QCKBalance);
 </table>
   
     </Collapsible>
-    </div>  
+    </div>  }
 
 </div>
-        <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</span></h5>
+        <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} on Quicksilver chain: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</span></h5>
         </div>
 
         <div className="d-flex mt-3 align-items-center justify-content-center">

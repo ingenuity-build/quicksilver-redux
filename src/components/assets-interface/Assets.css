@@ -48,3 +48,16 @@ h2 {
     color: #D35100;
     font-weight: bold; 
   }
+
+
+.claim-card {
+    background: #282828;
+border: 2px solid #282828;
+border-radius: 5px;
+padding: 1rem;
+max-width: 300px;
+}
+
+.claim-card .card-details {
+    margin-left: 10px;
+}

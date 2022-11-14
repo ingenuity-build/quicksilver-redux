@@ -12,6 +12,7 @@ import { quicksilver } from "quicksilverjs"
 import { claimsSelector, fetchClaims } from '../../slices/claims';
 import  {  claimRewardModalSelector, setModalOpen } from '../../slices/claimRewardModal';
 import ClaimRewardModal from './ClaimRewardModal';
+import { current } from '@reduxjs/toolkit';
 
 
 const {
@@ -39,7 +40,7 @@ export default function Assets() {
   const dispatch = useDispatch();
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks } = useSelector(networksSelector);
-  const {previousEpochMessages, existingClaims, previousEpochAssets} = useSelector(claimsSelector)
+  const {previousEpochMessages, existingClaims, previousEpochAssets, currentEpochAssets} = useSelector(claimsSelector)
   const {isModalOpen} = useSelector(claimRewardModalSelector)
         let obj = {};
       
@@ -70,7 +71,25 @@ if(obj[claim.chain_id]) {
   }
 
 
+
 }, [existingClaims])
+
+useEffect(() => {
+    if(currentEpochAssets) {
+    let obj = {}
+    let values = Object.values(currentEpochAssets);
+    values.forEach((asset:any) => {
+
+      asset.forEach((asset1: any) => {
+        asset1["Amount"].forEach((asset2: any) => {
+        obj[asset2.denom] = (obj[asset2.denom] || 0 ) + parseInt(asset2.amount)
+        })
+       
+      })
+    })
+    console.log('Current Assets', obj);
+    }
+}, [currentEpochAssets])
 
 const displayClaims =  (obj: any) => {
  // {"quickgaia-1": "1234", "quickstar-1": "5645"}
@@ -79,7 +98,6 @@ const displayClaims =  (obj: any) => {
     let network = networks.find((network: any) => network.value.chain_id === x).value;
       obj1 = {...obj1, [x]: {...obj1[x], "denom": network?.local_denom, "prefix": network?.account_prefix}}
   })
-  console.log(obj1);
   for (const key in obj1) {
     if (obj1.hasOwnProperty(key)) {
       // console.log(`${key}: ${population[key]}`);
@@ -88,7 +106,9 @@ const displayClaims =  (obj: any) => {
   // @ts-ignore
   setClaimsArray(Object.keys(obj1));
   setClaims(obj1);
-  return 'hey';
+
+
+
 }
 
 
@@ -133,7 +153,7 @@ const displayClaims =  (obj: any) => {
 
 
   const fetchData = (id: any, amount: number) => {
-    console.log(id, amount)
+    // console.log(id, amount)
     let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
           if(id !== 'uqck') {
            let network  = networks.find((y:any) => y.value.local_denom === id); 
@@ -151,7 +171,14 @@ const displayClaims =  (obj: any) => {
 
     return (
         <>
-          <div className="assets-interface row mx-0">
+              {!isQSWalletConnected && <div>
+          <div className="connect-wallet-pane d-flex flex-column align-items-center ">
+                <h4 className="sub-heading"> Hey there! </h4>
+                <h1 className="mt-3"> Connect your wallet to get started! </h1>
+                <button  className="connect-wallet-button mt-5"> Connect Wallet </button>
+                </div>
+        </div>}
+         {isQSWalletConnected && <div className="assets-interface row mx-0">
           {showAssets && <div className="col-8 mx-auto mt-5">
 <div className="participation-rewards">
     <div className="d-flex p-5 justify-content-between">
@@ -191,17 +218,29 @@ const displayClaims =  (obj: any) => {
 </div>}
 {existingClaims.length === 0 &&  <h5>You do not have any existing claims yet</h5>}
 {existingClaims.length !==0 &&  <div>
-   <h5 className="mt-4">Existing Claims</h5>
+   <h3 className="mt-4">Existing Claims</h3>
    {/* {claimsArray.forEach((claim) => {
     return<p>There are {${claims[claim]} ${claim}`}</p>
 })} */}
-
-{claimsArray && claimsArray.map((claim: any) => {
-  return <p> There are {claims[claim].total} {claims[claim].denom} on {claims[claim].prefix} </p>
-}) }
+  <div className="mt-3 claims row w-100 justify-content-startr">
+  {claimsArray.map((claim) => 
+  <>
+                <div  className={`claim-card col-3 m-3`}>
+                <div className="d-flex align-items-start"> 
+               <div className="card-details">
+               <img className="d-block mx-auto" src={params[claims[claim]['denom']]}/>
+                <h5> {+(claims[claim]['total']/1000000).toFixed(2)} <span>{claims[claim]['denom']} </span> </h5>
+                <h5>  {claims[claim]['prefix']}</h5>
+                </div>
+                </div>
+            </div>
+         
+          </>
+     )}
+</div>
 
       <h6> Something missing? Try claiming again...</h6>
-      <button onClick={onClaimsClick}> Claim</button>
+      <button className="mb-4" onClick={onClaimsClick}> Claim</button>
     </div>}
 </div>  }
 {!showAssets && <div className="col-12 max-auto mt-5">
@@ -210,7 +249,7 @@ const displayClaims =  (obj: any) => {
     </div>
   </div>}
  
-    </div>
+    </div>}
     </>
     )
 
