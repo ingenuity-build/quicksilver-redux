@@ -34,6 +34,7 @@ params['uqstars'] = qStar
 export default function Assets() {
   const [sum, setsum] = useState<number>(0);
   const [claimsArray, setClaimsArray] = useState([]);
+  const [claims, setClaims] = useState({})
   const [showAssets, setShowAssets] = useState(true);
   const dispatch = useDispatch();
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
@@ -86,6 +87,14 @@ const displayClaims =  (obj: any) => {
       obj1 = {...obj1, [x]: {...obj1[x], "denom": network?.local_denom, "prefix": network?.account_prefix}}
   })
   console.log(obj1);
+  for (const key in obj1) {
+    if (obj1.hasOwnProperty(key)) {
+      // console.log(`${key}: ${population[key]}`);
+    }
+  }
+  // @ts-ignore
+  setClaimsArray(Object.keys(obj1));
+  setClaims(obj1);
   return 'hey';
 }
 
@@ -255,24 +264,24 @@ let assets = {"quickosmo-1": [{"Type": "osmosispool",
 // }
 }
 
-const renderClaims = () => {
-    const claims = claimsArray.map((claim: any) => {
-    let network = networks.find((network: any) => network.value.chain_id === claim[0]).value;
-    claim.push(network?.local_denom);
-    claim.push(network?.account_prefix)
+// const renderClaims = () => {
+//     const claims = claimsArray.map((claim: any) => {
+//     let network = networks.find((network: any) => network.value.chain_id === claim[0]).value;
+//     claim.push(network?.local_denom);
+//     claim.push(network?.account_prefix)
 
-    return (
-      <>
-        <p className="mt-3">{ claim[3].toUpperCase()} {+(claim[1]/1000000)} {claim[2][1]  + claim[2].slice(2).toUpperCase()}  </p>
-        <img className="d-block mx-auto" src={params[claim[2]]}/>
-      </>
+//     return (
+//       <>
+//         <p className="mt-3">{ claim[3].toUpperCase()} {+(claim[1]/1000000)} {claim[2][1]  + claim[2].slice(2).toUpperCase()}  </p>
+//         <img className="d-block mx-auto" src={params[claim[2]]}/>
+//       </>
 
-    )
+//     )
     
-  })
+//   })
 
-  return claims
-}
+//   return claims
+// }
 
 
 
@@ -313,7 +322,7 @@ const renderClaims = () => {
     <button onClick={onClaimsClick}> Claim </button>
     {isModalOpen && <ClaimRewardModal/>}
     </div>
-
+  
   </div>
   <h3 className="mt-5">My Assets</h3> 
   {sum === 0 && <h5 className="mt-4">Calculating...</h5>}
@@ -346,8 +355,14 @@ const renderClaims = () => {
 {existingClaims.length === 0 &&  <h5>You do not have any existing claims yet</h5>}
 {existingClaims.length !==0 &&  <div>
    <h5 className="mt-4">Existing Claims</h5>
-      {/* {renderClaims()} */}
-      {displayClaims(obj)}
+   {/* {claimsArray.forEach((claim) => {
+    return<p>There are {${claims[claim]} ${claim}`}</p>
+})} */}
+
+{claimsArray && claimsArray.map((claim: any) => {
+  return <p> There are {claims[claim].total} {claims[claim].denom} on {claims[claim].prefix} </p>
+}) }
+
       <h6> Something missing? Try claiming again...</h6>
       <button onClick={onClaimsClick}> Claim</button>
     </div>}
