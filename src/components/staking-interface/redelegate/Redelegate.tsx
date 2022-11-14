@@ -11,14 +11,12 @@ export default function Redelegate() {
     const {isQSWalletConnected, balances, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
     const Redelegate =  async () => {
 
-        let msg =  {typeUrl: "/quicksilver.interchainstaking.v1.MsgSignalIntent",
-        value: {
+    let msg =  {
+      typeUrl: "/quicksilver.interchainstaking.v1.MsgSignalIntent",
+      value: {
         chainId: "quickgaia-1",
         fromAddress: quicksilverAddress,
-        intents: [
-            { valoperAddress: "cosmosvaloper1759teakrsvnx7rnur8ezc4qaq8669nhtgukm0x", weight: "500000000000000000"},
-            { valoperAddress: "cosmosvaloper1jtjjyxtqk0fj85ud9cxk368gr8cjdsftvdt5jl", weight: "500000000000000000"}
-        ]
+        intents: "0.5cosmosvaloper1759teakrsvnx7rnur8ezc4qaq8669nhtgukm0x,0.5cosmosvaloper1jtjjyxtqk0fj85ud9cxk368gr8cjdsftvdt5jl"
       }
     }
     try {
