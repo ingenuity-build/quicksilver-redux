@@ -51,9 +51,6 @@ export default function Assets() {
   fetchSum();
     }
 
-    // if(messages.length == 0) {
-    // queryXccLookup();
-    // }
 
   }, [balances, networks])
 
@@ -70,10 +67,6 @@ if(obj[claim.chain_id]) {
 }
     })
     displayClaims(obj)
-  // @ts-ignore
-    // setClaimsArray(Object.entries(obj));
-    // console.log('claimsarray', claimsArray) 
-    
   }
 
 
@@ -98,60 +91,7 @@ const displayClaims =  (obj: any) => {
   return 'hey';
 }
 
-//   let obj = {};
-// existingClaims.forEach((claim) => {
-//   obj[claim.chain_id] = (obj[claim.chain_id] || 0) + parseInt(claim.amount);
-// });
-// console.log(obj);
 
-
-// let assets = previousEpochAssets["quickosmo-1"];
-let assets = {"quickosmo-1": [{"Type": "osmosispool",
-"Amount": [{"denom": "uqatom",
-"amount": "72000"
-},
-{"denom": "uqstars",
-"amount": "170570"
-}
-]
-},
-{"Type": "liquid",
-"Amount": [{"denom": "uqatom",
-"amount": "243999"
-},
-{"denom": "uqstars",
-"amount": "165731"
-}
-]
-}
-],
-"quickgaia-1": [{"Type": "osmosispool",
-"Amount": [{"denom": "uqatom",
-"amount": "72000"
-},
-{"denom": "uqstars",
-"amount": "170570"
-}
-]
-},
-{"Type": "liquid",
-"Amount": [{"denom": "uqatom",
-"amount": "243999"
-},
-{"denom": "uqstars",
-"amount": "165731"
-}
-]
-}
-]
-}
-// console.log(Object.keys(assets))
-// Object.keys(assets).forEach((asset) => {
-//   asset["Amount"].forEach((asset) => { 
-//     obj[asset.denom] = (obj[asset.denom] || 0 ) + parseInt(asset.amount)
-//   })
-// })
-// console.log(obj)
 
 
 
@@ -180,108 +120,15 @@ let assets = {"quickosmo-1": [{"Type": "osmosispool",
     )
   }
 
-  // const queryXccLookup = async () => {
 
-  //     try {
 
-  //     const res = await fetch(`https://claim.dev.quicksilver.zone/${quicksilverAddress}/epoch`);
-  //     const data = await res.json();
-  //       messages = data.messages;
-  //       // update assets
-  //     } 
-  //     catch(err) {
-  //       console.log(err)
-  //     }
-  // }
-
- 
-  // const maps : any = { 
-  //   'cosmos': 'uqatom', 'stargaze': 'uqstars', 'quicksilver': 'uqck'
-  // }
   const onClaimsClick = async (e: any) => {
 
         // @ts-expect-error
   dispatch(setModalOpen());
-    // if (previousEpochMessages.length == 0) {
-    //   alert("nope!")
-    //   return
-    // }
-
-    // let msg = [];
-    // // @ts-ignore
-    //   // msg = messages.map((message: any) => { return {
-    //   //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   //   value: message}
-    //   // });
-
-    //   //msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return submitClaim({claimType: message.claim_type, Proofs: message.proofs, SrcZone: message.src_zone, UserAddres: message.user_address, Zone: message.zone}) })
-    //   msg = previousEpochMessages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return {
-    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-    //   value: {
-    //     userAddress: message.user_address,
-    //     zone: message.zone,
-    //     srcZone: message.src_zone,
-    //     claimType: message.claim_type,
-    //     proofs: message.proofs.map((proof: any) => {
-    //       return {
-    //           key: proof.key,
-    //           data: proof.data,
-    //           proofOps: proof.proof_ops,
-    //           proofType: proof.proof_type,
-    //           height: proof.height,
-    //       }
-    //     })
-    //           }}
-    //         });
-
-    
-
-    
-//     try {
-
-//    const broadcastResult = await quicksilverClient.signAndBroadcast(
-//     quicksilverAddress,
-//       [...msg],
-//      {
-//         "gas": "200000",
-//         "amount": [
-//           {
-//             "denom": "umuon",
-//             "amount": "300"
-//           }
-//         ]
-//       },
-//       'Claims Transaction'
-//     );  
-//     console.log(broadcastResult);
-//     if(broadcastResult.code === 0 ) {
-
-//     }
-// } catch(err: any) {
-
-//   console.log(err);
-
-// }
+  
 }
 
-// const renderClaims = () => {
-//     const claims = claimsArray.map((claim: any) => {
-//     let network = networks.find((network: any) => network.value.chain_id === claim[0]).value;
-//     claim.push(network?.local_denom);
-//     claim.push(network?.account_prefix)
-
-//     return (
-//       <>
-//         <p className="mt-3">{ claim[3].toUpperCase()} {+(claim[1]/1000000)} {claim[2][1]  + claim[2].slice(2).toUpperCase()}  </p>
-//         <img className="d-block mx-auto" src={params[claim[2]]}/>
-//       </>
-
-//     )
-    
-//   })
-
-//   return claims
-// }
 
 
 
@@ -300,16 +147,6 @@ let assets = {"quickosmo-1": [{"Type": "osmosispool",
             setsum((prev) => +prev + (amount * balance))
             
           }
-          // if(x.denom !== 'uqck') {
-          //     network = networks.find((y:any) => y.value.local_denom == x.denom); 
-          //     // @ts-expect-error
-          //     calc = +(x.amount)/1000000 * +(network?.value.redemption_rate);
-              
-          //     // id = cosmos, uqatom , stargaze: uqstars
-          // } else if (x.denom === 'uqck' && id === 'quicksilver') {
-          //   console.log('bye')
-          //   setsum((prevSum) => prevSum + (amount * (+(x.amount)/1000000)))
-          // } 
       }
 
     return (
