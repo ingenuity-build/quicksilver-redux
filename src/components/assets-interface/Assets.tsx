@@ -65,16 +65,17 @@ existingClaims.forEach((claim) => {
 if(obj[claim.chain_id]) {
   obj[claim.chain_id]['total'] = obj[claim.chain_id]['total'] + parseInt(claim.amount)
 } else {
-  obj[claim.chain_id] = { total : 0}
+  obj[claim.chain_id] = { total : parseInt(claim.amount)}
 }
     })
-    console.log(obj)
     displayClaims(obj)
   // @ts-ignore
     // setClaimsArray(Object.entries(obj));
-    // console.log('claimsarray', claimsArray)
+    // console.log('claimsarray', claimsArray) 
     
   }
+
+
 }, [existingClaims])
 
 const displayClaims =  (obj: any) => {
