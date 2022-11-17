@@ -21,7 +21,8 @@ export default function Delegate() {
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
-
+    const activeStep = useSelector(stakingActiveStep);
+   
     useEffect(() => {
         if (selectedNetwork !== "Select a network") {
             console.log(selectedNetwork.chain_id)
@@ -39,7 +40,7 @@ export default function Delegate() {
  
 
 
-    const activeStep = useSelector(stakingActiveStep);
+
     return (
         <>
         {activeStep === 1 && <ConnectWallet/>}
