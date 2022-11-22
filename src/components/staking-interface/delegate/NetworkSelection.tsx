@@ -80,11 +80,11 @@ useEffect(() => {
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
     {zoneBalance && <h5 className="font-bold">{zoneBalance}</h5>}
-     {selectedNetwork.base_denom && <p> {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</p>}
+     {selectedNetwork.base_denom && <p> {selectedNetwork.base_denom.slice(1).toUpperCase()}</p>}
     </div>
     <div className="col-3 text-center">
     <h5 className="font-bold">{QCKBalance}</h5>
-      {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</p>}
+      {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()}</p>}
       {}
     </div>
 
@@ -94,7 +94,7 @@ useEffect(() => {
 
 <div className="mt-5 button-container">
 
- {selectedNetwork?.base_denom && <button className={`stake-liquid-atoms-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} onClick={() => onNext()} > Stake {selectedNetwork?.base_denom?.substring(1).charAt(0).toUpperCase() + selectedNetwork?.base_denom?.slice(2)} </button>}
+ {selectedNetwork?.base_denom && <button className={`stake-liquid-atoms-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} onClick={() => onNext()} > Stake {selectedNetwork?.base_denom?.slice(1).toUpperCase()} </button>}
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
 </div>

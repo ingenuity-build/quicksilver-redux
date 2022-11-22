@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { _loadValsAsync , validatorListSelector, setSelectedValidatorList, getValidatorListSuccess, setRedelegateValidatorList, } from "../../../slices/validatorList";
-import { increaseRedelegateStep } from '../../../slices/relegateActiveStep';
+import { decreaseRedelegateStep, increaseRedelegateStep } from '../../../slices/relegateActiveStep';
 export interface Data {
     voting_power: string;
     rank: number;
@@ -14,12 +14,12 @@ export interface Data {
 
 export default function RedelegateValidators() {
     const dispatch = useDispatch()
-    const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
-    const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(selectedValidatorList);
+    const {validatorList, redelegateValidatorList} = useSelector(validatorListSelector);
+    const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(redelegateValidatorList);
     const [validators, setValidators] = React.useState(validatorList);
 
     React.useEffect(() => {
-        if(selectedValidatorList.length === 0 ) {
+        if(redelegateValidatorList.length === 0 ) {
             // let newArray = [];
             // newArray = validators.map((val: any) => { val.active = false; return val});
             let newData = validators.map((val: any) => 
@@ -29,7 +29,7 @@ export default function RedelegateValidators() {
             setValidators(newData);
         }  else {
             let newData = validators.map((val: any) => {
-                if(selectedValidatorList.find((x: any) => x.address === val.address)) {
+                if(redelegateValidatorList.find((x: any) => x.address === val.address)) {
                    return Object.assign({}, val, {active: true})
                 } else {
                    return Object.assign({}, val, {active:false})
@@ -72,6 +72,17 @@ export default function RedelegateValidators() {
 
     }
 
+    const onPrev = () => {
+        // @ts-expect-error
+   dispatch(setRedelegateValidatorList(selectedValidators))
+
+   // @ts-ignore
+   dispatch(decreaseRedelegateStep())
+
+}
+
+
+
     return  (
         <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3"> Choose validators </h2>
@@ -97,7 +108,8 @@ export default function RedelegateValidators() {
               </div>
 
 <div className="mt-5 button-container">
-<button onClick={onNext}> NEXT</button>
+<button onClick={onPrev}  className="prev-button mx-3" > Previous</button>
+        <button disabled={ selectedValidators.length === 0 } className="next-button mx-3" onClick={onNext}  >Next</button>
     </div>
 </div>
           

@@ -23,23 +23,6 @@ export default function Delegate() {
     const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
     const activeStep = useSelector(stakingActiveStep);
    
-    useEffect(() => {
-        if (selectedNetwork !== "Select a network") {
-            console.log(selectedNetwork.chain_id)
-                  // @ts-expect-error
-         dispatch(_loadValsAsync(selectedNetwork.chain_id));
-        //          // @ts-expect-error
-        //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
-        }
-      }, [selectedNetwork])
-
-
-
-
-
- 
-
-
 
     return (
         <>

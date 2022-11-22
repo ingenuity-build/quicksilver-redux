@@ -26,7 +26,8 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
-import {  setSelectedValidatorList } from "../../slices/validatorList";
+import { setRedelegateStep } from '../../slices/relegateActiveStep';
+import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
@@ -159,8 +160,12 @@ export default function Navbar(props: PropComponent) {
         dispatch(setSelectedNetworkFunc(selected));
         // @ts-expect-error
         dispatch(setStakingStep(2));
+           // @ts-expect-error
+           dispatch(setRedelegateStep(2));
                         //    @ts-expect-error
     dispatch(setSelectedValidatorList([]))
+    // @ts-expect-error
+    dispatch(setRedelegateValidatorList([]))
   }
     return (
 
@@ -177,7 +182,7 @@ export default function Navbar(props: PropComponent) {
     
       <li className="nav-item mx-4">
       <img className="nav-icon-stake" alt="Stakes" src={Stakes}/>
-      <Link className={`${location.pathname === '/stake/delegate'  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
+      <Link className={`${location.pathname.includes('stake')  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
       </li>
    
       <li className="nav-item mx-4 d-flex align-items-center">
@@ -205,7 +210,7 @@ export default function Navbar(props: PropComponent) {
         />}
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
       
-        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
+        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK</p>}
       
       { isModalOpen && <Backdrop />}
  

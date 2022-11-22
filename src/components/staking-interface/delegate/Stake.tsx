@@ -1,16 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import './Stake.css';
-import { useSelector } from 'react-redux'
+import { useSelector , useDispatch} from 'react-redux'
 import {stakingActiveStep} from '../../../slices/stakingActiveStep';
 import LogoWhite from '../../../assets/icons/logo-whitestroke.svg';
 import LogoGray from '../../../assets/icons/logo-graystroke.png';
 import { useLocation} from "react-router-dom";
+import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
+import { _loadValsAsync } from "../../../slices/validatorList";
 
 
 export default function Stake() {
+  const dispatch = useDispatch();
+
   const activeStep = useSelector(stakingActiveStep);
   const location = useLocation();
+  const {selectedNetwork} = useSelector(selectedNetworkSelector);
+  useEffect(() => {
+    if (selectedNetwork !== "Select a network") {
+        console.log(selectedNetwork.chain_id)
+              // @ts-expect-error
+     dispatch(_loadValsAsync(selectedNetwork.chain_id));
+    //          // @ts-expect-error
+    //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
+    }
+  }, [selectedNetwork])
+
     return  (
         <>
      
