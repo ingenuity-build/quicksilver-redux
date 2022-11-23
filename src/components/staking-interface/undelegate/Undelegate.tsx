@@ -46,6 +46,8 @@ export default function Undelegate() {
     if(selectedNetwork !=="Select a network" && quicksilverAddress)
        // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
+    setTransactionSuccessful(false);
+    
 }, [selectedNetwork, quicksilverAddress])
 
 useEffect(() => {
@@ -161,7 +163,7 @@ setUnstakingAmount(QCKBalance);
 
          
                 <tr>
-      <td>{row?.amount[0].amount/1000000} {row?.amount[0].denom} </td>
+      <td>{row?.amount[0].amount/1000000} {selectedNetwork.base_denom.slice(1).toUpperCase()} </td>
                 {row.status === 1 && <td> A few minutes later.. </td>}
                 {row.status === 2 && <td> {Moment(time).format('MMMM Do YYYY, h:mm a')}</td>} 
                 {row.status === 3 && <td>{Moment(row.completion_time).format('MMMM Do YYYY, h:mm a').toLocaleString()} </td>}
@@ -205,7 +207,7 @@ setUnstakingAmount(QCKBalance);
                 </div>
 
                 <div className="d-flex justify-content-center">
-        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> Unbond </button>
+        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
 
         </div>
         <div className="d-flex flex-column mt-3 justify-content-center align-items-center">

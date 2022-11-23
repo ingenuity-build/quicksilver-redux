@@ -14,9 +14,24 @@ export interface Data {
 
 export default function RedelegateValidators() {
     const dispatch = useDispatch()
+    const [searchTerm, setSearchTerm] = React.useState('');
     const {validatorList, redelegateValidatorList} = useSelector(validatorListSelector);
     const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(redelegateValidatorList);
     const [validators, setValidators] = React.useState(validatorList);
+
+
+   const filterData = () => {
+    setValidators(validatorList.filter((val: any) => val.name.toLowerCase().includes(searchTerm.toLowerCase())));
+ }
+
+ React.useEffect(() => {
+     if(searchTerm) {
+     filterData();
+     } else {
+        
+         setValidators(validatorList)
+     }
+ },[searchTerm])
 
     React.useEffect(() => {
         if(redelegateValidatorList.length === 0 ) {
@@ -44,6 +59,12 @@ export default function RedelegateValidators() {
    
         
     }, [])
+
+    const handleChange = (e: any) => {
+        setSearchTerm(e.target.value);
+   }
+
+
 
     const addValidator = (e: React.MouseEvent<HTMLElement>, validator: Data) => {
         let position = selectedValidators.findIndex((val) => validator.address === val.address);
@@ -87,7 +108,7 @@ export default function RedelegateValidators() {
         <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3"> Choose validators </h2>
         
-
+      {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
           <div className="mt-3 validators row w-100 justify-content-center">
           {validators.map((row: any) =>
           <>

@@ -190,7 +190,7 @@ export default function Assets() {
     quicksilverAddress,
       [...msg],
      {
-        "gas": "200000",
+        "gas": "400000",
         "amount": [
           {
             "denom": "umuon",

@@ -14,6 +14,8 @@ export default function RedelegateNetworkSelection() {
     const {quicksilverAddress} = useSelector(quicksilverSelector);
     const {intents} = useSelector(intentsSelector)
     const {validatorList} = useSelector(validatorListSelector);
+    const [intentArray, setIntentArray] = React.useState([]);
+    const [showIntent, setShowIntent] = React.useState(false);
     useEffect(() => {
 
     if( selectedNetwork !== "Select a network" ) {
@@ -21,6 +23,21 @@ export default function RedelegateNetworkSelection() {
      dispatch(fetchIntents(selectedNetwork.chain_id, quicksilverAddress))
     }
     }, [ selectedNetwork])
+
+    useEffect(() => {
+        if( selectedNetwork !== "Select a network" ) {
+        if(intents) {
+            let intentArray = [];
+            intents.forEach((intent: any) => {
+                // @ts-ignore
+                intentArray.push( { "name" : validatorList.find((x: any) => x.address === intent.valoper_address )?.name, "weight": intent.weight})
+            })
+           setIntentArray(intentArray);
+           setShowIntent(true);
+
+        }
+        }
+    }, [selectedNetwork, intentArray])
 
     const onNext = () => {
         // @ts-ignore
@@ -38,9 +55,9 @@ export default function RedelegateNetworkSelection() {
        {selectedNetwork !== "Select a network" && intents.length > 0 &&  <div>
         <p> Your current intent is:</p>
         <div className="intents">
-            {intents.map((intent: any) => 
+            {intentArray.map((intent: any) => 
             <>
-                <p>{validatorList.find((x: any) => x.address === intent.valoper_address ) ?validatorList.find((x: any) => x.address === intent.valoper_address ).name : ''} : {+(100*intent.weight).toFixed(2) } %</p>
+                <p>{intent.name} : {+(100*intent.weight).toFixed(2) } %</p>
                 </>
             )}
         </div>

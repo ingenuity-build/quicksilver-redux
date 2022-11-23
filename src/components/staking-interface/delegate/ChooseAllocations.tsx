@@ -278,8 +278,8 @@ useEffect(() => {
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
             {stakingAmount> ((zoneBalance) - 0.3) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6) } atom ` : ''}
-            { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available atoms. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
-            { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of atoms to continue </p>}
+            { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available {selectedNetwork.base_denom.slice(1).toUpperCase()}. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
+            { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of {selectedNetwork.base_denom.slice(1).toUpperCase()} to continue </p>}
        </div>}
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
