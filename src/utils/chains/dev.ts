@@ -35,6 +35,12 @@ export const DevQuickSilverChainInfo : ChainInfo = {
             coinDecimals: 6,
             coinGeckoId: "stargaze",
         },
+        {
+            coinDenom: "qOSMO",
+            coinMinimalDenom: "uqosmo",
+            coinDecimals: 6,
+            coinGeckoId: "osmosis",
+        },
     ],
     feeCurrencies: [
         {
