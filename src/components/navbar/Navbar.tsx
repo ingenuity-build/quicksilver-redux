@@ -14,6 +14,7 @@ import Wallet from '../../assets/icons/wallet.svg';
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
+import Asset from '../../assets/icons/asset.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
@@ -181,13 +182,13 @@ export default function Navbar(props: PropComponent) {
     <ul className="navbar-nav mr-auto">
     
       <li className="nav-item mx-4">
-      <img className="nav-icon-stake" alt="Stakes" src={Stakes}/>
+      <img className={`${location.pathname.includes('stake')  ? 'nav-icon-stake' : 'stake-white'}`} alt="Stakes" src={Stakes}/>
       <Link className={`${location.pathname.includes('stake')  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
       </li>
    
       <li className="nav-item mx-4 d-flex align-items-center">
-      <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
+      <img className={`${location.pathname === '/assets'  ? 'nav-icon-asset' : 'asset-white'}`} alt="Assets" src={Asset}/>
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link ml-2' : 'pl-2'}`} to="/assets" >ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">

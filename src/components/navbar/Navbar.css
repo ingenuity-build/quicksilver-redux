@@ -54,6 +54,23 @@ color: #FFFFFF;
     margin-right:1px;
 }
 
+.navbar .stake-white {
+    height: 30px;
+    margin-right:1px;
+    filter: invert(0.5);
+    
+}
+
+.asset-white {
+    filter: invert(0.5);
+    height: 22px;
+    padding-right: 3px;
+}
+
+.nav-icon-asset {
+    height: 22px;
+    padding-right: 3px;
+}
 .navbar .nav-icon-pools {
     height: 17px;
     margin-right:2px;
