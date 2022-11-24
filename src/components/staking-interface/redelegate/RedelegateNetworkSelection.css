@@ -9,3 +9,11 @@
     border: 2px solid #D35100;
     z-index: 3;
 }
+
+.redelegate-pane {
+    padding: 50px;
+    z-index: 3;
+    border-radius: 30px;
+    background: #282828;
+
+}

@@ -136,7 +136,10 @@ export default function RedelegateAllocations() {
 
     return  (
     <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
+      <div className="redelegate-pane">
+      <h4 className="text-center"> Allocate Intent</h4>  
       {!transactionSuccessful && <div className="d-flex flex-column align-items-end mt-2">
+     
         {redelegateValidatorList.length > 1 && redelegateValidatorList.map((val: any) => <>   
         <div className="d-flex mt-3">
             <h5 className=" mx-2">{val.name}</h5>
@@ -158,6 +161,7 @@ export default function RedelegateAllocations() {
                 )}
             
             </div>}
+            </div>
             { sum > 100 && <p className="mt-2"> You have allocated {sum} % . Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
             { sum < 99.9 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % to continue </p>}
             {!transactionSuccessful && <div className="button-containers mt-5 mb-4">
@@ -179,8 +183,8 @@ export default function RedelegateAllocations() {
                 </>
             )}
 
-        </div>
         
+        </div>
     )
         }
       

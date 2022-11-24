@@ -66,11 +66,11 @@ useEffect(() => {
         <div className="network-selection-pane d-flex flex-column align-items-center ">
 
 
-<div className="text-center">
+        {selectedNetwork === "Select a network" && <div className="text-center">
   <h2 className="mt-4">Choose your network </h2>
       <p className="mt-2">Choose the network from the dropdown in the Navbar</p> 
-</div>
-{selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-3">
+</div>}
+{selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
   onClick={() => {navigator.clipboard.writeText(networkAddress)}}
