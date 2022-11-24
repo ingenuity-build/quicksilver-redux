@@ -14,6 +14,7 @@ import Wallet from '../../assets/icons/wallet.svg';
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
+import Asset from '../../assets/icons/asset.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
@@ -26,7 +27,8 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
-import {  setSelectedValidatorList } from "../../slices/validatorList";
+import { setRedelegateStep } from '../../slices/relegateActiveStep';
+import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
@@ -159,8 +161,12 @@ export default function Navbar(props: PropComponent) {
         dispatch(setSelectedNetworkFunc(selected));
         // @ts-expect-error
         dispatch(setStakingStep(2));
+           // @ts-expect-error
+           dispatch(setRedelegateStep(2));
                         //    @ts-expect-error
     dispatch(setSelectedValidatorList([]))
+    // @ts-expect-error
+    dispatch(setRedelegateValidatorList([]))
   }
     return (
 
@@ -176,13 +182,13 @@ export default function Navbar(props: PropComponent) {
     <ul className="navbar-nav mr-auto">
     
       <li className="nav-item mx-4">
-      <img className="nav-icon-stake" alt="Stakes" src={Stakes}/>
-      <Link className={`${location.pathname === '/stake/delegate'  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
+      <img className={`${location.pathname.includes('stake')  ? 'nav-icon-stake' : 'stake-white'}`} alt="Stakes" src={Stakes}/>
+      <Link className={`${location.pathname.includes('stake')  ? 'active-link' : ''}`} to="/stake/delegate">STAKE</Link> 
       </li>
    
       <li className="nav-item mx-4 d-flex align-items-center">
-      <img className="nav-icon-pools" alt="Pools" src={Pools}/>
-               <Link  className={`${location.pathname === '/assets'  ? 'active-link' : ''}`} to="/assets" >ASSETS</Link> 
+      <img className={`${location.pathname === '/assets'  ? 'nav-icon-asset' : 'asset-white'}`} alt="Assets" src={Asset}/>
+               <Link  className={`${location.pathname === '/assets'  ? 'active-link ml-2' : 'pl-2'}`} to="/assets" >ASSETS</Link> 
       </li>
   
       <li className="nav-item mx-4 d-flex align-items-center">
@@ -205,7 +211,7 @@ export default function Navbar(props: PropComponent) {
         />}
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
       
-        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance : 0} QCK</p>}
+        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK</p>}
       
       { isModalOpen && <Backdrop />}
  

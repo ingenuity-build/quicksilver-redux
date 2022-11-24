@@ -120,7 +120,7 @@ const onNext = () => {
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3"> Choose validators </h2>
         
-        <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/>
+        {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
 
           <div className="mt-3 validators row w-100 justify-content-center">
           {validators.map((row: any) =>

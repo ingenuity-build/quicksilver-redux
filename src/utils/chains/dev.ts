@@ -35,6 +35,12 @@ export const DevQuickSilverChainInfo : ChainInfo = {
             coinDecimals: 6,
             coinGeckoId: "stargaze",
         },
+        {
+            coinDenom: "qOSMO",
+            coinMinimalDenom: "uqosmo",
+            coinDecimals: 6,
+            coinGeckoId: "osmosis",
+        },
     ],
     feeCurrencies: [
         {
@@ -144,6 +150,53 @@ export const DevChainInfos: ChainInfo[] = [
         coinMinimalDenom: "ustars",
         coinDecimals: 6,
         coinGeckoId: "stargaze",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.00,
+        average: 0.015,
+        high: 0.03,
+    },
+  },
+  {
+    chainId: "quickosmo-1",
+    chainName: "Quicksilver Dev OSMO Test",
+    rpc: "https://rpc.quickosmo-1.dev.quicksilver.zone",
+    rest: "https://lcd.quickosmo-1.dev.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "osmo",
+        bech32PrefixAccPub: "osmopub",
+        bech32PrefixValAddr: "osmovaloper",
+        bech32PrefixValPub: "osmovaloperpub",
+        bech32PrefixConsAddr: "osmovalcons",
+        bech32PrefixConsPub: "osmovalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "OSMOSIS",
+            coinMinimalDenom: "uosmo",
+            coinDecimals: 6,
+            coinGeckoId: "osmosis",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "OSMOSIS",
+            coinMinimalDenom: "uosmo",
+            coinDecimals: 6,
+            coinGeckoId: "osmosis",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "OSMOSIS",
+        coinMinimalDenom: "uosmo",
+        coinDecimals: 6,
+        coinGeckoId: "osmosis",
     },
     coinType: 118,
     gasPriceStep: {

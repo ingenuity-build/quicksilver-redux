@@ -11,7 +11,7 @@ import ConnectWallet from './staking-interface/delegate/ConnectWallet';
 
 import './App.css';
 import Undelegate from './staking-interface/undelegate/Undelegate';
-import Redelegate from './staking-interface/redelegate/Relegate';
+import Redelegate from './staking-interface/redelegate/Redelegate';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
 import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
@@ -21,6 +21,7 @@ import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, s
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
+import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -90,7 +91,8 @@ const connectKeplr = async () => {
   setLoading(false);
          // @ts-expect-error
   dispatch(increaseStakingStep());
-
+// @ts-expect-error
+dispatch(increaseRedelegateStep())
   });
 
 }

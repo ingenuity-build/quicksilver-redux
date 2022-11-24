@@ -6,7 +6,8 @@ export const initialState = {
   loading: false,
   hasErrors: false,
   validatorList: [],
-  selectedValidatorList: []
+  selectedValidatorList: [],
+  redelegateValidatorList: []
 }
 
 const validatorListSlice = createSlice({
@@ -24,6 +25,9 @@ const validatorListSlice = createSlice({
     setSelectedValidatorListSuccess : (state, { payload }) => {
       state.selectedValidatorList = payload;
     },
+    setRedelegateValidatorListSuccess : (state, { payload }) => {
+      state.redelegateValidatorList = payload;
+    },
     getValidatorListFailure: state => {
       state.loading = false
       state.hasErrors = true
@@ -31,7 +35,7 @@ const validatorListSlice = createSlice({
   },
 })
 
-export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
+export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorListSuccess, setRedelegateValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
 
 
 export const validatorListSelector = (state:any)  => state.validatorList;
@@ -176,6 +180,17 @@ export interface Data {
   
       try {
         dispatch(setSelectedValidatorListSuccess(val))
+      } catch (error) {
+
+      }
+    }
+  }
+
+  export function setRedelegateValidatorList(val: any) {
+    return async (dispatch: any) => {
+  
+      try {
+        dispatch(setRedelegateValidatorListSuccess(val))
       } catch (error) {
 
       }

@@ -21,25 +21,9 @@ export default function Delegate() {
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
-
-    useEffect(() => {
-        if (selectedNetwork !== "Select a network") {
-            console.log(selectedNetwork.chain_id)
-                  // @ts-expect-error
-         dispatch(_loadValsAsync(selectedNetwork.chain_id));
-        //          // @ts-expect-error
-        //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
-        }
-      }, [selectedNetwork])
-
-
-
-
-
- 
-
-
     const activeStep = useSelector(stakingActiveStep);
+   
+
     return (
         <>
         {activeStep === 1 && <ConnectWallet/>}

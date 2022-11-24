@@ -46,6 +46,8 @@ export default function Undelegate() {
     if(selectedNetwork !=="Select a network" && quicksilverAddress)
        // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
+    setTransactionSuccessful(false);
+    
 }, [selectedNetwork, quicksilverAddress])
 
 useEffect(() => {
@@ -148,10 +150,10 @@ setUnstakingAmount(QCKBalance);
         {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
    
         <div className='mt-5'>
-        <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} in exchange for  {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</h3>
+        <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} in exchange for  {selectedNetwork.base_denom.slice(1).toUpperCase()}</h3>
           <div>
             <div className="col-8 m-auto">
-          <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}>
+          <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.slice(1).toUpperCase()}>
           
 <table className="table mt-3">
 
@@ -161,7 +163,7 @@ setUnstakingAmount(QCKBalance);
 
          
                 <tr>
-      <td>{row?.amount[0].amount/1000000} {row?.amount[0].denom} </td>
+      <td>{row?.amount[0].amount/1000000} {selectedNetwork.base_denom.slice(1).toUpperCase()} </td>
                 {row.status === 1 && <td> A few minutes later.. </td>}
                 {row.status === 2 && <td> {Moment(time).format('MMMM Do YYYY, h:mm a')}</td>} 
                 {row.status === 3 && <td>{Moment(row.completion_time).format('MMMM Do YYYY, h:mm a').toLocaleString()} </td>}
@@ -194,18 +196,18 @@ setUnstakingAmount(QCKBalance);
     </div>  
 
 </div>
-        <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)}</span></h5>
+        <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} on Quicksilver Zone: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()}</span></h5>
         </div>
 
         <div className="d-flex mt-3 align-items-center justify-content-center">
-                    <p className="m-0 mx-3"> Number of  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2 ).toUpperCase() + selectedNetwork.local_denom.slice(3)} you want to unbond:</p>
+                    <p className="m-0 mx-3"> Number of  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2 ).toUpperCase()} you want to unbond:</p>
                     <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                     {/* <button className="mx-3 p-1 max-button"> MAX </button>  */}
                 </div>
 
                 <div className="d-flex justify-content-center">
-        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> Unbond </button>
+        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
 
         </div>
         <div className="d-flex flex-column mt-3 justify-content-center align-items-center">
