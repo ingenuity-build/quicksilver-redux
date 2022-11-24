@@ -63,13 +63,13 @@ color: #FFFFFF;
 
 .asset-white {
     filter: invert(0.5);
-    height: 22px;
-    padding-right: 3px;
+    height: 20px;
+    padding-right: 5px;
 }
 
 .nav-icon-asset {
-    height: 22px;
-    padding-right: 3px;
+    height: 20px;
+    padding-right: 5px;
 }
 .navbar .nav-icon-pools {
     height: 17px;
