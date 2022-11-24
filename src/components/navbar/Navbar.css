@@ -88,12 +88,44 @@ Dropdown styles */
     border: 0 !important;
     border-bottom: 1px solid white !important;
 }
+/* 
+.css-1pahdxg-control {
+    border-color: red !important;
+    box-shadow: 0 0 0 1px red !important
+}
+
+.css-26l3qy-menu {
+    background: red !important
+}
+.css-1pahdxg-control:hover {
+    border-color: red !important
+} */
+
+.css-cvavs1-control {
+    border-color: #D35100 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
+.css-cvavs1-control:hover {
+    border-color: #D35100 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
 
 .css-qc6sy-singleValue{
 color: white !important;
 text-transform: uppercase !important;
 }
 
+.css-tnaca8-control, .css-cvavs1-control {
+    background-color: #1A1A1A !important;
+}
+.css-tnaca8-control {
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
 .navbar .connect-wallet:hover {
     background: #D35100;
     color: #fff;
