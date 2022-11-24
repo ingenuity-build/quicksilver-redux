@@ -130,7 +130,7 @@ export default function Assets() {
 
       try {
 
-      const res = await fetch(`https://claim.dev.quicksilver.zone/${quicksilverAddress}/epoch`);
+      const res = await fetch(`https://claim.test.quicksilver.zone/${quicksilverAddress}/epoch`);
       const data = await res.json();
         messages = data.messages;
         // update assets
