@@ -12,7 +12,7 @@ import { quicksilver } from "quicksilverjs"
 import { claimsSelector, fetchClaims } from '../../slices/claims';
 import  {  claimRewardModalSelector, setModalOpen } from '../../slices/claimRewardModal';
 import ClaimRewardModal from './ClaimRewardModal';
-import { current } from '@reduxjs/toolkit';
+
 
 
 const {
@@ -74,7 +74,31 @@ if(obj[claim.chain_id]) {
 
 }, [existingClaims])
 
+let newBalanceArray = {};
+// ts
+useEffect(() => {
+  balances.forEach((balance) => {
 
+    newBalanceArray[balance.denom] = { "quicksilver" : balance.amount}
+  })
+
+       Object.keys(currentEpochAssets).forEach((key, i) => {
+        currentEpochAssets[key].forEach((asset1: any) => {
+          asset1["Amount"].forEach((asset2: any) => {
+            if(newBalanceArray[asset2.denom]) {
+              newBalanceArray[asset2.denom]= {...newBalanceArray[asset2.denom], [key]: asset2.amount}
+            } else {
+              newBalanceArray[asset2.denom] = { [key]: asset2.amount}
+            }
+               
+  });
+})
+})
+
+console.log(newBalanceArray);
+ 
+
+}, [])
 
 const displayClaims =  (obj: any) => {
  // {"quickgaia-1": "1234", "quickstar-1": "5645"}
