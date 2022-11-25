@@ -106,7 +106,7 @@ export const TestChainInfos: ChainInfo[] = [
         average: 0.015,
         high: 0.03,
     },
-  }
+  },
   {
     chainId: "osmo-test-4",
     chainName: "Quicksilver OSMO Test",
