@@ -74,22 +74,7 @@ if(obj[claim.chain_id]) {
 
 }, [existingClaims])
 
-useEffect(() => {
-    if(currentEpochAssets) {
-    let obj = {}
-    let values = Object.values(currentEpochAssets);
-    values.forEach((asset:any) => {
 
-      asset.forEach((asset1: any) => {
-        asset1["Amount"].forEach((asset2: any) => {
-        obj[asset2.denom] = (obj[asset2.denom] || 0 ) + parseInt(asset2.amount)
-        })
-       
-      })
-    })
-    console.log('Current Assets', obj);
-    }
-}, [currentEpochAssets])
 
 const displayClaims =  (obj: any) => {
  // {"quickgaia-1": "1234", "quickstar-1": "5645"}
