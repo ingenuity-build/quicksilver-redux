@@ -96,8 +96,18 @@ useEffect(() => {
 })
 
 console.log(newBalanceArray);
- 
+let newObj = {};
+Object.keys(newBalanceArray).forEach((key,i) => {
+  Object.keys(newBalanceArray[key]).forEach((key2,i2)=> {
+    if(newObj[key]) {
+    newObj[key] += parseInt(newBalanceArray[key][key2]);
+    } else {
+      newObj[key] = parseInt(newBalanceArray[key][key2]);
+    }
+  })
+})
 
+console.log(newObj);
 }, [])
 
 const displayClaims =  (obj: any) => {
