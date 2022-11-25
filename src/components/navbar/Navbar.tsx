@@ -165,7 +165,7 @@ export default function Navbar(props: PropComponent) {
           console.log('hey from navbar');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 30000)
+    }, 6000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])

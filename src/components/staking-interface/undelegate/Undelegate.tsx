@@ -152,7 +152,7 @@ setUnstakingAmount(QCKBalance);
         <div className='mt-5'>
         <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} in exchange for  {selectedNetwork.base_denom.slice(1).toUpperCase()}</h3>
           <div>
-           {withdrawals.length > 1 && <div className="col-8 m-auto">
+           {withdrawals.length > 0 && <div className="col-8 m-auto">
           <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.slice(1).toUpperCase()}>
           
 <table className="table mt-3">
