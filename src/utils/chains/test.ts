@@ -2,7 +2,7 @@ import { ChainInfo } from "@keplr-wallet/types";
 
 export const TestQuickSilverChainInfo : ChainInfo = {
     chainId: "innuendo-3",
-    chainName: "Quicksilver Test",
+    chainName: "Quicksilver Testnet",
     rpc: "https://rpc.test.quicksilver.zone",
     rest: "https://lcd.test.quicksilver.zone",
     bip44: {
@@ -63,7 +63,7 @@ export const TestChainInfos: ChainInfo[] = [
     TestQuickSilverChainInfo,
 {
     chainId: "fauxgaia-1",
-    chainName: "FauxGaia Test",
+    chainName: "FauxGaia Testnet",
     rpc: "https://rpc.fauxgaia-1.test.quicksilver.zone",
     rest: "https://lcd.fauxgaia-1.test.quicksilver.zone",
     
@@ -109,9 +109,9 @@ export const TestChainInfos: ChainInfo[] = [
   },
   {
     chainId: "osmo-test-4",
-    chainName: "Quicksilver OSMO Test",
-    rpc: "https://rpc.osmo-test-4.dev.quicksilver.zone",
-    rest: "https://lcd.osmo-test-4.dev.quicksilver.zone",
+    chainName: "Osmosis Testnet",
+    rpc: "https://rpc.osmo-test-4.test.quicksilver.zone",
+    rest: "https://lcd.osmo-test-4.test.quicksilver.zone",
     
     bip44: {
         coinType: 118,
@@ -126,7 +126,7 @@ export const TestChainInfos: ChainInfo[] = [
     },
     currencies: [
         {
-            coinDenom: "OSMOSIS",
+            coinDenom: "OSMO",
             coinMinimalDenom: "uosmo",
             coinDecimals: 6,
             coinGeckoId: "osmosis",
@@ -134,7 +134,7 @@ export const TestChainInfos: ChainInfo[] = [
     ],
     feeCurrencies: [
         {
-            coinDenom: "OSMOSIS",
+            coinDenom: "OSMO",
             coinMinimalDenom: "uosmo",
             coinDecimals: 6,
             coinGeckoId: "osmosis",
@@ -142,7 +142,7 @@ export const TestChainInfos: ChainInfo[] = [
     ],
     stakeCurrency: {
         
-        coinDenom: "OSMOSIS",
+        coinDenom: "OSMO",
         coinMinimalDenom: "uosmo",
         coinDecimals: 6,
         coinGeckoId: "osmosis",
@@ -150,6 +150,100 @@ export const TestChainInfos: ChainInfo[] = [
     coinType: 118,
     gasPriceStep: {
         low: 0.00,
+        average: 0.015,
+        high: 0.03,
+    },
+  },
+  {
+    chainId: "elgafar-1",
+    chainName: "Stargaze Testnet",
+    rpc: "https://rpc.elgafar-1.test.quicksilver.zone",
+    rest: "https://lcd.elgafar-1.test.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "stars",
+        bech32PrefixAccPub: "starspub",
+        bech32PrefixValAddr: "starsvaloper",
+        bech32PrefixValPub: "starsvaloperpub",
+        bech32PrefixConsAddr: "starsvalcons",
+        bech32PrefixConsPub: "starsvalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "STARS",
+            coinMinimalDenom: "ustars",
+            coinDecimals: 6,
+            coinGeckoId: "stargaze",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "STARS",
+            coinMinimalDenom: "ustars",
+            coinDecimals: 6,
+            coinGeckoId: "stargaze",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "STARS",
+        coinMinimalDenom: "ustars",
+        coinDecimals: 6,
+        coinGeckoId: "stargaze",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.01,
+        average: 0.015,
+        high: 0.03,
+    },
+  },
+  {
+    chainId: "theta-testnet-001",
+    chainName: "Cosmos Hub Test",
+    rpc: "https://rpc.theta-testnet-001.test.quicksilver.zone",
+    rest: "https://lcd.theta-testnet-001.test.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "cosmos",
+        bech32PrefixAccPub: "cosmospub",
+        bech32PrefixValAddr: "cosmosvaloper",
+        bech32PrefixValPub: "cosmosvaloperpub",
+        bech32PrefixConsAddr: "cosmosvalcons",
+        bech32PrefixConsPub: "cosmosvalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "ATOM",
+            coinMinimalDenom: "uatom",
+            coinDecimals: 6,
+            coinGeckoId: "cosmos",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "ATOM",
+            coinMinimalDenom: "uatom",
+            coinDecimals: 6,
+            coinGeckoId: "cosmos",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "ATOM",
+        coinMinimalDenom: "uatom",
+        coinDecimals: 6,
+        coinGeckoId: "cosmos",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.01,
         average: 0.015,
         high: 0.03,
     },
