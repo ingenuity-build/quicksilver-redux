@@ -95,17 +95,15 @@ useEffect(() => {
 })
 })
 
-console.log(newBalanceArray);
+console.log('New Balance Array', newBalanceArray);
 let newObj = {};
 Object.keys(newBalanceArray).forEach((key,i) => {
-  Object.keys(newBalanceArray[key]).forEach((key2,i2)=> {
-    if(newObj[key]) {
-    newObj[key] += parseInt(newBalanceArray[key][key2]);
-    } else {
-      newObj[key] = parseInt(newBalanceArray[key][key2]);
-    }
+  
+      console.log('OBj', newBalanceArray[key]);
+    newObj[key] = Object.values(newBalanceArray[key]).reduce((a: any, b:any) => parseInt(a) + parseInt(b), 0);
+    
   })
-})
+
 
 console.log(newObj);
 }, [])
