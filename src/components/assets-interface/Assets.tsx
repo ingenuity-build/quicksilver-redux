@@ -9,6 +9,7 @@ import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 import { quicksilver } from "quicksilverjs"
+import env from "react-dotenv";
 
 const {
     submitClaim
@@ -130,7 +131,7 @@ export default function Assets() {
 
       try {
 
-      const res = await fetch(`https://claim.dev.quicksilver.zone/${quicksilverAddress}/epoch`);
+      const res = await fetch(`https://claim.{$env.NODE_ENV}/.quicksilver.zone/${quicksilverAddress}/epoch`);
       const data = await res.json();
         messages = data.messages;
         // update assets
