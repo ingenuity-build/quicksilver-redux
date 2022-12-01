@@ -4,16 +4,19 @@
   status = 200
 
 [context.main.environment]
+  PUBLIC_URL = "https://app.quicksilver.zone"
   NODE_ENV = "prod"
   QUICKSILVER_API = "https://lcd.quicksilver.zone"
   ZONE_URL = "quicksilver.zone"
 
 [context.test.environment]
+  PUBLIC_URL = "https://test--quicksilver-app.netlify.app"
   NODE_ENV = "test"
   QUICKSILVER_API = "https://lcd.test.quicksilver.zone"
   ZONE_URL = "test.quicksilver.zone"
 
 [context.develop.environment]
+  PUBLIC_URL = "https://develop--quicksilver-app.netlify.app"
   NODE_ENV = "dev"
   QUICKSILVER_API = "https://lcd.dev.quicksilver.zone"
   ZONE_URL = "dev.quicksilver.zone"
