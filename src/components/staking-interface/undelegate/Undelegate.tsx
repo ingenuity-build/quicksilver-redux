@@ -47,6 +47,7 @@ export default function Undelegate() {
        // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
     setTransactionSuccessful(false);
+    setUnstakingAmount(0.1);
     
 }, [selectedNetwork, quicksilverAddress])
 
@@ -110,7 +111,7 @@ setUnstakingAmount(QCKBalance);
            quicksilverAddress,
             [msg],
            {
-              "gas": "200000",
+              "gas": (2000000 + (1000 * selectedNetwork.validators.length)).toString(),
               "amount": [
                 {
                   "denom": "uqck",
@@ -125,7 +126,13 @@ setUnstakingAmount(QCKBalance);
             setTransactionSuccessful(true);
                   // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
-      }
+    setUnstakingAmount(0.1);
+      } else {
+        setLoading(false);
+        console.log(broadcastResult);
+      setError('The transaction failed! Please try again.');
+    }
+      
     } catch(err: any) {
       setLoading(false);
       console.log(err);

@@ -82,11 +82,19 @@ export default function RedelegateAllocations() {
             const validators = Object.values(allocationProp);
             console.log(validators)
   
+            if(redelegateValidatorList.length === 1) {
+              let temp = validators?.map((obj : any) => {
+                out = out.concat((obj.value/100).toString() + '.0' + obj.address);
+            })
+          
+          } else {
                 let temp = validators?.map((obj : any) => {
                     out = out.concat((obj.value/100).toString() + obj.address);
-      
+               
         })
-        out = out.toString();
+   
+      }
+      out = out.toString();
         console.log(out);
 
         let msg =  {
@@ -119,6 +127,10 @@ export default function RedelegateAllocations() {
                   setTransactionSuccessful(true);
                       // @ts-ignore
      dispatch(fetchIntents(selectedNetwork.chain_id, quicksilverAddress))
+            } else {
+              setLoading(false);
+              console.log(broadcastResult);
+              setError('The transaction failed! Please try again.');
             }
           } catch(err: any) {
             setLoading(false);

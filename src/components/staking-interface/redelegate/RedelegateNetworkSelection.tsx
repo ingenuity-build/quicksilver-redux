@@ -41,7 +41,7 @@ export default function RedelegateNetworkSelection() {
        {selectedNetwork !== "Select a network" && intents.length > 0 &&  <div>
         <h3> Your current intent is:</h3>
         <div className="intents mt-5">
-            {intents.map((intent: any) => 
+            {intents.filter((intent:any) => intent.weight > 0).map((intent: any) => 
             <>
                 <h6 className="mb-2">{validatorList.find((x: any) => x.address === intent.valoper_address ) ? validatorList.find((x: any) => x.address === intent.valoper_address ).name : ''} : {+(100*intent.weight).toFixed(2) } %</h6>
                 </>
