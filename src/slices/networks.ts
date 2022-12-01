@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import env from "react-dotenv";
+import env from "@ludovicm67/react-dotenv";
 import Cosmos from '../assets/Cosmos.png';
 import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';

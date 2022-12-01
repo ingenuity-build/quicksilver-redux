@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { poolsSelector, fetchOsmosisPools } from '../../slices/pools';
 import { useDispatch, useSelector } from 'react-redux'
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
-import env from "react-dotenv";
+import env from "@ludovicm67/react-dotenv";
 
 const poolsId = [1,15]
 

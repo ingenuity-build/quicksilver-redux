@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import env from "react-dotenv";
+import env from "@ludovicm67/react-dotenv";
 
 export const initialState = {
   loading: false,

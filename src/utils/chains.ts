@@ -8,7 +8,7 @@ import { ProdQuickSilverChainInfo, ProdChainInfos } from './chains/prod'
 import { TestQuickSilverChainInfo, TestChainInfos } from './chains/test'
 import { DevQuickSilverChainInfo, DevChainInfos } from './chains/dev'
 
-import env from "react-dotenv";
+import env from "@ludovicm67/react-dotenv";
 
 
 

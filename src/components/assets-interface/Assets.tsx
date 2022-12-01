@@ -9,7 +9,7 @@ import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 import { quicksilver } from "quicksilverjs"
-import env from "react-dotenv";
+import env from "@ludovicm67/react-dotenv";
 
 const {
     submitClaim
