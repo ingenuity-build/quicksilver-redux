@@ -1,5 +1,5 @@
 window.env = {
-  "NODE_ENV": "dev",
-  "QUICKSILVER_API": "https://lcd.dev.quicksilver.zone",
-  "ZONE_URL": "dev.quicksilver.zone"
+  "NODE_ENV": "test",
+  "QUICKSILVER_API": "https://lcd.test.quicksilver.zone",
+  "ZONE_URL": "test.quicksilver.zone"
 };

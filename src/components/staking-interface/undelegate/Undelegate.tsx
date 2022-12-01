@@ -92,7 +92,7 @@ const onMaxClick =  (event: React.MouseEvent<HTMLElement>) => {
 setUnstakingAmount(QCKBalance);
 }
     const Unbond =  async (actionID: any) => {
-
+      setTransactionSuccessful(false);
         let msg =  {typeUrl: "/quicksilver.interchainstaking.v1.MsgRequestRedemption",
         value: {
         chainId: selectedNetwork.chain_id,
@@ -131,12 +131,14 @@ setUnstakingAmount(QCKBalance);
         setLoading(false);
         console.log(broadcastResult);
       setError('The transaction failed! Please try again.');
+      setTransactionSuccessful(false);
     }
       
     } catch(err: any) {
       setLoading(false);
       console.log(err);
       setError('The transaction failed! Please try again.');
+      setTransactionSuccessful(false);
     }
       }
     return (
@@ -156,10 +158,11 @@ setUnstakingAmount(QCKBalance);
           </div>}
         {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
    
-        <div className='mt-5'>
+        <div className='undelegate-pane mt-5'>
         <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} in exchange for  {selectedNetwork.base_denom.slice(1).toUpperCase()}</h3>
           <div>
            {withdrawals.length > 0 && <div className="col-8 m-auto">
+            <div className="unbonding-list">
           <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.slice(1).toUpperCase()}>
           
 <table className="table mt-3">
@@ -200,13 +203,14 @@ setUnstakingAmount(QCKBalance);
 </table>
   
     </Collapsible>
-    </div>  }
+    </div> 
+    </div> }
 
 </div>
         <h5 className='text-center mt-4'> Available  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} on Quicksilver Zone: <span> {QCKBalance}   {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()}</span></h5>
         </div>
 
-        <div className="d-flex mt-3 align-items-center justify-content-center">
+        <div className="undelegate-pane d-flex mt-3 align-items-center justify-content-center">
                     <p className="m-0 mx-3"> Number of  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2 ).toUpperCase()} you want to unbond:</p>
                     <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 

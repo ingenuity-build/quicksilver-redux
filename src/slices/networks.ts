@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import env from "react-dotenv";
+import Cosmos from '../assets/Cosmos.png';
+import Osmosis from '../assets/Osmosis.png';
+import Stargaze from '../assets/Stargaze.png';
 
 export const initialState = {
   loading: false,
@@ -49,5 +52,13 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.charAt(0).toUpperCase() + zone.account_prefix.slice(1), value: zone}})
+   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  }
+
+
+const images = {
+  'uqatom' : Cosmos,
+  'uqosmo' : Osmosis,
+  'uqstars' : Stargaze
+
 }

@@ -89,6 +89,19 @@ Dropdown styles */
     border-bottom: 1px solid white !important;
 }
 
+.css-cvavs1-control {
+    border-color: #D35100 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
+.css-cvavs1-control:hover {
+    border-color: #D35100 !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid white !important;
+}
+
 .css-qc6sy-singleValue{
 color: white !important;
 text-transform: uppercase !important;
@@ -109,3 +122,12 @@ text-transform: uppercase !important;
     .network-logo {
         height: 30px;
     }
+    .css-tnaca8-control, .css-cvavs1-control {
+        background-color: #1A1A1A !important;
+    }
+    .css-tnaca8-control {
+        border: 0 !important;
+        border-bottom: 1px solid white !important;
+    }
+
+    

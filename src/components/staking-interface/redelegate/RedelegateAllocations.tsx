@@ -11,7 +11,7 @@ import { fetchIntents, intentsSelector } from '../../../slices/intents';
 export default function RedelegateAllocations() {
     const dispatch = useDispatch();
     const [allocationProp, setAllocationProp] = React.useState<any>({});
-    const {redelegateValidatorList} = useSelector(validatorListSelector);
+    const {redelegateValidatorList, validatorList} = useSelector(validatorListSelector);
     const {isQSWalletConnected, balances, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {intents} = useSelector(intentsSelector)
@@ -148,7 +148,7 @@ export default function RedelegateAllocations() {
 
     return  (
     <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
-      <div className="redelegate-pane">
+      {!transactionSuccessful && <div className="redelegate-pane">
       <h4 className="text-center"> Allocate Intent</h4>  
       {!transactionSuccessful && <div className="d-flex flex-column align-items-end mt-2">
      
@@ -173,7 +173,7 @@ export default function RedelegateAllocations() {
                 )}
             
             </div>}
-            </div>
+            </div>}
             { sum > 100 && <p className="mt-2"> You have allocated {sum} % . Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
             { sum < 99.9 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % to continue </p>}
             {!transactionSuccessful && <div className="button-containers mt-5 mb-4">
@@ -185,13 +185,13 @@ export default function RedelegateAllocations() {
         </div>
         {loading && <p> Transaction in progress... </p>}
         {error !== '' && !loading &&  !transactionSuccessful &&  <p className="mt-3"> {error}</p>}
-        {!loading && transactionSuccessful && <p>Your transaction is successful.</p>}
+        {!loading && transactionSuccessful && <h4>Your transaction is successful.</h4>}
 
-        {!loading && transactionSuccessful && <p> Your current intent is:</p>}
+        {!loading && transactionSuccessful && <h3 className="mt-3 mb-1"> Your current intent is:</h3>}
         
         {!loading && transactionSuccessful &&  intents.map((intent: any) => 
             <>
-                <p>{intent.valoper_address} : {+(100*intent.weight).toFixed(2) } %</p>
+                              <h6 className="mt-1 mb-2">{validatorList.find((x: any) => x.address === intent.valoper_address ) ? validatorList.find((x: any) => x.address === intent.valoper_address ).name : ''} : {+(100*intent.weight).toFixed(2) } %</h6>
                 </>
             )}
 

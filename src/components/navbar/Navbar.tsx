@@ -88,6 +88,20 @@ export default function Navbar(props: PropComponent) {
 
   }
 
+  const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor: 'black' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: 'white',
+        color: '#1A1A1A',
+        cursor: isDisabled ? 'not-allowed' : 'default',
+
+      };
+    },
+
+  };
+
   useEffect(() => {
 
     // @ts-expect-error
@@ -205,7 +219,12 @@ export default function Navbar(props: PropComponent) {
       </button>}
       {isQSWalletConnected &&   <Select className="custom-class mb-3 mt-2 "
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
-          options={networks}
+          options={networks} styles={colourStyles}  formatOptionLabel={network => (
+            <div className="network-option">
+              <img className="network-logo" src={network.image} alt="network-image" />
+              <span>{network.label}</span>
+            </div>
+          )}
           onChange={handleNetworkChange}
 
         />}
