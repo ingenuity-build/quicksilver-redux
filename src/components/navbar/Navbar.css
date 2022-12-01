@@ -130,4 +130,7 @@ text-transform: uppercase !important;
         border-bottom: 1px solid white !important;
     }
 
-    
+
+  #react-select-2-listbox {
+        z-index: 5 !important;
+    }

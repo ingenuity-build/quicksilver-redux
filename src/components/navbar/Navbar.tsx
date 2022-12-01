@@ -96,7 +96,6 @@ export default function Navbar(props: PropComponent) {
         backgroundColor: 'white',
         color: '#1A1A1A',
         cursor: isDisabled ? 'not-allowed' : 'default',
-
       };
     },
 
@@ -205,11 +204,11 @@ export default function Navbar(props: PropComponent) {
                <Link  className={`${location.pathname === '/assets'  ? 'active-link ml-2' : 'pl-2'}`} to="/assets" >ASSETS</Link> 
       </li>
   
-      <li className="nav-item mx-4 d-flex align-items-center">
+      {/* <li className="nav-item mx-4 d-flex align-items-center">
       <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
       <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
       
-      </li>
+      </li> */}
       {/* <li className="nav-item mx-4">
       <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
       </li> */}
@@ -221,7 +220,7 @@ export default function Navbar(props: PropComponent) {
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks} styles={colourStyles}  formatOptionLabel={network => (
             <div className="network-option">
-              <img className="network-logo" src={network.image} alt="network-image" />
+              <img className="network-logo px-2" src={network.image} alt="network-image" />
               <span>{network.label}</span>
             </div>
           )}
