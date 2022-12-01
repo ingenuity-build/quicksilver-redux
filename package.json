@@ -75,10 +75,10 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "PUBLIC_URL",
       "NODE_ENV",
       "QUICKSILVER_API",
       "ZONE_URL"
     ]
-  }
+  }, 
+  "homepage": ""
 }
