@@ -31,7 +31,7 @@ export default function RedelegateNetworkSelection() {
 
     }
     return  (
-    <div className="redelegate-network-selection mt-5 d-flex flex-column justify-content-center align-items-center">
+    <div className="redelegate-network-selection  d-flex flex-column justify-content-center align-items-center">
         
         {selectedNetwork === "Select a network" && <div className="text-center">
   <h2 className="mt-4">Choose your network </h2>
@@ -39,7 +39,7 @@ export default function RedelegateNetworkSelection() {
         </div>}
        
        {selectedNetwork !== "Select a network" && intents.length > 0 &&  <div className="intent-plane">
-        <h3> Your current intent is:</h3>
+        <h3 className="mt-5"> Your current intent is:</h3>
         <div className="intents mt-5">
             {intents.filter((intent:any) => intent.weight > 0).map((intent: any) => 
             <>

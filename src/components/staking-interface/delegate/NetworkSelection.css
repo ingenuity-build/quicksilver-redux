@@ -86,3 +86,7 @@ border: 2px solid #D35100;
     margin: 0 !important;
     width: 200px;
 }
+
+.wallet-details {
+    z-index: 1;
+}

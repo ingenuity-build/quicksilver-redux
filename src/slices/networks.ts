@@ -3,6 +3,7 @@ import env from "react-dotenv";
 import Cosmos from '../assets/Cosmos.png';
 import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';
+import Juno from '../assets/Juno.png';
 
 export const initialState = {
   loading: false,
@@ -59,6 +60,7 @@ const manipulateData = (zones: any) => {
 const images = {
   'uqatom' : Cosmos,
   'uqosmo' : Osmosis,
-  'uqstars' : Stargaze
+  'uqstars' : Stargaze,
+  'uqjunox' : Juno
 
 }

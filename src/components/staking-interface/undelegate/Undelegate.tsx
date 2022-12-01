@@ -111,7 +111,7 @@ setUnstakingAmount(QCKBalance);
            quicksilverAddress,
             [msg],
            {
-              "gas": (2000000 + (1000 * selectedNetwork.validators.length)).toString(),
+            "gas": (2000000 + (1000 * selectedNetwork.validators.length)).toString(),
               "amount": [
                 {
                   "denom": "uqck",
@@ -127,13 +127,12 @@ setUnstakingAmount(QCKBalance);
                   // @ts-expect-error
     dispatch(fetchUnbondings(selectedNetwork.chain_id, quicksilverAddress))
     setUnstakingAmount(0.1);
-      } else {
-        setLoading(false);
-        console.log(broadcastResult);
-      setError('The transaction failed! Please try again.');
-      setTransactionSuccessful(false);
-    }
-      
+  } else {
+    setLoading(false);
+    console.log(broadcastResult);
+  setError('The transaction failed! Please try again.');
+  setTransactionSuccessful(false);
+      }
     } catch(err: any) {
       setLoading(false);
       console.log(err);
@@ -162,7 +161,7 @@ setUnstakingAmount(QCKBalance);
         <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} in exchange for  {selectedNetwork.base_denom.slice(1).toUpperCase()}</h3>
           <div>
            {withdrawals.length > 0 && <div className="col-8 m-auto">
-            <div className="unbonding-list">
+           <div className="unbonding-list">
           <Collapsible trigger={'Unbondings in progress: ' + unbondingSum.toFixed(6) + ' ' +  selectedNetwork.base_denom.slice(1).toUpperCase()}>
           
 <table className="table mt-3">
