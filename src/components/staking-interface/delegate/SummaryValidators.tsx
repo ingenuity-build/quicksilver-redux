@@ -92,7 +92,11 @@ export default function SummaryValidators() {
             // @ts-expect-error
         dispatch(setStakingStep(8));
        
-      }
+      } else {
+        setLoading(false);
+        console.log(broadcastResult);
+      setError('The transaction failed! Please try again.');
+    }
   } catch(err: any) {
     setLoading(false);
     console.log(err);

@@ -1,4 +1,13 @@
+.redelegate-pane {
+    padding: 50px;
+    z-index: 3;
+    border-radius: 30px;
+    background: #282828;
+
+}
+
 .reset-intent {
+    z-index: 3;
     background: #D35100;
     border-radius: 10px;
     font-size: 18px;
@@ -7,13 +16,17 @@
     color: #FFFFFF;
     padding: 5px 20px;
     border: 2px solid #D35100;
+
+}
+
+/* .redelegate-network-selection  {
+z-index: 3
+} */
+
+.intent-plane, .button-containers {
     z-index: 3;
 }
 
-.redelegate-pane {
-    padding: 50px;
+input {
     z-index: 3;
-    border-radius: 30px;
-    background: #282828;
-
 }

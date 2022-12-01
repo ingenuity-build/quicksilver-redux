@@ -31,10 +31,10 @@ export default function NetworkSelection() {
           console.log(balance)
           setQCKBalance((balance.amount)/1000000);
          } else 
-         {
-           setQCKBalance(0);
-         }
-     
+          {
+            setQCKBalance(0);
+          }
+          
     }
 
 }, [balances, selectedNetwork])
@@ -46,11 +46,7 @@ useEffect(() => {
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
     } 
-   else 
-         {
-           setZoneBalance(0);
-         }
-
+ 
 }
 }, [networkBalances, selectedNetwork])
 
