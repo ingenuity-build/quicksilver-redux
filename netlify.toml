@@ -17,6 +17,6 @@
 
 [context.develop.environment]
   PUBLIC_URL = "https://develop--quicksilver-app.netlify.app"
-  NODE_ENV = "dev""
+  NODE_ENV = "dev"
   QUICKSILVER_API = "https://lcd.dev.quicksilver.zone"
   ZONE_URL = "dev.quicksilver.zone"
