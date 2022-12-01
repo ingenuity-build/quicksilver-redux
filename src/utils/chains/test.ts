@@ -35,6 +35,18 @@ export const TestQuickSilverChainInfo : ChainInfo = {
             coinDecimals: 6,
             coinGeckoId: "osmosis",
         },
+        {
+            coinDenom: "qATOM",
+            coinMinimalDenom: "uqatom",
+            coinDecimals: 6,
+            coinGeckoId: "cosmos",
+        },
+        {
+            coinDenom: "qSTARS",
+            coinMinimalDenom: "uqstars",
+            coinDecimals: 6,
+            coinGeckoId: "stargaze",
+        }
         
     ],
     feeCurrencies: [
