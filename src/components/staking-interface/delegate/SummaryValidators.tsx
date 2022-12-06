@@ -60,13 +60,13 @@ export default function SummaryValidators() {
   const onStakeClick = async (e: any) => {
 
 
-      const msgSend = {
+      let msgSend = {
         fromAddress: networkAddress,
         toAddress: selectedNetwork.deposit_address.address,
         amount: coins((stakingAmount * 1000000), selectedNetwork.base_denom),
       };
       
-      const msgAny = {
+      let msgAny = {
           typeUrl: "/cosmos.bank.v1beta1.MsgSend",
         value: msgSend,
       };
@@ -91,16 +91,20 @@ export default function SummaryValidators() {
       if(broadcastResult.code === 0 ) {
             // @ts-expect-error
         dispatch(setStakingStep(8));
+        out = '';
+        msgSend = { fromAddress: '', toAddress: '', amount: coins(0, '' )};
        
       } else {
         setLoading(false);
         console.log(broadcastResult);
       setError('The transaction failed! Please try again.');
+      msgSend = { fromAddress: '', toAddress: '', amount: coins(0, '' )};
     }
   } catch(err: any) {
     setLoading(false);
     console.log(err);
     setError('The transaction failed! Please try again.');
+    msgSend = { fromAddress: '', toAddress: '', amount: coins(0, '' )};
   }
   }
 

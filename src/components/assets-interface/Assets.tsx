@@ -256,7 +256,7 @@ export default function Assets() {
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
   {balances.map((bal: Coin, i: number) =>
        
-            <div className="asset-card col-3 m-3" key={i}>
+           <div className="asset-card col-3 m-3" key={i}>
      
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">

@@ -62,12 +62,14 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
                 let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
                 let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                 fn(QuickSilverChainInfo.chainId, offlineSigner)
+                localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
                 console.log("Enabled for chainid " + QuickSilverChainInfo.chainId)
             }, (reason: any) => { 
                 keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
                     let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                     fn(QuickSilverChainInfo.chainId, offlineSigner)
+                    localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
                     console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
                 }) 
             })

@@ -72,12 +72,22 @@ function App() {
 connectKeplr();
 }
 };
+let key;
+useEffect(() => {
+   // @ts-expect-error
+   if(JSON.parse(localStorage.getItem('ChainId'))) {
+       // @ts-expect-error
+     key = JSON.parse(localStorage.getItem('ChainId'))
+    connectKeplr();
+   }
+}, [key])
 
 
 const connectKeplr = async () => {
   setLoading(true);
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
-    // @ts-expect-error
+    console.log('key', key)
+       // @ts-expect-error
     dispatch(setQSWallet(key, val));
         // @ts-expect-error
         dispatch(setClient(val));
@@ -93,6 +103,7 @@ const connectKeplr = async () => {
   dispatch(increaseStakingStep());
 // @ts-expect-error
 dispatch(increaseRedelegateStep())
+   
   });
 
 }
@@ -110,6 +121,8 @@ const fetchKeplrDetails = async (val: any) => {
         dispatch(setQSBalance(roBalance));
                   // @ts-expect-error
     dispatch(setQuicksilverAddress(bech32));
+    } else {
+      console.log('USER NOT FOUND!')
     }
 }
 
