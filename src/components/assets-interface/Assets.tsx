@@ -90,8 +90,13 @@ export default function Assets() {
 
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks } = useSelector(networksSelector);
+  const [denomArray, setDenomArray] = useState<Array<string>>([])
 
   useEffect(() => {
+    let denomArray : Array<string> = [];
+    networks.forEach((network: any) => denomArray.push(network.value.local_denom));
+    denomArray.push('uqck');
+    setDenomArray(denomArray);
     if(!sum) {
   fetchSum();
     }
@@ -254,7 +259,7 @@ export default function Assets() {
   {sum === 0 && <h5 className="mt-4">Calculating...</h5>}
    {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across quicksilver chain</h5>}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
-  {balances.map((bal: Coin, i: number) =>
+  {balances.filter((bal: Coin) => denomArray.includes(bal.denom)).map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
      

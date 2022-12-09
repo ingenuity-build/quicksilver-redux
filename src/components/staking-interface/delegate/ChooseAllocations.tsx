@@ -283,7 +283,7 @@ useEffect(() => {
        </div>}
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 1 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 0.01 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 
     );
