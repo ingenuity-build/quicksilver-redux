@@ -10,6 +10,7 @@ import Moment from 'moment';
 import './Undelegate.css';
 import Collapsible from 'react-collapsible';
 import { SpinnerCircular } from 'spinners-react';
+import env from 'react-dotenv';
 
 export default function Undelegate() {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
@@ -141,8 +142,9 @@ setUnstakingAmount(QCKBalance);
     }
       }
     return (
-        <>
-      
+     <>
+        {process.env.REACT_APP_ENABLE_UNBONDING == 'true' &&  <div> 
+     
         {!isQSWalletConnected && <div>
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
                 <h4 className="sub-heading"> Hey there! </h4>
@@ -229,6 +231,21 @@ setUnstakingAmount(QCKBalance);
 {!loading && transactionSuccessful && <p>Your transaction is successful. Your withdrawal request will be completed on {Moment(time).format('MMMM Do YYYY, h:mm a')} Revisit this page to check the status of your unbonding request.</p> }
       </div>
         </div>}
+        </div>}
+        {process.env.REACT_APP_ENABLE_UNBONDING == 'false' && <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
+      <h3 className="text-center mt-5"> Undelegate</h3>
+      <p className="text-center coming-soon"> Coming soon</p>
+      <div className="w-50 mt-2">
+        <p>
+        Unbonding will enable users to unstake their assets and exit the Protocol following the native chain's unbonding period, after which assets would be transferred directly to the users' account.
+      <br/>
+      <br/>
+Unbonding is scheduled to be enabled early 2023.
+        </p>
+    </div>
+      </div>}
         </>
+ 
+ 
     )
 }

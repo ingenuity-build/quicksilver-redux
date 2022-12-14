@@ -21,7 +21,7 @@ color: #FFFFFF;
 
 .navbar .connect-wallet, .navbar .connect-wallet-button {
 background: #D35100;
-border-radius: 20px;
+border-radius: 10px;
 font-family: 'Mulish';
 font-style: normal;
 font-weight: 600;
@@ -81,19 +81,24 @@ color: #FFFFFF;
     margin-right:5px;
 }
 
+.airdrop-white {
+    height: 17px; 
+    filter: invert(0.5);
+    margin-right:5px;
+}
 /* 
 Dropdown styles */
 .css-1s2u09g-control {
     background-color: transparent !important;
     border: 0 !important;
-    border-bottom: 1px solid white !important;
+    /* border-bottom: 1px solid white !important; */
 }
 
 .css-cvavs1-control {
     border-color: #D35100 !important;
     box-shadow: none !important;
     border: 0 !important;
-    border-bottom: 1px solid white !important;
+    /* border-bottom: 1px solid white !important; */
 }
 .css-cvavs1-control:hover {
     border-color: #D35100 !important;
@@ -122,15 +127,31 @@ text-transform: uppercase !important;
     .network-logo {
         height: 30px;
     }
-    .css-tnaca8-control, .css-cvavs1-control {
-        background-color: #1A1A1A !important;
+   .css-cvavs1-control {
+        background-color: #282828 !important;
     }
-    .css-tnaca8-control {
+    /* .css-tnaca8-control {
         border: 0 !important;
         border-bottom: 1px solid white !important;
-    }
+    } */
+.css-tnaca8-control {
+    background-color: #282828 !important;
+    border: none !important;
+}
 
+.css-cvavs1-control:hover {
+    box-shadow: none !important;
+    border: 0 !important;
+    background-color: #282828 !important;
+
+}
 
   #react-select-2-listbox {
         z-index: 5 !important;
+    }
+
+    .quicksilver-text {
+        color: #fff;
+        font-family: 'Nexa';
+        letter-spacing: 4px;
     }

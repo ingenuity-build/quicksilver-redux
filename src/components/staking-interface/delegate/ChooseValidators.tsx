@@ -6,6 +6,7 @@ import { _loadValsAsync , validatorListSelector, setSelectedValidatorList, getVa
 import './ChooseValidators.css';
 import { increaseStakingStep, decreaseStakingStep } from "../../../slices/stakingActiveStep";
 import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
+// import osmosis from '../../../assets/osmosis';
 
 
 export interface Data {
@@ -128,7 +129,8 @@ const onNext = () => {
                 <div onClick={ (e) => addValidator(e,row)} className={`validator-card col-3 m-3 ${row?.active ? 'val-active' : ''}`}>
                 <div className="d-flex align-items-start"> 
                      {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
-               <div className="card-details">
+               <div className="card-details d-flex">
+                <img src={`/images/${selectedNetwork.account_prefix}/${row.address}.png` } alt={'Logo'}></img>
                 <h6> {row?.name} </h6>
                 {/* <h4 className="font-bold">  Reward </h4> */}
                 </div>

@@ -23,6 +23,15 @@ export default function NetworkSelection() {
   const {validatorList} = useSelector(validatorListSelector);
   const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
+  const initialText = 'Copy';
+  const [buttonText, setButtonText] = useState(initialText);
+  function handleClick() {
+   navigator.clipboard.writeText(networkAddress)
+   setButtonText('Address copied');
+   setTimeout(() => {
+    setButtonText(initialText);
+  }, 2000); // 👈️ change text back after 1 second
+  }
 
   useEffect(() => {
     if(balances !== []) {
@@ -69,9 +78,9 @@ useEffect(() => {
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
   <h4> My Wallet</h4>
   {networkAddress && <h6> {networkAddress} <button className="mx-2 copy-button"
-  onClick={() => {navigator.clipboard.writeText(networkAddress)}}
+  onClick={handleClick}
   >
-  Copy
+  {buttonText}
 </button></h6>}
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
@@ -94,7 +103,7 @@ useEffect(() => {
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
 </div>
-{!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>}
+{/* {!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>} */}
 
 </div>
 

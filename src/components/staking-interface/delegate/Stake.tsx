@@ -8,6 +8,7 @@ import LogoGray from '../../../assets/icons/logo-graystroke.png';
 import { useLocation} from "react-router-dom";
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync } from "../../../slices/validatorList";
+import env from "react-dotenv";
 
 
 export default function Stake() {
@@ -90,7 +91,8 @@ export default function Stake() {
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
         <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
-        <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>
+
+        {process.env.REACT_APP_ENABLE_SET_INTENT == 'true' && <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>}
         <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
         </div>
 

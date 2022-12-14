@@ -4,7 +4,9 @@ import {quicksilverSelector} from '../../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qStar.png';
-import qAtom from '../../assets/qAtom.png';
+import qAtom from '../../assets/qAtom.svg';
+import qOsmo from '../../assets/qOsmo.svg';
+import qJuno from '../../assets/qJuno.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
@@ -22,7 +24,10 @@ var params = {} as IImages;
 
 params['uqck'] = QuicksilverLogo; // okay
 params['uqatom'] = qAtom;
-params['uqstars'] = qStar
+params['uqstars'] = qStar;
+params['uqjunox'] = qJuno;
+params['uqjuno'] = qJuno;
+params['uqosmo'] = qOsmo;
 // var foo = params['heart']; // foo:string
 
   let messages = []

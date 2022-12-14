@@ -15,6 +15,7 @@ import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
 import Asset from '../../assets/icons/asset.svg';
+import Governance from '../../assets/icons/Governance.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
@@ -181,13 +182,21 @@ export default function Navbar(props: PropComponent) {
     // @ts-expect-error
     dispatch(setRedelegateValidatorList([]))
   }
+
+  const logout = () => {
+        // @ts-expect-error
+        dispatch(setQSWallet(key, val));
+        // @ts-expect-error
+        dispatch(setClient(val));
+  }
     return (
 
 
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
-          <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo ' : 'col-2'}`} >
+          <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo d-flex ' : 'col-2 d-flex'}`} >
                <Link to="/">    <img className="logo mt-2" alt="Quicksilver Logo" src={Logo}/></Link> 
+               <p className="quicksilver-text mt-4 ml-2 "> QUICKSILVER</p>
   </div>
 
 
@@ -204,11 +213,16 @@ export default function Navbar(props: PropComponent) {
                <Link  className={`${location.pathname === '/assets'  ? 'active-link ml-2' : 'pl-2'}`} to="/assets" >ASSETS</Link> 
       </li>
   
-      {/* <li className="nav-item mx-4 d-flex align-items-center">
-      <img className="nav-icon-airdrop" alt="Parachute" src={Parachute}/>
-      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop" onClick={ (event) => event.preventDefault() }>AIRDROP</Link> 
+      <li className="nav-item mx-4 d-flex align-items-center">
+      <img className={`${location.pathname === '/airdrop'  ? 'nav-icon-airdrop' : 'airdrop-white'}`} alt="Parachute" src={Parachute}/>
+      <Link  className={`pl-2 ${location.pathname === '/airdrop'  ? 'active-link' : ''}`} to="/airdrop">AIRDROP</Link> 
       
-      </li> */}
+      </li>
+      <li className="nav-item mx-4 d-flex align-items-center">
+      <img className={`${location.pathname === '/governance'  ? 'nav-icon-airdrop' : 'airdrop-white'}`} alt="Parachute" src={Governance}/>
+      <Link  className={`pl-2 ${location.pathname === '/governance'  ? 'active-link' : ''}`} to="/governance">GOVERNANCE</Link> 
+      
+      </li>
       {/* <li className="nav-item mx-4">
       <Link  className={`${location.pathname === '/pools'  ? 'active-link' : ''}`} to="/pools" >POOLS</Link> 
       </li> */}
@@ -228,7 +242,7 @@ export default function Navbar(props: PropComponent) {
 
         />}
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
-      
+            {/* <button onClick={logOut}> LOGOUT </button> */}
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK</p>}
       
       { isModalOpen && <Backdrop />}
