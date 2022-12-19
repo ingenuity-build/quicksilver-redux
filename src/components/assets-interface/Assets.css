@@ -22,13 +22,15 @@ h2 {
   
   .assets-interface button {
     
-  background: #D35100;
-  border: 1px solid #D35100;
+  background: #6D6D6D;
+  border: 1px solid #6D6D6D;
   border-radius: 5px;
     padding: 0.5rem;
     font-weight: 400;
   font-size: 18px;
   color: #FFFFFF;
+  width: 70px;
+  margin: 0 auto;
   }
 
   .asset-card {

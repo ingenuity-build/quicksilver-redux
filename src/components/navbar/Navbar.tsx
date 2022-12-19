@@ -195,7 +195,7 @@ export default function Navbar(props: PropComponent) {
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
           <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo d-flex ' : 'col-2 d-flex'}`} >
-               <Link to="/">    <img className="logo mt-2" alt="Quicksilver Logo" src={Logo}/></Link> 
+               <Link to="/">    <img className="logo mt-2 ml-2" alt="Quicksilver Logo" src={Logo}/></Link> 
                <p className="quicksilver-text mt-4 ml-2 "> QUICKSILVER</p>
   </div>
 
@@ -219,7 +219,7 @@ export default function Navbar(props: PropComponent) {
       
       </li>
       <li className="nav-item mx-4 d-flex align-items-center">
-      <img className={`${location.pathname === '/governance'  ? 'nav-icon-airdrop' : 'airdrop-white'}`} alt="Parachute" src={Governance}/>
+      <img className={`${location.pathname === '/governance'  ? 'nav-icon-airdrop governance' : 'airdrop-white governance'}`} alt="Parachute" src={Governance}/>
       <Link  className={`pl-2 ${location.pathname === '/governance'  ? 'active-link' : ''}`} to="/governance">GOVERNANCE</Link> 
       
       </li>

@@ -123,7 +123,10 @@ text-transform: uppercase !important;
         width: 200px;
     }
     
-    
+    .network-option {
+        display: flex;
+        align-items: center;
+    }
     .network-logo {
         height: 30px;
     }
@@ -154,4 +157,8 @@ text-transform: uppercase !important;
         color: #fff;
         font-family: 'Nexa';
         letter-spacing: 4px;
+    }
+
+    .navbar  .governance {
+        height: 30px;
     }
