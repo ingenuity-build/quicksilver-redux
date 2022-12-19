@@ -5,7 +5,7 @@ import ChooseAllocations from './ChooseAllocations';
 import ChoosExistingDelegations from './ChooseExistingDelegations';
 import ConnectWallet from './ConnectWallet';
 import { useSelector, useDispatch } from 'react-redux'
-import {stakingActiveStep} from '../../../slices/stakingActiveStep';
+import {setStakingStep, stakingActiveStep} from '../../../slices/stakingActiveStep';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync , validatorListSelector, setSelectedValidatorList} from "../../../slices/validatorList";
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
@@ -22,6 +22,19 @@ export default function Delegate() {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
     const activeStep = useSelector(stakingActiveStep);
+
+    useEffect(() => {
+        if(activeStep > 1) {
+           // @ts-expect-error
+        dispatch(setStakingStep(2));
+            // @ts-expect-error
+        dispatch(setSelectedValidatorList([]))
+        } else {
+             // @ts-expect-error
+            dispatch(setStakingStep(1))
+        }
+
+    }, [])
    
 
     return (
