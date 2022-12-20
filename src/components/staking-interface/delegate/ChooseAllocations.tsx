@@ -257,10 +257,10 @@ useEffect(() => {
                   
                 </div>
             </div> } */}
-           {zoneBalance <= 0.5 &&  <div className="mt-3">
-                You don't have enough   {selectedNetwork.base_denom.slice(1).toUpperCase()} to stake! 
+           {zoneBalance <= 0.31 &&  <div className="mt-3">
+                You don't have enough  {selectedNetwork.base_denom.slice(1).toUpperCase()} to stake! 
             </div>}
-           {(zoneBalance) > 0.5 &&  <div className="staking-pane d-flex flex-column mt-4">
+           {(zoneBalance) > 0.31 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4>Stake</h4> 
                 <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.slice(1).toUpperCase()} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
@@ -277,13 +277,14 @@ useEffect(() => {
                 {showMaxMsg && <p className="mb-0 mt-3">We held back 0.3 {selectedNetwork.base_denom.slice(1).toUpperCase()} to cover future transaction fees</p> }
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
-            {stakingAmount> ((zoneBalance) - 0.3) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6) } atom ` : ''}
+               
+                {stakingAmount > (((zoneBalance) - 0.3).toFixed(6)) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6) } atom ` : ''}
             { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available {selectedNetwork.base_denom.slice(1).toUpperCase()}. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
             { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of {selectedNetwork.base_denom.slice(1).toUpperCase()} to continue </p>}
        </div>}
         <div className="button-containers mt-4 mb-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 0.01 || stakingAmount > (zoneBalance - 0.3)?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 0.01 || stakingAmount > (zoneBalance - 0.3).toFixed(6) ?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 
     );

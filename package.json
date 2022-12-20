@@ -77,7 +77,8 @@
     "whitelist": [
       "NODE_ENV",
       "QUICKSILVER_API",
-      "ZONE_URL"
+      "ZONE_URL",
+      "REACT_APP_ENABLE_SET_INTENT"
     ]
   }, 
   "homepage": ""

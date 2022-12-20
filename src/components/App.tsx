@@ -7,6 +7,7 @@ import Assets from './assets-interface/Assets';
 import Pools from './pools-interface/Pools';
 import Airdrop from './airdrops-interface/Airdrops';
 import Landing from './landing-screen/Landing';
+import Governance from './governance-interface/Governance';
 import ConnectWallet from './staking-interface/delegate/ConnectWallet';
 
 import './App.css';
@@ -131,6 +132,7 @@ const fetchKeplrDetails = async (val: any) => {
                       <Route path="/airdrop" element={<Airdrop  />}/>
                       <Route path="/assets" element={<Assets />}/>
                       <Route path="/pools" element={<Pools />}/>
+                      <Route path="/governance" element={<Governance/>}/>
                     
    </Routes>
 
