@@ -52,10 +52,10 @@ export const initKeplr = async (fn: Function):Promise<void> => {
 }
 
 export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => { 
-    console.log(env)
     const keplr = await getKeplrFromWindow();
-    if (keplr) {
-
+    // console.log(keplr?.getKey(QuickSilverChainInfo.chainId));
+    keplr?.getKey(QuickSilverChainInfo.chainId).then(res => {
+        if (keplr) {
             keplr
             .enable(QuickSilverChainInfo.chainId)
             .then(async () => { 
@@ -72,6 +72,11 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
                 }) 
             })
         }
+    }, failure => {
+        alert("Please add account to keplr");
+        fn('Error', 0) //expected output: Oopsy...
+    })
+   
 }
 
 export const initKeplrWithNetwork = async (fn: Function, network?: string):Promise<void> => { 

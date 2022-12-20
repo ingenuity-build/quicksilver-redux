@@ -78,7 +78,9 @@
       "NODE_ENV",
       "QUICKSILVER_API",
       "ZONE_URL",
-      "REACT_APP_ENABLE_SET_INTENT"
+      "REACT_APP_ENABLE_SET_INTENT",
+      "REACT_APP_ENABLE_UNBONDING",
+      "REACT_APP_ENABLE_CLAIMS"
     ]
   }, 
   "homepage": ""
