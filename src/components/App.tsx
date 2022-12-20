@@ -76,9 +76,15 @@ connectKeplr();
 
 
 const connectKeplr = async () => {
-  setLoading(true);
+
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
-    // @ts-expect-error
+    if(key === 'Error') {
+               // @ts-expect-error
+  dispatch(setModalClose());
+    }
+    else {
+      setLoading(true);
+      // @ts-expect-error
     dispatch(setQSWallet(key, val));
         // @ts-expect-error
         dispatch(setClient(val));
@@ -94,7 +100,9 @@ const connectKeplr = async () => {
   dispatch(increaseStakingStep());
 // @ts-expect-error
 dispatch(increaseRedelegateStep())
-  });
+  }
+});
+
 
 }
 
