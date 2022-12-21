@@ -28,7 +28,7 @@ export default function ChooseValidators() {
 
     const dispatch = useDispatch()
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
-    const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
+    const {validatorList,hasErrors, selectedValidatorList} = useSelector(validatorListSelector);
    // const {selectedValidatorList} = useSelector(selectedValidatorListSelector);
     const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(selectedValidatorList);
     const [validators, setValidators] = React.useState(validatorList);
@@ -126,6 +126,7 @@ const onNext = () => {
         {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
 
           <div className="mt-3 validators row w-100 justify-content-center">
+        {validators.length === 0 && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
           <>
                 <div onClick={ (e) => addValidator(e,row)} className={`validator-card col-3 m-3 ${row?.active ? 'val-active' : ''}`}>
@@ -137,7 +138,7 @@ const onNext = () => {
                 {/* <h4 className="font-bold">  Reward </h4> */}
                 </div>
                 </div>
-
+            {hasErrors && <p> There's an issue with fetching the validators. Please try again</p>}
             </div>
          
           </>

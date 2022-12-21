@@ -70,3 +70,18 @@ cursor: pointer;
   .stake-options .active-link,   .stake-options .link {
     z-index: 3
   }
+
+  .unbonding-message {
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: #D35100;
+    width: 100vw;
+    margin-bottom: 0 !important;
+    height: 50px;
+    text-align: center;
+    padding-top: 10px;
+    z-index: 20;
+
+} 
