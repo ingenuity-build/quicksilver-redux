@@ -111,7 +111,7 @@ export default function SummaryValidators() {
             <h2 className="mt-4"> Summary </h2> 
             <h5 className="mt-4"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.slice(1).toUpperCase()}</span></h5>
             <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></h5>
-            <h5> {selectedNetwork.base_denom.slice(1).toUpperCase()} Received:  <span className="font-bold">{stakingAmount/(selectedNetwork?.redemption_rate)}</span></h5>
+            <h5> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} Received:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)}</span></h5>
             <h6 className="mt-4"> Validator List: </h6>
         {renderValidators()}
         

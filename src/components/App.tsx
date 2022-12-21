@@ -76,13 +76,8 @@ connectKeplr();
 
 
 const connectKeplr = async () => {
-
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
-    if(key === 'Error') {
-               // @ts-expect-error
-  dispatch(setModalClose());
-    }
-    else {
+    fetchKeplrDetails(val)
       setLoading(true);
       // @ts-expect-error
     dispatch(setQSWallet(key, val));
@@ -92,7 +87,6 @@ const connectKeplr = async () => {
     dispatch(setQSWalletConnected())
        
     setVal(val);
-        fetchKeplrDetails(val)
          // @ts-expect-error
   dispatch(setModalClose());
   setLoading(false);
@@ -101,17 +95,17 @@ const connectKeplr = async () => {
 // @ts-expect-error
 dispatch(increaseRedelegateStep())
   }
-});
-
-
+);
 }
 
 const fetchKeplrDetails = async (val: any) => {
+
   let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
+    keplr?.getKey(chainId).then(async () => {
+      
     let pubkey = await keplr?.getKey(chainId);
-    let bech32 = pubkey?.bech32Address;
-    console.log(bech32);
+     let bech32 = pubkey?.bech32Address;
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
      
@@ -119,7 +113,18 @@ const fetchKeplrDetails = async (val: any) => {
         dispatch(setQSBalance(roBalance));
                   // @ts-expect-error
     dispatch(setQuicksilverAddress(bech32));
+
     }
+ 
+    }).catch((e) =>{ console.log('err', e.message);
+    alert('Please add account');
+   
+
+    
+
+  });
+  
+  
 }
 
   return (

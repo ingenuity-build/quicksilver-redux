@@ -22,15 +22,11 @@ export default function CongratulationsPane() {
     return (
         <>
         <div className="congratulations-pane d-flex mt-5 justify-content-center align-items-center flex-column">
-    <h4 className="mt-5">Congratulations! You've successfully staked the tokens!</h4> 
+    <h4 className="mt-5">Your assets have been successfully staked!</h4> 
     <div className="button-container mt-4">
         <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake on another network </button>
         </div>
     </div>
-    <Confetti recycle={false}
-      width={width}
-      height={height}
-    />
     </>
     );
 }

@@ -24,17 +24,47 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React Redux App</title>
+    <title>Quicksilver Protocol</title>
     <script id="react-dotenv" src="/env.js"></script>
     <script>
       window.markerConfig = {
-        project: '639af1e1aa928c48a6f124b5', 
-        source: 'snippet'
+        project: "639af1e1aa928c48a6f124b5",
+        source: "snippet",
       };
     </script>
-    
+
     <script>
-    !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
+      !(function (e, r, a) {
+        if (!e.__Marker) {
+          e.__Marker = {};
+          var t = [],
+            n = { __cs: t };
+          [
+            "show",
+            "hide",
+            "isVisible",
+            "capture",
+            "cancelCapture",
+            "unload",
+            "reload",
+            "isExtensionInstalled",
+            "setReporter",
+            "setCustomData",
+            "on",
+            "off",
+          ].forEach(function (e) {
+            n[e] = function () {
+              var r = Array.prototype.slice.call(arguments);
+              r.unshift(e), t.push(r);
+            };
+          }),
+            (e.Marker = n);
+          var s = r.createElement("script");
+          (s.async = 1), (s.src = "https://edge.marker.io/latest/shim.js");
+          var i = r.getElementsByTagName("script")[0];
+          i.parentNode.insertBefore(s, i);
+        }
+      })(window, document);
     </script>
   </head>
   <body>
