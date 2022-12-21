@@ -5,7 +5,7 @@ import ChooseAllocations from './ChooseAllocations';
 import ChoosExistingDelegations from './ChooseExistingDelegations';
 import ConnectWallet from './ConnectWallet';
 import { useSelector, useDispatch } from 'react-redux'
-import {stakingActiveStep} from '../../../slices/stakingActiveStep';
+import {setStakingStep, stakingActiveStep} from '../../../slices/stakingActiveStep';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync , validatorListSelector, setSelectedValidatorList} from "../../../slices/validatorList";
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
@@ -21,25 +21,22 @@ export default function Delegate() {
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
+    const activeStep = useSelector(stakingActiveStep);
 
     useEffect(() => {
-        if (selectedNetwork !== "Select a network") {
-            console.log(selectedNetwork.chain_id)
-                  // @ts-expect-error
-         dispatch(_loadValsAsync(selectedNetwork.chain_id));
-        //          // @ts-expect-error
-        //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
+        if(activeStep > 1) {
+           // @ts-expect-error
+        dispatch(setStakingStep(2));
+            // @ts-expect-error
+        dispatch(setSelectedValidatorList([]))
+        } else {
+             // @ts-expect-error
+            dispatch(setStakingStep(1))
         }
-      }, [selectedNetwork])
 
+    }, [])
+   
 
-
-
-
- 
-
-
-    const activeStep = useSelector(stakingActiveStep);
     return (
         <>
         {activeStep === 1 && <ConnectWallet/>}

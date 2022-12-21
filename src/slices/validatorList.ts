@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
+import env from "react-dotenv";
+
 
 export const initialState = {
   loading: false,
   hasErrors: false,
   validatorList: [],
-  selectedValidatorList: []
+  selectedValidatorList: [],
+  redelegateValidatorList: []
 }
 
 const validatorListSlice = createSlice({
@@ -22,6 +25,9 @@ const validatorListSlice = createSlice({
     setSelectedValidatorListSuccess : (state, { payload }) => {
       state.selectedValidatorList = payload;
     },
+    setRedelegateValidatorListSuccess : (state, { payload }) => {
+      state.redelegateValidatorList = payload;
+    },
     getValidatorListFailure: state => {
       state.loading = false
       state.hasErrors = true
@@ -29,7 +35,7 @@ const validatorListSlice = createSlice({
   },
 })
 
-export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
+export const { getValidatorList, getValidatorListSuccess, setSelectedValidatorListSuccess, setRedelegateValidatorListSuccess, getValidatorListFailure } = validatorListSlice.actions
 
 
 export const validatorListSelector = (state:any)  => state.validatorList;
@@ -43,7 +49,7 @@ const loadValData = async (chainId: string): Promise<ValResponse> => {
 
     // TODO - make chainId dynamic
     const result = await fetch(
-        `https://data.${chainId}.test.quicksilver.zone/v1/graphql`,
+        `https://data.${chainId}.${env.ZONE_URL}/v1/graphql`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -174,6 +180,17 @@ export interface Data {
   
       try {
         dispatch(setSelectedValidatorListSuccess(val))
+      } catch (error) {
+
+      }
+    }
+  }
+
+  export function setRedelegateValidatorList(val: any) {
+    return async (dispatch: any) => {
+  
+      try {
+        dispatch(setRedelegateValidatorListSuccess(val))
       } catch (error) {
 
       }

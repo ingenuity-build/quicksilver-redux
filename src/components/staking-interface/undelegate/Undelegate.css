@@ -1,0 +1,46 @@
+.unbond {
+    background: #D35100;
+border-radius: 10px;
+font-size: 18px;
+line-height: 30px;
+font-weight: 400;
+color: #FFFFFF;
+padding: 5px 20px;
+border: 2px solid #D35100;
+z-index:3;
+}
+
+td {
+    color: white;
+}
+
+.Collapsible {
+    background: #282828;
+    border: 2px solid #282828;
+    border-radius: 5px;
+    padding: 1.5rem;
+
+}
+
+.Collapsible__trigger {
+    font-size: 20px !important;
+    font-weight: 500;
+} 
+
+.unbond:disabled {
+    background: #D87D44;
+    border: #D87D44;
+}
+
+.unbonding-list {
+    z-index: 3;
+}
+
+.Collapsible__trigger.is-closed, .Collapsible__trigger.is-open{
+    position: absolute;
+}
+
+.Collapsible__contentOuter {
+  
+    padding-top: 20px !important;
+}

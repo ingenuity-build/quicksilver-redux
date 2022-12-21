@@ -1,22 +1,40 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import './Stake.css';
-import { useSelector } from 'react-redux'
+import { useSelector , useDispatch} from 'react-redux'
 import {stakingActiveStep} from '../../../slices/stakingActiveStep';
 import LogoWhite from '../../../assets/icons/logo-whitestroke.svg';
 import LogoGray from '../../../assets/icons/logo-graystroke.png';
-
+import { useLocation} from "react-router-dom";
+import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
+import { _loadValsAsync } from "../../../slices/validatorList";
+import env from "react-dotenv";
 
 
 export default function Stake() {
+  const dispatch = useDispatch();
+
   const activeStep = useSelector(stakingActiveStep);
-  console.log('active step', activeStep)
+  const location = useLocation();
+  const {selectedNetwork} = useSelector(selectedNetworkSelector);
+  useEffect(() => {
+    if (selectedNetwork !== "Select a network") {
+        console.log(selectedNetwork.chain_id)
+              // @ts-expect-error
+     dispatch(_loadValsAsync(selectedNetwork.chain_id));
+    //          // @ts-expect-error
+    //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
+    }
+  }, [selectedNetwork])
+
     return  (
         <>
-     
+                     <p className="unbonding-message"> The Unbonding feature will be enabled early January 2023. Any assets you stake to the protocol will remain locked until that time.</p>
             <div className="staking-interface row mx-0">
             <div className="stepper col-2 d-flex flex-column ">
-            <div className="step d-flex mt-5 ml-4 mb-1">
+          
+             {location.pathname === '/stake/delegate' && <>
+              <div className="step d-flex mt-5 ml-4 mb-1">
       <div className="d-flex flex-column pr-4 align-items-center">
      <img className="logo" alt="Quicksilver logo" src={LogoWhite}/>
         <div className="line h-100"></div>
@@ -31,7 +49,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}>Choose Network</h6>
+      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}> Choose a Network</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">
@@ -40,7 +58,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Choose</h6>
+        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Allocate your Stake</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">
@@ -67,18 +85,22 @@ export default function Stake() {
 								</a>
         </div>
               
+              </>}
             </div>
+
             <div className="content col-10">
             <div className="mt-5 stake-options d-flex justify-content-center">
-        <Link to="delegate" className="mx-3 px-2 link active-link">Delegate</Link>
-        <Link to="redelegate" className="mx-3  px-2 link" onClick={ (event) => event.preventDefault()}>Redelegate</Link>
-        <Link to="undelegate" className="mx-3 px-2 link" onClick={ (event) => event.preventDefault()}>Undelegate</Link>
+        <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
+
+        {process.env.REACT_APP_ENABLE_SET_INTENT == 'true' && <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>}
+        <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
         </div>
 
         
             <Outlet/>
 
                 </div>
+
             </div>
         </>
 

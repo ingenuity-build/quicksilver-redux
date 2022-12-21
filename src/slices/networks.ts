@@ -1,4 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
+import env from "react-dotenv";
+import Cosmos from '../assets/Cosmos.png';
+import Osmosis from '../assets/Osmosis.png';
+import Stargaze from '../assets/Stargaze.png';
+import Juno from '../assets/Juno.png';
 
 export const initialState = {
   loading: false,
@@ -37,7 +42,7 @@ export function fetchNetworks() {
     dispatch(getNetworks())
 
     try {
-      const response = await fetch('https://lcd.test.quicksilver.zone/quicksilver/interchainstaking/v1/zones')
+      const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
 
       dispatch(getNetworksSuccess(manipulateData(data.zones)))
@@ -48,5 +53,14 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.charAt(0).toUpperCase() + zone.account_prefix.slice(1), value: zone}})
+   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  }
+
+
+const images = {
+  'uqatom' : Cosmos,
+  'uqosmo' : Osmosis,
+  'uqstars' : Stargaze,
+  'uqjunox' : Juno
+
 }

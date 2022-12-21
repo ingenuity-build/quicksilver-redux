@@ -6,6 +6,9 @@ import { _loadValsAsync , validatorListSelector, setSelectedValidatorList, getVa
 import './ChooseValidators.css';
 import { increaseStakingStep, decreaseStakingStep } from "../../../slices/stakingActiveStep";
 import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exceptions";
+// import osmosis from '../../../assets/osmosis';
+// import qStar from '../../../assets/qStar.png';
+import ValidatorImg from '../../../assets/validator.png';
 
 
 export interface Data {
@@ -25,7 +28,7 @@ export default function ChooseValidators() {
 
     const dispatch = useDispatch()
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
-    const {validatorList, selectedValidatorList} = useSelector(validatorListSelector);
+    const {validatorList,hasErrors, selectedValidatorList} = useSelector(validatorListSelector);
    // const {selectedValidatorList} = useSelector(selectedValidatorListSelector);
     const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(selectedValidatorList);
     const [validators, setValidators] = React.useState(validatorList);
@@ -123,17 +126,19 @@ const onNext = () => {
         {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
 
           <div className="mt-3 validators row w-100 justify-content-center">
+        {validators.length === 0 && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
           <>
                 <div onClick={ (e) => addValidator(e,row)} className={`validator-card col-3 m-3 ${row?.active ? 'val-active' : ''}`}>
                 <div className="d-flex align-items-start"> 
                      {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
-               <div className="card-details">
-                <h6> {row?.name} </h6>
+               <div className="card-details d-flex align-items-center">
+                <img src={`/images/${selectedNetwork.account_prefix}/${row.address}.png`} onError={(e) => (e.currentTarget.src = ValidatorImg)} alt={'Logo'}></img>
+                <h6 className="p-2"> {row?.name} </h6>
                 {/* <h4 className="font-bold">  Reward </h4> */}
                 </div>
                 </div>
-
+            {hasErrors && <p> There's an issue with fetching the validators. Please try again</p>}
             </div>
          
           </>

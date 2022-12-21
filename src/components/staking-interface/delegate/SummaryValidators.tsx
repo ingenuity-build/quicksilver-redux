@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { coins } from "@cosmjs/launchpad"
+import {coins} from "@cosmjs/amino"
 import './SummaryValidators.css';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { useSelector, useDispatch } from 'react-redux'
@@ -92,7 +92,11 @@ export default function SummaryValidators() {
             // @ts-expect-error
         dispatch(setStakingStep(8));
        
-      }
+      } else {
+        setLoading(false);
+        console.log(broadcastResult);
+      setError('The transaction failed! Please try again.');
+    }
   } catch(err: any) {
     setLoading(false);
     console.log(err);
@@ -105,9 +109,9 @@ export default function SummaryValidators() {
         <>
         <div className="summary-validator-pane d-flex mt-4 justify-content-center align-items-center flex-column">
             <h2 className="mt-4"> Summary </h2> 
-            <h5 className="mt-4"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)}</span></h5>
-            <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></h5>
-            <h5>qTokens Received:  <span className="font-bold">{stakingAmount/selectedNetwork?.redemption_rate}</span></h5>
+            <h5 className="mt-4"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.slice(1).toUpperCase()}</span></h5>
+            <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></h5>
+            <h5> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} Received:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)}</span></h5>
             <h6 className="mt-4"> Validator List: </h6>
         {renderValidators()}
         

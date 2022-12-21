@@ -1,11 +1,13 @@
 /* eslint-disable */
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, SigningStargateClientOptions, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters, } from "@cosmjs/stargate";
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters } from "@cosmjs/stargate"
 import { AminoMsg, Coin } from "@cosmjs/amino";
-import { GeneratedType, Registry} from "@cosmjs/proto-signing";
+import { GeneratedType, Registry} from "@cosmjs/proto-signing"
+import { SigningStargateClientOptions } from "@cosmjs/stargate"
+import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
 
 
 import * as _m0 from "protobufjs/minimal";
-
+import Long from "long";
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 type KeysOfUnion<T> = T extends T ? keyof T : never;
@@ -25,7 +27,7 @@ export type Exact<P, I extends P> = P extends Builtin
   : Partial<T>;
 
 
-  function isSet(value: any): boolean {
+  function isSet(value: any): boolean { 
     return value !== null && value !== undefined;
   }
 
@@ -81,9 +83,9 @@ export type Exact<P, I extends P> = P extends Builtin
     },
   };
   
-  function createBaseCoin(): Coin {
-    return { denom: "", amount: "" };
-  }
+  // function createBaseCoin(): Coin {
+  //   return { denom: "", amount: "" };
+  // }
 
   function createBaseCoinFrom(denom: string, amount: string): Coin {
     return { denom: denom, amount: amount };
@@ -141,7 +143,6 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     tokenizedShareOwner: string;
   }
   
-  
   function createCustomTypes(prefix: string): AminoConverters {
     return {
       ...createAuthzAminoConverters(),
@@ -151,17 +152,16 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createStakingAminoConverters(prefix),
       ...createIbcAminoConverters(),
       ...createFreegrantAminoConverters(),
-      ...createLiquidStakingTypes()
+      ...createLiquidStakingTypes(),
+      ...quicksilverAminoConverters,
     };
   }
-  
-
- 
+   
 
   function createBaseMsgTokenizeShares(): MsgTokenizeShares {
     return { delegatorAddress: "", validatorAddress: "", amount: undefined, "tokenizedShareOwner": "" };
   }
-
+  
   export const MsgTokenizeShares = {
     encode(message: MsgTokenizeShares, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
       if (message.delegatorAddress !== "") {
@@ -235,12 +235,10 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     },
   };
 
-
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-   
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-    
-   ...defaultRegistryTypes
- ];
+     ...defaultRegistryTypes,
+     ...quicksilverProtoRegistry
+  ];
 
- export const options = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+ export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
