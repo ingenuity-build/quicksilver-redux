@@ -231,9 +231,9 @@ These rewards will be distributed on an epochly basis (every 3 days).
 
   </div>
   <h3 className="mt-5">My Assets</h3> 
-  {sum === 0 && <h5 className="mt-4">Calculating...</h5>}
+  {/* {sum === 0 && <h5 className="mt-4">Calculating...</h5>} */}
   {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
-   {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>}
+   {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
   {balances.filter((bal: Coin) => denomArray.includes(bal.denom)).map((bal: Coin, i: number) =>
        
