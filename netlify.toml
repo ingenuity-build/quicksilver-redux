@@ -3,7 +3,7 @@
   to = "/index.html"
   status = 200
 
-[context.main.environment]
+[context.master.environment]
   NODE_ENV = "prod"
   QUICKSILVER_API = "https://lcd.quicksilver.zone"
   ZONE_URL = "quicksilver.zone"
