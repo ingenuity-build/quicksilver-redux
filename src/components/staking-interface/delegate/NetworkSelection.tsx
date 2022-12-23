@@ -16,7 +16,7 @@ import { validatorListSelector } from "../../../slices/validatorList";
 
 export default function NetworkSelection() {
     const dispatch = useDispatch()
-    const { networks, loading, hasErrors } = useSelector(networksSelector);
+    const { networks, hasErrors } = useSelector(networksSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
    const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
    const {balances} = useSelector(quicksilverSelector);
@@ -25,6 +25,7 @@ export default function NetworkSelection() {
   const [zoneBalance, setZoneBalance] = useState(0);
   const initialText = 'Copy';
   const [buttonText, setButtonText] = useState(initialText);
+  const [loadingValidators, setLoadingValidators] = useState(true);
   function handleClick() {
    navigator.clipboard.writeText(networkAddress)
    setButtonText('Address copied');
@@ -47,6 +48,12 @@ export default function NetworkSelection() {
     }
 
 }, [balances, selectedNetwork])
+
+useEffect(() => {
+  if(validatorList.length > 0) {
+    setLoadingValidators(false);
+  }
+}, [validatorList])
 
 useEffect(() => {
 
@@ -90,6 +97,7 @@ useEffect(() => {
     </div>
     <div className="col-3 text-center">
     <h5 className="font-bold">{QCKBalance}</h5>
+     
       {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()}</p>}
       {}
     </div>
@@ -99,7 +107,7 @@ useEffect(() => {
 
 
 <div className="mt-5 button-container">
-
+{selectedNetwork !== "Select a network" && networkAddress !== '' &&   <p className={loadingValidators ? 'visible text-center' : 'invisible'}> Loading Validators...</p>}
  {selectedNetwork?.base_denom && <button className={`stake-liquid-atoms-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} onClick={() => onNext()} > Stake {selectedNetwork?.base_denom?.slice(1).toUpperCase()} </button>}
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
