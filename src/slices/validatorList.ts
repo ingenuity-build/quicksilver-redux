@@ -43,23 +43,10 @@ export const validatorListSelector = (state:any)  => state.validatorList;
 // The reducer
 export default validatorListSlice.reducer;
 
-const loadValData = async (chainId: string): Promise<ValResponse> => {
-    // fetch me from api
-    //return [{rank: 1, name: 'Validator 1', voting_power: '15,394,433 OSMO', commission: '5%' },{rank: 2, name: 'Validator 2', voting_power: '15,394,433 OSMO', commission: '5%' }]
-
-    // TODO - make chainId dynamic
-    const result = await fetch(
-        `https://data.${chainId}.${env.ZONE_URL}/v1/graphql`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            query: valListQuery,
-            variables: {},
-            operationName: "ValidatorList"
-          })
-        }
-      );
-      return await result.json();
+const loadValData = async (chainId: string): Promise<any> => {
+  
+    const result = await fetch(`https://data.${env.ZONE_URL}/validatorList/${chainId}`)
+    return await result.json();
 
 }
 
@@ -87,53 +74,46 @@ type Descriptions = {
 }
 
 type Validator = {
-    validator: {
-        validator_voting_powers: Array<VotingPowers>
-        validator_info: {
-            operator_address: string,
-            validator: {
-                validator_commissions: Array<Commissions>
-                validator_descriptions: Array<Descriptions>
-            }
-        }
-    },
-    jailed: Boolean
+      operator_address: string;
+      jailed: boolean;
+      status: string;
+    tokens: string;
+    commission: {
+      commission_rates: {
+        rate: number;
+      }
+    };
+    description: {
+    moniker: string;
+    }
 
 }
 
 
 export function _loadValsAsync(chainId: string)  {
     return async (dispatch: any) => {
-        loadValData(chainId).then(
-            externalData => {
-               let vals: Array<Data> = externalData.data.validator_status
-               .filter((line: Validator) => { return !line.jailed || (line.validator.validator_info.validator.validator_commissions.length > 0 && line.validator.validator_info.validator.validator_commissions[0].commission > 0.8)}) 
-               .map((line: Validator, index: number): Data => {          // map to Data objects
-                let moniker = "Unknown"
-                let commission = "Unknown"
-                if (line.validator.validator_info.validator.validator_descriptions.length > 0) {
-                    moniker = line.validator.validator_info.validator.validator_descriptions[0].moniker
-                }
-                if (line.validator.validator_info.validator.validator_commissions.length > 0) {
-                    commission = (line.validator.validator_info.validator.validator_commissions[0].commission * 100) + "%"
-                }
-
-                return {
-                    rank: 0, 
-                    voting_power: "" + line.validator.validator_voting_powers[0].voting_power,
-                    name: moniker,
-                    commission: commission,
-                    address : line.validator.validator_info.operator_address,
-                    logo: "",
-                  }});
-                  
-                  dispatch(getValidatorListSuccess(vals))
-            }
-        ).catch(
-
+      loadValData(chainId).then(
+        externalData => {
+           let vals: Array<Data> = externalData.validators
+           .filter((line: Validator) => { return !line.jailed || (line.commission.commission_rates.rate > 0.8) || line.status != "BOND_STATUS_BONDED" }) 
+           .map((line: Validator, index: number): Data => {          // map to Data objects
+            
+            return {
+                rank: 0, 
+                voting_power: line.tokens,
+                name: line.description.moniker.length > 0 ? line.description.moniker : 'NO_NAME_SET' ,
+                commission: line.commission.commission_rates.rate.toString(),
+                address : line.operator_address,
+                logo: "",
+              }});
+              
+              dispatch(getValidatorListSuccess(vals))
+        }).catch(
+          dispatch(dispatch(getValidatorListFailure))
         );
+    }
     
-}
+
 }
 
 
