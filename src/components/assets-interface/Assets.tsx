@@ -43,21 +43,21 @@ export default function Assets() {
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
 
-  useEffect(() => {
-    if(isQSWalletConnected && networks) {
-    let denomArray : Array<string> = [];
-    networks.forEach((network: any) => denomArray.push(network.value.local_denom));
-    denomArray.push('uqck');
-    setDenomArray(denomArray);
-    if(!sum) {
-  fetchSum();
-    }
-  }
-    // if(messages.length == 0) {
-    //   queryXccLookup();
-    // }
+  // useEffect(() => {
+  //   if(isQSWalletConnected && networks) {
+  //   let denomArray : Array<string> = [];
+  //   networks.forEach((network: any) => denomArray.push(network.value.local_denom));
+  //   denomArray.push('uqck');
+  //   setDenomArray(denomArray);
+  //   if(!sum) {
+  // fetchSum();
+  //   }
+  // }
+  //   // if(messages.length == 0) {
+  //   //   queryXccLookup();
+  //   // }
 
-  }, [balances])
+  // }, [balances])
 
   const onButtonClick = () => {
     // @ts-expect-error
@@ -235,7 +235,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
   {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
-  {balances.filter((bal: Coin) => denomArray.includes(bal.denom)).map((bal: Coin, i: number) =>
+  {balances.map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
      
