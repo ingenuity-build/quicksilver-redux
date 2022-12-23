@@ -35,6 +35,7 @@ export default function ChooseAllocations() {
          if(balance) {
           console.log(balance)
           setQCKBalance((balance.amount)/1000000);
+          
          }
      
     }
@@ -104,14 +105,7 @@ useEffect(() => {
         selectedValidatorList.forEach((x: any) => {      
           
         sum = sum + allocationProp[x.address]['value'] ;  console.log(allocationProp[x.address]['value'])})
-        console.log(sum);
-        if(sum < 100) {
-            console.log("Please allocation more atoms");
-        } else if(sum > 100) {
-            console.log("Please allocation less atoms");
-        } else {
-            console.log("please proceed");
-        }
+
         setSum(sum);
     } 
     else if(selectedValidatorList.length === 1) {
@@ -198,12 +192,13 @@ useEffect(() => {
     const changeAmount = (e: any) => {
         
 
-        console.log(e.target.value);
+
+        
                     //    @ts-expect-error
                   dispatch(setStakingAmount(e.target.value));
         isMax.current = false;
         setisMaxClicked(false);
-        if(e.target.value !=  +(zoneBalance - 0.3).toFixed(6)) {
+        if(+(e.target.value) !=  +(zoneBalance - 0.3).toFixed(6)) {
         setShowMaxMsg(false);
         }
         if(selectedValidatorList.length === 1) {
@@ -270,7 +265,7 @@ If you signal your intent several times before the feature is enabled, the proto
                 </p>
                 <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.slice(1).toUpperCase()} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></p>   
                 <div className="d-flex mt-3 align-items-center">
-            
+
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.slice(1).toUpperCase()} you want to stake {selectedValidatorList.length === 1 && <span> to {selectedValidatorList[0].name } :</span>}</p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
@@ -284,13 +279,13 @@ If you signal your intent several times before the feature is enabled, the proto
             </div>}
             {(zoneBalance) > 0.5 &&  <div className="mt-4 text-center">
                
-                {stakingAmount > (((zoneBalance) - 0.3).toFixed(6)) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6)} ${selectedNetwork.base_denom.slice(1).toUpperCase()}  ` : ''}
+                {(+(stakingAmount) > +(zoneBalance - 0.3).toFixed(6)) ? `The max that you can allocate is ${ ((zoneBalance) - 0.3).toFixed(6)} ${selectedNetwork.base_denom.slice(1).toUpperCase()}  ` : ''}
             { stakingAmount > 0 && sum > 100 && <p className="mt-2"> You have allocated {sum} % of the available {selectedNetwork.base_denom.slice(1).toUpperCase()}. Please move the sliders around until you hit 100% and then you can proceed ahead. </p>}
             { stakingAmount > 0 && sum < 99.5 && <p className="mt-2"> Please allocate the remaining {100.00 - sum} % of {selectedNetwork.base_denom.slice(1).toUpperCase()} to continue </p>}
        </div>}
         <div className="button-containers mt-4">
             <button className="prev-button mx-3" onClick={onPrev}> Previous </button>
-        <button disabled={sum < 99.9  || sum  > 100 || stakingAmount < 0.01 || stakingAmount > (zoneBalance - 0.3).toFixed(6) ?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
+        <button disabled={sum < 99.9  || sum  > 100 || +(stakingAmount) < 0.01 || (+(stakingAmount) > +(zoneBalance - 0.3).toFixed(6)) ?  true: false}  className="next-button mx-3" onClick={onClickNext}>Next</button> 
 </div>
         </div> 
     );
