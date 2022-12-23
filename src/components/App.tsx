@@ -76,9 +76,9 @@ connectKeplr();
 
 
 const connectKeplr = async () => {
+  setLoading(true);
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
     fetchKeplrDetails(val)
-      setLoading(true);
       // @ts-expect-error
     dispatch(setQSWallet(key, val));
         // @ts-expect-error
