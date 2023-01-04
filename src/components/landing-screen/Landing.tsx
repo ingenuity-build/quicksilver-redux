@@ -53,9 +53,9 @@ export default function Landing() {
     }
   }, [client]);
 
-  useEffect(() => {
-    connect();
-  }, []);
+//   useEffect(() => {
+//     connect();
+//   }, []);
 
     return    (
         <div className="landing-page">
