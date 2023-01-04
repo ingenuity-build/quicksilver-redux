@@ -24,7 +24,7 @@ import { networksSelector, fetchNetworks } from '../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../slices/selectedNetwork";
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../slices/selectedNetworkWallet";
 import { _loadValsAsync } from "../../slices/validatorList";
-import { initKeplrWithNetwork } from "../../utils/chains";
+import { initWalletWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
@@ -49,7 +49,7 @@ function useIdle(options: any) {
 
 
 interface PropComponent {
-  handleClickOpen? : { (): void};
+  handleClickOpen : { (wallet: String): void};
   loading: boolean;
   setLoading: any
 }
@@ -72,7 +72,7 @@ export default function Navbar(props: PropComponent) {
 
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length != 0) {
          let balance = balances.find((bal: any) => bal.denom === 'uqck');
          if(balance) {
           setQCKBalance((balance.amount)/1000000);
@@ -138,8 +138,8 @@ export default function Navbar(props: PropComponent) {
     }
    
   const connectNetwork =  async (network: string) => {
-
-    initKeplrWithNetwork(async (key: string, val: SigningStargateClient) => {
+    
+    initWalletWithNetwork(async (key: string, val: SigningStargateClient) => {
      // @ts-expect-error
      dispatch(setNetworkWallet(key, val))
 
@@ -147,8 +147,8 @@ export default function Navbar(props: PropComponent) {
       dispatch(setClient(val));
       setVal(val);
       fetchNetworkDetails(val)
-     
-    }, network);
+    // @ts-expect-error
+    }, window.cosmostation.providers.keplr, network);
   }
 
 

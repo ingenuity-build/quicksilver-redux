@@ -22,13 +22,14 @@ export default function Landing() {
   async function connect() {
     console.log('hey')
     const offlineSigner = await getOfflineSigner(CHAIN_ID);
-    // const rpcEndpoint = "https://rpc-juno.itastakers.com/";
-    // const client = await SigningCosmWasmClient.connectWithSigner(
-    //   rpcEndpoint,
-    //   offlineSigner
-    // );
-    // setOfflineSigner(offlineSigner);
-    // setClient(client);
+    const rpcEndpoint = "https://rpc-juno.itastakers.com/";
+    const client = await SigningCosmWasmClient.connectWithSigner(
+      rpcEndpoint,
+      offlineSigner
+    );
+    setOfflineSigner(offlineSigner);
+    setClient(client);
+    console.log(accounts)
   }
 
   async function getAccount() {
@@ -37,6 +38,7 @@ export default function Landing() {
     }
 
     const accounts = await offlineSigner.getAccounts();
+    console.log(accounts)
     setAccounts(accounts);
 
     let address = accounts[0].address;

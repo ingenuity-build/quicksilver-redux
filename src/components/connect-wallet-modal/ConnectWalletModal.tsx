@@ -2,7 +2,7 @@
 import "./ConnectWalletModal.css";
 
 interface PropComponent {
-    handleClickOpen? : { (): void}
+    handleClickOpen : { (wallet: String): void}
     loading: boolean;
     setLoading: any
   }
@@ -15,8 +15,8 @@ export default function ConnectWalletModal(props: PropComponent) {
         <h4 className="text-center heading mb-4">Connect with  </h4>
         <div className="button-containers d-flex flex-column">
             <h4> {props.loading}</h4>
-    <button className="m-2 p-3 keplr" disabled={props.loading} onClick={props.handleClickOpen}>Keplr</button> 
-    <button className="m-2 p-3 cosmos-station"  disabled> Cosmostation (Coming Soon) </button>
+    <button className="m-2 p-3 keplr" disabled={props.loading} onClick={() => { props.handleClickOpen("keplr") }}>Keplr</button> 
+    <button className="m-2 p-3 cosmos-station"  disabled={props.loading} onClick={() => { props.handleClickOpen("cosmostation") }}> Cosmostation </button>
     {props.loading && <h5 className="text-center mt-2"> Connecting...</h5>}
     </div>
     </div> 

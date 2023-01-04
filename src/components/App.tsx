@@ -15,7 +15,7 @@ import Undelegate from './staking-interface/undelegate/Undelegate';
 import Redelegate from './staking-interface/redelegate/Redelegate';
 import LogoStroke from '../assets/quicksilver-logo-stroke.svg';
 import Delegate from './staking-interface/delegate/Delegate';
-import { initKeplrWithQuickSilver} from '../utils/chains';
+import { initWalletWithQuickSilver} from '../utils/chains';
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setClient, setQuicksilverAddress } from '../slices/quicksilver';
@@ -25,6 +25,7 @@ import { increaseStakingStep } from "../slices/stakingActiveStep";
 import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
+import { Keplr } from '@keplr-wallet/types';
 
 
 function useIdle(options: any) {
@@ -47,6 +48,7 @@ function App() {
   const isIdle = useIdle({timeToIdle: 1800000});
   const [loading, setLoading] = React.useState(false);
   const [val, setVal] = React.useState<SigningStargateClient>();
+  const [walletType, setWalletType] = React.useState<Keplr>();
 
 
 
@@ -56,7 +58,7 @@ function App() {
       timer = setInterval( () => {
         if(isQSWalletConnected) {
           //connectKeplr();
-          fetchKeplrDetails(val);
+          fetchDetails(walletType, val);
           console.log('hey');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
@@ -65,46 +67,72 @@ function App() {
     return () => clearInterval(timer);
   }, [isIdle])
 
-  const handleClickOpen = () => {
-    // @ts-expect-error
-  if (window &&  !window.keplr) {
-    alert("Please install keplr extension");
-}  else {
-connectKeplr();
-}
+  const handleClickOpen = (wallet: String) => {
+    console.log(wallet)
+    if (wallet == "keplr") {
+      // @ts-expect-error
+      if (window &&  !window.keplr) {
+        alert("Please install keplr extension");
+      }  else {
+          // @ts-expect-error
+        setWalletType(window.keplr)
+        console.log(walletType)
+        connectWallet(walletType);
+      }
+    } else if (wallet == "cosmostation") {
+      // @ts-expect-error
+      if (window &&  !window.cosmostation) {
+        alert("Please install keplr extension");
+      }  else {
+          // @ts-expect-error
+          setWalletType(window.cosmostation.providers.keplr);
+          console.log(walletType)
+          connectWallet(walletType)
+      }
+    } else {
+      console.log("Unknown type", wallet)
+    }
 };
 
 
-const connectKeplr = async () => {
+const connectWallet = async (wallet: Keplr|undefined) => {
   setLoading(true);
-  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
-    fetchKeplrDetails(val)
+  initWalletWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+    console.log("debug5")
+    fetchDetails(wallet, val)
+    console.log("debug6")
+
       // @ts-expect-error
     dispatch(setQSWallet(key, val));
-        // @ts-expect-error
+
+    console.log("debug7")
+    // @ts-expect-error
         dispatch(setClient(val));
+     console.log("debug8")
      // @ts-expect-error
-    dispatch(setQSWalletConnected())
+     dispatch(setQSWalletConnected())
        
+     console.log("debug9")
     setVal(val);
          // @ts-expect-error
   dispatch(setModalClose());
+  console.log("debug10")
   setLoading(false);
          // @ts-expect-error
   dispatch(increaseStakingStep());
 // @ts-expect-error
 dispatch(increaseRedelegateStep())
-  }
+  },
+  wallet
 );
 }
 
-const fetchKeplrDetails = async (val: any) => {
+const fetchDetails = async (provider: Keplr|undefined, val: any) => {
 
-  let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
-    keplr?.getKey(chainId).then(async () => {
+    provider?.getKey(chainId).then(async () => {
       
-    let pubkey = await keplr?.getKey(chainId);
+    let pubkey = await provider?.getKey(chainId);
      let bech32 = pubkey?.bech32Address;
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
