@@ -82,7 +82,7 @@ export default function Landing() {
 									<span className="icon-medium mx-2"></span>
 								</a>
         </div>
-        <button onClick={() => connect()}> Connect to  Cosmostation</button>
+        {/* <button onClick={() => connect()}> Connect to  Cosmostation</button> */}
         </div>
   
         </div>

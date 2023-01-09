@@ -50,7 +50,12 @@ function App() {
   const [val, setVal] = React.useState<SigningStargateClient>();
   const [walletType, setWalletType] = React.useState<Keplr>();
 
-
+  useEffect(() => {
+    console.log('Wallet Type', walletType)
+    if(walletType) {
+    connectWallet(walletType)
+    }
+  }, [walletType])
 
   React.useEffect(() => {
     let timer: any;
@@ -87,7 +92,7 @@ function App() {
           // @ts-expect-error
           setWalletType(window.cosmostation.providers.keplr);
           console.log(walletType)
-          connectWallet(walletType)
+     
       }
     } else {
       console.log("Unknown type", wallet)
@@ -128,15 +133,17 @@ dispatch(increaseRedelegateStep())
 }
 
 const fetchDetails = async (provider: Keplr|undefined, val: any) => {
-
+    console.log('Provider', provider);
+    console.log('VAL', val)
     let chainId = await val.getChainId();
+    console.log('getKey', provider?.getKey)
     provider?.getKey(chainId).then(async () => {
-      
     let pubkey = await provider?.getKey(chainId);
      let bech32 = pubkey?.bech32Address;
+     console.log('',await val.getChainId() )
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
-     
+  
             // @ts-expect-error
         dispatch(setQSBalance(roBalance));
                   // @ts-expect-error
@@ -145,7 +152,7 @@ const fetchDetails = async (provider: Keplr|undefined, val: any) => {
     }
  
     }).catch((e) =>{ console.log('err', e.message);
-    alert('Please add account');
+    // alert('Please add account');
    
 
     
