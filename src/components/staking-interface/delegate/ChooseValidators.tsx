@@ -146,7 +146,7 @@ const onNext = () => {
 )}
  {hasErrors && <p className="text-center"> There's an issue with fetching the validators. Please try again</p>}
               </div>
-              <p className="text-center mt-3">Showing {validatorList.length} validators.. </p>
+              <p className="text-center mt-3">Showing {validatorList.length} validators... </p>
               {selectedValidators.length > 8 && <p className="mt-3"> A maximum of 8 validators can be selected</p>}
 
 <div className="mt-2 button-container">
