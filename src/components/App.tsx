@@ -136,11 +136,11 @@ const fetchDetails = async (provider: Keplr|undefined, val: any) => {
     console.log('Provider', provider);
     console.log('VAL', val)
     let chainId = await val.getChainId();
+    console.log('chainid', chainId)
     console.log('getKey', provider?.getKey)
     provider?.getKey(chainId).then(async () => {
     let pubkey = await provider?.getKey(chainId);
      let bech32 = pubkey?.bech32Address;
-     console.log('',await val.getChainId() )
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
   
