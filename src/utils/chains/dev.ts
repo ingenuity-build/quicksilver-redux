@@ -66,6 +66,52 @@ export const DevQuickSilverChainInfo : ChainInfo = {
 
 export const DevChainInfos: ChainInfo[] = [
     DevQuickSilverChainInfo,
+    {
+        chainId: "evmos_9000-1",
+        chainName: "Quicksilver Dev Evmos ",
+        rpc: "https://rpc.evmos-9000-1.dev.quicksilver.zone",
+        rest: "https://lcd.evmos-9000-1.dev.quicksilver.zone",
+        
+        bip44: {
+            coinType: 60,
+        },
+        bech32Config: {
+            bech32PrefixAccAddr: "evmos",
+            bech32PrefixAccPub: "evmospub",
+            bech32PrefixValAddr: "evmosvaloper",
+            bech32PrefixValPub: "evmosvaloperpub",
+            bech32PrefixConsAddr: "evmosvalcons",
+            bech32PrefixConsPub: "evmosvalconspub",
+        },
+        currencies: [
+            {
+                coinDenom: "EVMOS",
+                coinMinimalDenom: "aevmos",
+                coinDecimals: 18,
+                coinGeckoId: "evmos",
+            },
+        ],
+        feeCurrencies: [
+            {
+                coinDenom: "EVMOS",
+                coinMinimalDenom: "aevmos",
+                coinDecimals: 18,
+                coinGeckoId: "evmos",
+            },
+        ],
+        stakeCurrency: {
+            coinDenom: "EVMOS",
+            coinMinimalDenom: "aevmos",
+            coinDecimals: 18,
+            coinGeckoId: "evmos",
+        },
+        coinType: 118,
+        gasPriceStep: {
+            low: 0.00,
+            average: 0.015,
+            high: 0.03,
+        },
+      },
 {
     chainId: "quickgaia-1",
     chainName: "Quicksilver Dev Gaia Test",
