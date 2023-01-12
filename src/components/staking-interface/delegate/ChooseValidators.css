@@ -29,6 +29,7 @@ padding: 1rem;
 .validator-selection-pane .validators {
     max-height: 41vh;
     overflow-y: auto;
+    width: 90%;
 }
 
 .max-button {

@@ -125,8 +125,8 @@ const onNext = () => {
         
         {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
 
-          <div className="mt-3 validators row w-100 justify-content-center">
-        {validators.length === 0 && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
+          <div className="mt-3 validators row  justify-content-center">
+        {validators.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
           <>
                 <div onClick={ (e) => addValidator(e,row)} className={`validator-card col-3 m-3 ${row?.active ? 'val-active' : ''}`}>
@@ -138,16 +138,18 @@ const onNext = () => {
                 {/* <h4 className="font-bold">  Reward </h4> */}
                 </div>
                 </div>
-            {hasErrors && <p> There's an issue with fetching the validators. Please try again</p>}
+           
             </div>
          
           </>
   
 )}
+ {hasErrors && <p className="text-center"> There's an issue with fetching the validators. Please try again</p>}
               </div>
+              <p className="text-center mt-3">Showing {validatorList.length} validators... </p>
               {selectedValidators.length > 8 && <p className="mt-3"> A maximum of 8 validators can be selected</p>}
 
-<div className="mt-5 button-container">
+<div className="mt-2 button-container">
         <button onClick={onPrevious} className="prev-button mx-3" > Previous</button>
         <button disabled={selectedValidators.length > 8 || selectedValidators.length === 0 } className="next-button mx-3" onClick={onNext}  >Next</button>
     </div>

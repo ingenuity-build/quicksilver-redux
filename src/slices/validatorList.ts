@@ -109,7 +109,7 @@ export function _loadValsAsync(chainId: string)  {
               
               dispatch(getValidatorListSuccess(vals))
         }).catch(
-          dispatch(dispatch(getValidatorListFailure))
+          dispatch(getValidatorListFailure())
         );
     }
     

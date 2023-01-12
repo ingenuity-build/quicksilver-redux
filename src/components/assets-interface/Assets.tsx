@@ -206,10 +206,10 @@ export default function Assets() {
         {!isQSWalletConnected && <div>
           <div className="assets-interface row mx-0">
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
-                {/* <h4 className="sub-heading"> Hey there! </h4>
+                <h4 className="sub-heading"> Hey there! </h4>
                 <h1 className="mt-3"> Connect your wallet to get started! </h1>
-                <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button>  */}
-                       <h4 className="sub-heading"> Assets screen will be enabled soon. Stay tuned.</h4>
+                <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button> 
+                     
                 </div>
             </div>
            
