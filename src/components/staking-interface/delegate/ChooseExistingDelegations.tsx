@@ -82,7 +82,7 @@ Object.assign({}, val, {active:false})
                 
                <div className="card-details">
                 <h5> {validatorList.find((x: any) => x.address === row.validator_address )?.name }</h5>
-                <h4 className="font-bold"> {row.coins[0].amount/1000000} {row.coins[0].denom.charAt(1).toUpperCase() + row.coins[0].denom.slice(2)} </h4>
+                <h4 className="font-bold"> {row.coins[0].amount/(Math.pow(10, selectedNetwork.decimalPoint))} {row.coins[0].denom.charAt(1).toUpperCase() + row.coins[0].denom.slice(2)} </h4>
                 </div>
               </div>
                 </div>
