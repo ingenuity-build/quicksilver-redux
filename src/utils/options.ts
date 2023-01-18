@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters } from "@cosmjs/stargate"
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, createAuthzAminoConverters, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFreegrantAminoConverters } from "@cosmjs/stargate"
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing"
 import { SigningStargateClientOptions } from "@cosmjs/stargate"
@@ -151,7 +151,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createGovAminoConverters(),
       ...createStakingAminoConverters(prefix),
       ...createIbcAminoConverters(),
-      ...createFeegrantAminoConverters(),
+      ...createFreegrantAminoConverters(),
       ...createLiquidStakingTypes(),
       ...quicksilverAminoConverters,
     };
