@@ -60,7 +60,7 @@ useEffect(() => {
   if(networkBalances !== []) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
-     setZoneBalance((balance.amount)/1000000);
+     setZoneBalance((balance.amount)/1000000000000000000);
     } 
  
 }
@@ -92,7 +92,7 @@ useEffect(() => {
 </button></h6>}
   <div className="row wallet-content mt-4">
     <div className="col-3 text-center">
-    {zoneBalance && <h5 className="font-bold">{zoneBalance}</h5>}
+    {<h5 className="font-bold">{zoneBalance ? zoneBalance : 0}</h5>}
      {selectedNetwork.base_denom && <p> {selectedNetwork.base_denom.slice(1).toUpperCase()}</p>}
     </div>
     <div className="col-3 text-center">

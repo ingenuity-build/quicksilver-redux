@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cosmjs/stargate": "^0.28.4",
+    "@cosmjs/stargate": "^0.29.5",
     "@keplr-wallet/stores": "^0.10.3",
     "@keplr-wallet/types": "^0.10.3",
     "@reduxjs/toolkit": "^1.8.5",
@@ -18,6 +18,7 @@
     "bech32": "^2.0.0",
     "bootstrap": "^5.2.0",
     "crypto-js": "^4.1.1",
+    "evmosjs": "^0.2.16",
     "moment": "^2.29.4",
     "path-browserify": "^1.0.1",
     "quicksilverjs": "^0.8.0",
@@ -82,6 +83,6 @@
       "REACT_APP_ENABLE_UNBONDING",
       "REACT_APP_ENABLE_CLAIMS"
     ]
-  }, 
+  },
   "homepage": ""
 }

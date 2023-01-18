@@ -176,7 +176,7 @@ export default function Assets() {
 
   const fetchData = (id: any, amount: number) => {
     console.log(id, amount)
-    let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
+    let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000000000000000;
           if(id !== 'uqck') {
            let network  = networks.find((y:any) => y.value.local_denom === id); 
            let redemptionRate : number = +(network?.value.redemption_rate);
@@ -242,7 +242,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
-                <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
+                <h4 className="font-bold"> {(+(bal.amount)/1000000000000000000).toFixed(2)}</h4>
                 {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
                 {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
                 </div>

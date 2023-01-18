@@ -44,8 +44,9 @@ export const validatorListSelector = (state:any)  => state.validatorList;
 export default validatorListSlice.reducer;
 
 const loadValData = async (chainId: string): Promise<any> => {
-  
-    const result = await fetch(`https://data.${env.ZONE_URL}/validatorList/${chainId}`)
+ let chain = chainId.replaceAll('_', '-');
+  console.log('chain', chain)
+    const result = await fetch(`https://data.${env.ZONE_URL}/validatorList/${chain}`)
     return await result.json();
 
 }
@@ -109,7 +110,7 @@ export function _loadValsAsync(chainId: string)  {
               
               dispatch(getValidatorListSuccess(vals))
         }).catch(
-          dispatch(dispatch(getValidatorListFailure))
+          dispatch(getValidatorListFailure())
         );
     }
     

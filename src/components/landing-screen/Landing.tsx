@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import './Landing.css';
  import Logo from '../../assets/quicksilver-logo.png';
+ let { bech32 } = require('bech32');
 
 export default function Landing() {
     return    (
