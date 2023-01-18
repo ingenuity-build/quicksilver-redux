@@ -1,7 +1,7 @@
 import { ChainInfo } from "@keplr-wallet/types";
 
 export const ProdQuickSilverChainInfo : ChainInfo = {
-    chainId: "quicksilver-2",
+    chainId: "quicksilver-1",
     chainName: "Quicksilver",
     rpc: "https://rpc.quicksilver.zone",
     rest: "https://lcd.quicksilver.zone",
@@ -166,8 +166,8 @@ export const ProdChainInfos: ChainInfo[] = [
   {
     chainId: "stargaze-1",
     chainName: "Stargaze",
-    rpc: "https://rpc.stargaze-1.quicksilver.zone",
-    rest: "https://lcd.stargaze-1.quicksilver.zone",
+    rpc: "https://rpc.stargaze-1.test.quicksilver.zone",
+    rest: "https://lcd.stargaze-1.test.quicksilver.zone",
     
     bip44: {
         coinType: 118,
@@ -213,8 +213,8 @@ export const ProdChainInfos: ChainInfo[] = [
   {
     chainId: "juno-1",
     chainName: "Juno",
-    rpc: "https://rpc.juno-1.quicksilver.zone",
-    rest: "https://lcd.juno-1.quicksilver.zone",
+    rpc: "https://rpc.juno-1.test.quicksilver.zone",
+    rest: "https://lcd.juno-1.test.quicksilver.zone",
     
     bip44: {
         coinType: 118,
