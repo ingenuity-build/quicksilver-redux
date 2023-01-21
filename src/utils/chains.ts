@@ -13,14 +13,14 @@ import env from "react-dotenv";
 
 
 const QuickSilverChains : { [index:string] : ChainInfo } = {
-  "preprod": ProdQuickSilverChainInfo, 
+"preprod": ProdQuickSilverChainInfo,
   "prod": ProdQuickSilverChainInfo,
   "test": TestQuickSilverChainInfo,
   "dev": DevQuickSilverChainInfo,
 }
 
 const Chains : { [index:string] : ChainInfo[] } = {
-  "preprod" : ProdChainInfos,  
+"preprod" : ProdChainInfos,
   "prod": ProdChainInfos,
   "test": TestChainInfos,
   "dev": DevChainInfos,

@@ -38,7 +38,6 @@ export default function NetworkSelection() {
     if(balances !== []) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
-          console.log(balance)
           setQCKBalance((balance.amount)/1000000);
          } else 
           {
