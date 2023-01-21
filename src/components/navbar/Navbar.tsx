@@ -133,7 +133,6 @@ export default function Navbar(props: PropComponent) {
         let roBalance = await val.getAllBalances(bech32);
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
-          console.log('roBalance',roBalance);
       }
     }
    
@@ -160,7 +159,6 @@ export default function Navbar(props: PropComponent) {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchNetworkDetails(val);
-          console.log('VAL', val)
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
     }, 10000)

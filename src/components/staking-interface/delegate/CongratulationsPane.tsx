@@ -24,7 +24,7 @@ export default function CongratulationsPane() {
         <div className="congratulations-pane d-flex mt-5 justify-content-center align-items-center flex-column">
     <h4 className="mt-5">Your assets have been successfully staked!</h4> 
     <div className="button-container mt-4">
-        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake on another network </button>
+        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake again </button>
         </div>
     </div>
     </>

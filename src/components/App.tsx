@@ -57,7 +57,6 @@ function App() {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchKeplrDetails(val);
-          console.log('hey');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
     }, 6000)
