@@ -36,15 +36,30 @@ export default function ChooseValidators() {
     
 
       const filterData = () => {
-        setValidators(validatorList.filter((val: any) => val.name.toLowerCase().includes(searchTerm.toLowerCase())));
+        let newData = validatorList.map((val: any) => {
+            if(selectedValidators.find((x: any) => x.address === val.address)) {
+               return Object.assign({}, val, {active: true})
+            } else {
+               return Object.assign({}, val, {active:false})
+            }   
+        }
+        )   
+        setValidators(newData.filter((val: any) => val.name.toLowerCase().includes(searchTerm.toLowerCase())));
      }
     
      React.useEffect(() => {
          if(searchTerm) {
          filterData();
          } else {
-            
-             setValidators(validatorList)
+            let newData = validatorList.map((val: any) => {
+                if(selectedValidators.find((x: any) => x.address === val.address)) {
+                   return Object.assign({}, val, {active: true})
+                } else {
+                   return Object.assign({}, val, {active:false})
+                }   
+            }
+            )   
+            setValidators(newData);
          }
      },[searchTerm])
 
@@ -121,10 +136,10 @@ const onNext = () => {
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3"> Choose validators </h2>
         
-        {/* <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/> */}
+        <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/>
 
           <div className="mt-3 validators row justify-content-center">
-          {validators.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
+          {validatorList.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
           <>
                 <div onClick={ (e) => addValidator(e,row)} className={`validator-card col-3 m-3 ${row?.active ? 'val-active' : ''}`}>
@@ -144,7 +159,7 @@ const onNext = () => {
 {hasErrors && <p className="text-center"> There's an issue with fetching the validators. Please try again</p>}
 
               </div>
-              <p className="text-center mt-3">Showing {validatorList.length} validators... </p>
+              <p className="text-center mt-3">Showing {validators.length} validators... </p>
               {selectedValidators.length > 8 && <p className="mt-3"> A maximum of 8 validators can be selected</p>}
 
 <div className="mt-2 button-container">
