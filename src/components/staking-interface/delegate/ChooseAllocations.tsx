@@ -33,7 +33,6 @@ export default function ChooseAllocations() {
     if(balances !== []) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
-          console.log(balance)
           setQCKBalance((balance.amount)/1000000);
           
          }
@@ -81,7 +80,6 @@ useEffect(() => {
     }, [])
 
     useEffect(() => {
-        console.log('Checking use Effect');
     if(isMax.current) {
 
      calculateMax()
@@ -126,10 +124,6 @@ useEffect(() => {
 
         }
        else if(selectedValidatorList.length !== 6 && selectedValidatorList.length > 1) {
-
-       console.log('Amount' , stakingAmount);
-       console.log('Length' , selectedValidatorList.length);
-       console.log('Value', value);
        selectedValidatorList.forEach((x: any) => {      
            let newAllocationProp : any = {...allocationProp};
 
