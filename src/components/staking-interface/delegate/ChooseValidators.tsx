@@ -134,9 +134,9 @@ const onNext = () => {
     return (
 
    <div className="validator-selection-pane d-flex flex-column align-items-center">
-        <h2 className="mt-3"> Choose validators </h2>
+        <h2 className="mt-3 choose-heading"> Choose Validators </h2>
         
-        <input className="mt-2 px-2" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search validators"/>
+        <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
 
           <div className="mt-3 validators row justify-content-center">
           {validatorList.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
