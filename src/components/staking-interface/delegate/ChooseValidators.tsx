@@ -70,7 +70,7 @@ export default function ChooseValidators() {
             let newData = validators.map((val: any) => 
             Object.assign({}, val, {active:false})
             )       
-            setValidators(newData);
+            setValidators([...newData].sort(() => Math.random() - 0.5));
         }  else {
             let newData = validators.map((val: any) => {
                 if(selectedValidatorList.find((x: any) => x.address === val.address)) {
@@ -80,7 +80,7 @@ export default function ChooseValidators() {
                 }   
             }
             )   
-            setValidators(newData);
+            setValidators([...newData].sort(() => Math.random() - 0.5));
         }
            // validatorList.find((x: any) => x.address === row.validator_address )?.name
         
