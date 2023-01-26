@@ -228,7 +228,7 @@ export default function Navbar(props: PropComponent) {
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
-      {isQSWalletConnected &&   <Select className="custom-class mb-3 mt-2 "
+      <Select className={"custom-class mb-3 mt-2 " + (isQSWalletConnected === true ? 'visible' : "invisible")}
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks} styles={colourStyles}  formatOptionLabel={network => (
             <div className="network-option">
@@ -238,7 +238,7 @@ export default function Navbar(props: PropComponent) {
           )}
           onChange={handleNetworkChange}
 
-        />}
+        />
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK</p>}
