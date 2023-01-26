@@ -71,7 +71,7 @@
   display: none;
 }
 
-@media (max-width: 1287.98px) { 
+@media (max-width: 1279.98px) { 
   .navbar .navbar-logo {
     background:#1A1A1A;
 
@@ -96,7 +96,7 @@
     width: 100vw;
   }
 
-  .mobile-message h3 {
+  .mobile-message h4 {
     color: #fff;
   }
  }

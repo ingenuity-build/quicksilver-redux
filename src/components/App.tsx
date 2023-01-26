@@ -135,7 +135,7 @@ const fetchKeplrDetails = async (val: any) => {
 
   {location.pathname !== '/' && <Navbar loading={loading} setLoading={setLoading} handleClickOpen={handleClickOpen} />}
       <div className="mobile-message p-3"> 
-    <h3>The current display window is too small. Supported display size is 1288 or above.</h3> 
+    <h4>The current display window is too small. Minimum supported resolution is 1280 pixels wide.</h4> 
     </div>
    <Routes>
                       <Route path="/" element={<Landing/>}/>
