@@ -49,7 +49,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}> Choose a Network</h6>
+      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}> Choose Network</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">
@@ -58,7 +58,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Allocate your Stake</h6>
+        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Allocate Stake</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">

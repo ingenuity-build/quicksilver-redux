@@ -8,7 +8,7 @@ import Select from "react-select";
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import Logo from '../../assets/quicksilver-logo.png';
+import Logo from '../../assets/quicksilverlogo.svg';
 import './Navbar.css';
 import Wallet from '../../assets/icons/wallet.svg';
 import Pools from '../../assets/icons/pools.svg';
@@ -193,12 +193,11 @@ export default function Navbar(props: PropComponent) {
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
           <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo d-flex ' : 'col-2 d-flex'}`} >
-               <Link to="/">    <img className="logo mt-2 ml-2" alt="Quicksilver Logo" src={Logo}/></Link> 
-               <p className="quicksilver-text mt-4 ml-2 "> QUICKSILVER</p>
+               <Link to="/">    <img className="logo ml-2" alt="Quicksilver Logo" src={Logo}/></Link> 
   </div>
 
 
-  <div className="collapse navbar-collapse justify-content-around col-10" id="navbarSupportedContent">
+  <div className="collapse navbar-width navbar-collapse justify-content-around col-10" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
     
       <li className="nav-item mx-4">

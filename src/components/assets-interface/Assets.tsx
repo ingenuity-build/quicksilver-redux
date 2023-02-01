@@ -219,10 +219,10 @@ export default function Assets() {
           {showAssets && <div className="col-8 mx-auto mt-5">
 <div className="participation-rewards">
     <div className="d-flex p-3 justify-content-center flex-column">
-    <h3> Claim Participation Rewards </h3>
-    <p className="coming-soon"> Coming soon</p>
+    <h3 className="text-center"> Claim Participation Rewards </h3>
+    <p className="coming-soon text-center"> Coming Soon</p>
     {/* <button onClick={onClaimsClick}> Claim </button> */}
-    <p>
+    <p className="text-center p-3" >
     Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
@@ -231,11 +231,11 @@ These rewards will be distributed on an epochly basis (every 3 days).
     </div>
 
   </div>
-  <h3 className="mt-5">My Assets</h3> 
+  <h3 className="mt-5 text-center">My Assets</h3> 
   {/* {sum === 0 && <h5 className="mt-4">Calculating...</h5>} */}
-  {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
+  {hasErrors && <p className="text-center"> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
-  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
+  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
   {balances.map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
@@ -246,8 +246,9 @@ These rewards will be distributed on an epochly basis (every 3 days).
                 <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
                 {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
                 {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
+          
                 </div>
-      
+                {bal.denom === 'uqstars' && <button className="w-100"> Deposit on Osmosis </button>}
             </div>
 
          

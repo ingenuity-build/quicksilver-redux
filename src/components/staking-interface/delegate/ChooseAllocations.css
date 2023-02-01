@@ -7,7 +7,7 @@
     z-index: 3;
     align-items: center;
     border-radius: 30px;
-    width: 60%;
+    width: 80%;
     padding: 20px;
     background: #282828;
     justify-content: center;
@@ -15,4 +15,13 @@
 
 .allocation-pane input[type=number] {
     width: 100px;
+}
+
+.allocation-message {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.percentages {
+    height: 36px;
 }

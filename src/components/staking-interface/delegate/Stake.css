@@ -4,11 +4,13 @@
     background: #1A1A1A;
     color: #fff;
     margin-top:58px !important;
+    width: 85% !important;
 }
 
 .stepper {
-    background: #333333;
+    background: #282828 !important;
     margin-top: 58px !important;
+    width: 15% !important;
 
 }
 
@@ -27,13 +29,13 @@
   }
 
   .step-text-bold {
-      font-size: 1rem;
+      font-size: 14px;
       color: #fff;
       font-weight: 700;
   }
 
   .step-text-gray {
-      font-size: 1rem;
+      font-size: 14px;
       color: #ADADAD;
       font-weight: 500;
   }
