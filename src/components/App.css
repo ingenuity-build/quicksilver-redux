@@ -67,7 +67,7 @@
   align-items: center;
 }
 
-.mobile-message {
+.mobile-message, .mobile-message-landing {
   display: none;
 }
 
@@ -80,11 +80,11 @@
     display: none;
   }
 
-  .unbonding-message, .staking-interface, .navbar ul, .navbar .connect-wallet-button, .connect-wallet, .navbar .custom-class,  .assets-interface {
+  .unbonding-message, .staking-interface, .navbar ul, .navbar .connect-wallet-button, .landing-page, .connect-wallet, .navbar .custom-class,  .assets-interface {
     display: none !important;
 
   }
-  
+
   .mobile-message {
     display: flex !important;
     justify-content: center;
@@ -95,8 +95,17 @@
     background:#1A1A1A;
     width: 100vw;
   }
-
-  .mobile-message h4 {
+  
+  .mobile-message-landing {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    min-height: 100vh;
+    background:#1A1A1A;
+    width: 100vw;
+  }
+  .mobile-message h4, .mobile-message-landing h4 {
     color: #fff;
   }
  }
