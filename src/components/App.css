@@ -66,3 +66,46 @@
   justify-content: center;
   align-items: center;
 }
+
+.mobile-message, .mobile-message-landing {
+  display: none;
+}
+
+@media (max-width: 1279.98px) { 
+  .navbar .navbar-logo {
+    background:#1A1A1A;
+
+  }
+  .img-logo {
+    display: none;
+  }
+
+  .unbonding-message, .staking-interface, .navbar ul, .navbar .connect-wallet-button, .landing-page, .connect-wallet, .navbar .custom-class,  .assets-interface {
+    display: none !important;
+
+  }
+
+  .mobile-message {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: 58px;
+    position: absolute;
+    min-height: calc(100vh - 58px);
+    background:#1A1A1A;
+    width: 100vw;
+  }
+  
+  .mobile-message-landing {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    min-height: 100vh;
+    background:#1A1A1A;
+    width: 100vw;
+  }
+  .mobile-message h4, .mobile-message-landing h4 {
+    color: #fff;
+  }
+ }
