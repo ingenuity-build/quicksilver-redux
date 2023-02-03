@@ -12,7 +12,11 @@ import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 import { quicksilver } from "quicksilverjs"
 import env from "react-dotenv";
+import {  poolModalSelector, setPoolModalOpen } from '../../slices/poolsWarningModal'
 import {  setModalOpen } from '../../slices/connectWalletModal';
+import PoolsMessage from './PoolsMessageModal';
+
+
 
 const {
     submitClaim
@@ -42,7 +46,7 @@ export default function Assets() {
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
-
+  const {isPoolModalOpen} = useSelector(poolModalSelector)
   // useEffect(() => {
   //   if(isQSWalletConnected && networks) {
   //   let denomArray : Array<string> = [];
@@ -59,11 +63,18 @@ export default function Assets() {
 
   // }, [balances])
 
+  
+
   const onButtonClick = () => {
     // @ts-expect-error
   dispatch(setModalOpen());
 }
 
+const onPoolButtonClick = () => {
+  console.log('hey')
+  // @ts-expect-error
+dispatch(setPoolModalOpen());
+}
   const fetchSum =  () => {
 
     QuickSilverChainInfo.currencies.forEach(async (curr) => {
@@ -209,6 +220,7 @@ export default function Assets() {
                 <h4 className="sub-heading"> Hey there! </h4>
                 <h1 className="mt-3"> Connect your wallet to get started! </h1>
                 <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button> 
+                {isPoolModalOpen && <PoolsMessage/>}
                        {/* <h4 className="sub-heading"> Assets screen will be enabled soon. Stay tuned.</h4> */}
                 </div>
             </div>
@@ -227,7 +239,7 @@ export default function Assets() {
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button> Claim</button>
+    <button onClick={onPoolButtonClick} className="claim-button"> Claim</button>
     </div>
 
   </div>
@@ -248,7 +260,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
                 {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
           
                 </div>
-                {bal.denom === 'uqstars' && <button className="w-100"> Deposit on Osmosis </button>}
+                {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
          

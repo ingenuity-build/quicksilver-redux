@@ -80,7 +80,6 @@ useEffect(() => {
 
         {selectedNetwork === "Select a network" && <div className="text-center">
   <h2 className="mt-4">Choose Your Network </h2>
-  {quicksilverAddress}
       <p className="mt-2">Select network using the dropdown in the navigation bar
 </p> 
 </div>}

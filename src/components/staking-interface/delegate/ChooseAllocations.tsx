@@ -268,7 +268,7 @@ If you signal your intent several times before the feature is enabled, the proto
                  
 
                 </div>
-                <p>qSTARS you will mint:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)} </span></p> 
+                <p className="mt-2">{selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} you will mint:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)} </span></p> 
                 <div className="d-flex flex-column align-items-end mt-2">
                 {selectedValidatorList.length > 1 && renderValidators()}
                 </div>
