@@ -19,6 +19,14 @@
   REACT_APP_ENABLE_SET_INTENT="false"
   REACT_APP_ENABLE_CLAIMS="true"
 
+[context.preprod.environment]
+  NODE_ENV = "preprod"
+  QUICKSILVER_API = "https://lcd.quicksilver.zone"
+  ZONE_URL = "quicksilver.zone"
+  REACT_APP_ENABLE_UNBONDING="false"
+  REACT_APP_ENABLE_SET_INTENT="false"
+  REACT_APP_ENABLE_CLAIMS="true"
+
 [context.develop.environment]
   NODE_ENV = "dev"
   QUICKSILVER_API = "https://lcd.dev.quicksilver.zone"

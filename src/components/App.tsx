@@ -50,6 +50,7 @@ function App() {
 
 
 
+
   React.useEffect(() => {
     let timer: any;
     if(!isIdle) {
@@ -57,7 +58,6 @@ function App() {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchKeplrDetails(val);
-          console.log('hey');
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
     }, 6000)
@@ -132,7 +132,11 @@ const fetchKeplrDetails = async (val: any) => {
     <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
     </div>
+
   {location.pathname !== '/' && <Navbar loading={loading} setLoading={setLoading} handleClickOpen={handleClickOpen} />}
+      <div className="mobile-message p-3"> 
+    <h4>The current display window is too small. Minimum supported resolution is 1280 pixels wide.</h4> 
+    </div>
    <Routes>
                       <Route path="/" element={<Landing/>}/>
                 

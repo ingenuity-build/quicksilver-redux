@@ -29,6 +29,7 @@ padding: 1rem;
 .validator-selection-pane .validators {
     max-height: 41vh;
     overflow-y: auto;
+    width: 90%;
 }
 
 .max-button {
@@ -43,4 +44,15 @@ padding: 1rem;
 .next-button:disabled {
     background: #D87D44;
     border: #D87D44;
+}
+
+.search {
+    border-radius: 10px;
+    width: 275px;
+    padding: 5px;
+    height: 45px;
+}
+
+.choose-heading {
+    margin-left: 0px;
 }
