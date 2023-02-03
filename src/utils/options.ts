@@ -8,6 +8,7 @@ import { SigningStargateClientOptions } from "@cosmjs/stargate"
 import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
 import { StakeAuthorization } from "cosmjs-types/cosmos/staking/v1beta1/authz.js";
 import { GenericAuthorization } from "cosmjs-types/cosmos/authz/v1beta1/authz.js";
+import { MsgGrant, MsgRevoke } from "cosmjs-types/cosmos/authz/v1beta1/tx.js";
 
 
 import * as _m0 from "protobufjs/minimal";
@@ -107,60 +108,7 @@ const dateConverter = {
     }
   }
 }
-  
-export function createAuthzAminoConverters() {
-  const grantConverter = createAuthzAuthorizationAminoConverter()
-  return {
-    "/cosmos.authz.v1beta1.MsgGrant": {
-      aminoType: "cosmos-sdk/MsgGrant",
-      toAmino: ({ granter, grantee, grant }) => {
-        const converter = grantConverter[grant.authorization.typeUrl]
-        return {
-          granter,
-          grantee,
-          grant: {
-            authorization: {
-              type: converter.aminoType,
-              value: converter.toAmino(grant.authorization.value)
-            },
-            expiration: dateConverter.toAmino(grant.expiration)
-          }
-        }
-      },
-      
-      fromAmino: ({ granter, grantee, grant }) => {
-        //@ts-ignore
-        const protoType = Object.keys(grantConverter).find(type => grantConverter[type].aminoType === grant.authorization.type)
-         //@ts-ignore
-        const converter = grantConverter[protoType]
-        return {
-          granter,
-          grantee,
-          grant: {
-            authorization: {
-              typeUrl: protoType,
-              value: converter.fromAmino(grant.authorization.value)
-            },
-            expiration: dateConverter.fromAmino(grant.expiration)
-          }
-        }
-      },
-    },
-    "/cosmos.authz.v1beta1.MsgRevoke": {
-      aminoType: "cosmos-sdk/MsgRevoke",
-      toAmino: ({ granter, grantee, msgTypeUrl }) => ({
-        granter,
-        grantee,
-        msg_type_url: msgTypeUrl
-      }),
-      fromAmino: ({ granter, grantee, msg_type_url }) => ({
-        granter,
-        grantee,
-        msgTypeUrl: msg_type_url
-      }),
-    },
-  };
-}
+
 function createAuthzAuthorizationAminoConverter(){
   return {
     "/cosmos.authz.v1beta1.GenericAuthorization": {
@@ -193,6 +141,61 @@ function createAuthzAuthorizationAminoConverter(){
     }
   }
 }
+  
+export function createAuthzAminoConverters() {
+  const grantConverter = createAuthzAuthorizationAminoConverter()
+  return {
+    "/cosmos.authz.v1beta1.MsgGrant": {
+      aminoType: "cosmos-sdk/MsgGrant",
+      toAmino: ({ granter, grantee, grant }) => {
+        const converter = grantConverter[grant.authorization.typeUrl]
+        return {
+          granter,
+          grantee,
+          grant: {
+            authorization: {
+              type: converter.aminoType,
+              value: converter.toAmino(grant.authorization.value)
+            },
+            expiration: dateConverter.toAmino(grant.expiration)
+          }
+        }
+      },
+      
+      fromAmino: ({ granter, grantee, grant }) => {
+        //@ts-ignore45
+        const protoType = Object.keys(grantConverter).find(type => grantConverter[type].aminoType === grant.authorization.type)
+         //@ts-ignore
+        const converter = grantConverter[protoType]
+        return {
+          granter,
+          grantee,
+          grant: {
+            authorization: {
+              typeUrl: protoType,
+              value: converter.fromAmino(grant.authorization.value)
+            },
+            expiration: dateConverter.fromAmino(grant.expiration)
+          }
+        }
+      },
+    },
+    "/cosmos.authz.v1beta1.MsgRevoke": {
+      aminoType: "cosmos-sdk/MsgRevoke",
+      toAmino: ({ granter, grantee, msgTypeUrl }) => ({
+        granter,
+        grantee,
+        msg_type_url: msgTypeUrl
+      }),
+      fromAmino: ({ granter, grantee, msg_type_url }) => ({
+        granter,
+        grantee,
+        msgTypeUrl: msg_type_url
+      }),
+    },
+  };
+}
+
 export function createLiquidStakingTypes(): Record<string, AminoConverter | "not_supported_by_chain"> {
     return {
       "/cosmos.staking.v1beta1.MsgTokenizeShares": {
@@ -339,8 +342,10 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
+
      ...defaultRegistryTypes,
-     ...quicksilverProtoRegistry
+     ...quicksilverProtoRegistry,
+     [ "/cosmos.authz.v1beta1.MsgGrant", MsgGrant],
   ];
 
  export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }

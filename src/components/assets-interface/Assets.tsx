@@ -109,7 +109,6 @@ export default function Assets() {
   // }
   const onClaimsClick = async () => {
 
-    console.log('hey')
 
     const msgSend = {
       granter: quicksilverAddress,
@@ -252,7 +251,7 @@ function hey ()  {
     <div className="d-flex p-3 justify-content-center flex-column">
     <h3> Claim Participation Rewards </h3>
     <p className="coming-soon"> Coming soon</p>
-    <button onClick={ () => hey()}> Claim </button>
+    <button onClick={onClaimsClick}> Claim </button>
     <p>
     Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
 <br/> <br/>
