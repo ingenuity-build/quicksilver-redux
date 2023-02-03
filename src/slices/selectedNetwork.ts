@@ -26,7 +26,6 @@ const selectedNetworkSlice = createSlice({
 })
 
 export const { setSelectedNetwork, setSelectedNetworkSuccess, setSelectedNetworksFailure } = selectedNetworkSlice.actions
-
 export const selectedNetworkSelector = (state:any)  => state.selectedNetwork
 
 // The reducer

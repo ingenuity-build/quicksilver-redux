@@ -107,39 +107,67 @@ export default function Assets() {
   // const maps : any = { 
   //   'cosmos': 'uqatom', 'stargaze': 'uqstars', 'quicksilver': 'uqck'
   // }
-  const onClaimsClick = async (e: any) => {
+  const onClaimsClick = async () => {
 
-    if (messages.length == 0) {
-      alert("nope!")
-      return
-    }
+    console.log('hey')
 
-    let msg = [];
-    // @ts-ignore
-      // msg = messages.map((message: any) => { return {
-      //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      //   value: message}
-      // });
-
-      //msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return submitClaim({claimType: message.claim_type, Proofs: message.proofs, SrcZone: message.src_zone, UserAddres: message.user_address, Zone: message.zone}) })
-      msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return {
-      typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
-      value: {
-        userAddress: message.user_address,
-        zone: message.zone,
-        srcZone: message.src_zone,
-        claimType: message.claim_type,
-        proofs: message.proofs.map((proof: any) => {
-          return {
-              key: proof.key,
-              data: proof.data,
-              proofOps: proof.proof_ops,
-              proofType: proof.proof_type,
-              height: proof.height,
+    const msgSend = {
+      granter: quicksilverAddress,
+      grantee: 'quick1f6g9guyeyzgzjc9l8wg4xl5x0rvxddewjc4rv0',
+     grant: "/quicksilver.participationrewards.v1.MsgSubmitClaim"
+    };
+    const msgAny = {
+        typeUrl: "/cosmos.authz.v1beta1.MsgGrant",
+      value: msgSend,
+    };
+    try {
+   const broadcastResult = await quicksilverClient.signAndBroadcast(
+      quicksilverAddress,
+      [msgAny],
+     {
+        "gas": "200000",
+        "amount": [
+          {
+            "denom": "uqck",
+            "amount": "300"
           }
-        })
-              }}
-            });
+        ]
+      },
+      'Checking Authz',
+    );
+    console.log(broadcastResult);
+    if(broadcastResult.code === 0 ) {
+
+    }
+} catch(err: any) {
+  console.log(err);
+}
+    // let msg = [];
+    // // @ts-ignore
+    //   // msg = messages.map((message: any) => { return {
+    //   //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+    //   //   value: message}
+    //   // });
+
+    //   //msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return submitClaim({claimType: message.claim_type, Proofs: message.proofs, SrcZone: message.src_zone, UserAddres: message.user_address, Zone: message.zone}) })
+    //   msg = messages.map((message: quicksilver.participationrewards.v1.MsgSubmitClaim) => { return {
+    //   typeUrl: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+    //   value: {
+    //     userAddress: message.user_address,
+    //     zone: message.zone,
+    //     srcZone: message.src_zone,
+    //     claimType: message.claim_type,
+    //     proofs: message.proofs.map((proof: any) => {
+    //       return {
+    //           key: proof.key,
+    //           data: proof.data,
+    //           proofOps: proof.proof_ops,
+    //           proofType: proof.proof_type,
+    //           height: proof.height,
+    //       }
+    //     })
+    //           }}
+    //         });
 
     
     // const msgAny = {
@@ -147,33 +175,36 @@ export default function Assets() {
     //   value: messages.map((e: any) => 
     // }
     
-    try {
+//     try {
 
-   const broadcastResult = await quicksilverClient.signAndBroadcast(
-    quicksilverAddress,
-      [...msg],
-     {
-        "gas": "400000",
-        "amount": [
-          {
-            "denom": "umuon",
-            "amount": "300"
-          }
-        ]
-      },
-      'Claims Transaction'
-    );  
-    console.log(broadcastResult);
-    if(broadcastResult.code === 0 ) {
+//    const broadcastResult = await quicksilverClient.signAndBroadcast(
+//     quicksilverAddress,
+//       [...msg],
+//      {
+//         "gas": "400000",
+//         "amount": [
+//           {
+//             "denom": "umuon",
+//             "amount": "300"
+//           }
+//         ]
+//       },
+//       'Claims Transaction'
+//     );  
+//     console.log(broadcastResult);
+//     if(broadcastResult.code === 0 ) {
 
-    }
-} catch(err: any) {
+//     }
+// } catch(err: any) {
 
-  console.log(err);
+//   console.log(err);
 
+// }
 }
-}
 
+function hey ()  {
+  console.log('fff')
+}
   const fetchData = (id: any, amount: number) => {
     console.log(id, amount)
     let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
@@ -221,13 +252,13 @@ export default function Assets() {
     <div className="d-flex p-3 justify-content-center flex-column">
     <h3> Claim Participation Rewards </h3>
     <p className="coming-soon"> Coming soon</p>
-    {/* <button onClick={onClaimsClick}> Claim </button> */}
+    <button onClick={ () => hey()}> Claim </button>
     <p>
     Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button> Claim</button>
+    {/* <button> Claim</button> */}
     </div>
 
   </div>
