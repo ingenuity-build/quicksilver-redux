@@ -30,7 +30,7 @@ export default function ChooseAllocations() {
   
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length > 0) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
           console.log(balance)
@@ -44,7 +44,7 @@ export default function ChooseAllocations() {
 
 useEffect(() => {
 
-  if(networkBalances !== []) {
+  if(networkBalances.length > 0) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);

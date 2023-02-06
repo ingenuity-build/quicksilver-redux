@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import env from "react-dotenv";
-import { useSelector, useDispatch } from 'react-redux'
 
 export const initialState = {
     loading: false,

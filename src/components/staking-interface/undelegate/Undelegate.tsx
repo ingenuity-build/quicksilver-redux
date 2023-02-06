@@ -10,7 +10,6 @@ import Moment from 'moment';
 import './Undelegate.css';
 import Collapsible from 'react-collapsible';
 import { SpinnerCircular } from 'spinners-react';
-import env from 'react-dotenv';
 
 export default function Undelegate() {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
@@ -19,8 +18,8 @@ export default function Undelegate() {
     const {withdrawals} = useSelector(unbondingsSelector);
     const {epochs} = useSelector(epochsSelector)
     const [unstakingAmount, setUnstakingAmount] = useState(0.1);
-    const [epochStartTime, setEpochStartTime] = useState("");
-    const [epochDuration, setEpochDuration] = useState("")
+    //const [epochStartTime, setEpochStartTime] = useState("");
+    //const [epochDuration, setEpochDuration] = useState("")
     const [QCKBalance, setQCKBalance] = useState(0);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
@@ -70,7 +69,7 @@ useEffect(() => {
 }, [withdrawals, selectedNetwork])
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length > 0) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
           console.log(balance)
@@ -143,7 +142,7 @@ setUnstakingAmount(QCKBalance);
       }
     return (
      <>
-        {process.env.REACT_APP_ENABLE_UNBONDING == 'true' &&  <div> 
+        {process.env.REACT_APP_ENABLE_UNBONDING === 'true' &&  <div> 
      
         {!isQSWalletConnected && <div>
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
@@ -219,7 +218,7 @@ setUnstakingAmount(QCKBalance);
                 </div>
 
                 <div className="d-flex justify-content-center">
-        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
+        <button disabled={unstakingAmount === 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
 
         </div>
         <div className="d-flex flex-column mt-3 justify-content-center align-items-center">
@@ -232,7 +231,7 @@ setUnstakingAmount(QCKBalance);
       </div>
         </div>}
         </div>}
-        {process.env.REACT_APP_ENABLE_UNBONDING == 'false' && <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
+        {process.env.REACT_APP_ENABLE_UNBONDING === 'false' && <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h3 className="text-center mt-5"> Undelegate</h3>
       <p className="text-center coming-soon"> Coming soon</p>
       <div className="w-50 mt-2">
