@@ -74,9 +74,9 @@ useEffect(() => {
             setAllocationProp(temp);
             console.log(temp)
             setSum(100);
-        }
-         // @ts-expect-error
-         dispatch(setStakingAmount(1))            
+        }       
+           // @ts-expect-error
+           dispatch(setStakingAmount(1))   
     }, [])
 
     useEffect(() => {
@@ -263,7 +263,7 @@ If you signal your intent several times before the feature is enabled, the proto
 
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.slice(1).toUpperCase()} you want to stake {selectedValidatorList.length === 1 && <span> to {selectedValidatorList[0].name } :</span>}</p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
-                    <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
+                    <button className="mx-3  max-button" onClick={onMaxClick}> MAX </button> 
                     <br/>
                  
 

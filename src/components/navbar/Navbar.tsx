@@ -69,6 +69,7 @@ export default function Navbar(props: PropComponent) {
   const {isModalOpen} = useSelector(connectWalletModalSelector)
 
   const [QCKBalance, setQCKBalance] = useState(0);
+  const [network, setNetwork] = useState();
 
 
   useEffect(() => {
@@ -113,6 +114,8 @@ export default function Navbar(props: PropComponent) {
 
     useEffect(() => {
       if (selectedNetwork !== "Select a network") {
+             // @ts-expect-error
+        dispatch(setNetworkAddress(''))
         connectNetwork(selectedNetwork.chain_id);
   
       // dispatch(_loadValsAsync(selectedNetwork.chain_id));
@@ -150,7 +153,13 @@ export default function Navbar(props: PropComponent) {
     }, network);
   }
 
-
+  useEffect(() => {
+    window.addEventListener("keplr_keystorechange", () => {
+      // @ts-expect-error
+      dispatch(setNetworkBalance([]));
+        connectNetwork(selectedNetwork.chain_id);
+    })
+  }, []);
 
   React.useEffect(() => {
     let timer: any;
