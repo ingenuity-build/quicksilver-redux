@@ -65,14 +65,6 @@ export default function RedelegateAllocations() {
           redelegateValidatorList.forEach((x: any) => {      
           
         sum = sum + allocationProp[x.address]['value'] ;  console.log(allocationProp[x.address]['value'])})
-        console.log(sum);
-        if(sum < 100) {
-            console.log("Please allocation more atoms");
-        } else if(sum > 100) {
-            console.log("Please allocation less atoms");
-        } else {
-            console.log("please proceed");
-        }
         setSum(sum);
 
             }
@@ -95,7 +87,7 @@ export default function RedelegateAllocations() {
    
       }
       out = out.toString();
-        console.log(out);
+
 
         let msg =  {
             typeUrl: "/quicksilver.interchainstaking.v1.MsgSignalIntent",

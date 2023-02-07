@@ -1,6 +1,7 @@
 .navbar .logo {
     height: 50px;
     margin-left: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .navbar {
@@ -45,7 +46,8 @@ color: #FFFFFF;
 }
 
 .navbar .navbar-logo {
-    background: #333333;
+    background: #282828;
+    width: 15% !important
 }
 
 
@@ -157,8 +159,17 @@ text-transform: uppercase !important;
         color: #fff;
         font-family: 'Nexa';
         letter-spacing: 4px;
+        margin-top: 2.25rem;
     }
 
     .navbar  .governance {
         height: 30px;
+    }
+
+    .navbar-width {
+        width: 85% !important;
+    }
+
+    .col-2 {
+        width: 15% !important;
     }

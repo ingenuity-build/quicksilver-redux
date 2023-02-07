@@ -23,7 +23,8 @@
 }
 
 .prev-button {
-    background: hwb(0 100% 0%);
+    background: none;
+    border:none;
 border-radius: 10px;
 font-weight: 400;
 font-size: 18px;
@@ -31,9 +32,7 @@ color: #D35100;
 padding: 5px 20px;
 }
 
-.prev-button:hover {
-    border: 2px solid #D35100;
-}
+
 
 .stake-liquid-atoms-button, .stake-existing-delegations-button, .next-button {
 background: #D35100;
@@ -42,7 +41,6 @@ font-size: 18px;
 line-height: 30px;
 font-weight: 400;
 color: #FFFFFF;
-padding: 5px 20px;
 border: 2px solid #D35100;
 
 }
@@ -53,6 +51,7 @@ border: 2px solid #D35100;
 
 .next-button {
     width: 109px;
+    height: 36px;
 }
 .stake-existing-delegations-button:disabled,  .stake-liquid-atoms-button:disabled{
     background: #D87D44;
@@ -71,13 +70,13 @@ border: 2px solid #D35100;
 
  
   .copy-button {
-    background: white;
+    background: #D35100;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 400;
-    color: #D35100;
-    padding: 3px 8px;
-    border: 2px solid white;
+    color: #fff;
+    padding: 5px 10px;
+    border: none
 
 }
 

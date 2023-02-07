@@ -146,15 +146,14 @@ setUnstakingAmount(QCKBalance);
      
         {!isQSWalletConnected && <div>
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
-                <h4 className="sub-heading"> Hey there! </h4>
-                <h1 className="mt-3"> Connect your wallet to get started! </h1>
+                <h1 className="sub-heading"> Connect Your Wallet To Get Started. </h1>
                 <button  onClick={onButtonClick} className="connect-wallet-button mt-5"> Connect Wallet </button>
                 </div>
         </div>}
         
         {isQSWalletConnected && selectedNetwork === "Select a network" && <div className='text-center'>
         <h2 className="mt-4">Choose your network </h2>
-        <p className="mt-2">Choose the network from the dropdown in the Navbar</p>
+        <p className="mt-2">Select network using the dropdown in the navigation bar</p>
           </div>}
         {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
    
