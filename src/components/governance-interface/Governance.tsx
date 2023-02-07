@@ -12,16 +12,16 @@ export default function Governance() {
       {!showAirdrops && <div className="col-12 max-auto mt-5">
       <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h3 className="text-center mt-5">Governance by Proxy</h3>
-      <p className="text-center coming-soon"> Coming soon</p>
-      <div className="w-50 mt-2">
+      <p className="text-center coming-soon"> Coming Soon</p>
+      <div className="w-50 mt-2 text-center">
         <p>
-        Governance by Proxy will allow users to retain their voting rights when liquid staking their assets, and continue participating in network governance while staking assets through the Protocol.
+        Governance by Proxy will allow stakers to retain their voting rights when liquid staking their assets by voting on active proposals through the Quicksilver protocol interface.
         <br/>
         <br/>
-        This feature will prevent the concentration of governance power within select few actors by maintaining the community’s voice. The Quicksilver team believes that active governance is key to a healthy and functioning ecosystem, thus, it is of the highest importance that Quicksilver users continue to benefit from governance rights while holding liquid staked assets.
-{/* <br/>
+        The Quicksilver team is building this feature because community participation in governance is key to a healthy blockchain ecosystem.
 <br/>
-The Quicksilver Airdrop is scheduled to start in Q1 2023. */}
+<br/>
+Governance by Proxy is scheduled for 2023.
         </p>
         </div>
         

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import './Landing.css';
  import Logo from '../../assets/quicksilver-logo.png';
+ import Docs from '../../assets/icons/docs.svg';
+ import YT from '../../assets/icons/youtube.svg';
 
 export default function Landing() {
     return    (
@@ -25,6 +27,12 @@ export default function Landing() {
 								<a href="https://medium.com/quicksilverzone" target="_blank" rel="nofollow noreferrer" title="Medium">
 									<span className="icon-medium mx-2"></span>
 								</a>
+                                <a href="https://www.youtube.com/channel/UCFHGQ7SAtIyAlNHewNNVU1A " target="_blank" rel="nofollow noopener" title="Medium">
+											<img className="icon-yt" src={YT}/>
+								</a>
+								<a href="https://docs.quicksilver.zone/ " target="_blank" rel="nofollow noopener" title="Medium">
+									<img className="icon-docs"	 src={Docs}/>
+						</a>
         </div>
         </div>
   
