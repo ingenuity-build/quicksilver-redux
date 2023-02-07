@@ -30,7 +30,7 @@ export default function ChooseAllocations() {
   
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length > 0) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
           setQCKBalance((balance.amount)/1000000);
@@ -43,7 +43,7 @@ export default function ChooseAllocations() {
 
 useEffect(() => {
 
-  if(networkBalances !== []) {
+  if(networkBalances.length > 0) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
@@ -74,9 +74,9 @@ useEffect(() => {
             setAllocationProp(temp);
             console.log(temp)
             setSum(100);
-        }
-         // @ts-expect-error
-         dispatch(setStakingAmount(1))            
+        }       
+           // @ts-expect-error
+           dispatch(setStakingAmount(1))   
     }, [])
 
     useEffect(() => {
@@ -263,7 +263,7 @@ If you signal your intent several times before the feature is enabled, the proto
 
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.slice(1).toUpperCase()} you want to stake {selectedValidatorList.length === 1 && <span> to {selectedValidatorList[0].name } :</span>}</p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
-                    <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
+                    <button className="mx-3  max-button" onClick={onMaxClick}> MAX </button> 
                     <br/>
                  
 

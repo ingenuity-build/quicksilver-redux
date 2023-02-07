@@ -41,9 +41,10 @@
   }
 
   .staking-interface .social-media-icons {
-    left: 2rem;
     position: fixed;
     bottom: 10%;
+    margin-left: -12px;
+    text-align: center;
   }
   
   .staking-interface {
@@ -87,3 +88,7 @@ cursor: pointer;
     z-index: 20;
 
 } 
+
+.steps-container {
+  position: fixed;
+}

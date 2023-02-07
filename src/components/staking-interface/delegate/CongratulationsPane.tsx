@@ -25,8 +25,8 @@ export default function CongratulationsPane() {
     return (
         <>
         <div className="congratulations-pane d-flex mt-5 justify-content-center align-items-center flex-column">
-    <h4 className="mt-5">Thanks for Staking.
-</h4> 
+    <h2 className="mt-5">Thanks for Staking.
+</h2> 
     <h5 className="mt-2">Your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} will arrive in your Quicksilver wallet shortly.</h5>
     <div className="button-container mt-4">
         <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake Another </button>

@@ -34,10 +34,13 @@ padding: 1rem;
 
 .max-button {
     background: #4D4D4D;
-    border-radius: 5px;
-    border:2px solid #4d4d4d; 
+    border:1px solid white; 
     color: #fff;
     z-index:3;
+    padding-left:10px; 
+    padding-right: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;  
 }
 
 
@@ -51,8 +54,20 @@ padding: 1rem;
     width: 275px;
     padding: 5px;
     height: 45px;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    
 }
 
+.search:hover, .search:focus, .search:focus-visible {
+    border: 1px solid #D35100;
+    outline: none!important;
+}
 .choose-heading {
     margin-left: 0px;
 }
+
+::placeholder {
+    color: white;
+  }

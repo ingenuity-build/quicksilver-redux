@@ -98,6 +98,26 @@ dispatch(increaseRedelegateStep())
 );
 }
 
+useEffect(() => {
+  window.addEventListener("keplr_keystorechange", () => {
+    connectToQS();
+  })
+}, []);
+
+const connectToQS = () => {
+  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+    fetchKeplrDetails(val)
+    // @ts-expect-error
+  dispatch(setQSWallet(key, val));
+      // @ts-expect-error
+      dispatch(setClient(val));
+   // @ts-expect-error
+  dispatch(setQSWalletConnected())
+  setVal(val);
+  }
+);
+}
+
 const fetchKeplrDetails = async (val: any) => {
 
   let keplr = await getKeplrFromWindow();
