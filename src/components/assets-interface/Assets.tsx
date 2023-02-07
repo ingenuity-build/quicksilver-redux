@@ -43,21 +43,21 @@ export default function Assets() {
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
 
-  // useEffect(() => {
-  //   if(isQSWalletConnected && networks) {
-  //   let denomArray : Array<string> = [];
-  //   networks.forEach((network: any) => denomArray.push(network.value.local_denom));
-  //   denomArray.push('uqck');
-  //   setDenomArray(denomArray);
-  //   if(!sum) {
-  // fetchSum();
-  //   }
-  // }
-  //   // if(messages.length == 0) {
-  //   //   queryXccLookup();
-  //   // }
+  useEffect(() => {
+    if(isQSWalletConnected && networks) {
+    let denomArray : Array<string> = [];
+    networks.forEach((network: any) => denomArray.push(network.value.local_denom));
+    denomArray.push('uqck');
+    setDenomArray(denomArray);
+    if(!sum) {
+  fetchSum();
+    }
+  }
+    if(messages.length == 0) {
+      queryXccLookup();
+    }
 
-  // }, [balances])
+  }, [balances])
 
   const onButtonClick = () => {
     // @ts-expect-error
@@ -109,6 +109,7 @@ export default function Assets() {
   // }
   const onClaimsClick = async (e: any) => {
 
+    
     if (messages.length == 0) {
       alert("nope!")
       return
@@ -156,7 +157,7 @@ export default function Assets() {
         "gas": "400000",
         "amount": [
           {
-            "denom": "umuon",
+            "denom": "uqck",
             "amount": "300"
           }
         ]
@@ -203,70 +204,70 @@ export default function Assets() {
 
     return (
        <>
-        {!isQSWalletConnected && <div>
+        {!isQSWalletConnected && 
           <div className="assets-interface row mx-0">
-          <div className="connect-wallet-pane d-flex flex-column align-items-center ">
-                <h4 className="sub-heading"> Hey there! </h4>
-                <h1 className="mt-3"> Connect your wallet to get started! </h1>
-                <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button> 
-                </div>
+            <div className="connect-wallet-pane d-flex flex-column align-items-center ">
+              <h4 className="sub-heading"> Hey there! </h4>
+              <h1 className="mt-3"> Connect your wallet to get started! </h1>
+              <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button> 
             </div>
-           
-        </div>}
-       {isQSWalletConnected && <div>
-          <div className="assets-interface row mx-0">
-          {showAssets && <div className="col-8 mx-auto mt-5">
-<div className="participation-rewards">
-    <div className="d-flex p-3 justify-content-center flex-column">
-    <h3> Claim Participation Rewards </h3>
-    <p className="coming-soon"> Coming soon</p>
-    {/* <button onClick={onClaimsClick}> Claim </button> */}
-    <p>
-    Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
-<br/> <br/>
-These rewards will be distributed on an epochly basis (every 3 days).
-    </p>
-    <button> Claim</button>
-    </div>
-
-  </div>
-  <h3 className="mt-5">My Assets</h3> 
+          </div>
+        }
+        
+       {isQSWalletConnected && <div className="assets-interface row mx-0">
+          {showAssets && <div className="col-12 mx-auto mt-3">
+            <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
+                <h3 className="text-center mt-2">Participation Rewards Claims</h3>
+                <p className="text-center coming-soon"> Coming soon</p>
+                <div className="col-7 mt-2">
+                  <p>Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.</p>
+                  <p>These rewards will be distributed on an epochly basis (every 3 days).</p>
+                  <button className="d-block mx-auto m-5" onClick={onClaimsClick}> Claim</button>
+                </div>
+            
+                <h3 className="text-center mt-2">My Assets</h3> 
   {/* {sum === 0 && <h5 className="mt-4">Calculating...</h5>} */}
   {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
-  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
-  {balances.map((bal: Coin, i: number) =>
-       
-            <div className="asset-card col-3 m-3" key={i}>
-     
-            <img className="d-block mx-auto" src={params[bal.denom]}/>
-              <div className="d-flex mt-2 align-items-baseline justify-content-center">
+  {balances.length > 0 && 
+    <div className="mt-3 validators row  justify-content-start">
+      {balances.map((bal: Coin, i: number) =>
+          
+                <div className="asset-card col-4 m-3" key={i}>
         
-                <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
-                {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
-                {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
-                </div>
+                <img className="d-block mx-auto" src={params[bal.denom]}/>
+                  <div className="d-flex mt-2 align-items-baseline justify-content-center">
+            
+                    <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
+                    {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
+                    {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
+                    </div>
+          
+                </div>        
+        
       
-            </div>
-
-         
-    
-  
-)}
-
-</div>}
-{balances.length === 0 && <div className="row w-100 justify-content-start">
-  <h5 className="mt-5"> You currently do not have any assets on the Quicksilver chain.</h5>
-</div>}
-
-</div>  }
-{!showAssets && <div className="col-12 max-auto mt-5">
-  <div className="mt-5 d-flex justify-content-center align-items-center">
-    <h4 className="text-center"> Coming Soon!</h4>
+    )}
     </div>
-  </div>}
+  }
 
+  {balances.length === 0 && 
+    <div className="row w-100 justify-content-start">
+      <h5 className="mt-5"> You currently do not have any assets on the Quicksilver chain.</h5>
+    </div>
+  }
+
+</div>
+</div> 
+}
+
+{!showAssets && 
+  <div className="col-12 max-auto mt-5">
+    <div className="mt-5 d-flex justify-content-center align-items-center">
+      <h4 className="text-center"> Coming Soon!</h4>
       </div>
+  </div>
+}
+
       </div>}
     </>
 
