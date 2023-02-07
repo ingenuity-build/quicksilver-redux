@@ -4,7 +4,7 @@
 }
 
 .navbar {
-    background: #1A1A1A;
+    background: #282828;
     position: fixed !important;
     width:100vw !important;
     z-index: 4;
@@ -21,7 +21,7 @@ color: #FFFFFF;
 
 .navbar .connect-wallet, .navbar .connect-wallet-button {
 background: #D35100;
-border-radius: 10px;
+border-radius: 5px;
 font-family: 'Mulish';
 font-style: normal;
 font-weight: 600;
@@ -43,11 +43,6 @@ color: #FFFFFF;
    color: #D35100 !important;
    font-weight: 700 !important;
 }
-
-.navbar .navbar-logo {
-    background: #333333;
-}
-
 
 .navbar .nav-icon-stake {
     height: 30px;
