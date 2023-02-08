@@ -254,11 +254,16 @@ These rewards will be distributed on an epochly basis (every 3 days).
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
-                <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
-                {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
-                {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
+                <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
+                {/* {bal.denom !== 'uqck' && <h6 className="text-center mx-2"><span className="font-bold">{(+(bal.amount)/1000000).toFixed(2)} </span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()} =  ({((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()} (at current redemption rate) </h6>} */}
+                
+
+                {bal.denom === 'uqck' && <h5 className="text-center mx-2"> QCK</h5>}
+
           
                 </div>
+                {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()}</h6>}
+                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate</p>}
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 

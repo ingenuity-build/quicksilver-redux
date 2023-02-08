@@ -50,3 +50,8 @@ h2 {
     color: #D35100;
     font-weight: bold; 
   }
+
+  .redemption-rate {
+    font-size: 14px;
+    font-style: italic;
+  }
