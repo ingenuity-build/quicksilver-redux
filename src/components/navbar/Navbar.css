@@ -109,7 +109,7 @@ Dropdown styles */
     border-bottom: 1px solid white !important;
 }
 
-.css-qc6sy-singleValue{
+.css-qc6sy-singleValue, .css-1dimb5e-singleValue {
 color: white !important;
 text-transform: uppercase !important;
 }
