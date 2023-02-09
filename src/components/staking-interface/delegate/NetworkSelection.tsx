@@ -54,6 +54,8 @@ useEffect(() => {
   }
 }, [validatorList])
 
+
+
 useEffect(() => {
 
   if(networkBalances.length > 0) {
@@ -65,6 +67,13 @@ useEffect(() => {
  
 }
 }, [networkBalances, selectedNetwork])
+
+useEffect(() => {
+  window.addEventListener("keplr_keystorechange", () => {
+    setZoneBalance(0);
+
+  })
+}, []);
 
   let onNext = () => {
         // @ts-expect-error
