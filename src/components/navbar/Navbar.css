@@ -1,6 +1,7 @@
 .navbar .logo {
     height: 50px;
     margin-left: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .navbar {
@@ -45,7 +46,8 @@ color: #FFFFFF;
 }
 
 .navbar .navbar-logo {
-    background: #333333;
+    background: #282828;
+    width: 15% !important
 }
 
 
@@ -94,20 +96,20 @@ Dropdown styles */
     /* border-bottom: 1px solid white !important; */
 }
 
-.css-cvavs1-control {
+.css-cvavs1-control, .css-1dyqxrw-control{
     border-color: #D35100 !important;
     box-shadow: none !important;
     border: 0 !important;
     /* border-bottom: 1px solid white !important; */
 }
-.css-cvavs1-control:hover {
+.css-cvavs1-control:hover, .css-1dyqxrw-control:hover {
     border-color: #D35100 !important;
     box-shadow: none !important;
     border: 0 !important;
     border-bottom: 1px solid white !important;
 }
 
-.css-qc6sy-singleValue{
+.css-qc6sy-singleValue, .css-1dimb5e-singleValue {
 color: white !important;
 text-transform: uppercase !important;
 }
@@ -130,19 +132,19 @@ text-transform: uppercase !important;
     .network-logo {
         height: 30px;
     }
-   .css-cvavs1-control {
+   .css-cvavs1-control, .css-1dyqxrw-control {
         background-color: #282828 !important;
     }
     /* .css-tnaca8-control {
         border: 0 !important;
         border-bottom: 1px solid white !important;
     } */
-.css-tnaca8-control {
+.css-tnaca8-control, .css-1h7e0e4-control {
     background-color: #282828 !important;
     border: none !important;
 }
 
-.css-cvavs1-control:hover {
+.css-cvavs1-control:hover,  .css-1dyqxrw-control:hover {
     box-shadow: none !important;
     border: 0 !important;
     background-color: #282828 !important;
@@ -157,8 +159,17 @@ text-transform: uppercase !important;
         color: #fff;
         font-family: 'Nexa';
         letter-spacing: 4px;
+        margin-top: 2.25rem;
     }
 
     .navbar  .governance {
         height: 30px;
+    }
+
+    .navbar-width {
+        width: 85% !important;
+    }
+
+    .col-2 {
+        width: 15% !important;
     }

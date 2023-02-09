@@ -1,7 +1,7 @@
 import { ChainInfo } from "@keplr-wallet/types";
 
 export const TestQuickSilverChainInfo : ChainInfo = {
-    chainId: "innuendo-4",
+    chainId: "innuendo-5",
     chainName: "Quicksilver Testnet",
     rpc: "https://rpc.test.quicksilver.zone",
     rest: "https://lcd.test.quicksilver.zone",
@@ -52,7 +52,13 @@ export const TestQuickSilverChainInfo : ChainInfo = {
             coinMinimalDenom: "uqjunox",
             coinDecimals: 6,
             coinGeckoId: "juno-network",
-        }
+        },
+        {
+            coinDenom: "qREGEN",
+            coinMinimalDenom: "uqregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
         
     ],
     feeCurrencies: [
@@ -164,6 +170,53 @@ export const TestChainInfos: ChainInfo[] = [
         coinMinimalDenom: "uosmo",
         coinDecimals: 6,
         coinGeckoId: "osmosis",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.00,
+        average: 0.015,
+        high: 0.03,
+    },
+  },
+  {
+    chainId: "regen-redwood-1",
+    chainName: "Regen Testnet",
+    rpc: "https://rpc.regen-redwood-1.test.quicksilver.zone",
+    rest: "https://lcd.regen-redwood-1.test.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "regen",
+        bech32PrefixAccPub: "regenpub",
+        bech32PrefixValAddr: "regenvaloper",
+        bech32PrefixValPub: "regenvaloperpub",
+        bech32PrefixConsAddr: "regenvalcons",
+        bech32PrefixConsPub: "regenvalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "REGEN",
+            coinMinimalDenom: "uregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "REGEN",
+            coinMinimalDenom: "uregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "REGEN",
+        coinMinimalDenom: "uregen",
+        coinDecimals: 6,
+        coinGeckoId: "regen",
     },
     coinType: 118,
     gasPriceStep: {

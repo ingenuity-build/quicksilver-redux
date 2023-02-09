@@ -30,7 +30,7 @@ export default function ChooseAllocations() {
   
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length > 0) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
           setQCKBalance((balance.amount)/1000000);
@@ -43,7 +43,7 @@ export default function ChooseAllocations() {
 
 useEffect(() => {
 
-  if(networkBalances !== []) {
+  if(networkBalances.length > 0) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
@@ -74,9 +74,9 @@ useEffect(() => {
             setAllocationProp(temp);
             console.log(temp)
             setSum(100);
-        }
-         // @ts-expect-error
-         dispatch(setStakingAmount(1))            
+        }       
+           // @ts-expect-error
+           dispatch(setStakingAmount(1))   
     }, [])
 
     useEffect(() => {
@@ -220,9 +220,9 @@ useEffect(() => {
         return ( 
             selectedValidatorList.map((val: any) => <>
         <div className="d-flex mt-3">
-            <h5 className=" mx-2">{val.name}</h5>
+            <p className=" mx-2">{val.name}</p>
             <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.address]['value'] : 1 } name={val.address} min="1" max="100"   />
-            <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
+            <input className="mx-2 percentages" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
            </div>
             </>
                 
@@ -246,26 +246,29 @@ useEffect(() => {
                   
                 </div>
             </div> } */}
-           {zoneBalance <= 0.31 &&  <div className="mt-3">
-                You don't have enough  {selectedNetwork.base_denom.slice(1).toUpperCase()} to stake! 
-            </div>}
+           {zoneBalance <= 0.31 &&  <h4 className="mt-5">
+           Your wallet does not have enough {selectedNetwork.base_denom.slice(1).toUpperCase()} to stake.
+            </h4>}
            {(zoneBalance) > 0.31 &&  <div className="staking-pane d-flex flex-column mt-4">
-                <h4>Allocate Stake</h4> 
-                <p className="mt-2">
+                <h4 className="mt-3">Allocate Stake</h4> 
+                <p className="mt-2 allocation-message">
                 Signalling Intent will be enabled early Q1 2023. Until such time, your stake will be allocated evenly amongst all the active validators of the chains supported by Quicksilver. However, you can use the sliders now to determine how you would like the protocol to start allocating your stake once Signalling intent is enabled.
             <br/>
             <br/>
 If you signal your intent several times before the feature is enabled, the protocol will take into consideration the final intent you have set.
                 </p>
-                <p className="mx-3 mt-2 mb-2 m-0"> {selectedNetwork.base_denom.slice(1).toUpperCase()} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></p>   
+                <h5 className="mx-3 mt-2 mb-2 m-0 mt-3"> {selectedNetwork.base_denom.slice(1).toUpperCase()} available to stake: <span className="font-bold"> {zoneBalance} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></h5>  
+
                 <div className="d-flex mt-3 align-items-center">
 
                     <p className="m-0 mx-3"> Number of {selectedNetwork.base_denom.slice(1).toUpperCase()} you want to stake {selectedValidatorList.length === 1 && <span> to {selectedValidatorList[0].name } :</span>}</p>
                     <input className="mx-3" type="number" value={stakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
-                    <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
-                
+                    <button className="mx-3  max-button" onClick={onMaxClick}> MAX </button> 
+                    <br/>
+                 
 
                 </div>
+                <p className="mt-2">{selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} you will mint:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)} </span></p> 
                 <div className="d-flex flex-column align-items-end mt-2">
                 {selectedValidatorList.length > 1 && renderValidators()}
                 </div>

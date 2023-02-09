@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setStakingStep } from "../../../slices/stakingActiveStep";
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
 import { stakingAllocationSelector} from '../../../slices/allocation';
+import { decreaseStakingStep } from "../../../slices/stakingActiveStep";
 
 import { SpinnerCircular } from 'spinners-react';
 let { bech32 } = require('bech32');
@@ -109,13 +110,14 @@ export default function SummaryValidators() {
         <>
         <div className="summary-validator-pane d-flex mt-4 justify-content-center align-items-center flex-column">
             <h2 className="mt-4"> Summary </h2> 
-            <h5 className="mt-4"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.slice(1).toUpperCase()}</span></h5>
-            <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></h5>
-            <h5> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} Received:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)}</span></h5>
-            <h6 className="mt-4"> Validator List: </h6>
+            <p className="mt-2 mb-1"> Total Stake: <span className="font-bold">{stakingAmount} {selectedNetwork.base_denom.slice(1).toUpperCase()}</span></p>
+            <p className="mb-1">Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.slice(1).toUpperCase()} </span></p>
+            <p className="mb-2"> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} Received:  <span className="font-bold">{(stakingAmount/(selectedNetwork?.redemption_rate)).toFixed(6)}</span></p>
+            <hr className="line"/>
+            <h4 className="mt-2 mb-3"> Validator List: </h4>
         {renderValidators()}
-        
-        <button  className="stake-button mt-3 mb-2" onClick={onStakeClick}> STAKE  </button>
+      
+        <button  className="stake-button mt-3 mb-2" onClick={onStakeClick}> Stake  </button>
         <div className="spinner">
         {loading && <SpinnerCircular />}
         </div>

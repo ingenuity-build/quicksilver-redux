@@ -9,6 +9,8 @@ import { useLocation} from "react-router-dom";
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
 import { _loadValsAsync } from "../../../slices/validatorList";
 import env from "react-dotenv";
+import Docs from '../../../assets/icons/docs.svg';
+import YT from '../../../assets/icons/youtube.svg';
 
 
 export default function Stake() {
@@ -33,7 +35,7 @@ export default function Stake() {
             <div className="staking-interface row mx-0">
             <div className="stepper col-2 d-flex flex-column ">
           
-             {location.pathname === '/stake/delegate' && <>
+             {location.pathname === '/stake/delegate' && <div className="steps-container">
               <div className="step d-flex mt-5 ml-4 mb-1">
       <div className="d-flex flex-column pr-4 align-items-center">
      <img className="logo" alt="Quicksilver logo" src={LogoWhite}/>
@@ -49,7 +51,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}> Choose a Network</h6>
+      <h6 className={( activeStep >= 2 ? " step-text-bold" : "step-text-gray")}> Choose Network</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">
@@ -58,7 +60,7 @@ export default function Stake() {
         <div className="line h-100"></div>
       </div>
       <div>
-        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Allocate your Stake</h6>
+        <h6 className={( activeStep >= 3 ? " step-text-bold" : "step-text-gray")}>Allocate Stake</h6>
       </div>
     </div>
     <div className="step d-flex ml-4 mb-1">
@@ -70,7 +72,7 @@ export default function Stake() {
       </div>
      
     </div>
-    <div className="social-media-icons mt-5">
+    <div className="social-media-icons mt-5 col-2">
         <a href="https://t.me/quicksilverzone" target="_blank" rel="nofollow noopener" title="Telegram">
 									<span className="icon-telegram mx-2"></span>
 								</a>
@@ -83,9 +85,15 @@ export default function Stake() {
 								<a href="https://medium.com/quicksilverzone" target="_blank" rel="nofollow noopener" title="Medium">
 									<span className="icon-medium mx-2"></span>
 								</a>
+                <a href="https://www.youtube.com/channel/UCFHGQ7SAtIyAlNHewNNVU1A " target="_blank" rel="nofollow noopener" title="Youtube">
+											<img className="icon-yt" src={YT}/>
+								</a>
+								<a href="https://docs.quicksilver.zone/ " target="_blank" rel="nofollow noopener" title="Docs">
+									<img className="icon-docs"	 src={Docs}/>
+                  </a>
         </div>
               
-              </>}
+              </div>}
             </div>
 
             <div className="content col-10">

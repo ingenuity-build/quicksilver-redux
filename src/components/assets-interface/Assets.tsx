@@ -12,7 +12,11 @@ import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
 import { quicksilver } from "quicksilverjs"
 import env from "react-dotenv";
+import {  poolModalSelector, setPoolModalOpen } from '../../slices/poolsWarningModal'
 import {  setModalOpen } from '../../slices/connectWalletModal';
+import PoolsMessage from './PoolsMessageModal';
+
+
 
 const {
     submitClaim
@@ -42,7 +46,7 @@ export default function Assets() {
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
-
+  const {isPoolModalOpen} = useSelector(poolModalSelector)
   // useEffect(() => {
   //   if(isQSWalletConnected && networks) {
   //   let denomArray : Array<string> = [];
@@ -59,11 +63,18 @@ export default function Assets() {
 
   // }, [balances])
 
+  
+
   const onButtonClick = () => {
     // @ts-expect-error
   dispatch(setModalOpen());
 }
 
+const onPoolButtonClick = () => {
+  console.log('hey')
+  // @ts-expect-error
+dispatch(setPoolModalOpen());
+}
   const fetchSum =  () => {
 
     QuickSilverChainInfo.currencies.forEach(async (curr) => {
@@ -206,9 +217,9 @@ export default function Assets() {
         {!isQSWalletConnected && <div>
           <div className="assets-interface row mx-0">
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
-                <h4 className="sub-heading"> Hey there! </h4>
-                <h1 className="mt-3"> Connect your wallet to get started! </h1>
+                <h1 className="sub-heading"> Connect Your Wallet To Get Started. </h1>
                 <button  onClick={onButtonClick}  className="connect-wallet-button mt-5"> Connect Wallet </button> 
+                {isPoolModalOpen && <PoolsMessage/>}
                        {/* <h4 className="sub-heading"> Assets screen will be enabled soon. Stay tuned.</h4> */}
                 </div>
             </div>
@@ -219,23 +230,23 @@ export default function Assets() {
           {showAssets && <div className="col-8 mx-auto mt-5">
 <div className="participation-rewards">
     <div className="d-flex p-3 justify-content-center flex-column">
-    <h3> Claim Participation Rewards </h3>
-    <p className="coming-soon"> Coming soon</p>
+    <h3 className="text-center"> Claim Participation Rewards </h3>
+    <p className="coming-soon text-center"> Coming Soon</p>
     {/* <button onClick={onClaimsClick}> Claim </button> */}
-    <p>
+    <p className="text-center p-3" >
     Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button> Claim</button>
+    <button onClick={onPoolButtonClick} className="claim-button"> Claim</button>
     </div>
 
   </div>
-  <h3 className="mt-5">My Assets</h3> 
+  <h3 className="mt-5 text-center">My Assets</h3> 
   {/* {sum === 0 && <h5 className="mt-4">Calculating...</h5>} */}
-  {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
+  {hasErrors && <p className="text-center"> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
-  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start">
+  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
   {balances.map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
@@ -243,11 +254,17 @@ These rewards will be distributed on an epochly basis (every 3 days).
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
-                <h4 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)}</h4>
-                {bal.denom !== 'uqck' && <h6 className="text-center mx-2"> {bal.denom[1] + bal.denom.slice(2).toUpperCase()}</h6>}
-                {bal.denom === 'uqck' && <h6 className="text-center mx-2"> QCK</h6>}
+                <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
+                {/* {bal.denom !== 'uqck' && <h6 className="text-center mx-2"><span className="font-bold">{(+(bal.amount)/1000000).toFixed(2)} </span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()} =  ({((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()} (at current redemption rate) </h6>} */}
+                
+
+                {bal.denom === 'uqck' && <h5 className="text-center mx-2"> QCK</h5>}
+
+          
                 </div>
-      
+                {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()}</h6>}
+                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate</p>}
+                {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
          

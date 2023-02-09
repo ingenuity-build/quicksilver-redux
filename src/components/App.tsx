@@ -50,6 +50,7 @@ function App() {
 
 
 
+
   React.useEffect(() => {
     let timer: any;
     if(!isIdle) {
@@ -97,6 +98,26 @@ dispatch(increaseRedelegateStep())
 );
 }
 
+useEffect(() => {
+  window.addEventListener("keplr_keystorechange", () => {
+    connectToQS();
+  })
+}, []);
+
+const connectToQS = () => {
+  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+    fetchKeplrDetails(val)
+    // @ts-expect-error
+  dispatch(setQSWallet(key, val));
+      // @ts-expect-error
+      dispatch(setClient(val));
+   // @ts-expect-error
+  dispatch(setQSWalletConnected())
+  setVal(val);
+  }
+);
+}
+
 const fetchKeplrDetails = async (val: any) => {
 
   let keplr = await getKeplrFromWindow();
@@ -131,7 +152,11 @@ const fetchKeplrDetails = async (val: any) => {
     <div className="img-logo text-center">
     <img className="logo-stroke" src={LogoStroke} alt="Quicksilver Logo"/>
     </div>
+
   {location.pathname !== '/' && <Navbar loading={loading} setLoading={setLoading} handleClickOpen={handleClickOpen} />}
+      <div className={location.pathname !== '/' ? 'mobile-message p-3' : 'mobile-message-landing p-3'}> 
+    <h4>The current display window is too small. Minimum supported resolution is 1280 pixels wide.</h4> 
+    </div>
    <Routes>
                       <Route path="/" element={<Landing/>}/>
                 
