@@ -30,6 +30,9 @@ import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep} from "../../slices/stakingActiveStep";
 import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
+import { setStakingAllocationProp, setStakingAmount } from '../../slices/allocation';
+import { setQSWallet, setQSWalletConnected, setQSBalance, , setQuicksilverAddress } from '../../slices/quicksilver';
+
 
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
@@ -192,10 +195,15 @@ export default function Navbar(props: PropComponent) {
 
   const logout = () => {
         // @ts-expect-error
-        dispatch(setQSWallet(key, val));
+        dispatch(setStakingAmount(1));
         // @ts-expect-error
-        dispatch(setClient(val));
+        dispatch(setStakingAllocationProp({}));
+        // @ts-expect-error
+        dispatch(fetchNetworks())
+        // @ts-expect-error
+        
   }
+
     return (
 
 
@@ -234,6 +242,7 @@ export default function Navbar(props: PropComponent) {
       </li> */}
 
     </ul>
+    <button onClick={logout}></button>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
       {isQSWalletConnected &&   <Select className="custom-class mb-3 mt-2 "
