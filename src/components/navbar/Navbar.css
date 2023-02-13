@@ -1,11 +1,12 @@
 .navbar .logo {
     height: 50px;
     margin-left: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .navbar {
-    background: #1A1A1A;
+    background: #282828;
     position: fixed !important;
     width:100vw !important;
     z-index: 4;
@@ -22,7 +23,7 @@ color: #FFFFFF;
 
 .navbar .connect-wallet, .navbar .connect-wallet-button {
 background: #D35100;
-border-radius: 10px;
+border-radius: 5px;
 font-family: 'Mulish';
 font-style: normal;
 font-weight: 600;
@@ -133,21 +134,21 @@ text-transform: uppercase !important;
         height: 30px;
     }
    .css-cvavs1-control, .css-1dyqxrw-control {
-        background-color: #282828 !important;
+        background-color: #1a1a1a !important;
     }
     /* .css-tnaca8-control {
         border: 0 !important;
         border-bottom: 1px solid white !important;
     } */
 .css-tnaca8-control, .css-1h7e0e4-control {
-    background-color: #282828 !important;
+    background-color: #1a1a1a !important;
     border: none !important;
 }
 
 .css-cvavs1-control:hover,  .css-1dyqxrw-control:hover {
     box-shadow: none !important;
     border: 0 !important;
-    background-color: #282828 !important;
+    background-color: #1a1a1a !important;
 
 }
 
@@ -173,3 +174,5 @@ text-transform: uppercase !important;
     .col-2 {
         width: 15% !important;
     }
+
+  

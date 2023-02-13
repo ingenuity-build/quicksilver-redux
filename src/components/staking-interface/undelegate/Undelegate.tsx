@@ -32,8 +32,11 @@ export default function Undelegate() {
     dispatch(setModalOpen());
   }
       const changeAmount = (e: any) => {
-                    setUnstakingAmount(e.target.value);
+                setUnstakingAmount(e.target.value);
+        
     }
+
+
     useEffect(() => {
       setUnstakingAmount(0.1);
      
@@ -142,8 +145,8 @@ setUnstakingAmount(QCKBalance);
       }
     return (
      <>
-        {process.env.REACT_APP_ENABLE_UNBONDING === 'true' &&  <div> 
-     
+        {process.env.REACT_APP_ENABLE_UNBONDING === 'true' && <div> 
+    
         {!isQSWalletConnected && <div>
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
                 <h1 className="sub-heading"> Connect Your Wallet To Get Started. </h1>
@@ -155,7 +158,7 @@ setUnstakingAmount(QCKBalance);
         <h2 className="mt-4">Choose your network </h2>
         <p className="mt-2">Select network using the dropdown in the navigation bar</p>
           </div>}
-        {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
+        {isQSWalletConnected && selectedNetwork !== "Select a network" && selectedNetwork.unbonding_enabled && <div className='unbonding-interface'>
    
         <div className='undelegate-pane mt-5'>
         <h3 className="mt-5 mb-5 text-center">Unbond your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} in exchange for  {selectedNetwork.base_denom.slice(1).toUpperCase()}</h3>
@@ -211,13 +214,16 @@ setUnstakingAmount(QCKBalance);
 
         <div className="undelegate-pane d-flex mt-3 align-items-center justify-content-center">
                     <p className="m-0 mx-3"> Number of  {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2 ).toUpperCase()} you want to unbond:</p>
-                    <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/>
+                    {/* <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/> */}
+                    <input style={{accentColor: '#D35100'}} className="mx-2" onChange={changeAmount} type="range" step=".0000001" value={ unstakingAmount }  min="0.1" max={QCKBalance}   />
+            <input className="mx-2 percentages" onChange={changeAmount} value={unstakingAmount}  type="number" min={0} step="0.5"></input>
+            {unstakingAmount}
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                     {/* <button className="mx-3 p-1 max-button"> MAX </button>  */}
                 </div>
 
                 <div className="d-flex justify-content-center">
-        <button disabled={unstakingAmount === 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
+        <button disabled={unstakingAmount == 0 || unstakingAmount  > QCKBalance ?  true: false}  className="unbond text-center mt-5 " onClick={ () => Unbond(0)}> UNBOND </button>
 
         </div>
         <div className="d-flex flex-column mt-3 justify-content-center align-items-center">
@@ -229,6 +235,9 @@ setUnstakingAmount(QCKBalance);
 {!loading && transactionSuccessful && <p>Your transaction is successful. Your withdrawal request will be completed on {Moment(time).format('MMMM Do YYYY, h:mm a')} Revisit this page to check the status of your unbonding request.</p> }
       </div>
         </div>}
+        {isQSWalletConnected && selectedNetwork !== "Select a network" && !selectedNetwork.unbonding_enabled && <div className='unbonding-interface'>
+         <p> Unbonding is disabled for this zone</p>
+          </div>}
         </div>}
         {process.env.REACT_APP_ENABLE_UNBONDING === 'false' && <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h3 className="text-center mt-5"> Undelegate</h3>

@@ -33,7 +33,7 @@ export default function Stake() {
         <>
                      <p className="unbonding-message"> The Unbonding feature will be enabled early Q1 2023. Any assets you stake to the protocol will remain locked until that time.</p>
             <div className="staking-interface row mx-0">
-            <div className="stepper col-2 d-flex flex-column ">
+            {/* <div className="stepper col-2 d-flex flex-column ">
           
              {location.pathname === '/stake/delegate' && <div className="steps-container">
               <div className="step d-flex mt-5 ml-4 mb-1">
@@ -94,9 +94,9 @@ export default function Stake() {
         </div>
               
               </div>}
-            </div>
+            </div> */}
 
-            <div className="content col-10">
+            <div className="content">
             <div className="mt-5 stake-options d-flex justify-content-center">
         <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
 

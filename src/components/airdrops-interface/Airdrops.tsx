@@ -9,9 +9,9 @@ export default function Airdrop() {
           <div className="assets-interface row mx-0">
         
       
-      {!showAirdrops && <div className="col-12 max-auto mt-5">
+      {!showAirdrops && <div className="col-12 mx-auto mt-3">
       <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
-      <h3 className="text-center mt-5"> Airdrop</h3>
+      <h3 className="text-center mt-2"> Airdrop</h3>
       <p className="text-center coming-soon"> Coming Soon</p>
       <div className="w-50 mt-2 text-center">
         <p>

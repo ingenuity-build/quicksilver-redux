@@ -53,7 +53,12 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-   return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  console.log('array', env.WHITELISTED_ZONES);
+   let zonesOld =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.WHITELISTED_ZONES.includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+   console.log('zones', zonesOld);
+
+   return zonesOld;
+
   }
 
 
