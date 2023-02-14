@@ -5,5 +5,5 @@ window.env = {
   "REACT_APP_ENABLE_SET_INTENT": "false",
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
-  "WHITELISTED_ZONES": "[\"uni-6\", \"elgafar-1\",\"osmo-test-4\", \"theta-testnet-001\"]"
+  "WHITELISTED_ZONES": "uni-6,elgafar-1,osmo-test-4,theta-testnet-001"
 };
