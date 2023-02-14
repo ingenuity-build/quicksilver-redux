@@ -81,7 +81,8 @@
       "ZONE_URL",
       "REACT_APP_ENABLE_SET_INTENT",
       "REACT_APP_ENABLE_UNBONDING",
-      "REACT_APP_ENABLE_CLAIMS"
+      "REACT_APP_ENABLE_CLAIMS",
+      "WHITELISTED_ZONES"
     ]
   },
   "homepage": ""
