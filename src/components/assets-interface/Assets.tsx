@@ -7,6 +7,7 @@ import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
+import Question from '../../assets/icons/question-mark.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
@@ -15,7 +16,7 @@ import env from "react-dotenv";
 import {  poolModalSelector, setPoolModalOpen } from '../../slices/poolsWarningModal'
 import {  setModalOpen } from '../../slices/connectWalletModal';
 import PoolsMessage from './PoolsMessageModal';
-
+import { Tooltip as ReactTooltip} from "react-tooltip";
 
 
 const {
@@ -255,7 +256,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
                 <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
-                {/* {bal.denom !== 'uqck' && <h6 className="text-center mx-2"><span className="font-bold">{(+(bal.amount)/1000000).toFixed(2)} </span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()} =  ({((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()} (at current redemption rate) </h6>} */}
+              
                 
 
                 {bal.denom === 'uqck' && <h5 className="text-center mx-2"> QCK</h5>}
@@ -263,7 +264,13 @@ These rewards will be distributed on an epochly basis (every 3 days).
           
                 </div>
                 {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()}</h6>}
-                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate</p>}
+                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate <span><img id={i.toLocaleString()}  className="question"  src={Question}/></span></p>}
+                {bal.denom !== 'uqck' &&  <ReactTooltip
+        anchorId={i.toLocaleString()}
+        place="bottom"
+        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(2) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
+      />}
+
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
