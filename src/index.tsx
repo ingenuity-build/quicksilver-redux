@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Buffer } from 'buffer';
 
+import 'react-tooltip/dist/react-tooltip.css'
 
 
 import App from './components/App';
