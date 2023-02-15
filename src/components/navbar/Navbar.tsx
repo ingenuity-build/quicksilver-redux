@@ -31,7 +31,8 @@ import { setStakingStep} from "../../slices/stakingActiveStep";
 import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 import { setStakingAllocationProp, setStakingAmount } from '../../slices/allocation';
-import { setQSWallet, setQSWalletConnected, setQSBalance, , setQuicksilverAddress } from '../../slices/quicksilver';
+import { setQSWallet, setQSWalletConnected, setQSBalance, setQSClient, setQSWalletDisconnected, setQuicksilverAddress } from '../../slices/quicksilver';
+
 
 
 // @ts-ignore
@@ -200,8 +201,10 @@ export default function Navbar(props: PropComponent) {
         dispatch(setStakingAllocationProp({}));
         // @ts-expect-error
         dispatch(fetchNetworks())
-        // @ts-expect-error
-        
+                // @ts-expect-error
+        dispatch(setStakingStep(1));
+          // @ts-expect-error
+          dispatch(setQSWalletDisconnected())
   }
 
     return (
