@@ -14,6 +14,7 @@ import poolsReducer from './pools'
 import unbondingReducer from './unbonding';
 import epochReducer from './epoch';
 import intentReducer from './intents';
+import  poolModalReducer from './poolsWarningModal'
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
   unbondings: unbondingReducer,
   epochs: epochReducer,
   redelegateActiveStep: redelegateActiveStepReducer,
-  intents: intentReducer
+  intents: intentReducer,
+  poolModal: poolModalReducer
 })
 
 export default rootReducer;

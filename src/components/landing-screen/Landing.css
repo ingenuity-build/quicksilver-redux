@@ -41,10 +41,13 @@ cursor:pointer;
     color: white;
     text-decoration: none;
 }
-.social-media-icons a:hover {
-    color: #D35100;
+
+
+.icon-docs, .icon-yt {
+	height: 22px !important;
+    color: white;
+    margin-right: 10px;
+    margin-top: -5px;
+
 }
 
-.landing-page .social-media-icons {
-    margin-left: 2rem;
-}

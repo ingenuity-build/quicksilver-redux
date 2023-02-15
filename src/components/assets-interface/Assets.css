@@ -20,17 +20,17 @@ h2 {
     padding: 0;
   }
   
-  .assets-interface button {
+  .assets-interface .claim-button {
     
   background: #6D6D6D;
   border: 1px solid #6D6D6D;
   border-radius: 5px;
-    padding: 0.5rem;
     font-weight: 400;
   font-size: 18px;
   color: #FFFFFF;
-  width: 70px;
   margin: 0 auto;
+  height: 36px;
+  width: 150px;
   }
 
   .asset-card {
@@ -39,9 +39,13 @@ h2 {
     border: 2px solid #282828;
     border-radius: 5px;
     padding: 1rem;
-    
+    z-index: 2;
   }
 
+
+  .asset-card:hover {
+    z-index: 3;
+  }
   img {
     height:50px;
   }
@@ -50,3 +54,18 @@ h2 {
     color: #D35100;
     font-weight: bold; 
   }
+
+  .redemption-rate {
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .question {
+    height: 25px;
+  }
+
+  .question:hover {
+    cursor: pointer;
+  }
+
+ 

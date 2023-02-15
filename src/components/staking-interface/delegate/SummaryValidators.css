@@ -5,9 +5,10 @@
     line-height: 30px;
     font-weight: 400;
     color: #FFFFFF;
-    padding: 5px 20px;
     border: 2px solid #D35100;
     z-index: 3;
+    height: 36px;
+    width: 150px;
     }
     
     .stake-button:disabled {
@@ -17,4 +18,10 @@
     
     .spinner svg {
         color: #D35100 !important;
+    }
+
+    .line {
+        color: white;
+    width: 400px;
+    opacity: 1;
     }
