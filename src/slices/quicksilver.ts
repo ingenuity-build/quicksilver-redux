@@ -1,7 +1,6 @@
 
 import { SigningStargateClient } from  "@cosmjs/stargate";
 import { createSlice } from '@reduxjs/toolkit'
-import { stat } from "fs"
 export const initialState = {
   isQSWalletConnected: false,
 //   balancesQS: new Map<string, Map<string, number>>(),

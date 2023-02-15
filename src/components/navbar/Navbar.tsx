@@ -8,7 +8,7 @@ import Select from "react-select";
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import Logo from '../../assets/quicksilver-logo.png';
+import Logo from '../../assets/quicksilverlogo.svg';
 import './Navbar.css';
 import Wallet from '../../assets/icons/wallet.svg';
 import Pools from '../../assets/icons/pools.svg';
@@ -69,10 +69,11 @@ export default function Navbar(props: PropComponent) {
   const {isModalOpen} = useSelector(connectWalletModalSelector)
 
   const [QCKBalance, setQCKBalance] = useState(0);
+  const [network, setNetwork] = useState();
 
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length > 0) {
          let balance = balances.find((bal: any) => bal.denom === 'uqck');
          if(balance) {
           setQCKBalance((balance.amount)/1000000);
@@ -113,6 +114,8 @@ export default function Navbar(props: PropComponent) {
 
     useEffect(() => {
       if (selectedNetwork !== "Select a network") {
+             // @ts-expect-error
+        dispatch(setNetworkAddress(''))
         connectNetwork(selectedNetwork.chain_id);
   
       // dispatch(_loadValsAsync(selectedNetwork.chain_id));
@@ -133,7 +136,6 @@ export default function Navbar(props: PropComponent) {
         let roBalance = await val.getAllBalances(bech32);
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
-          console.log('roBalance',roBalance);
       }
     }
    
@@ -151,7 +153,13 @@ export default function Navbar(props: PropComponent) {
     }, network);
   }
 
-
+  useEffect(() => {
+    window.addEventListener("keplr_keystorechange", () => {
+      // @ts-expect-error
+      dispatch(setNetworkBalance([]));
+        connectNetwork(selectedNetwork.chain_id);
+    })
+  }, []);
 
   React.useEffect(() => {
     let timer: any;
@@ -160,7 +168,6 @@ export default function Navbar(props: PropComponent) {
         if(isQSWalletConnected) {
           //connectKeplr();
           fetchNetworkDetails(val);
-          console.log('VAL', val)
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
     }, 10000)
@@ -195,12 +202,11 @@ export default function Navbar(props: PropComponent) {
 
    <nav className="navbar navbar-expand-lg d-flex py-0">
           <div className={`${location.pathname.includes('stake') ? 'col-2 navbar-logo d-flex ' : 'col-2 d-flex'}`} >
-               <Link to="/">    <img className="logo mt-2 ml-2" alt="Quicksilver Logo" src={Logo}/></Link> 
-               <p className="quicksilver-text mt-4 ml-2 "> QUICKSILVER</p>
+               <Link to="/">    <img className="logo ml-2" alt="Quicksilver Logo" src={Logo}/></Link> 
   </div>
 
 
-  <div className="collapse navbar-collapse justify-content-around col-10" id="navbarSupportedContent">
+  <div className="collapse navbar-width navbar-collapse justify-content-around col-10" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
     
       <li className="nav-item mx-4">
