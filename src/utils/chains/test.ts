@@ -83,7 +83,24 @@ export const TestQuickSilverChainInfo : ChainInfo = {
 },
 }
 
-export const TestChainInfos: ChainInfo[] = [
+// export const TestQuickSilverChainInfo = {
+//     chainId: TestQuickSilverChainInfoKeplr.chainId,
+//   addressPrefix: TestQuickSilverChainInfoKeplr.bech32Config.bech32PrefixAccAddr,
+//   baseDenom: TestQuickSilverChainInfoKeplr.currencies[0].coinMinimalDenom,
+//   chainName: TestQuickSilverChainInfoKeplr.chainName || TestQuickSilverChainInfoKeplr.chainId,
+//   displayDenom: TestQuickSilverChainInfoKeplr.currencies[0].coinDenom,
+//   decimals: TestQuickSilverChainInfoKeplr.currencies[0].coinDecimals,
+//   restURL: TestQuickSilverChainInfoKeplr.rest,
+//   coinType: TestQuickSilverChainInfoKeplr.coinType,
+//   gasRate: TestQuickSilverChainInfoKeplr.gasPriceStep
+//     ? {
+//         tiny: String(TestQuickSilverChainInfoKeplr.gasPriceStep.low),
+//         low: String(TestQuickSilverChainInfoKeplr.gasPriceStep.average),
+//         average: String(TestQuickSilverChainInfoKeplr.gasPriceStep.high),
+//       }
+//     : undefined,
+// }
+export const TestChainInfos = [
     TestQuickSilverChainInfo,
 {
     chainId: "fauxgaia-1",

@@ -66,8 +66,9 @@ function App() {
   }, [isIdle])
 
   const handleClickOpen = () => {
+    
     // @ts-expect-error
-  if (window &&  !window.keplr) {
+  if (window &&  !window.cosmostation.providers.keplr) {
     alert("Please install keplr extension");
 }  else {
 connectKeplr();
@@ -120,11 +121,17 @@ const connectToQS = () => {
 
 const fetchKeplrDetails = async (val: any) => {
 
-  let keplr = await getKeplrFromWindow();
+  // let keplr = await getKeplrFromWindow();
     let chainId = await val.getChainId();
-    keplr?.getKey(chainId).then(async () => {
-      
-    let pubkey = await keplr?.getKey(chainId);
+
+                // @ts-expect-error
+              
+     console.log(window.cosmostation.providers.keplr.getKey(val))
+            // @ts-expect-error
+    window.cosmostation.providers.keplr?.getKey(chainId).then(async () => {
+              // @ts-expect-error
+    let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+    console.log('pubkey', pubkey)
      let bech32 = pubkey?.bech32Address;
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);

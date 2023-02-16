@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@cosmjs/stargate": "^0.29.5",
+    "@cosmostation/extension-client": "^0.1.15",
     "@keplr-wallet/stores": "^0.10.3",
     "@keplr-wallet/types": "^0.10.3",
     "@reduxjs/toolkit": "^1.8.5",
