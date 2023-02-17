@@ -7,6 +7,7 @@ import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
+import qRegen from '../../assets/qRegen.svg';
 import Question from '../../assets/icons/question-mark.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
@@ -34,6 +35,7 @@ params['uqstars'] = qStar;
 params['uqjunox'] = qJuno;
 params['uqjuno'] = qJuno;
 params['uqosmo'] = qOsmo;
+params['uqregen'] = qRegen;
 
 
   let messages = []
@@ -248,7 +250,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
   {hasErrors && <p className="text-center"> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
-  {balances.map((bal: Coin, i: number) =>
+  {balances.filter((bal: any) => (networks.find((y:any) => y.value.local_denom === bal.denom)) || bal.denom === 'uqck').map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
      
