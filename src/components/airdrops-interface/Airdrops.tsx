@@ -19,7 +19,7 @@ export default function Airdrop() {
       
 <br/>
 <br/>
-The first QCK token airdrop is scheduled for Q1 2023.
+The first QCK token airdrop is coming soon.
         </p>
         </div>
         
