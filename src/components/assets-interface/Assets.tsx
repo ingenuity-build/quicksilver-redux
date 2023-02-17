@@ -7,6 +7,7 @@ import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
+import qRegen from '../../assets/qRegen.svg';
 import Question from '../../assets/icons/question-mark.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
@@ -34,6 +35,7 @@ params['uqstars'] = qStar;
 params['uqjunox'] = qJuno;
 params['uqjuno'] = qJuno;
 params['uqosmo'] = qOsmo;
+params['uqregen'] = qRegen;
 
 
   let messages = []

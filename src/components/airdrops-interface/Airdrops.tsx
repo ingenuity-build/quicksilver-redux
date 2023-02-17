@@ -15,11 +15,11 @@ export default function Airdrop() {
       <p className="text-center coming-soon"> Coming Soon</p>
       <div className="w-50 mt-2 text-center">
         <p>
-        As new chains are onboarded, eligible stakers will receive a $QCK airdrop. We’re airdropping this way because we’re committed to decentralization and onboarding new users to ensure the protocol is in the hands of the community.
+        As new chains are onboarded, eligible stakers will receive a QCK airdrop. We’re airdropping this way because we’re committed to decentralization and onboarding new users to ensure the protocol is in the hands of the community.
       
 <br/>
 <br/>
-The first $QCK token airdrop is scheduled for Q1 2023.
+The first QCK token airdrop is scheduled for Q1 2023.
         </p>
         </div>
         
