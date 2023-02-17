@@ -320,10 +320,10 @@ export const TestChainInfos: ChainInfo[] = [
     },
   }, 
   {
-    chainId: "uni-5",
+    chainId: "uni-6",
     chainName: "Juno Testnet",
-    rpc: "https://rpc.uni-5.test.quicksilver.zone",
-    rest: "https://lcd.uni-5.test.quicksilver.zone",
+    rpc: "https://rpc.uni-6.test.quicksilver.zone",
+    rest: "https://lcd.uni-6.test.quicksilver.zone",
     
     bip44: {
         coinType: 118,
