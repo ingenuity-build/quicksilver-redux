@@ -4,6 +4,7 @@ import Cosmos from '../assets/Cosmos.png';
 import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';
 import Juno from '../assets/Juno.png';
+import Regen from '../assets/Regen.png'
 
 export const initialState = {
   loading: false,
@@ -65,6 +66,8 @@ const images = {
   'uqatom' : Cosmos,
   'uqosmo' : Osmosis,
   'uqstars' : Stargaze,
-  'uqjunox' : Juno
+  'uqjunox' : Juno,
+  'uqregen': Regen
+
 
 }
