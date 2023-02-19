@@ -71,7 +71,7 @@ useEffect(() => {
 useEffect(() => {
   window.addEventListener("keplr_keystorechange", () => {
     setZoneBalance(0);
-
+    setQCKBalance(0);
   })
 }, []);
 

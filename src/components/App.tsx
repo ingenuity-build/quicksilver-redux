@@ -100,6 +100,9 @@ dispatch(increaseRedelegateStep())
 
 useEffect(() => {
   window.addEventListener("keplr_keystorechange", () => {
+
+            // @ts-expect-error
+    dispatch(setQSBalance([]));
     connectToQS();
   })
 }, []);

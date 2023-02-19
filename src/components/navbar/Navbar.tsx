@@ -159,6 +159,8 @@ export default function Navbar(props: PropComponent) {
 
   useEffect(() => {
     window.addEventListener("keplr_keystorechange", () => {
+      
+      setQCKBalance(0);
       // @ts-expect-error
       dispatch(setNetworkBalance([]));
         connectNetwork(selectedNetwork.chain_id);
