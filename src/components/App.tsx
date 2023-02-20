@@ -75,6 +75,17 @@ connectKeplr();
 };
 
 
+let key;
+useEffect(() => {
+   // @ts-expect-error
+   if(JSON.parse(localStorage.getItem('ChainId'))) {
+       // @ts-expect-error
+     key = JSON.parse(localStorage.getItem('ChainId'))
+    connectKeplr();
+   }
+}, [key])
+
+
 const connectKeplr = async () => {
   setLoading(true);
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {

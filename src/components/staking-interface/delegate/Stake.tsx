@@ -21,9 +21,9 @@ export default function Stake() {
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
   useEffect(() => {
     if (selectedNetwork !== "Select a network") {
-        console.log(selectedNetwork.chain_id)
+        console.log(selectedNetwork?.chain_id)
               // @ts-expect-error
-     dispatch(_loadValsAsync(selectedNetwork.chain_id));
+     dispatch(_loadValsAsync(selectedNetwork?.chain_id));
     //          // @ts-expect-error
     //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
     }

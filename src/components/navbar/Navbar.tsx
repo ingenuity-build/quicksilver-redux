@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Logo from '../../assets/quicksilverlogo.svg';
 import './Navbar.css';
 import Wallet from '../../assets/icons/wallet.svg';
+import Logout from '../../assets/logout.svg'
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
@@ -117,10 +118,11 @@ export default function Navbar(props: PropComponent) {
     }, [dispatch])
 
     useEffect(() => {
+      console.log('selected network', selectedNetwork)
       if (selectedNetwork !== "Select a network") {
              // @ts-expect-error
         dispatch(setNetworkAddress(''))
-        connectNetwork(selectedNetwork.chain_id);
+        connectNetwork(selectedNetwork?.chain_id);
   
       // dispatch(_loadValsAsync(selectedNetwork.chain_id));
       }
@@ -197,6 +199,7 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
+    localStorage.removeItem("ChainId");
         // @ts-expect-error
         dispatch(setStakingAmount(1));
         // @ts-expect-error
@@ -205,8 +208,12 @@ export default function Navbar(props: PropComponent) {
         dispatch(fetchNetworks())
                 // @ts-expect-error
         dispatch(setStakingStep(1));
+                      // @ts-expect-error
+                      dispatch(setSelectedNetworkFunc("Select a network"));
           // @ts-expect-error
+          
           dispatch(setQSWalletDisconnected())
+
   }
 
     return (
@@ -247,10 +254,9 @@ export default function Navbar(props: PropComponent) {
       </li> */}
 
     </ul>
-    <button onClick={logout}></button>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
-      {isQSWalletConnected &&   <Select className="custom-class mb-3 mt-2 "
+      <Select className={"custom-class mb-3 mt-2 " + (isQSWalletConnected === true ? 'visible' : "invisible")}
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks} styles={colourStyles}  formatOptionLabel={network => (
             <div className="network-option">
@@ -260,10 +266,10 @@ export default function Navbar(props: PropComponent) {
           )}
           onChange={handleNetworkChange}
 
-        />}
+        />
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
-        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK</p>}
+        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}
       
       { isModalOpen && <Backdrop />}
  
