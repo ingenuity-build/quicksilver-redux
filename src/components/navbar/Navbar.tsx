@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,  useRef } from 'react';
 import { Link } from "react-router-dom";
 import { useLocation} from "react-router-dom";
 
@@ -20,7 +20,7 @@ import Governance from '../../assets/icons/Governance.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
-import {quicksilverSelector} from '../../slices/quicksilver';
+import {quicksilverSelector, setWalletType} from '../../slices/quicksilver';
 import { networksSelector, fetchNetworks } from '../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../slices/selectedNetwork";
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../slices/selectedNetworkWallet";
@@ -60,6 +60,7 @@ interface PropComponent {
 }
 
 export default function Navbar(props: PropComponent) {
+  const selectInputRef = useRef() as any;
   const isIdle = useIdle({timeToIdle: 1800000});
   const [val, setVal] = React.useState<SigningStargateClient>();
 
@@ -69,7 +70,7 @@ export default function Navbar(props: PropComponent) {
 
   const dispatch = useDispatch()
   const location = useLocation()
-  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
+  const {balances, isQSWalletConnected, walletType} = useSelector(quicksilverSelector);
   // const { isWalletConnected }= useSelector(isQSWalletConnectedSelector);
   const {isModalOpen} = useSelector(connectWalletModalSelector)
 
@@ -156,7 +157,7 @@ export default function Navbar(props: PropComponent) {
       setVal(val);
       fetchNetworkDetails(val)
      
-    }, network);
+    }, walletType, network);
   }
 
   useEffect(() => {
@@ -199,6 +200,11 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
+     selectInputRef.current.clearValue();
+                // @ts-expect-error
+                dispatch(setWalletType(''));
+                      // @ts-expect-error
+                      dispatch(setSelectedNetworkFunc(null));
     localStorage.removeItem("ChainId");
         // @ts-expect-error
         dispatch(setStakingAmount(1));
@@ -208,8 +214,7 @@ export default function Navbar(props: PropComponent) {
         dispatch(fetchNetworks())
                 // @ts-expect-error
         dispatch(setStakingStep(1));
-                      // @ts-expect-error
-                      dispatch(setSelectedNetworkFunc("Select a network"));
+                
           // @ts-expect-error
           
           dispatch(setQSWalletDisconnected())
@@ -257,6 +262,7 @@ export default function Navbar(props: PropComponent) {
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
       <Select className={"custom-class mb-3 mt-2 " + (isQSWalletConnected === true ? 'visible' : "invisible")}
+      ref={selectInputRef}
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
           options={networks} styles={colourStyles}  formatOptionLabel={network => (
             <div className="network-option">

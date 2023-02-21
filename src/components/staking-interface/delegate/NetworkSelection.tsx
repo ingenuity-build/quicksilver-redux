@@ -58,7 +58,7 @@ useEffect(() => {
 
 useEffect(() => {
 
-  if(networkBalances.length > 0) {
+  if(networkBalances.length > 0 && selectedNetwork !== "Select a network") {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     console.log('balance', balance)
     if(balance) {
@@ -83,7 +83,6 @@ useEffect(() => {
 
     return (
         <>
-
         <div className="network-selection-pane d-flex flex-column align-items-center ">
 
 
@@ -91,6 +90,7 @@ useEffect(() => {
   <h2 className="mt-4">Choose Your Network </h2>
       <p className="mt-2">Select network using the dropdown in the navigation bar
 </p> 
+
 </div>}
 {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">

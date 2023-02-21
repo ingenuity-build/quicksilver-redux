@@ -88,7 +88,7 @@ export const initKeplrWithQuickSilver = async (fn: Function, walletType: string)
        let signer =  window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
         let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
        fn(QuickSilverChainInfo.chainId, offlineSigner)
-       console.log("Enabled for chainid " + QuickSilverChainInfo.chainId);
+       console.log("Enabled for chainid cosmostation" + QuickSilverChainInfo.chainId);
          // @ts-expect-error
          await window.cosmostation.cosmos.request({
            method: "cos_addChain",
@@ -116,7 +116,7 @@ export const initKeplrWithQuickSilver = async (fn: Function, walletType: string)
            let signer =  window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
            let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
            fn(QuickSilverChainInfo.chainId, offlineSigner)
-           console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
+           console.log("Added to Keplr for chainid cosmostation" + QuickSilverChainInfo.chainId) 
          // @ts-expect-error
          await window.cosmostation.cosmos.request({
            method: "cos_addChain",
@@ -146,10 +146,10 @@ export const initKeplrWithQuickSilver = async (fn: Function, walletType: string)
 }
         
 
-export const initKeplrWithNetwork = async (fn: Function, network?: string):Promise<void> => { 
+export const initKeplrWithNetwork = async (fn: Function, walletType: string, network?: string):Promise<void> => { 
     const keplr = await getKeplrFromWindow();
     console.log(network);
-    if (keplr && network) {
+    if (keplr && network && walletType === 'keplr') {
            // @ts-expect-error
         const chain : ChainInfo  = ChainInfos.find( function(el) { return el.chainId === network})
             keplr
@@ -170,5 +170,69 @@ export const initKeplrWithNetwork = async (fn: Function, network?: string):Promi
                     console.log('Offline Signer 2', offlineSigner);
                 }) 
             })
+        } else if(network && walletType === 'cosmostation') {
+           // @ts-expect-error
+        const chain : ChainInfo  = ChainInfos.find( function(el) { return el.chainId === network})
+        // @ts-expect-error
+window.cosmostation.providers.keplr
+      .enable(chain?.chainId)
+      .then(async () => { 
+                  // @ts-expect-error
+          let signer = window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(chain?.chainId); 
+          let offlineSigner = await SigningStargateClient.connectWithSigner(chain?.rpc, signer, options)
+          fn(chain?.chainId, offlineSigner)
+          console.log("Enabled for chainid " + chain?.chainId)
+          console.log('Offline Signer 1', offlineSigner);
+           // @ts-expect-error
+           await window.cosmostation.cosmos.request({
+              method: "cos_addChain",
+              params: {
+                chainId: chain.chainId,
+                chainName: chain.chainName ,
+                addressPrefix: chain.bech32Config.bech32PrefixAccAddr,
+                baseDenom: chain.currencies[0].coinMinimalDenom,
+                displayDenom: chain.currencies[0].coinDenom,
+                restURL: chain.rest,
+                coinType: "118", // optional (default: '118')
+                decimals: 6, // optional (default: 6)
+                gasRate: {
+                  // optional (default: { average: '0.025', low: '0.0025', tiny: '0.00025' })
+                  average: "0.2",
+                  low: "0.02",
+                  tiny: "0.002",
+                }
+              },
+            });
+      }, (reason: any) => { 
+           // @ts-expect-error
+          window.cosmostation.providers.keplr.experimentalSuggestChain(chain).then(async () => { 
+               // @ts-expect-error
+              let signer = window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(chain?.chainId); 
+              let offlineSigner = await SigningStargateClient.connectWithSigner(chain?.rpc, signer, options)
+          fn(chain?.chainId, offlineSigner)
+              console.log("Added to cosmostation for chainid " + chain?.chainId) 
+              console.log('Offline Signer 2', offlineSigner);
+                // @ts-expect-error
+           await window.cosmostation.cosmos.request({
+              method: "cos_addChain",
+              params: {
+                chainId: chain.chainId,
+                chainName: chain.chainName ,
+                addressPrefix: chain.bech32Config.bech32PrefixAccAddr,
+                baseDenom: chain.currencies[0].coinMinimalDenom,
+                displayDenom: chain.currencies[0].coinDenom,
+                restURL: chain.rest,
+                coinType: "118", // optional (default: '118')
+                decimals: 6, // optional (default: 6)
+                gasRate: {
+                  // optional (default: { average: '0.025', low: '0.0025', tiny: '0.00025' })
+                  average: "0.2",
+                  low: "0.02",
+                  tiny: "0.002",
+                }
+              },
+            });
+          }) 
+      })
         }
 }
