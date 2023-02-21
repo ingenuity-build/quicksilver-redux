@@ -41,7 +41,7 @@ function useIdle(options: any) {
 
 function App() {
   const dispatch = useDispatch();
-  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
+  const {balances, isQSWalletConnected, walletType} = useSelector(quicksilverSelector);
   const location = useLocation();
   // const isWalletConnected = useSelector(isQSWalletConnectedSelector);
   const isIdle = useIdle({timeToIdle: 1800000});
@@ -66,13 +66,29 @@ function App() {
   }, [isIdle])
 
   const handleClickOpen = () => {
+    if(walletType === 'keplr' ) {
     // @ts-expect-error
   if (window &&  !window.keplr) {
     alert("Please install keplr extension");
 }  else {
 connectKeplr();
+} } else if(walletType === 'cosmostation') {
+   // @ts-expect-error
+	  if (window &&  !window.cosmostation.providers.keplr) {
+    alert("Please install cosmostation extension");	    
+}  else {	
+  connectKeplr();
+}  	
+
 }
+
 };
+
+useEffect(() => {
+  if(walletType !== '') {
+handleClickOpen()
+  }
+}, [walletType])
 
 
 let key;
@@ -81,14 +97,14 @@ useEffect(() => {
    if(JSON.parse(localStorage.getItem('ChainId'))) {
        // @ts-expect-error
      key = JSON.parse(localStorage.getItem('ChainId'))
-    connectKeplr();
+    // connectKeplr();
    }
 }, [key])
 
 
 const connectKeplr = async () => {
   setLoading(true);
-  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
+  initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient, walletType: string) => {
     fetchKeplrDetails(val)
       // @ts-expect-error
     dispatch(setQSWallet(key, val));
@@ -105,7 +121,7 @@ const connectKeplr = async () => {
   dispatch(increaseStakingStep());
 // @ts-expect-error
 dispatch(increaseRedelegateStep())
-  }
+  }, walletType
 );
 }
 
@@ -128,17 +144,17 @@ const connectToQS = () => {
    // @ts-expect-error
   dispatch(setQSWalletConnected())
   setVal(val);
-  }
+  }, walletType
 );
 }
 
 const fetchKeplrDetails = async (val: any) => {
+  let chainId = await val.getChainId();
+  if(walletType === 'keplr') {
+    let keplr = await getKeplrFromWindow();
 
-  let keplr = await getKeplrFromWindow();
-    let chainId = await val.getChainId();
     keplr?.getKey(chainId).then(async () => {
-      
-    let pubkey = await keplr?.getKey(chainId);
+      let pubkey = await keplr?.getKey(chainId);
      let bech32 = pubkey?.bech32Address;
     if (bech32) {
       let roBalance = await val.getAllBalances(bech32);
@@ -153,13 +169,34 @@ const fetchKeplrDetails = async (val: any) => {
     }).catch((e) =>{ console.log('err', e.message);
     alert('Please add account');
    
+  }
+ 
 
-    
-
-  });
+  );
   
   
+} else if(walletType === 'cosmostation') {
+          // @ts-expect-error
+          window.cosmostation.providers.keplr?.getKey(chainId).then(async () => {
+            // @ts-expect-error
+  let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+  console.log('pubkey', pubkey)
+   let bech32 = pubkey?.bech32Address;
+  if (bech32) {
+    let roBalance = await val.getAllBalances(bech32);
+     
+            // @ts-expect-error
+        dispatch(setQSBalance(roBalance));
+                  // @ts-expect-error
+    dispatch(setQuicksilverAddress(bech32));
+  
+  }
+})
 }
+
+}
+
+
 
   return (
     <>

@@ -1,9 +1,9 @@
 window.env = {
-  "NODE_ENV": "test",
-  "QUICKSILVER_API": "https://lcd.test.quicksilver.zone",
-  "ZONE_URL": "test.quicksilver.zone",
+  "NODE_ENV": "dev",
+  "QUICKSILVER_API": "https://lcd.dev.quicksilver.zone",
+  "ZONE_URL": "dev.quicksilver.zone",
   "REACT_APP_ENABLE_SET_INTENT": "false",
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
-  "WHITELISTED_ZONES": "uni-6,elgafar-1,osmo-test-4,regen-redwood-1,theta-testnet-001"
+  "WHITELISTED_ZONES": "quickstar-1,quickgaia-1,quickosmo-1"
 };

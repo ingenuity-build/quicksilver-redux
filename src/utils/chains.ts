@@ -8,6 +8,7 @@ import { ProdQuickSilverChainInfo, ProdChainInfos } from './chains/prod'
 import { TestQuickSilverChainInfo, TestChainInfos } from './chains/test'
 import { DevQuickSilverChainInfo, DevChainInfos } from './chains/dev'
 
+
 import env from "react-dotenv";
 
 
@@ -53,7 +54,8 @@ export const initKeplr = async (fn: Function):Promise<void> => {
     } 
 }
 
-export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => { 
+export const initKeplrWithQuickSilver = async (fn: Function, walletType: string):Promise<void> => { 
+    if(walletType === 'keplr') {
     const keplr = await getKeplrFromWindow();
     // console.log(keplr?.getKey(QuickSilverChainInfo.chainId));
         if (keplr) {
@@ -77,7 +79,72 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
         }
     
    
+} else if(walletType === 'cosmostation') {
+   // @ts-expect-error
+   window.cosmostation.providers.keplr
+   .enable(QuickSilverChainInfo.chainId)
+   .then(async () => { 
+           // @ts-expect-error
+       let signer =  window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+        let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+       fn(QuickSilverChainInfo.chainId, offlineSigner)
+       console.log("Enabled for chainid " + QuickSilverChainInfo.chainId);
+         // @ts-expect-error
+         await window.cosmostation.cosmos.request({
+           method: "cos_addChain",
+           params: {
+             chainId: QuickSilverChainInfo.chainId,
+             chainName: QuickSilverChainInfo.chainName ,
+             addressPrefix: TestQuickSilverChainInfo.bech32Config.bech32PrefixAccAddr,
+             baseDenom: QuickSilverChainInfo.currencies[0].coinMinimalDenom,
+             displayDenom: QuickSilverChainInfo.currencies[0].coinDenom,
+             restURL: QuickSilverChainInfo.rest,
+             coinType: "118", // optional (default: '118')
+             decimals: 6, // optional (default: 6)
+             gasRate: {
+               // optional (default: { average: '0.025', low: '0.0025', tiny: '0.00025' })
+               average: "0.2",
+               low: "0.02",
+               tiny: "0.002",
+             }
+           },
+         });
+   }, (reason: any) => { 
+           // @ts-expect-error
+       window.cosmostation.providers.keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
+               // @ts-expect-error
+           let signer =  window.cosmostation.providers.keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+           let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+           fn(QuickSilverChainInfo.chainId, offlineSigner)
+           console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
+         // @ts-expect-error
+         await window.cosmostation.cosmos.request({
+           method: "cos_addChain",
+           params: {
+             chainId: QuickSilverChainInfo.chainId,
+             chainName: QuickSilverChainInfo.chainName ,
+             addressPrefix: TestQuickSilverChainInfo.bech32Config.bech32PrefixAccAddr,
+             baseDenom: QuickSilverChainInfo.currencies[0].coinMinimalDenom,
+             displayDenom: QuickSilverChainInfo.currencies[0].coinDenom,
+             restURL: QuickSilverChainInfo.rest,
+             coinType: "118", // optional (default: '118')
+             decimals: 6, // optional (default: 6)
+             gasRate: {
+               // optional (default: { average: '0.025', low: '0.0025', tiny: '0.00025' })
+               average: "0.2",
+               low: "0.02",
+               tiny: "0.002",
+             }
+           },
+         });
+
+       }) 
+   })
+
+
 }
+}
+        
 
 export const initKeplrWithNetwork = async (fn: Function, network?: string):Promise<void> => { 
     const keplr = await getKeplrFromWindow();
