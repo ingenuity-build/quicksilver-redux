@@ -250,7 +250,7 @@ useEffect(() => {
            {(zoneBalance) > 0.31 &&  <div className="staking-pane d-flex flex-column mt-4">
                 <h4 className="mt-3">Allocate Stake</h4> 
                 <p className="mt-2 allocation-message">
-                Signalling Intent will be enabled early Q1 2023. Until such time, your stake will be allocated evenly amongst all the active validators of the chains supported by Quicksilver. However, you can use the sliders now to determine how you would like the protocol to start allocating your stake once Signalling intent is enabled.
+                Signalling Intent will be enabled Q1 2023. Until such time, your stake will be allocated evenly amongst all the active validators of the chains supported by Quicksilver. However, you can use the sliders now to determine how you would like the protocol to start allocating your stake once Signalling intent is enabled.
             <br/>
             <br/>
 If you signal your intent several times before the feature is enabled, the protocol will take into consideration the final intent you have set.

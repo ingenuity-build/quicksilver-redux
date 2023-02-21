@@ -29,6 +29,8 @@ font-style: normal;
 font-weight: 600;
 font-size: 16px;
 color: #FFFFFF;
+min-width: 200px;   
+order:2;
 }
 
 
@@ -123,7 +125,7 @@ text-transform: uppercase !important;
 
     custom-class.mb-3.mt-2.css-b62m3t-container {
         margin: 0 !important;
-        width: 200px;
+        min-width: 200px !important;
     }
     
     .network-option {
@@ -175,4 +177,7 @@ text-transform: uppercase !important;
         width: 15% !important;
     }
 
-  
+    .logout {
+        margin-bottom: 2px;
+        margin-left: 10px;
+    }

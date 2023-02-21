@@ -217,7 +217,6 @@ setUnstakingAmount(QCKBalance);
                     {/* <input className="mx-3" type="number" value={unstakingAmount}  placeholder="0" min={0} onChange={ changeAmount}/> */}
                     <input style={{accentColor: '#D35100'}} className="mx-2" onChange={changeAmount} type="range" step=".0000001" value={ unstakingAmount }  min="0.1" max={QCKBalance}   />
             <input className="mx-2 percentages" onChange={changeAmount} value={unstakingAmount}  type="number" min={0} step="0.5"></input>
-            {unstakingAmount}
                     <button className="mx-3 p-1 max-button" onClick={onMaxClick}> MAX </button> 
                     {/* <button className="mx-3 p-1 max-button"> MAX </button>  */}
                 </div>

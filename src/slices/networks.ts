@@ -4,6 +4,7 @@ import Cosmos from '../assets/Cosmos.png';
 import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';
 import Juno from '../assets/Juno.png';
+import Regen from '../assets/Regen.png'
 
 export const initialState = {
   loading: false,
@@ -53,12 +54,11 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-  console.log('array', env.WHITELISTED_ZONES);
-   let zonesOld =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.WHITELISTED_ZONES.includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
-   console.log('zones', zonesOld);
+  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+   console.log('zones', whitelistedZones);
 
-   return zonesOld;
-
+   return whitelistedZones;
+  //  return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
   }
 
 
@@ -66,6 +66,8 @@ const images = {
   'uqatom' : Cosmos,
   'uqosmo' : Osmosis,
   'uqstars' : Stargaze,
-  'uqjunox' : Juno
+  'uqjunox' : Juno,
+  'uqregen': Regen
+
 
 }

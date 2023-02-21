@@ -7,6 +7,8 @@ import qStar from '../../assets/qStar.png';
 import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
+import qRegen from '../../assets/qRegen.svg';
+import Question from '../../assets/icons/question-mark.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
@@ -15,7 +17,7 @@ import env from "react-dotenv";
 import {  poolModalSelector, setPoolModalOpen } from '../../slices/poolsWarningModal'
 import {  setModalOpen } from '../../slices/connectWalletModal';
 import PoolsMessage from './PoolsMessageModal';
-
+import { Tooltip as ReactTooltip} from "react-tooltip";
 
 
 const {
@@ -33,6 +35,7 @@ params['uqstars'] = qStar;
 params['uqjunox'] = qJuno;
 params['uqjuno'] = qJuno;
 params['uqosmo'] = qOsmo;
+params['uqregen'] = qRegen;
 
 
   let messages = []
@@ -247,7 +250,6 @@ These rewards will be distributed on an epochly basis (every 3 days).
   {hasErrors && <p className="text-center"> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
-  
   {balances.filter((bal: any) => (networks.find((y:any) => y.value.local_denom === bal.denom)) || bal.denom === 'uqck').map((bal: Coin, i: number) =>
        
             <div className="asset-card col-3 m-3" key={i}>
@@ -256,7 +258,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
                 <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
-                {/* {bal.denom !== 'uqck' && <h6 className="text-center mx-2"><span className="font-bold">{(+(bal.amount)/1000000).toFixed(2)} </span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()} =  ({((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()} (at current redemption rate) </h6>} */}
+              
                 
 
                 {bal.denom === 'uqck' && <h5 className="text-center mx-2"> QCK</h5>}
@@ -264,8 +266,14 @@ These rewards will be distributed on an epochly basis (every 3 days).
           
                 </div>
                 {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()}</h6>}
-                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate))}</p>}
- {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
+                {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate <span><img id={i.toLocaleString()}  className="question"  src={Question}/></span></p>}
+                {bal.denom !== 'uqck' &&  <ReactTooltip
+        anchorId={i.toLocaleString()}
+        place="bottom"
+        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(2) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
+      />}
+
+                {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
          

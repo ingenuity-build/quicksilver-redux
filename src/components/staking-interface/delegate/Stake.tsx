@@ -21,9 +21,9 @@ export default function Stake() {
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
   useEffect(() => {
     if (selectedNetwork !== "Select a network") {
-        console.log(selectedNetwork.chain_id)
+        console.log(selectedNetwork?.chain_id)
               // @ts-expect-error
-     dispatch(_loadValsAsync(selectedNetwork.chain_id));
+     dispatch(_loadValsAsync(selectedNetwork?.chain_id));
     //          // @ts-expect-error
     //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
     }
@@ -96,14 +96,41 @@ export default function Stake() {
               </div>}
             </div> */}
 
+
             <div className="content">
+ 
             <div className="mt-5 stake-options d-flex justify-content-center">
-        <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
+
+
+  
+        <Link to="delegate "  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
 
         {process.env.REACT_APP_ENABLE_SET_INTENT == 'true' && <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>}
         <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
+        
         </div>
-
+        {location.pathname === '/stake/delegate' && <div className="stepper md-stepper-horizontal orange">
+    <div className="md-step active done">
+      <div className="md-step-circle"><span>1</span></div>
+      <div className="md-step-bar-left"></div>
+      <div className="md-step-bar-right"></div>
+    </div>
+    <div className="md-step active done">
+      <div className="md-step-circle"><span>2</span></div>
+      <div className="md-step-bar-left"></div>
+      <div className="md-step-bar-right"></div>
+    </div>
+    <div className="md-step  done">
+      <div className="md-step-circle"><span>3</span></div>
+      <div className="md-step-bar-left"></div>
+      <div className="md-step-bar-right"></div>
+    </div>
+    <div className="md-step done">
+      <div className="md-step-circle"><span>4</span></div>
+      <div className="md-step-bar-left"></div>
+      <div className="md-step-bar-right"></div>
+    </div>
+  </div>}
         
             <Outlet/>
 

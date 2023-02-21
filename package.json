@@ -31,6 +31,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
     "react-select": "^5.4.0",
+    "react-tooltip": "^5.7.5",
     "react-use": "^17.4.0",
     "spinners-react": "^1.0.7",
     "ts-proto": "^1.123.1",
@@ -80,7 +81,8 @@
       "ZONE_URL",
       "REACT_APP_ENABLE_SET_INTENT",
       "REACT_APP_ENABLE_UNBONDING",
-      "REACT_APP_ENABLE_CLAIMS"
+      "REACT_APP_ENABLE_CLAIMS",
+      "WHITELISTED_ZONES"
     ]
   },
   "homepage": ""
