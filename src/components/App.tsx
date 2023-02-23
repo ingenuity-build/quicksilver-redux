@@ -18,7 +18,7 @@ import Delegate from './staking-interface/delegate/Delegate';
 import { initKeplrWithQuickSilver} from '../utils/chains';
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setQSClient, setQuicksilverAddress } from '../slices/quicksilver';
+import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setQSClient, setQuicksilverAddress, setWalletType } from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
 import { increaseStakingStep } from "../slices/stakingActiveStep";
@@ -80,6 +80,13 @@ connectKeplr();
   connectKeplr();
 }  	
 
+} else if(walletType === 'leap') {
+   // @ts-expect-error
+   if (window &&  !window.leap) {
+    alert("Please install Leap extension");
+}  else {
+connectKeplr();
+}
 }
 
 };
@@ -97,13 +104,17 @@ useEffect(() => {
    if(JSON.parse(localStorage.getItem('ChainId'))) {
        // @ts-expect-error
      key = JSON.parse(localStorage.getItem('ChainId'))
-    // connectKeplr();
+     connectKeplr();
    }
 }, [key])
 
 
 const connectKeplr = async () => {
   setLoading(true);
+  if(walletType === '') {
+  // @ts-expect-error
+        dispatch(setWalletType(localStorage.getItem('WalletType')))
+  }
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient, walletType: string) => {
     fetchKeplrDetails(val)
       // @ts-expect-error
@@ -149,6 +160,10 @@ const connectToQS = () => {
 }
 
 const fetchKeplrDetails = async (val: any) => {
+  if(walletType === '') {
+    // @ts-expect-error
+setWalletType(JSON.parse(localStorage.getItem('WalletType')))
+}
   let chainId = await val.getChainId();
   if(walletType === 'keplr') {
     let keplr = await getKeplrFromWindow();
@@ -175,6 +190,34 @@ const fetchKeplrDetails = async (val: any) => {
   );
   
   
+}else if(walletType === 'leap') {
+
+   
+          // @ts-expect-error
+  window.leap?.getKey(chainId).then(async () => {
+       
+          // @ts-expect-error
+    let pubkey = await window.leap?.getKey(chainId);
+   let bech32 = pubkey?.bech32Address;
+  if (bech32) {
+    let roBalance = await val.getAllBalances(bech32);
+   
+          // @ts-expect-error
+      dispatch(setQSBalance(roBalance));
+                // @ts-expect-error
+  dispatch(setQuicksilverAddress(bech32));
+
+  }
+
+  }).catch((e) =>{ console.log('err', e.message);
+  alert('Please add account');
+ 
+}
+
+
+);
+
+
 } else if(walletType === 'cosmostation') {
           // @ts-expect-error
           window.cosmostation.providers.keplr?.getKey(chainId).then(async () => {

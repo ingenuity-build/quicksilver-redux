@@ -132,6 +132,7 @@ export default function Navbar(props: PropComponent) {
     const fetchNetworkDetails = async (val: any) => {
              // @ts-expect-error
              dispatch(setNetworkBalance([]));
+             if(walletType === 'keplr') {
       let keplr = await getKeplrFromWindow();
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
@@ -139,10 +140,41 @@ export default function Navbar(props: PropComponent) {
       // props.setNetworkAddress(bech32);
  // @ts-expect-error
       dispatch(setNetworkAddress(bech32))
+      
       if (bech32) {
         let roBalance = await val.getAllBalances(bech32);
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
+      } }
+      else if(walletType === 'leap') {
+        let chainId = await val.getChainId();
+             // @ts-expect-error
+        let pubkey = await window.leap?.getKey(chainId);
+        let bech32 = pubkey?.bech32Address;
+        // props.setNetworkAddress(bech32);
+   // @ts-expect-error
+        dispatch(setNetworkAddress(bech32))
+        
+        if (bech32) {
+          let roBalance = await val.getAllBalances(bech32);
+                // @ts-expect-error
+            dispatch(setNetworkBalance(roBalance));
+        }
+      } else if(walletType === 'cosmostation') {
+        let chainId = await val.getChainId();
+             // @ts-expect-error
+        let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+        let bech32 = pubkey?.bech32Address;
+        // props.setNetworkAddress(bech32);
+   // @ts-expect-error
+        dispatch(setNetworkAddress(bech32))
+        
+        if (bech32) {
+          let roBalance = await val.getAllBalances(bech32);
+                // @ts-expect-error
+            dispatch(setNetworkBalance(roBalance));
+        }
+
       }
     }
    
