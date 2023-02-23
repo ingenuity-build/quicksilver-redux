@@ -91,6 +91,9 @@ useEffect(() => {
   <h2 className="mt-4">Choose Your Network </h2>
       <p className="mt-2">Select network using the dropdown in the navigation bar
 </p> 
+<div className="atom-msg">
+<p className="mt-4 font-italic">Staking ATOM has been temporarily suspended to a scheduled maintenance and will be enabled again shortly.</p>
+</div>
 </div>}
 {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
