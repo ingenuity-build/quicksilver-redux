@@ -89,3 +89,10 @@ border: 2px solid #D35100;
 .wallet-details {
     z-index: 1;
 }
+
+.atom-msg{
+    left: 20%;
+    position: fixed;
+    bottom: 50px;
+    width: 80%;
+}
