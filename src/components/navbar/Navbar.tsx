@@ -174,12 +174,21 @@ export default function Navbar(props: PropComponent) {
   }
 
   useEffect(() => {
-    window.addEventListener("keplr_keystorechange", () => {
-      // @ts-expect-error
-      dispatch(setNetworkBalance([]));
-        connectNetwork(selectedNetwork.chain_id);
-    })
-  }, []);
+    if(walletType === 'keplr') {
+      window.addEventListener("keplr_keystorechange", () => {
+        // @ts-expect-error
+        dispatch(setNetworkBalance([]));
+          connectNetwork(selectedNetwork.chain_id);
+      })
+    } else if(walletType === 'leap') {
+      window.addEventListener("leap_keystorechange", () => {
+        // @ts-expect-error
+        dispatch(setNetworkBalance([]));
+          connectNetwork(selectedNetwork.chain_id);
+      })
+    }
+
+  }, [walletType]);
 
   React.useEffect(() => {
     let timer: any;
@@ -230,6 +239,11 @@ export default function Navbar(props: PropComponent) {
                     dispatch(setSelectedNetworkFunc("Select a network"));
          // @ts-expect-error
          dispatch(setQSWalletDisconnected())
+         // @ts-expect-error 
+        dispatch(setQSBalance([]));
+           // @ts-expect-error 
+           dispatch(setQuicksilverAddress(''));
+         
  }
     return (
 

@@ -19,7 +19,7 @@ export default function NetworkSelection() {
     const { networks, hasErrors } = useSelector(networksSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
    const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
-   const {balances, quicksilverAddress} = useSelector(quicksilverSelector);
+   const {balances, quicksilverAddress, walletType} = useSelector(quicksilverSelector);
   const {validatorList} = useSelector(validatorListSelector);
   const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
@@ -69,11 +69,19 @@ useEffect(() => {
 }, [networkBalances, selectedNetwork])
 
 useEffect(() => {
+  if(walletType === 'keplr') {
   window.addEventListener("keplr_keystorechange", () => {
     setQCKBalance(0);
     setZoneBalance(0);
 
   })
+} else if(walletType === 'leap') {
+  window.addEventListener("leap_keystorechange", () => {
+    setQCKBalance(0);
+    setZoneBalance(0);
+
+  })
+}
 }, []);
 
   let onNext = () => {

@@ -193,12 +193,20 @@ connectKeplr();
 
 
 React.useEffect(() => {
+  if(walletType === 'keplr') {
   window.addEventListener("keplr_keystorechange", () => {
              // @ts-expect-error
              dispatch(setQSBalance([]));
     connectToQS();
   })
-}, []);
+} else if(walletType === 'leap') {
+  window.addEventListener('leap_keystorechange', () => {
+             // @ts-expect-error
+             dispatch(setQSBalance([]));
+    connectToQS();
+  })
+}
+}, [walletType]);
 
 const connectToQS = () => {
   initKeplrWithQuickSilver(async(key: string, val: SigningStargateClient) => {
