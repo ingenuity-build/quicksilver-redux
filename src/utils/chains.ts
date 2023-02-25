@@ -53,7 +53,8 @@ export const initKeplr = async (fn: Function):Promise<void> => {
     } 
 }
 
-export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => { 
+export const initKeplrWithQuickSilver = async (fn: Function, walletType: string):Promise<void> => { 
+  if(walletType === 'keplr') {
     const keplr = await getKeplrFromWindow();
     // console.log(keplr?.getKey(QuickSilverChainInfo.chainId));
         if (keplr) {
@@ -63,24 +64,54 @@ export const initKeplrWithQuickSilver = async (fn: Function):Promise<void> => {
                 let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
                 let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                 fn(QuickSilverChainInfo.chainId, offlineSigner)
+                localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
                 console.log("Enabled for chainid " + QuickSilverChainInfo.chainId)
             }, (reason: any) => { 
                 keplr.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
                     let signer = keplr.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
                     let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
                     fn(QuickSilverChainInfo.chainId, offlineSigner)
+                    localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
                     console.log("Added to Keplr for chainid " + QuickSilverChainInfo.chainId) 
                 }) 
             })
         }
-    
+      } else if(walletType === 'leap') {
+
+
+
+        // @ts-expect-error
+            window.leap
+            .enable(QuickSilverChainInfo.chainId)
+            .then(async () => { 
+                      // @ts-expect-error
+                let signer = window.leap.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+                let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+                fn(QuickSilverChainInfo.chainId, offlineSigner)
+                localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
+                console.log("Enabled for chainid LEAP" + QuickSilverChainInfo.chainId)
+            }, (reason: any) => { 
+                      // @ts-expect-error
+                window.leap.experimentalSuggestChain(QuickSilverChainInfo).then(async () => { 
+                          // @ts-expect-error
+                    let signer = window.leap.getOfflineSignerOnlyAmino(QuickSilverChainInfo.chainId); 
+                    let offlineSigner = await getSigningQuicksilverClient({rpcEndpoint: QuickSilverChainInfo.rpc, signer: signer});
+                    fn(QuickSilverChainInfo.chainId, offlineSigner)
+                     localStorage.setItem( 'ChainId', JSON.stringify(QuickSilverChainInfo.chainId) );
+                    console.log("Added to Leap for chainid " + QuickSilverChainInfo.chainId) 
+                }) 
+            })
+
+
+
+} 
    
 }
 
-export const initKeplrWithNetwork = async (fn: Function, network?: string):Promise<void> => { 
+export const initKeplrWithNetwork = async (fn: Function, walletType: string, network?: string):Promise<void> => { 
     const keplr = await getKeplrFromWindow();
     console.log(network);
-    if (keplr && network) {
+    if (keplr && network && walletType === 'keplr') {
            // @ts-expect-error
         const chain : ChainInfo  = ChainInfos.find( function(el) { return el.chainId === network})
             keplr
@@ -101,5 +132,32 @@ export const initKeplrWithNetwork = async (fn: Function, network?: string):Promi
                     console.log('Offline Signer 2', offlineSigner);
                 }) 
             })
-        }
+        } else if(network && walletType === 'leap') {
+
+          // @ts-expect-error
+       const chain : ChainInfo  = ChainInfos.find( function(el) { return el.chainId === network})
+               // @ts-expect-error
+           window.leap
+           .enable(chain?.chainId)
+           .then(async () => { 
+              // @ts-expect-error
+               let signer = window.leap.getOfflineSignerOnlyAmino(chain?.chainId); 
+               let offlineSigner = await SigningStargateClient.connectWithSigner(chain?.rpc, signer, options)
+               fn(chain?.chainId, offlineSigner)
+               console.log("Enabled for chainid " + chain?.chainId)
+               console.log('Offline Signer 1', offlineSigner);
+
+           }, (reason: any) => { 
+               // @ts-expect-error
+               window.leap.experimentalSuggestChain(chain).then(async () => { 
+                   // @ts-expect-error
+                   let signer = window.leap.getOfflineSignerOnlyAmino(chain?.chainId); 
+                   let offlineSigner = await SigningStargateClient.connectWithSigner(chain?.rpc, signer, options)
+               fn(chain?.chainId, offlineSigner)
+                   console.log("Added to Keplr for chainid " + chain?.chainId) 
+                   console.log('Offline Signer 2', offlineSigner);
+               }) 
+           })
+
+      } 
 }
