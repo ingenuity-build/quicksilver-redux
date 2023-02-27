@@ -19,7 +19,7 @@ export default function NetworkSelection() {
     const { networks, hasErrors } = useSelector(networksSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
    const {networkAddress, networkBalances} = useSelector(selectedNetworkWalletSelector);
-   const {balances, quicksilverAddress} = useSelector(quicksilverSelector);
+   const {balances, quicksilverAddress, walletType} = useSelector(quicksilverSelector);
   const {validatorList} = useSelector(validatorListSelector);
   const [QCKBalance, setQCKBalance] = useState(0);
   const [zoneBalance, setZoneBalance] = useState(0);
@@ -58,7 +58,7 @@ useEffect(() => {
 
 useEffect(() => {
 
-  if(networkBalances.length > 0) {
+  if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     console.log('balance', balance)
     if(balance) {
@@ -69,10 +69,19 @@ useEffect(() => {
 }, [networkBalances, selectedNetwork])
 
 useEffect(() => {
+  if(walletType === 'keplr') {
   window.addEventListener("keplr_keystorechange", () => {
+    setQCKBalance(0);
     setZoneBalance(0);
 
   })
+} else if(walletType === 'leap') {
+  window.addEventListener("leap_keystorechange", () => {
+    setQCKBalance(0);
+    setZoneBalance(0);
+
+  })
+}
 }, []);
 
   let onNext = () => {
@@ -110,7 +119,6 @@ useEffect(() => {
     <h5 className="font-bold">{QCKBalance ? QCKBalance : 0}</h5>
      
       {selectedNetwork.local_denom && <p> {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()}</p>}
-      {}
     </div>
 
   </div>
