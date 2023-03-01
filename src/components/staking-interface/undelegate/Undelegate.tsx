@@ -65,7 +65,7 @@ useEffect(() => {
 }, [epochs, selectedNetwork])
 
 useEffect(() => {
-    setUnbondingSum(withdrawals.reduce((partialSum: any, a: any) => partialSum + a.amount[0].amount/1000000, 0));
+    setUnbondingSum(withdrawals.reduce((partialSum: any, a: any) => partialSum + a.amount[0].amount/(Math.pow(10, selectedNetwork.decimals)), 0));
 }, [withdrawals, selectedNetwork])
 
   useEffect(() => {
@@ -99,7 +99,7 @@ setUnstakingAmount(QCKBalance);
         fromAddress: quicksilverAddress,
         value: {
           "denom": selectedNetwork.local_denom,
-          "amount": "" + (unstakingAmount * 1000000)
+          "amount": "" + (unstakingAmount * Math.pow(10, selectedNetwork.decimals))
         },
         destinationAddress: networkAddress
       }
@@ -172,7 +172,7 @@ setUnstakingAmount(QCKBalance);
 
          
                 <tr>
-      <td>{row?.amount[0].amount/1000000} {selectedNetwork.base_denom.slice(1).toUpperCase()} </td>
+      <td>{row?.amount[0].amount/(Math.pow(10, selectedNetwork.decimals))} {selectedNetwork.base_denom.slice(1).toUpperCase()} </td>
                 {row.status === 1 && <td> A few minutes later.. </td>}
                 {row.status === 2 && <td> {Moment(time).format('MMMM Do YYYY, h:mm a')}</td>} 
                 {row.status === 3 && <td>{Moment(row.completion_time).format('MMMM Do YYYY, h:mm a').toLocaleString()} </td>}

@@ -62,7 +62,7 @@ useEffect(() => {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
     console.log('balance', balance)
     if(balance) {
-     setZoneBalance((balance.amount)/1000000);
+     setZoneBalance((balance.amount)/(Math.pow(10, selectedNetwork.decimals)));
     } 
  
 }

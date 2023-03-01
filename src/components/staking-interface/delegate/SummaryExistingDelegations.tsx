@@ -120,12 +120,12 @@ export default function SummaryExistingDelegations() {
   
           <div className="summary-existing-delegations-pane d-flex mt-4 justify-content-center align-items-center flex-column">
               <h2 className="mt-4"> Summary</h2>
-              <h5 className="mt-4"> Total Stake: <span className="font-bold">{totalStake/1000000} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></h5>
+              <h5 className="mt-4"> Total Stake: <span className="font-bold">{totalStake/(Math.pow(10, selectedNetwork.decimals))} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></h5>
               <h5>Redemption Rate:  <span className="font-bold">1 {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.charAt(2).toUpperCase() + selectedNetwork.local_denom.slice(3)} =  {parseFloat(selectedNetwork?.redemption_rate).toFixed(4)} {selectedNetwork.base_denom.charAt(1).toUpperCase() + selectedNetwork.base_denom.slice(2)} </span></h5>
-              <h5>qTokens Received:  <span className="font-bold">{(totalStake/1000000)/selectedNetwork?.redemption_rate}</span></h5>
+              <h5>qTokens Received:  <span className="font-bold">{(totalStake/(Math.pow(10, selectedNetwork.decimals)))/selectedNetwork?.redemption_rate}</span></h5>
               <h6 className="mt-4"> Existing Delegations: </h6>
               {selectedExistingDelegations.map((x: any) => <>
-                   <h6> {x['name']} :  <span className="font-bold">{x.coins[0].amount/1000000} {x.coins[0].denom.charAt(1).toUpperCase() + x.coins[0].denom.slice(2)} </span></h6></> )}
+                   <h6> {x['name']} :  <span className="font-bold">{x.coins[0].amount/(Math.pow(10, selectedNetwork.decimals))} {x.coins[0].denom.charAt(1).toUpperCase() + x.coins[0].denom.slice(2)} </span></h6></> )}
                    <button   className="stake-button mt-3 mb-2" onClick={stakeExistingDelegations} > STAKE EXISTING DELEGATIONS </button>
               
  

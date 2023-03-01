@@ -64,7 +64,7 @@ export default function SummaryValidators() {
       const msgSend = {
         fromAddress: networkAddress,
         toAddress: selectedNetwork.deposit_address.address,
-        amount: coins((stakingAmount * 1000000), selectedNetwork.base_denom),
+        amount: coins((stakingAmount * (Math.pow(10, selectedNetwork.decimals))), selectedNetwork.base_denom),
       };
       
       const msgAny = {
