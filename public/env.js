@@ -5,5 +5,5 @@ window.env = {
   "REACT_APP_ENABLE_SET_INTENT": "false",
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
-  "WHITELISTED_ZONES": "quickstar-1,quickgaia-1,quickosmo-1"
+  "WHITELISTED_ZONES": "quickstar-1,quickgaia-1"
 };
