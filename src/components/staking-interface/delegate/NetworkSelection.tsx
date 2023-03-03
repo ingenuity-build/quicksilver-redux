@@ -81,6 +81,13 @@ useEffect(() => {
     setZoneBalance(0);
 
   })
+} 
+else if(walletType === 'cosmostation') {
+  // @ts-expect-error
+window.cosmostation.cosmos.on("accountChanged", () => {
+  setQCKBalance(0);
+  setZoneBalance(0);
+});
 }
 }, []);
 
