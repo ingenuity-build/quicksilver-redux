@@ -6,4 +6,4 @@ window.env = {
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
   "WHITELISTED_ZONES": "stargaze-1,cosmoshub-4"
-};  
+};

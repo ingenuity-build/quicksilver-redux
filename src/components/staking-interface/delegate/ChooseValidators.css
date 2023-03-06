@@ -71,3 +71,7 @@ padding: 1rem;
 ::placeholder {
     color: white;
   }
+
+  button {
+    z-index: 999;
+  }

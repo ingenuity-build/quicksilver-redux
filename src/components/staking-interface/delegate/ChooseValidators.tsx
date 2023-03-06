@@ -9,6 +9,8 @@ import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exce
 // import osmosis from '../../../assets/osmosis';
 // import qStar from '../../../assets/qStar.png';
 import ValidatorImg from '../../../assets/validator.png';
+import Switch from 'rc-switch';
+import type { SwitchChangeEventHandler } from 'rc-switch';
 
 
 export interface Data {
@@ -32,6 +34,7 @@ export default function ChooseValidators() {
    // const {selectedValidatorList} = useSelector(selectedValidatorListSelector);
     const [selectedValidators, setSelectedValidators] = React.useState<Array<Data>>(selectedValidatorList);
     const [validators, setValidators] = React.useState(validatorList);
+    const [disabled, setDisabled] = useState(false);
 
     
 
@@ -67,12 +70,12 @@ export default function ChooseValidators() {
         if(selectedValidatorList.length === 0 ) {
             // let newArray = [];
             // newArray = validators.map((val: any) => { val.active = false; return val});
-            let newData = validators.map((val: any) => 
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => 
             Object.assign({}, val, {active:false})
             )       
             setValidators([...newData].sort(() => Math.random() - 0.5));
         }  else {
-            let newData = validators.map((val: any) => {
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
                 if(selectedValidatorList.find((x: any) => x.address === val.address)) {
                    return Object.assign({}, val, {active: true})
                 } else {
@@ -131,11 +134,42 @@ const onNext = () => {
         }
 
 
+        const onChange: SwitchChangeEventHandler = (value, event) => {
+            // eslint-disable-next-line no-console
+            if(value === true) {
+                let newData = validatorList.map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+            } else if(value === false) {
+                let newData = validatorList.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+
+            }
+          }
+
+          
     return (
 
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3 choose-heading"> Choose Validators </h2>
-        
+        <Switch
+        onChange={onChange}
+        checkedChildren="selected validators"
+        unCheckedChildren="all validators"
+      />
         <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
 
           <div className="mt-3 validators row justify-content-center">
