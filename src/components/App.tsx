@@ -205,7 +205,7 @@ connectKeplr();
    }
 } else if(walletType === 'cosmostation') {
   // @ts-expect-error
-   if (window &&  !window.cosmostation.providers.keplr) {
+   if (window &&  !window.cosmostation) {
    alert("Please install cosmostation extension");	    
 }  else {	
  connectKeplr();
