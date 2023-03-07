@@ -47,7 +47,7 @@ const loadValData = async (chainId: string): Promise<any> => {
   
     const result = await fetch(`https://data.${env.ZONE_URL}/validatorList/${chainId}`)
     return await result.json();
-
+    console.log(await result.json())
 }
 
 type ValResponse = {
@@ -105,9 +105,11 @@ export function _loadValsAsync(chainId: string)  {
                 commission: line.commission.commission_rates.rate.toString(),
                 address : line.operator_address,
                 logo: "",
+                status: line.status
               }});
               
               dispatch(getValidatorListSuccess(vals))
+              console.log(vals)
         }).catch(
           dispatch(getValidatorListFailure())
         );
@@ -153,6 +155,7 @@ export interface Data {
     name: string;
     address: string;
     logo: string;
+    status: string
   }
 
   export function setSelectedValidatorList(val: any) {
