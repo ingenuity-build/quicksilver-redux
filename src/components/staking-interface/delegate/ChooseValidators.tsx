@@ -11,6 +11,7 @@ import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exce
 import ValidatorImg from '../../../assets/validator.png';
 import Switch from 'rc-switch';
 import type { SwitchChangeEventHandler } from 'rc-switch';
+import 'rc-switch/assets/index.css'
 
 
 export interface Data {
@@ -165,13 +166,15 @@ const onNext = () => {
 
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3 choose-heading"> Choose Validators </h2>
+        <div>
+            <p> Show all validators</p>
         <Switch
         onChange={onChange}
         checkedChildren="selected validators"
         unCheckedChildren="all validators"
       />
         <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
-
+</div>
           <div className="mt-3 validators row justify-content-center">
           {validatorList.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
