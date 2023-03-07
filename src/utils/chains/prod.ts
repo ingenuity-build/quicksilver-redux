@@ -2,7 +2,7 @@ import { ChainInfo } from "@keplr-wallet/types";
 
 export const ProdQuickSilverChainInfo : ChainInfo = {
     chainId: "quicksilver-2",
-    chainName: "Quicksilver",
+    chainName: "Quicksilver Protocol",
     rpc: "https://rpc.quicksilver.zone",
     rest: "https://lcd.quicksilver.zone",
     bip44: {
@@ -74,7 +74,7 @@ export const ProdChainInfos: ChainInfo[] = [
     ProdQuickSilverChainInfo,
 {
     chainId: "cosmoshub-4",
-    chainName: "Cosmos Hub",
+    chainName: "CosmosHub",
     rpc: "https://rpc.cosmoshub-4.quicksilver.zone",
     rest: "https://lcd.cosmoshub-4.quicksilver.zone",
     

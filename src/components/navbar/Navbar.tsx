@@ -156,6 +156,21 @@ export default function Navbar(props: PropComponent) {
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
       }
+    }  else if(walletType === 'cosmostation') {
+      let chainId = await val.getChainId();
+           // @ts-expect-error
+      let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+      let bech32 = pubkey?.bech32Address;
+      // props.setNetworkAddress(bech32);
+ // @ts-expect-error
+      dispatch(setNetworkAddress(bech32))
+
+      if (bech32) {
+        let roBalance = await val.getAllBalances(bech32);
+              // @ts-expect-error
+          dispatch(setNetworkBalance(roBalance));
+      }
+
     }
     }
    
@@ -186,7 +201,14 @@ export default function Navbar(props: PropComponent) {
         dispatch(setNetworkBalance([]));
           connectNetwork(selectedNetwork.chain_id);
       })
-    }
+    } else if(walletType === 'cosmostation') {
+      // @ts-expect-error
+    window.cosmostation.cosmos.on("accountChanged", () => {
+                // @ts-expect-error
+                dispatch(setNetworkBalance([]));
+                connectNetwork(selectedNetwork.chain_id);
+    });
+  }
 
   }, [walletType]);
 

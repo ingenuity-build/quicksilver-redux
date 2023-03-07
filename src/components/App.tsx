@@ -123,6 +123,23 @@ alert('Please add account');
 );
 
 
+} else if(walletType === 'cosmostation') {
+  // @ts-expect-error
+  window.cosmostation.providers.keplr?.getKey(chainId).then(async () => {
+    // @ts-expect-error
+let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+console.log('pubkey', pubkey)
+let bech32 = pubkey?.bech32Address;
+if (bech32) {
+let roBalance = await val.getAllBalances(bech32);
+
+    // @ts-expect-error
+dispatch(setQSBalance(roBalance));
+          // @ts-expect-error
+dispatch(setQuicksilverAddress(bech32));
+
+}
+})
 }
   }
 
@@ -186,7 +203,15 @@ connectKeplr();
    }  else {
    connectKeplr();
    }
-};
+} else if(walletType === 'cosmostation') {
+  // @ts-expect-error
+   if (window &&  !window.cosmostation) {
+   alert("Please install cosmostation extension");	    
+}  else {	
+ connectKeplr();
+}  	
+
+}
   }
 
 
@@ -205,6 +230,13 @@ React.useEffect(() => {
              dispatch(setQSBalance([]));
     connectToQS();
   })
+} else if(walletType === 'cosmostation') {
+    // @ts-expect-error
+  window.cosmostation.cosmos.on("accountChanged", () => {
+           // @ts-expect-error
+           dispatch(setQSBalance([]));
+           connectToQS();
+  });
 }
 }, [walletType]);
 
