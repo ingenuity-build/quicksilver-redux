@@ -60,3 +60,9 @@ color: #D35100;
     cursor: not-allowed;
    pointer-events: none;
   }
+
+  .connect-wallet-modal .leap-logo {
+    height: 30px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
