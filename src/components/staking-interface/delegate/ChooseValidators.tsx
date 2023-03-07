@@ -167,14 +167,15 @@ const onNext = () => {
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3 choose-heading"> Choose Validators </h2>
         <div>
-            <p> Show all validators</p>
-        <Switch
-        onChange={onChange}
-        checkedChildren="selected validators"
-        unCheckedChildren="all validators"
-      />
+      
         <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
-</div>
+      </div>
+      <span className="mx-4 pl-2 mt-4">
+        Show all Validators
+        <Switch className="mx-2"
+        onChange={onChange}
+      />
+      </span>
           <div className="mt-3 validators row justify-content-center">
           {validatorList.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
