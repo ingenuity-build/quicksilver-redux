@@ -3,8 +3,8 @@ import './Assets.css';
 import {quicksilverSelector} from '../../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
-import qStar from '../../assets/qStar.png';
-import qAtom from '../../assets/qAtom.svg';
+import qStar from '../../assets/qSTAR.svg';
+import qAtom from '../../assets/qATOM.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
 import qRegen from '../../assets/qRegen.svg';
@@ -270,7 +270,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
                 {bal.denom !== 'uqck' &&  <ReactTooltip
         anchorId={i.toLocaleString()}
         place="bottom"
-        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(2) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
+        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(4) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
       />}
 
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}

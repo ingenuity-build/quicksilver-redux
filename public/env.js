@@ -5,5 +5,5 @@ window.env = {
   "REACT_APP_ENABLE_SET_INTENT": "false",
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
-  "WHITELISTED_ZONES": "regen-1,stargaze-1,cosmoshub-4"
+  "WHITELISTED_ZONES": "cosmoshub-4,stargaze-1,regen-1"
 };
