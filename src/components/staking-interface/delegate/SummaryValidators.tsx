@@ -81,8 +81,8 @@ export default function SummaryValidators() {
           "gas": "200000",
           "amount": [
             {
-              "denom": "umuon",
-              "amount": "300"
+              "denom": selectedNetwork.base_denom,
+              "amount": "2000"
             }
           ]
         },
