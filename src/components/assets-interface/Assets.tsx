@@ -4,7 +4,7 @@ import {quicksilverSelector} from '../../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
 import qStar from '../../assets/qSTAR.svg';
-import qAtom from '../../assets/qATOM.svg';
+import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
 import qRegen from '../../assets/qRegen.svg';
