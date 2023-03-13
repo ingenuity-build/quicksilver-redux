@@ -10,7 +10,8 @@ balances: [],
 walletQS: new Map<string, SigningStargateClient>(),
   loading: false,
   quicksilverClient: {},
-  quicksilverAddress: ''
+  quicksilverAddress: '',
+  walletType: ''
 }
 const quicksilverNetworkSlice = createSlice({
   name: 'quicksilver-wallet',
@@ -38,10 +39,15 @@ const quicksilverNetworkSlice = createSlice({
     },
     setQuicksilverAddressSuccess :  (state, { payload }) => {
       state.quicksilverAddress = payload
+},setISQSWalletDisconnectedSuccess: state => {
+  state.isQSWalletConnected = false;
+  state.loading = false;
+},setWalletTypeSuccess :  (state, { payload }) => {
+  state.walletType = payload
 },
   },
 })
-export const { setIsQSWalletConnected, setISQSWalletDisconnectedSuccess, setQuicksilverAddressSuccess, setClientSuccess, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
+export const { setIsQSWalletConnected,setISQSWalletDisconnectedSuccess,  setQuicksilverAddressSuccess, setWalletTypeSuccess, setClientSuccess, setIsQSWalletConnectedSuccees, setBalancesQSSuccess, setWalletQSSuccess } = quicksilverNetworkSlice.actions
 export const quicksilverSelector = (state:any)  => state.quicksilver;
 
 // The reducer
@@ -98,3 +104,22 @@ export function setQSWalletConnected() {
                       }
                     }
                 }
+
+                export function setQSWalletDisconnected() {
+                  return async (dispatch: any) => {
+            
+                      try {
+                          dispatch(setISQSWalletDisconnectedSuccess())
+                        } catch (error) {
+                        }
+                      }
+                  }
+
+                export function setWalletType(wallet: any) {
+                  return async (dispatch: any) => {
+                      try {
+                          dispatch(setWalletTypeSuccess(wallet))
+                        } catch (error) {
+                        }
+                      }
+                  }

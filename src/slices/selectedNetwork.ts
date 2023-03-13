@@ -38,10 +38,10 @@ export function setSelectedNetworkFunc(val: any) {
   
       try {
         if(val !== "Select a network") { 
-        dispatch(setSelectedNetworkSuccess(val.value)) }
-        else {
-          dispatch(setSelectedNetworkSuccess(val))
-        }
+          dispatch(setSelectedNetworkSuccess(val.value)) }
+          else {
+            dispatch(setSelectedNetworkSuccess(val))
+          }
       } catch (error) {
         dispatch(setSelectedNetworksFailure())
       }

@@ -28,8 +28,8 @@ font-style: normal;
 font-weight: 600;
 font-size: 16px;
 color: #FFFFFF;
-min-width: 200px;   
-order:2;
+min-width: 200px;
+order: 2;
 }
 
 
@@ -179,4 +179,4 @@ text-transform: uppercase !important;
     .logout {
         margin-bottom: 2px;
         margin-left: 10px;
-    }
+    }	
