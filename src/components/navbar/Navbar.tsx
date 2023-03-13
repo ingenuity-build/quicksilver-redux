@@ -12,7 +12,6 @@ import Logo from '../../assets/quicksilverlogo.svg';
 import Logout from '../../assets/logout.svg'
 import './Navbar.css';
 import Wallet from '../../assets/icons/wallet.svg';
-import Logout from '../../assets/logout.svg'
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
