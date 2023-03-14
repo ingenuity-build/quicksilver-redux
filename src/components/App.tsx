@@ -25,6 +25,7 @@ import { increaseStakingStep } from "../slices/stakingActiveStep";
 import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
+import { useParams } from "react-router-dom";
 
 
 function useIdle(options: any) {
@@ -47,6 +48,7 @@ function App() {
   const isIdle = useIdle({timeToIdle: 1800000});
   const [loading, setLoading] = React.useState(false);
   const [val, setVal] = React.useState<SigningStargateClient>();
+  let params = useParams();
 
 
 
@@ -159,6 +161,12 @@ dispatch(setQuicksilverAddress(bech32));
       connectKeplr();
      }
   }, [key])
+
+  React.useEffect(() => {
+    if(params.chainid) {
+      connectKeplr();
+    }
+  }, [])
 
 
   const connectKeplr = async () => {
