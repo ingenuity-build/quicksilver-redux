@@ -21,7 +21,7 @@ import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setQSWallet,setQSWalletConnected, setQSBalance,  quicksilverSelector, setQSClient, setQuicksilverAddress, setWalletType } from '../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import {  setModalClose } from '../slices/connectWalletModal';
-import { increaseStakingStep } from "../slices/stakingActiveStep";
+import { increaseStakingStep, setStakingStep } from "../slices/stakingActiveStep";
 import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
@@ -163,13 +163,14 @@ dispatch(setQuicksilverAddress(bech32));
   }, [key])
 
   React.useEffect(() => {
-    if(params.chainid) {
+
       connectKeplr();
-    }
+    
   }, [])
 
 
   const connectKeplr = async () => {
+    console.log('bye')
     setLoading(true);
     if(walletType === '') {
       //@ts-expect-error
@@ -189,7 +190,8 @@ dispatch(setQuicksilverAddress(bech32));
     dispatch(setModalClose());
     setLoading(false);
            // @ts-expect-error
-    dispatch(increaseStakingStep());
+    dispatch(setStakingStep(2));
+    console.log('what')
   // @ts-expect-error
   dispatch(increaseRedelegateStep())
     }, walletType
@@ -279,6 +281,7 @@ const connectToQS = () => {
                 
                       <Route path="/stake" element={<Stake/>} >
           <Route path="delegate" element={<Delegate/>} />
+          <Route path="delegate/:chainid" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="undelegate" element={<Undelegate />} />
           <Route path="redelegate" element={<Redelegate />} /> 
         </Route>

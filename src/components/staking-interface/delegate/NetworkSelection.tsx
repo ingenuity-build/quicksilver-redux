@@ -142,7 +142,6 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 
 </div>
 
-
     </>
 
     )

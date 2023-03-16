@@ -33,7 +33,7 @@ import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 import { setStakingAllocationProp, setStakingAmount } from '../../slices/allocation';
 import { setQSWallet, setQSWalletConnected, setQSBalance, setQSClient, setQSWalletDisconnected, setQuicksilverAddress } from '../../slices/quicksilver';
-
+import { useParams } from 'react-router-dom';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
@@ -74,6 +74,7 @@ export default function Navbar(props: PropComponent) {
 
   const [QCKBalance, setQCKBalance] = useState(0);
   const [network, setNetwork] = useState();
+  const params = useParams()
 
 
   useEffect(() => {
@@ -118,6 +119,7 @@ export default function Navbar(props: PropComponent) {
 
     useEffect(() => {
       if (selectedNetwork !== "Select a network") {
+        console.log('wow')
              // @ts-expect-error
         dispatch(setNetworkAddress(''))
         connectNetwork(selectedNetwork.chain_id);
@@ -241,6 +243,10 @@ export default function Navbar(props: PropComponent) {
     dispatch(setRedelegateValidatorList([]))
   }
 
+
+
+
+
   const logout = () => {
     selectInputRef.current.clearValue();
                // @ts-expect-error
@@ -318,6 +324,7 @@ export default function Navbar(props: PropComponent) {
           onChange={handleNetworkChange}
 
         />
+       
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(3) : 0}  QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}

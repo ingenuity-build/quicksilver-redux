@@ -77,7 +77,7 @@ const connectCosmostation = () => {
         <h4 className="text-center heading mb-4">Connect with  </h4>
         <div className="button-containers d-flex flex-column">
             <h4> {props.loading}</h4>
-    <button className={`${isKeplrInstalled ? 'm-2 p-3 keplr' : 'm-2 p-3 wallet-disabled'}`} disabled={props.loading } onClick={connectKeplr}><img src={Keplr}/>Keplr</button> 
+    <button className={`${isKeplrInstalled ? 'm-2 p-3 keplr' : 'm-2 p-3 wallet-disabled'}`}  onClick={connectKeplr}><img src={Keplr}/>Keplr</button> 
     <button className={`${isLeapInstalled ? 'm-2 p-3 keplr' : 'm-2 p-3 wallet-disabled disabled'}`} onClick={connectLeap}><img src={Leap}/>Leap</button>
     <button className={`${isCosmostationInstalled ? 'm-2 p-3 keplr' : 'm-2 p-3 wallet-disabled'}`} onClick={connectCosmostation} > <img className="leap-logo" src={Cosmostation}/> Cosmostation </button>
     {props.loading && <h5 className="text-center mt-2"> Connecting...</h5>}
