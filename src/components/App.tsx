@@ -147,6 +147,7 @@ dispatch(setQuicksilverAddress(bech32));
 
 
   useEffect(() => {
+  
     if(walletType !== '') {
   handleClickOpen()
     }
@@ -162,11 +163,7 @@ dispatch(setQuicksilverAddress(bech32));
      }
   }, [key])
 
-  React.useEffect(() => {
 
-      connectKeplr();
-    
-  }, [])
 
 
   const connectKeplr = async () => {

@@ -32,9 +32,9 @@ export default function Delegate(props:any) {
 
 
     useEffect(() => {
-        console.log(params.chainid);
-        if( !isQSWalletConnected) {
-            props.connectKeplr();
+        console.log(params?.chainid);
+        if( !isQSWalletConnected && params.chain_id) {
+            props?.connectKeplr();
             
         }
         if(selectedNetwork === "Select a network") {
