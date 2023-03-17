@@ -67,6 +67,13 @@ border: 2px solid #D35100;
       color: rgba(0,0,0,0.7);
   }
 
+  .network-selection-pane {
+    z-index: 2
+  }
+
+  .network-selection-pane:hover {
+    z-index:3
+  }
 
  
   .copy-button {
@@ -98,3 +105,7 @@ border: 2px solid #D35100;
     bottom: 50px;
     width: 80%;
 }
+
+.question:hover {
+    cursor: pointer;
+  }

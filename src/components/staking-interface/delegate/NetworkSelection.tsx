@@ -12,7 +12,8 @@ import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } f
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../../slices/selectedNetworkWallet";
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import { validatorListSelector } from "../../../slices/validatorList";
-
+import { Tooltip as ReactTooltip} from "react-tooltip";
+import Question from '../../../assets/icons/question-mark.svg';
 
 export default function NetworkSelection() {
     const dispatch = useDispatch()
@@ -113,7 +114,16 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 </div>}
 {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
-  <h4 className="mt-3"> My Wallet</h4>
+  <div className="text-center mt-3">
+  <h5 className="font-bold">22%</h5>
+  <p>APY for ATOM staked on Quicksilver <span><img id="APY-message"  className="question"  src={Question}/></span></p>
+  <ReactTooltip
+        anchorId="APY-message"
+        place="bottom"
+        content={"APY is accrued by an increase in the value of qATOM relative to ATOM. Total qATOM in the wallet does not change."}
+      />
+  </div>
+  <h4 className="mt-4"> My Wallet</h4>
   {networkAddress && <h6 className="mt-3"> {networkAddress} <button className="mx-2 copy-button"
   onClick={handleClick}
   >
