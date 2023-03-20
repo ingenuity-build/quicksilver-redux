@@ -91,10 +91,3 @@ border: 2px solid #D35100;
     z-index: 1;
 }
 
-
-.disable-msg{
-    left: 20%;
-    position: fixed;
-    bottom: 50px;
-    width: 80%;
-}

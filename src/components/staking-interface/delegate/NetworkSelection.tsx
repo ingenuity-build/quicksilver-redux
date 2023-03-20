@@ -107,9 +107,6 @@ window.cosmostation.cosmos.on("accountChanged", () => {
   <h2 className="mt-4">Choose Your Network </h2>
       <p className="mt-2">Select network using the dropdown in the navigation bar
 </p> 
-<div className="disable-msg">
-<p className="mt-4 font-italic">REGEN deposits will be re-enabled soon.</p>
-</div>
 </div>}
 {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
 {selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
