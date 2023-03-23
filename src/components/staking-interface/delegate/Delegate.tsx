@@ -37,21 +37,21 @@ export default function Delegate(props: any) {
         }, [])
 
 
-    useEffect(() => {
-        if( isQSWalletConnected && params.chainid ) {
+      useEffect(() => {
+             // @ts-expect-error
+        if( isQSWalletConnected && process.env.REACT_APP_WHITELISTED_ZONES?.split(",").includes(params.chainid) ) {
                 console.log('heyyyyy')
-                let network = networks.find((y:any) => y.value.chain_id === params?.chainid); 
+                let network = networks.find((y:any) => y.value.chain_id === params?.chainid);
             console.log(network);
-                 // @ts-expect-error 
+                 // @ts-expect-error
                  dispatch(setSelectedNetworkFunc(network))
                       // @ts-expect-error
             dispatch(setStakingStep(2))
-        }
-         else if(params.chainid) {
+        }        // @ts-expect-error
+         else if( process.env.REACT_APP_WHITELISTED_ZONES?.split(",").includes(params.chainid) ){
                 // @ts-expect-error
   dispatch(setModalOpen());
          }
-        
     }, [networks ,isQSWalletConnected])
 
     useEffect(() => {
