@@ -19,7 +19,7 @@ export default function CongratulationsPane() {
 
   let time = Moment.utc().format(format);
   let beforeTime = Moment('17:00', format);
-    let afterTime = Moment('20:30', format);
+    let afterTime = Moment('17:30', format);
   if (Moment(time, 'HH:mm').isBetween(beforeTime, afterTime)) {
     console.log('heyy');
     setShowOsmoMessage(true);
