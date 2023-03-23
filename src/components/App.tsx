@@ -150,18 +150,19 @@ dispatch(setQuicksilverAddress(bech32));
     }
   }, [walletType])
 
-  let key;
-  useEffect(() => {
-     // @ts-expect-error
-     if(JSON.parse(localStorage.getItem('ChainId'))) {
-         // @ts-expect-error
-       key = JSON.parse(localStorage.getItem('ChainId'))
-      connectKeplr();
-     }
-  }, [key])
+  // let key;
+  // useEffect(() => {
+  //    // @ts-expect-error
+  //    if(JSON.parse(localStorage.getItem('ChainId'))) {
+  //        // @ts-expect-error
+  //      key = JSON.parse(localStorage.getItem('ChainId'))
+  //     connectKeplr();
+  //    }
+  // }, [key])
 
 
   const connectKeplr = async () => {
+    console.log('connectinggg')
     setLoading(true);
     if(walletType === '') {
       //@ts-expect-error
@@ -180,8 +181,8 @@ dispatch(setQuicksilverAddress(bech32));
            // @ts-expect-error
     dispatch(setModalClose());
     setLoading(false);
-           // @ts-expect-error
-    dispatch(increaseStakingStep());
+    //        // @ts-expect-error
+    // dispatch(increaseStakingStep());
   // @ts-expect-error
   dispatch(increaseRedelegateStep())
     }, walletType
@@ -270,7 +271,8 @@ const connectToQS = () => {
                       <Route path="/" element={<Landing/>}/>
                 
                       <Route path="/stake" element={<Stake/>} >
-          <Route path="delegate" element={<Delegate/>} />
+          <Route path="delegate" element={<Delegate connectKeplr={connectKeplr}/>} />
+          <Route path="delegate/:chainid" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="undelegate" element={<Undelegate />} />
           <Route path="redelegate" element={<Redelegate />} /> 
         </Route>

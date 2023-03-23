@@ -14,6 +14,7 @@ import {quicksilverSelector} from '../../../slices/quicksilver';
 import { validatorListSelector } from "../../../slices/validatorList";
 
 
+
 export default function NetworkSelection() {
     const dispatch = useDispatch()
     const { networks, hasErrors } = useSelector(networksSelector);
@@ -26,6 +27,7 @@ export default function NetworkSelection() {
   const initialText = 'Copy';
   const [buttonText, setButtonText] = useState(initialText);
   const [loadingValidators, setLoadingValidators] = useState(true);
+
   function handleClick() {
    navigator.clipboard.writeText(networkAddress)
    setButtonText('Address copied');
@@ -54,20 +56,6 @@ useEffect(() => {
   }
 }, [validatorList])
 
-
-
-useEffect(() => {
-
-  if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
-    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
-    console.log('balance', balance)
-    if(balance) {
-     setZoneBalance((balance.amount)/1000000);
-    } 
- 
-}
-}, [networkBalances, selectedNetwork])
-
 useEffect(() => {
   if(walletType === 'keplr') {
   window.addEventListener("keplr_keystorechange", () => {
@@ -90,6 +78,20 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 });
 }
 }, []);
+
+useEffect(() => {
+
+  if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
+    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
+    console.log('balance', balance)
+    if(balance) {
+     setZoneBalance((balance.amount)/1000000);
+    } 
+ 
+}
+}, [networkBalances, selectedNetwork])
+
+
 
   let onNext = () => {
         // @ts-expect-error

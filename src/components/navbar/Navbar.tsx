@@ -28,10 +28,12 @@ import { _loadValsAsync } from "../../slices/validatorList";
 import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
-import { setStakingStep} from "../../slices/stakingActiveStep";
+import { setStakingStep, stakingActiveStep} from '../../slices/stakingActiveStep';
+
 import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 import { setStakingAllocationProp, setStakingAmount } from '../../slices/allocation';
+
 import { setQSWallet, setQSWalletConnected, setQSBalance, setQSClient, setQSWalletDisconnected, setQuicksilverAddress } from '../../slices/quicksilver';
 
 // @ts-ignore
@@ -65,6 +67,8 @@ export default function Navbar(props: PropComponent) {
   const { networks, loading, hasErrors } = useSelector(networksSelector);
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
  const {networkAddress} = useSelector(selectedNetworkWalletSelector);
+ const [selectedOption, setSelectedOption] = useState({label:'Select..', image:'', value:{}});
+ const activeStep = useSelector(stakingActiveStep);
 
   const dispatch = useDispatch()
   const location = useLocation()
@@ -116,15 +120,9 @@ export default function Navbar(props: PropComponent) {
 
     }, [dispatch])
 
-    useEffect(() => {
-      if (selectedNetwork !== "Select a network") {
-             // @ts-expect-error
-        dispatch(setNetworkAddress(''))
-        connectNetwork(selectedNetwork.chain_id);
-  
-      // dispatch(_loadValsAsync(selectedNetwork.chain_id));
-      }
-    }, [selectedNetwork])
+    // useEffect(() => {
+    //   fetchNetworkDetails(selectedNetwork)
+    // },[walletType,selectedNetwork])
 
     const fetchNetworkDetails = async (val: any) => {
              // @ts-expect-error
@@ -135,6 +133,7 @@ export default function Navbar(props: PropComponent) {
       let pubkey = await keplr?.getKey(chainId);
       let bech32 = pubkey?.bech32Address;
       // props.setNetworkAddress(bech32);
+      console.log('blah')
  // @ts-expect-error
       dispatch(setNetworkAddress(bech32))
       if (bech32) {
@@ -210,7 +209,7 @@ export default function Navbar(props: PropComponent) {
     });
   }
 
-  }, [walletType]);
+  }, [walletType, selectedNetwork]);
 
   React.useEffect(() => {
     let timer: any;
@@ -227,8 +226,23 @@ export default function Navbar(props: PropComponent) {
   }, [isIdle, val])
 
 
+  useEffect(() => {
+    if (selectedNetwork !== "Select a network") {
+           // @ts-expect-error
+      dispatch(setNetworkAddress(''))
+      connectNetwork(selectedNetwork?.chain_id);
+      console.log('ssss');
+      let network = networks.find((y:any) => y.value.chain_id === selectedNetwork?.chain_id);
+      setSelectedOption(network);
+      // setSelectedOption(selectedNetwork)
+    // dispatch(_loadValsAsync(selectedNetwork.chain_id));
+    }
+  }, [selectedNetwork, walletType])
+
+
   let handleNetworkChange = (selected: any) => {
-    console.log(selected);
+    let network = networks.find((y:any) => y.value.chain_id === selected?.chain_id);
+    setSelectedOption(network);
     // @ts-expect-error
         dispatch(setSelectedNetworkFunc(selected));
         // @ts-expect-error
@@ -305,11 +319,12 @@ export default function Navbar(props: PropComponent) {
       </li> */}
 
     </ul>
-{!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
-      </button>}
-      <Select className={"custom-class mb-3 mt-2 "  + (isQSWalletConnected === true ? 'visible' : "invisible")}
+{/* {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
+      </button>} */}
+      <Select className={"custom-class mb-3 mt-2 "  + (activeStep > 1 ? 'visible' : "invisible")}
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
-        ref={selectInputRef}  options={networks} styles={colourStyles}  formatOptionLabel={network => (
+        ref={selectInputRef}  options={networks} styles={colourStyles} 
+        value={selectedOption} formatOptionLabel={network => (
             <div className="network-option">
               <img className="network-logo px-2" src={network.image} alt="network-image" />
               <span>{network.label}</span>
@@ -317,7 +332,9 @@ export default function Navbar(props: PropComponent) {
           )}
           onChange={handleNetworkChange}
 
+
         />
+        {selectedNetwork?.account_prefix}
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(3) : 0}  QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}
