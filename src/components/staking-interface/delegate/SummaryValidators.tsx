@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {coins} from "@cosmjs/amino"
 import './SummaryValidators.css';
 import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
@@ -8,7 +8,7 @@ import { setStakingStep } from "../../../slices/stakingActiveStep";
 import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWallet';
 import { stakingAllocationSelector} from '../../../slices/allocation';
 import { decreaseStakingStep } from "../../../slices/stakingActiveStep";
-
+import Moment from 'moment';
 import { SpinnerCircular } from 'spinners-react';
 let { bech32 } = require('bech32');
 
@@ -19,6 +19,7 @@ export default function SummaryValidators() {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
+  const [showOsmoMessage, setShowOsmoMessage] = React.useState(false);
 
 
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
@@ -41,6 +42,23 @@ export default function SummaryValidators() {
       return converted;
     }
 
+    useEffect(() => {
+      if(selectedNetwork.base_denom === "uosmo") {
+      let format = 'HH:mm';
+
+    let time = Moment.utc().format(format);
+    let beforeTime = Moment('17:00', format);
+      let afterTime = Moment('20:30', format);
+    if (Moment(time, 'HH:mm').isBetween(beforeTime, afterTime)) {
+      console.log('heyy');
+      setShowOsmoMessage(true);
+    
+    } else {
+      setShowOsmoMessage(false);
+    }
+  }
+     
+  }, [])
 
   const renderValidators = () => {
       const validators = Object.values(stakingAllocationProp).map((obj : any) => {
@@ -118,11 +136,14 @@ export default function SummaryValidators() {
         {renderValidators()}
       
         <button  className="stake-button mt-3 mb-2" onClick={onStakeClick}> Stake  </button>
-        <div className="spinner">
+ 
+         {showOsmoMessage && <p className="mt-3">Due to congestion on the Osmosis chain, the minting of qOSMO can take longer than usual.</p>}
+         <div className="spinner">
         {loading && <SpinnerCircular />}
         </div>
-        {loading && <p> Transaction in progress... </p>}
+        {loading && <p className="mt-3"> Transaction in progress... </p>}
         {error !== '' && !loading && <p className="mt-3"> {error}</p>}
+       
         </div>
         </>
     );
