@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Link } from "react-router-dom";
 import { useLocation} from "react-router-dom";
 
@@ -9,9 +9,9 @@ import Select from "react-select";
 import { useDispatch, useSelector } from 'react-redux'
 
 import Logo from '../../assets/quicksilverlogo.svg';
+import Logout from '../../assets/logout.svg'
 import './Navbar.css';
 import Wallet from '../../assets/icons/wallet.svg';
-import Logout from '../../assets/logout.svg'
 import Pools from '../../assets/icons/pools.svg';
 import Parachute from '../../assets/icons/parachute.svg';
 import Stakes from '../../assets/icons/stakes.svg';
@@ -20,7 +20,7 @@ import Governance from '../../assets/icons/Governance.svg';
 import ConnectWalletModal from '../connect-wallet-modal/ConnectWalletModal';
 import { connectWalletModalSelector, setModalOpen } from '../../slices/connectWalletModal';
 import Backdrop from '../../components/backdrop/Backdrop';
-import {quicksilverSelector} from '../../slices/quicksilver';
+import {quicksilverSelector, setWalletType} from '../../slices/quicksilver';
 import { networksSelector, fetchNetworks } from '../../slices/networks'	;
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../slices/selectedNetwork";
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../slices/selectedNetworkWallet";
@@ -33,8 +33,6 @@ import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
 import { setStakingAllocationProp, setStakingAmount } from '../../slices/allocation';
 import { setQSWallet, setQSWalletConnected, setQSBalance, setQSClient, setQSWalletDisconnected, setQuicksilverAddress } from '../../slices/quicksilver';
-
-
 
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
@@ -60,6 +58,7 @@ interface PropComponent {
 }
 
 export default function Navbar(props: PropComponent) {
+  const selectInputRef = useRef() as any;
   const isIdle = useIdle({timeToIdle: 1800000});
   const [val, setVal] = React.useState<SigningStargateClient>();
 
@@ -69,7 +68,7 @@ export default function Navbar(props: PropComponent) {
 
   const dispatch = useDispatch()
   const location = useLocation()
-  const {balances, isQSWalletConnected} = useSelector(quicksilverSelector);
+  const {balances, isQSWalletConnected, walletType} = useSelector(quicksilverSelector);
   // const { isWalletConnected }= useSelector(isQSWalletConnectedSelector);
   const {isModalOpen} = useSelector(connectWalletModalSelector)
 
@@ -131,6 +130,7 @@ export default function Navbar(props: PropComponent) {
     const fetchNetworkDetails = async (val: any) => {
              // @ts-expect-error
              dispatch(setNetworkBalance([]));
+             if(walletType === 'keplr') {
       let keplr = await getKeplrFromWindow();
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
@@ -143,6 +143,36 @@ export default function Navbar(props: PropComponent) {
               // @ts-expect-error
           dispatch(setNetworkBalance(roBalance));
       }
+    } else if(walletType === 'leap') {
+      let chainId = await val.getChainId();
+           // @ts-expect-error
+      let pubkey = await window.leap?.getKey(chainId);
+      let bech32 = pubkey?.bech32Address;
+      // props.setNetworkAddress(bech32);
+ // @ts-expect-error
+      dispatch(setNetworkAddress(bech32))
+
+      if (bech32) {
+        let roBalance = await val.getAllBalances(bech32);
+              // @ts-expect-error
+          dispatch(setNetworkBalance(roBalance));
+      }
+    }  else if(walletType === 'cosmostation') {
+      let chainId = await val.getChainId();
+           // @ts-expect-error
+      let pubkey = await window.cosmostation.providers.keplr?.getKey(chainId);
+      let bech32 = pubkey?.bech32Address;
+      // props.setNetworkAddress(bech32);
+ // @ts-expect-error
+      dispatch(setNetworkAddress(bech32))
+
+      if (bech32) {
+        let roBalance = await val.getAllBalances(bech32);
+              // @ts-expect-error
+          dispatch(setNetworkBalance(roBalance));
+      }
+
+    }
     }
    
   const connectNetwork =  async (network: string) => {
@@ -156,18 +186,32 @@ export default function Navbar(props: PropComponent) {
       setVal(val);
       fetchNetworkDetails(val)
      
-    }, network);
+    }, walletType, network);
   }
 
   useEffect(() => {
-    window.addEventListener("keplr_keystorechange", () => {
-      
-      setQCKBalance(0);
+    if(walletType === 'keplr') {
+      window.addEventListener("keplr_keystorechange", () => {
+        // @ts-expect-error
+        dispatch(setNetworkBalance([]));
+          connectNetwork(selectedNetwork.chain_id);
+      })
+    } else if(walletType === 'leap') {
+      window.addEventListener("leap_keystorechange", () => {
+        // @ts-expect-error
+        dispatch(setNetworkBalance([]));
+          connectNetwork(selectedNetwork.chain_id);
+      })
+    } else if(walletType === 'cosmostation') {
       // @ts-expect-error
-      dispatch(setNetworkBalance([]));
-        connectNetwork(selectedNetwork.chain_id);
-    })
-  }, []);
+    window.cosmostation.cosmos.on("accountChanged", () => {
+                // @ts-expect-error
+                dispatch(setNetworkBalance([]));
+                connectNetwork(selectedNetwork.chain_id);
+    });
+  }
+
+  }, [walletType]);
 
   React.useEffect(() => {
     let timer: any;
@@ -199,23 +243,31 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
-    localStorage.removeItem("ChainId");
-        // @ts-expect-error
-        dispatch(setStakingAmount(1));
-        // @ts-expect-error
-        dispatch(setStakingAllocationProp({}));
-        // @ts-expect-error
-        dispatch(fetchNetworks())
-                // @ts-expect-error
-        dispatch(setStakingStep(1));
-                      // @ts-expect-error
-                      dispatch(setSelectedNetworkFunc("Select a network"));
-          // @ts-expect-error
-          
-          dispatch(setQSWalletDisconnected())
-
-  }
-
+    selectInputRef.current.clearValue();
+               // @ts-expect-error
+               dispatch(setWalletType(''));
+                     // @ts-expect-error
+                     dispatch(setSelectedNetworkFunc(null));
+   localStorage.removeItem("ChainId");
+   localStorage.removeItem("WalletType");
+       // @ts-expect-error
+       dispatch(setStakingAmount(1));
+       // @ts-expect-error
+       dispatch(setStakingAllocationProp({}));
+       // @ts-expect-error
+       dispatch(fetchNetworks())
+               // @ts-expect-error
+       dispatch(setStakingStep(1));
+                    // @ts-expect-error
+                    dispatch(setSelectedNetworkFunc("Select a network"));
+         // @ts-expect-error
+         dispatch(setQSWalletDisconnected())
+         // @ts-expect-error 
+        dispatch(setQSBalance([]));
+           // @ts-expect-error 
+           dispatch(setQuicksilverAddress(''));
+         
+ }
     return (
 
 
@@ -256,9 +308,9 @@ export default function Navbar(props: PropComponent) {
     </ul>
 {!isQSWalletConnected && <button onClick={onButtonClick} className="btn connect-wallet-button px-3 my-2 my-sm-0"> Connect Wallet
       </button>}
-      <Select className={"custom-class mb-3 mt-2 " + (isQSWalletConnected === true ? 'visible' : "invisible")}
+      <Select className={"custom-class mb-3 mt-2 "  + (isQSWalletConnected === true ? 'visible' : "invisible")}
         //   defaultValue={{ label: selectedNetwork.account_prefix ? selectedNetwork.account_prefix?.charAt(0).toUpperCase() + selectedNetwork.account_prefix?.slice(1) : '' }}
-          options={networks} styles={colourStyles}  formatOptionLabel={network => (
+        ref={selectInputRef}  options={networks} styles={colourStyles}  formatOptionLabel={network => (
             <div className="network-option">
               <img className="network-logo px-2" src={network.image} alt="network-image" />
               <span>{network.label}</span>
@@ -269,7 +321,7 @@ export default function Navbar(props: PropComponent) {
         />
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
-        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(2) : 0} QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}
+        {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(3) : 0}  QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}
       
       { isModalOpen && <Backdrop />}
  
