@@ -36,7 +36,7 @@ Quicksilver wallet on airdrop day.
         </h5>
         <input placeholder="starsxxx..." value={address} onChange={handleChange}  className="mt-4 input-box" type="text"/>
         <button disabled={!address} className="next-button mx-3" onClick={fetchAllocation} >Next</button>
-       {showMessage && amount !== '0' && !error && <h5 className="mt-4">You will receive <span className="font-bold">{+(amount/100000)} </span> QCK tokens</h5>}
+       {showMessage && amount !== '0' && !error && <h5 className="mt-4">You will receive <span className="font-bold">{+(amount/1000000)} </span> QCK tokens</h5>}
        {showMessage && amount === '0' &&  !error && <h5 className="mt-4">This address is not eligible for this airdrop. Please provide another address.</h5>}
        {showMessage && amount === '0' &&  error && <h5 className="mt-4">Error: {error.charAt(0).toUpperCase() + error.slice(1)}</h5>}
    

@@ -3,7 +3,7 @@ import env from "react-dotenv";
 
 
 export const initialState = {
-  amount: "0",
+  amount: "",
   error: ""
 }
 
