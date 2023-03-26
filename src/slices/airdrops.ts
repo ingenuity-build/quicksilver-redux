@@ -33,7 +33,7 @@ export function fetchStargazeAirdropAllocation(address: string) {
 
 
     try {
-      const response = await fetch(`https:/airdrop.${env.ZONE_URL}/${address}`)
+      const response = await fetch(`https://airdrop.${env.ZONE_URL}/${address}`)
       const data = await response.json()
       dispatch(getStargazeAirdropSuccess(data.amount))
       dispatch(getStargazeAirdropAddressErrorMessage(data.error))
