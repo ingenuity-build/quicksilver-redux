@@ -2,3 +2,20 @@
 color: #D35100;
 font-size: 24px;
 }
+
+.airdrop-text {
+    line-height: 1.5;
+}
+
+.input-box {
+    height: 36px;
+    width: 350px;
+}
+
+::placeholder {
+    color: black !important;
+  }
+
+  .airdrop-container {
+    z-index: 3;
+  }
