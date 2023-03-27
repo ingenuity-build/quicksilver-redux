@@ -30,9 +30,7 @@ export default function Airdrop() {
       <p className="text-center coming-soon"> Coming Soon</p>
       <div className="w-50 mt-4 text-center airdrop-container">
         <p className="airdrop-text">
-        Enter your Stargaze address and check your airdrop allocation.
-Eligible addresses will receive QCK tokens airdropped to their 
-Quicksilver wallet on airdrop day.
+        Enter your Stargaze address and check your airdrop allocation. Eligible addresses will receive QCK tokens airdropped to their Quicksilver network address on airdrop day.
         </p>
         <input placeholder="starsxxx..." value={address} onChange={handleChange}  className="mt-4 input-box" type="text"/>
         <button disabled={!address} className="next-button mx-3" onClick={fetchAllocation} >View</button>
