@@ -29,16 +29,16 @@ export default function Airdrop() {
       <h3 className="text-center mt-5"> STARGAZE Airdrop </h3>
       <p className="text-center coming-soon"> Coming Soon</p>
       <div className="w-50 mt-4 text-center airdrop-container">
-        <h5 className="airdrop-text">
+        <p className="airdrop-text">
         Enter your Stargaze address and check your airdrop allocation.
 Eligible addresses will receive QCK tokens airdropped to their 
 Quicksilver wallet on airdrop day.
-        </h5>
+        </p>
         <input placeholder="starsxxx..." value={address} onChange={handleChange}  className="mt-4 input-box" type="text"/>
-        <button disabled={!address} className="next-button mx-3" onClick={fetchAllocation} >Next</button>
-       {showMessage && amount !== '' && amount !== '0' && !error && <h5 className="mt-4">You will receive <span className="font-bold">{+(amount/1000000)} </span> QCK tokens</h5>}
+        <button disabled={!address} className="next-button mx-3" onClick={fetchAllocation} >View</button>
+       {showMessage && amount !== '' && amount !== '0' && !error && <h5 className="mt-4">Address will receive <span className="font-bold">{+(amount/1000000)} </span> QCK tokens.</h5>}
        {showMessage && amount !== '' && amount === '0' &&  !error && <h5 className="mt-4">This address is not eligible for this airdrop. Please provide another address.</h5>}
-       {showMessage && amount !== '' && amount === '0' &&  error && <h5 className="mt-4">Error: {error.charAt(0).toUpperCase() + error.slice(1)}</h5>}
+       {showMessage && amount !== '' && amount === '0' &&  error && <h5 className="mt-4">Error: {error.charAt(0).toUpperCase() + error.slice(1)}.</h5>}
    
 
         </div>
