@@ -44,3 +44,16 @@ td {
   
     padding-top: 20px !important;
 }
+
+.unbonding-text {
+    z-index: 3
+}
+
+.assets-link a  {
+    color: white;
+}
+
+.assets-link a:hover {
+    color: white;
+    cursor: pointer;
+}
