@@ -18,8 +18,7 @@
 }
 
 .allocation-message {
-    padding-left: 100px;
-    padding-right: 100px;
+  width: 60%;
 }
 
 .percentages {
