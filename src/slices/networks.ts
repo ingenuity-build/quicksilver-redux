@@ -57,11 +57,14 @@ export function fetchNetworks() {
       const stargaze = await fetch(`https://chains.cosmos.directory/stargaze `)
       const stargazeData = await stargaze.json()
       let stargazeAPY =  stargazeData.chain.params.estimated_apr;
+      const juno = await fetch(`https://chains.cosmos.directory/juno `)
+      const junoData = await juno.json()
+      let junoAPY =  junoData.chain.params.estimated_apr;
       const APY = {
         'uqatom' : cosmosAPY,
         'uqosmo' : osmosisAPY,
         'uqstars' : stargazeAPY,
-        'uqjunox' : stargazeAPY,
+        'uqjunox' : junoAPY,
         'uqregen': regenAPY
       }
       console.log('APY', APY);

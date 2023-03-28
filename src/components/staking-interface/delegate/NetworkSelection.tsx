@@ -61,7 +61,7 @@ useEffect(() => {
   window.addEventListener("keplr_keystorechange", () => {
     setQCKBalance(0);
     setZoneBalance(0);
-
+    setQCKBalance(0);
   })
 } else if(walletType === 'leap') {
   window.addEventListener("leap_keystorechange", () => {

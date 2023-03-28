@@ -121,9 +121,16 @@ export default function Navbar(props: PropComponent) {
 
     }, [dispatch])
 
-    // useEffect(() => {
-    //   fetchNetworkDetails(selectedNetwork)
-    // },[walletType,selectedNetwork])
+    useEffect(() => {
+      console.log('selected network', selectedNetwork)
+      if (selectedNetwork !== "Select a network") {
+             // @ts-expect-error
+        dispatch(setNetworkAddress(''))
+        connectNetwork(selectedNetwork?.chain_id);
+  
+      // dispatch(_loadValsAsync(selectedNetwork.chain_id));
+      }
+    }, [selectedNetwork])
 
     const fetchNetworkDetails = async (val: any) => {
              // @ts-expect-error
