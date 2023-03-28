@@ -29,6 +29,7 @@ import { initKeplrWithNetwork } from "../../utils/chains";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { getKeplrFromWindow } from '@keplr-wallet/stores';
 import { setStakingStep, stakingActiveStep} from '../../slices/stakingActiveStep';
+import {  setModalClose } from '../../slices/connectWalletModal';
 
 import { setRedelegateStep } from '../../slices/relegateActiveStep';
 import {  setSelectedValidatorList, setRedelegateValidatorList } from "../../slices/validatorList";
@@ -256,6 +257,8 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
+               // @ts-expect-error
+               dispatch(setModalClose());
     selectInputRef.current.clearValue();
                // @ts-expect-error
                dispatch(setWalletType(''));
