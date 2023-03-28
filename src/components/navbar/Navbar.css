@@ -1,7 +1,7 @@
 .navbar .logo {
     height: 50px;
     margin-left: 1.5rem;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }
 
 .navbar {
@@ -22,7 +22,7 @@ color: #FFFFFF;
 
 .navbar .connect-wallet, .navbar .connect-wallet-button {
 background: #D35100;
-border-radius: 10px;
+border-radius: 5px;
 font-family: 'Mulish';
 font-style: normal;
 font-weight: 600;
