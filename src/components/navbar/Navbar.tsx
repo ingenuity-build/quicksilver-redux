@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import { Link } from "react-router-dom";
 import { useLocation} from "react-router-dom";
 
-
+import { useNavigate } from 'react-router-dom';
 import Select from "react-select";
 
 
@@ -64,7 +64,7 @@ export default function Navbar(props: PropComponent) {
   const selectInputRef = useRef() as any;
   const isIdle = useIdle({timeToIdle: 1800000});
   const [val, setVal] = React.useState<SigningStargateClient>();
-
+  const navigate = useNavigate();
   const { networks, loading, hasErrors } = useSelector(networksSelector);
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
  const {networkAddress} = useSelector(selectedNetworkWalletSelector);
@@ -183,12 +183,14 @@ export default function Navbar(props: PropComponent) {
       // @ts-expect-error
       dispatch(setClient(val));
       setVal(val);
+      console.log('1')
       fetchNetworkDetails(val)
      
     }, walletType, network);
   }
 
   useEffect(() => {
+
     if(walletType === 'keplr') {
       window.addEventListener("keplr_keystorechange", () => {
         // @ts-expect-error
@@ -208,6 +210,7 @@ export default function Navbar(props: PropComponent) {
                 dispatch(setNetworkBalance([]));
                 connectNetwork(selectedNetwork.chain_id);
     });
+  
   }
 
   }, [walletType, selectedNetwork]);
@@ -218,10 +221,11 @@ export default function Navbar(props: PropComponent) {
       timer = setInterval( () => {
         if(isQSWalletConnected) {
           //connectKeplr();
+          console.log('2')
           fetchNetworkDetails(val);
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 10000)
+    }, 20000)
     } 
     return () => clearInterval(timer);
   }, [isIdle, val])
@@ -229,10 +233,10 @@ export default function Navbar(props: PropComponent) {
 
   useEffect(() => {
     if (selectedNetwork !== "Select a network") {
-           // @ts-expect-error
-      dispatch(setNetworkAddress(''))
+      //      // @ts-expect-error
+      // dispatch(setNetworkAddress(''))
+      console.log('wooohoo')
       connectNetwork(selectedNetwork?.chain_id);
-      console.log('ssss');
       let network = networks.find((y:any) => y.value.chain_id === selectedNetwork?.chain_id);
       setSelectedOption(network);
       // setSelectedOption(selectedNetwork)
@@ -257,12 +261,10 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
-            
+    navigate('/stake/delegate')
     selectInputRef.current.clearValue();
                // @ts-expect-error
                dispatch(setWalletType(''));
-                     // @ts-expect-error
-                     dispatch(setSelectedNetworkFunc(null));
    localStorage.removeItem("ChainId");
    localStorage.removeItem("WalletType");
        // @ts-expect-error

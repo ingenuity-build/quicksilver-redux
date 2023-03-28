@@ -2,7 +2,7 @@ import React from 'react';
 import './ConnectWallet.css';
 import {  setModalOpen } from '../../../slices/connectWalletModal';
 import { useDispatch, useSelector } from 'react-redux'
-
+import { useNavigate } from 'react-router-dom';
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
 import { useEffect } from 'react';
 import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } from "../../../slices/selectedNetwork";
@@ -10,8 +10,10 @@ import { setQSWalletConnected} from '../../../slices/quicksilver';
 import { increaseStakingStep } from "../../../slices/stakingActiveStep";
 export default function ConnectWallet(props: any) {
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const { networks, loading, hasErrors } = useSelector(networksSelector);
   const onButtonClick = (network) => {
+    navigate('/stake/delegate')
                    // @ts-expect-error
                    dispatch(increaseStakingStep());
       // @ts-expect-error
@@ -47,7 +49,7 @@ useEffect(() => {
             
                 {networks.map((network: any) => 
                 <>
-                  <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)}</button> </>
+                  <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)} {network?.apy * 100}</button> </>
 
                 )}
               

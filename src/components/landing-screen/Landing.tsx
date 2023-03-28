@@ -14,8 +14,6 @@ export default function Landing() {
              <img alt="Quicksilver Logo" className="logo" src={Logo}/>
              
              <h2 className="my-3"> QUICKSILVER</h2>
-            <p>{Moment().utc().format('HH:mm')}</p> 
-             <p>{Moment('15:00').isBetween('13:00', '17:30') ? 'true' : 'false'}</p>
              <p className="mb-5">THE COSMOS LIQUID STAKING ZONE</p> 
         <Link className="px-5 py-3  mt-5" to="/stake/delegate">Get Started</Link> 
    

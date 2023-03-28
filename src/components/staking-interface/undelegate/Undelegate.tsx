@@ -11,6 +11,7 @@ import Moment from 'moment';
 import './Undelegate.css';
 import Collapsible from 'react-collapsible';
 import { SpinnerCircular } from 'spinners-react';
+import { Link } from "react-router-dom";
 import { increaseStakingStep } from "../../../slices/stakingActiveStep";
 
 
@@ -277,7 +278,7 @@ setUnstakingAmount(QCKBalance);
       Unbonding will be enabled soon for assets deposited into the Quicksilver Protocol. Until unbonding is enabled, exit a position by migrating qAssets to Osmosis and swapping in the relevant qAsset pool.
       <br/>
       <br/>
-      Visit the <span className="assets-link"><a href="https://app.quicksilver.zone/assets">Assets page</a></span> for links to your qAsset pools.
+      Visit the <span className="assets-link">  <Link to="/assets">Assets Page </Link></span> for links to your qAsset pools.
         </p>
     </div>
       </div>}
