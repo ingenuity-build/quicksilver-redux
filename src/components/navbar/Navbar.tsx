@@ -257,8 +257,7 @@ export default function Navbar(props: PropComponent) {
   }
 
   const logout = () => {
-               // @ts-expect-error
-               dispatch(setModalClose());
+            
     selectInputRef.current.clearValue();
                // @ts-expect-error
                dispatch(setWalletType(''));
@@ -278,6 +277,8 @@ export default function Navbar(props: PropComponent) {
                     dispatch(setSelectedNetworkFunc("Select a network"));
          // @ts-expect-error
          dispatch(setQSWalletDisconnected())
+            // @ts-expect-error
+            dispatch(setModalClose());
          // @ts-expect-error 
         dispatch(setQSBalance([]));
            // @ts-expect-error 

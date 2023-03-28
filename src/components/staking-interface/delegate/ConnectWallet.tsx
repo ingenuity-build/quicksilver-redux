@@ -47,7 +47,7 @@ useEffect(() => {
             
                 {networks.map((network: any) => 
                 <>
-                  <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label}</button> </>
+                  <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)}</button> </>
 
                 )}
               

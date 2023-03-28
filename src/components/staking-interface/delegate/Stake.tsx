@@ -31,7 +31,7 @@ export default function Stake() {
 
     return  (
         <>
-                     <p className="unbonding-message"> The Unbonding feature will be enabled Q1 2023. Any assets you stake to the protocol will remain locked until that time.</p>
+                     <p className="unbonding-message"> Unbonding will be enabled soon for assets deposited into the Quicksilver Protocol. Until unbonding is enabled, exit a position by migrating qAssets to Osmosis and swapping in the relevant qAsset pool.</p>
             <div className="staking-interface row mx-0">
             {/* <div className="stepper col-2 d-flex flex-column ">
           

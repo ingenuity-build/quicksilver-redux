@@ -40,7 +40,6 @@ export default function Delegate(props: any) {
       useEffect(() => {
              // @ts-expect-error
         if( isQSWalletConnected && process.env.REACT_APP_WHITELISTED_ZONES?.split(",").includes(params.chainid) ) {
-                console.log('heyyyyy')
                 let network = networks.find((y:any) => y.value.chain_id === params?.chainid);
             console.log(network);
                  // @ts-expect-error
@@ -49,10 +48,11 @@ export default function Delegate(props: any) {
             dispatch(setStakingStep(2))
         }        // @ts-expect-error
          else if( process.env.REACT_APP_WHITELISTED_ZONES?.split(",").includes(params.chainid) ){
+            console.log('wow')
                 // @ts-expect-error
   dispatch(setModalOpen());
          }
-    }, [networks ,isQSWalletConnected])
+    }, [])
 
     useEffect(() => {
         if(activeStep > 1) {

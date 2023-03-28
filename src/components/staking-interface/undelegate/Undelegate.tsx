@@ -267,13 +267,17 @@ setUnstakingAmount(QCKBalance);
         </div>}
         {process.env.REACT_APP_ENABLE_UNBONDING === 'false' && <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
       <h3 className="text-center mt-5"> Undelegate</h3>
-      <p className="text-center coming-soon"> Coming soon</p>
-      <div className="w-50 mt-2">
+      <p className="text-center coming-soon"> Coming Soon</p>
+      <div className="w-50 mt-2 unbonding-text">
         <p>
         Unbonding will enable users to unstake their assets and exit the Protocol following the native chain's unbonding period, after which assets would be transferred directly to the users' account.
       <br/>
       <br/>
-Unbonding is scheduled to be enabled early 2023.
+      <br/>
+      Unbonding will be enabled soon for assets deposited into the Quicksilver Protocol. Until unbonding is enabled, exit a position by migrating qAssets to Osmosis and swapping in the relevant qAsset pool.
+      <br/>
+      <br/>
+      Visit the <span className="assets-link"><a href="https://app.quicksilver.zone/assets">Assets page</a></span> for links to your qAsset pools.
         </p>
     </div>
       </div>}
