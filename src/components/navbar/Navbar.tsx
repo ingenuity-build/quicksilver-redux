@@ -121,16 +121,7 @@ export default function Navbar(props: PropComponent) {
 
     }, [dispatch])
 
-    useEffect(() => {
-      console.log('selected network', selectedNetwork)
-      if (selectedNetwork !== "Select a network") {
-             // @ts-expect-error
-        dispatch(setNetworkAddress(''))
-        connectNetwork(selectedNetwork?.chain_id);
-  
-      // dispatch(_loadValsAsync(selectedNetwork.chain_id));
-      }
-    }, [selectedNetwork])
+
 
     const fetchNetworkDetails = async (val: any) => {
              // @ts-expect-error
@@ -140,8 +131,6 @@ export default function Navbar(props: PropComponent) {
       let chainId = await val.getChainId();
       let pubkey = await keplr?.getKey(chainId);
       let bech32 = pubkey?.bech32Address;
-      // props.setNetworkAddress(bech32);
-      console.log('blah')
  // @ts-expect-error
       dispatch(setNetworkAddress(bech32))
       if (bech32) {
@@ -190,7 +179,6 @@ export default function Navbar(props: PropComponent) {
       // @ts-expect-error
       dispatch(setClient(val));
       setVal(val);
-      console.log('1')
       fetchNetworkDetails(val)
      
     }, walletType, network);
@@ -227,8 +215,6 @@ export default function Navbar(props: PropComponent) {
     if(!isIdle) {
       timer = setInterval( () => {
         if(isQSWalletConnected) {
-          //connectKeplr();
-          console.log('2')
           fetchNetworkDetails(val);
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
@@ -242,7 +228,6 @@ export default function Navbar(props: PropComponent) {
     if (selectedNetwork !== "Select a network") {
       //      // @ts-expect-error
       // dispatch(setNetworkAddress(''))
-      console.log('wooohoo')
       connectNetwork(selectedNetwork?.chain_id);
       let network = networks.find((y:any) => y.value.chain_id === selectedNetwork?.chain_id);
       setSelectedOption(network);

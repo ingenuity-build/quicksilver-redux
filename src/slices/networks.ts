@@ -45,19 +45,19 @@ export function fetchNetworks() {
     try {
       const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
-      const cosmos = await fetch(`https://chains.cosmos.directory/cosmoshub `)
+      const cosmos = await fetch(`${env.APY_ZONES_ENDPOINT}/cosmoshub`)
       const cosmosData = await cosmos.json()
       let cosmosAPY =  cosmosData.chain.params.estimated_apr;
-      const regen = await fetch(`https://chains.cosmos.directory/regen `)
+      const regen = await fetch(`${env.APY_ZONES_ENDPOINT}/regen`)
       const regenData = await regen.json()
       let regenAPY =  regenData.chain.params.estimated_apr;
-      const osmosis = await fetch(`https://chains.cosmos.directory/osmosis `)
+      const osmosis = await fetch(`${env.APY_ZONES_ENDPOINT}/osmosis`)
       const osmosisData = await osmosis.json()
       let osmosisAPY =  osmosisData.chain.params.estimated_apr;
-      const stargaze = await fetch(`https://chains.cosmos.directory/stargaze `)
+      const stargaze = await fetch(`${env.APY_ZONES_ENDPOINT}/stargaze`)
       const stargazeData = await stargaze.json()
       let stargazeAPY =  stargazeData.chain.params.estimated_apr;
-      const juno = await fetch(`https://chains.cosmos.directory/juno `)
+      const juno = await fetch(`${env.APY_ZONES_ENDPOINT}/juno`)
       const junoData = await juno.json()
       let junoAPY =  junoData.chain.params.estimated_apr;
       const APY = {

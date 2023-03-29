@@ -25,8 +25,6 @@ import { increaseStakingStep } from "../slices/stakingActiveStep";
 import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
-import Moment from 'moment';
-import { Data } from 'quicksilverjs/types/codegen/tendermint/types/types';
 
 function useIdle(options: any) {
   const [isIdle, setIsIdle] = React.useState(false)
@@ -64,7 +62,7 @@ function App() {
           fetchKeplrDetails(val);
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 6000)
+    }, 10000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
@@ -154,60 +152,9 @@ dispatch(setQuicksilverAddress(bech32));
     }
   }, [walletType])
 
-  React.useEffect(() => {
-    //  let time = Moment().utc()
-    // console.log('utc', time)
-    // let format = 'HH:mm'
-    // let time2 = Moment(Moment().utc(), format);
-   
-    // let beforeTime = Moment('12:00', format);
-    // let afterTime = Moment('16:00', format);
-    // if (time2.utc().isBetween(beforeTime, afterTime)) {
-  
-    //   console.log('is between')
-    
-    // } else {
-    
-    //   console.log('is not between')
-    
-    // }
-        //     let date = new Date().toUTCString();
-    //     console.log(date);
-    // let time = Moment(date);
-    // console.log(time)
-    // let time2 = Moment(time).utc().format(format);
-    // console.log('time2', time2)
-        let format = 'HH:mm';
-
-    let time = Moment.utc().format(format);
-    let beforeTime = Moment('17:00', format);
-      let afterTime = Moment('17:30', format);
-    if (Moment(time, 'HH:mm').isBetween(beforeTime, afterTime)) {
-  
-      console.log('is between')
-    
-    } else {
-    
-      console.log('is not between')
-    
-    }
-
-
-  },[])
-
-  // let key;
-  // useEffect(() => {
-  //    // @ts-expect-error
-  //    if(JSON.parse(localStorage.getItem('ChainId'))) {
-  //        // @ts-expect-error
-  //      key = JSON.parse(localStorage.getItem('ChainId'))
-  //     connectKeplr();
-  //    }
-  // }, [key])
 
 
   const connectKeplr = async () => {
-    console.log('connectinggg')
     setLoading(true);
     if(walletType === '') {
       //@ts-expect-error
@@ -221,7 +168,6 @@ dispatch(setQuicksilverAddress(bech32));
           dispatch(setQSClient(val));
        // @ts-expect-error
       dispatch(setQSWalletConnected())
-         
       setVal(val);
            // @ts-expect-error
     dispatch(setModalClose());
