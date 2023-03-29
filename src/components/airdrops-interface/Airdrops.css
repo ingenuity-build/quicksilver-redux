@@ -19,3 +19,7 @@ font-size: 24px;
   .airdrop-container {
     z-index: 3;
   }
+
+  .airdrop-heading {
+    color :#D35100
+  }
