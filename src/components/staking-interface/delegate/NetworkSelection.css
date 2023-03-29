@@ -87,7 +87,10 @@ border: 2px solid #D35100;
     width: 200px;
 }
 
-.wallet-details {
+.wallet-details{
     z-index: 1;
 }
 
+.prev-button {
+    z-index: 3
+}
