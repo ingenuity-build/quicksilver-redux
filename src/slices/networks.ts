@@ -45,8 +45,35 @@ export function fetchNetworks() {
     try {
       const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
-
-      dispatch(getNetworksSuccess(manipulateData(data.zones)))
+      const cosmos = await fetch(`${env.APY_ZONES_ENDPOINT}/cosmoshub`)
+      const cosmosData = await cosmos.json()
+      let cosmosAPY =  cosmosData.chain.params.estimated_apr;
+      const regen = await fetch(`${env.APY_ZONES_ENDPOINT}/regen`)
+      const regenData = await regen.json()
+      let regenAPY =  regenData.chain.params.estimated_apr;
+      const osmosis = await fetch(`${env.APY_ZONES_ENDPOINT}/osmosis`)
+      const osmosisData = await osmosis.json()
+      let osmosisAPY =  osmosisData.chain.params.estimated_apr;
+      const stargaze = await fetch(`${env.APY_ZONES_ENDPOINT}/stargaze`)
+      const stargazeData = await stargaze.json()
+      let stargazeAPY =  stargazeData.chain.params.estimated_apr;
+      const juno = await fetch(`${env.APY_ZONES_ENDPOINT}/juno`)
+      const junoData = await juno.json()
+      let junoAPY =  junoData.chain.params.estimated_apr;
+      const APY = {
+        'uqatom' : cosmosAPY,
+        'uqosmo' : osmosisAPY,
+        'uqstars' : stargazeAPY,
+        'uqjunox' : junoAPY,
+        'uqregen': regenAPY
+      }
+      console.log('APY', APY);
+      let zones = manipulateData(data.zones);
+      console.log('zones', zones)
+      let zonesAPY = zones.map(obj => ({ ...obj, apy: ( (1+ (APY[obj.value.local_denom])/121.66)**121.66 ) - 1 }))
+      // let zonesAPY =  zones.filter((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom], apy: APY[zone.local_denom]}});
+       console.log('zonesAPY', zonesAPY)
+       dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {
       dispatch(getNetworksFailure())
     }
@@ -54,8 +81,11 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
-   console.log('zones', whitelistedZones);
+
+
+
+  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  //  console.log('zones', whitelistedZones);
 
    return whitelistedZones;
   //  return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
@@ -68,6 +98,5 @@ const images = {
   'uqstars' : Stargaze,
   'uqjunox' : Juno,
   'uqregen': Regen
-
-
 }
+

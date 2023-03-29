@@ -3,15 +3,21 @@ import { selectedNetworkWalletSelector } from '../../../slices/selectedNetworkWa
 import { useSelector, useDispatch } from 'react-redux'
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import {  setModalOpen } from '../../../slices/connectWalletModal';
-import { selectedNetworkSelector } from "../../../slices/selectedNetwork";
+import { networksSelector, fetchNetworks } from '../../../slices/networks' ;
+import { selectedNetworkSelector , setSelectedNetworkFunc} from "../../../slices/selectedNetwork";
 import { fetchUnbondings, unbondingsSelector } from "../../../slices/unbonding";
 import { epochsSelector, fetchEpoch } from '../../../slices/epoch';
 import Moment from 'moment';
 import './Undelegate.css';
 import Collapsible from 'react-collapsible';
 import { SpinnerCircular } from 'spinners-react';
+import { Link } from "react-router-dom";
+import { increaseStakingStep } from "../../../slices/stakingActiveStep";
+import { Tooltip as ReactTooltip} from "react-tooltip";
+import Question from '../../../assets/icons/question-mark.svg';
 
-export default function Undelegate() {
+
+export default function Undelegate(props: any) {
     const {networkAddress} = useSelector(selectedNetworkWalletSelector);
     const {isQSWalletConnected, balances, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
     const {selectedNetwork} = useSelector(selectedNetworkSelector);
@@ -27,13 +33,41 @@ export default function Undelegate() {
     const [time, setTime] = useState(new Date());
     const [unbondingSum, setUnbondingSum] = useState(0);
     const dispatch = useDispatch();
-    const onButtonClick = () => {
+    const { networks} = useSelector(networksSelector);
+    const onButtonClick = (network) => {
       // @ts-expect-error
-    dispatch(setModalOpen());
-  }
+      dispatch(increaseStakingStep());
+// @ts-expect-error
+if(!JSON.parse(localStorage.getItem('ChainId'))) {
+// @ts-expect-error
+dispatch(setModalOpen());
+// @ts-expect-error
+dispatch(setSelectedNetworkFunc(network));
+} else {
+props.connectKeplr()
+// @ts-expect-error
+dispatch(setSelectedNetworkFunc(network));
+}
+
+
+}
       const changeAmount = (e: any) => {
                     setUnstakingAmount(e.target.value);
     }
+
+    useEffect(() => {
+      // @ts-expect-error
+      if(JSON.parse(localStorage.getItem('ChainId'))) {
+        props.connectKeplr();
+    
+      }
+      // @ts-expect-error
+        dispatch(fetchNetworks())
+    
+    
+      }, [])
+
+
     useEffect(() => {
       setUnstakingAmount(0.1);
      
@@ -144,17 +178,64 @@ setUnstakingAmount(QCKBalance);
      <>
         {process.env.REACT_APP_ENABLE_UNBONDING === 'true' &&  <div> 
      
-        {!isQSWalletConnected && <div>
+        {(!isQSWalletConnected || isQSWalletConnected && selectedNetwork === "Select a network") && <div>
           <div className="connect-wallet-pane d-flex flex-column align-items-center ">
-                <h1 className="sub-heading"> Connect Your Wallet To Get Started. </h1>
-                <button  onClick={onButtonClick} className="connect-wallet-button mt-5"> Connect Wallet </button>
+          <h3 className=" sub-heading"> Choose a Network </h3>
+                <div className="mt-3 mb-5 networks row justify-content-center">
+                {networks.map((network: any) => 
+                <>
+                  {/* <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)} {network?.apy * 100}</button> </> */}
+                         <div className="col-4 m-3 network-card" onClick={ () => onButtonClick(network)}>
+                         <div className="d-flex align-items-start"> 
+                              {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
+                        <div className="card-details  w-100 row d-flex align-items-center">
+                          <div className="col-3 pl-1">  <img className="network-image" src={network.image} alt={'Logo'}></img></div>
+                        <div className="col-9"> 
+                        <h4 className="p-2 text-center font-bold"> {network.label} </h4>
+                        <div className="row">
+                          <div className="col-6">
+                      
+                      
+                           <h5 className="text-center font-bold">{parseFloat(network.value?.redemption_rate).toFixed(4)}</h5>
+                           <p className="text-center">Redemption Rate</p>
+                          </div>
+                  <div className="col-6">
+                  <h5 className="text-center font-bold">{(network.apy * 100).toFixed(2)} %</h5>
+                           <p className="text-center">APY <span><img id={network.label}  className="question"  src={Question}/></span></p>
+                           <ReactTooltip
+        anchorId={network.label}
+        place="bottom"
+        content={`APY is accrued by an increase in the value of ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} relative to ${network.value.base_denom.slice(1).toUpperCase()} (redemption rate). Total ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} in the wallet does not change.`}
+      />
+                  </div>
+                     
+                        
+                        </div>
+                           
+                           </div>
+                      
+                        
+            
+                         {/* <h4 className="font-bold">  Reward </h4> */}
+                         </div>
+                         </div>
+                     </div>
+                  </>
+                )}
+               </div>
+          {/* {networks.map((network: any) => 
+                <>
+                  <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label}</button> </>
+
+                )} */}
+        
                 </div>
         </div>}
         
-        {isQSWalletConnected && selectedNetwork === "Select a network" && <div className='text-center'>
+        {/* {isQSWalletConnected && selectedNetwork === "Select a network" && <div className='text-center'>
         <h2 className="mt-4">Choose your network </h2>
         <p className="mt-2">Select network using the dropdown in the navigation bar</p>
-          </div>}
+          </div>} */}
         {isQSWalletConnected && selectedNetwork !== "Select a network" && <div className='unbonding-interface'>
    
         <div className='undelegate-pane mt-5'>
@@ -242,7 +323,7 @@ setUnstakingAmount(QCKBalance);
       Unbonding will be enabled soon for assets deposited into the Quicksilver Protocol. Until unbonding is enabled, exit a position by migrating qAssets to Osmosis and swapping in the relevant qAsset pool.
       <br/>
       <br/>
-      Visit the <span className="assets-link"><a href="https://app.quicksilver.zone/assets">Assets page</a></span> for links to your qAsset pools.
+      Visit the <span className="assets-link">  <Link to="/assets">Assets Page </Link></span> for links to your qAsset pools.
         </p>
     </div>
       </div>}
