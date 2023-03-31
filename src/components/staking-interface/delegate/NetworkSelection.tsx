@@ -12,6 +12,7 @@ import { selectedNetworkSelector, setSelectedNetwork, setSelectedNetworkFunc } f
 import { setNetworkAddress,  setNetworkWallet, setNetworkBalance, selectedNetworkWalletSelector, setClient } from "../../../slices/selectedNetworkWallet";
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import { validatorListSelector } from "../../../slices/validatorList";
+import Moment from 'moment';
 
 
 export default function NetworkSelection() {
@@ -26,6 +27,7 @@ export default function NetworkSelection() {
   const initialText = 'Copy';
   const [buttonText, setButtonText] = useState(initialText);
   const [loadingValidators, setLoadingValidators] = useState(true);
+  const [showOsmoMessage, setShowOsmoMessage] = React.useState(false);
   function handleClick() {
    navigator.clipboard.writeText(networkAddress)
    setButtonText('Address copied');
@@ -47,6 +49,25 @@ export default function NetworkSelection() {
     }
 
 }, [balances, selectedNetwork])
+
+useEffect(() => {
+  if(selectedNetwork.base_denom === "uosmo") {
+  let format = 'HH:mm';
+
+let time = Moment.utc().format(format);
+let beforeTime = Moment('20:00', format);
+  let afterTime = Moment('20:30', format);
+if (Moment(time, 'HH:mm').isBetween(beforeTime, afterTime)) {
+  setShowOsmoMessage(true);
+
+} else {
+  setShowOsmoMessage(false);
+}
+}
+ else {
+  setShowOsmoMessage(false);
+ }
+}, [selectedNetwork])
 
 useEffect(() => {
   if(validatorList.length > 0) {
@@ -109,7 +130,7 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 </p> 
 </div>}
 {hasErrors && <p> There's an issue with fetching the network list. Please try again.</p>}
-{selectedNetwork !== "Select a network" && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
+{selectedNetwork !== "Select a network" && !showOsmoMessage && networkAddress !== '' && <div className="wallet-details d-flex flex-column mt-5">
   <h4 className="mt-3"> My Wallet</h4>
   {networkAddress && <h6 className="mt-3"> {networkAddress} <button className="mx-2 copy-button"
   onClick={handleClick}
@@ -132,12 +153,14 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 </div>}
 
 
-<div className="mt-5 button-container">
+{!showOsmoMessage && <div className="mt-5 button-container">
 {selectedNetwork !== "Select a network" && networkAddress !== '' &&   <p className={loadingValidators ? 'visible text-center' : 'invisible'}> Loading Validators...</p>}
  {selectedNetwork?.base_denom && <button className={`stake-liquid-atoms-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} onClick={() => onNext()} > Stake {selectedNetwork?.base_denom?.slice(1).toUpperCase()} </button>}
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
-</div>
+</div>}
+{showOsmoMessage && <h5 className="mt-5 w-50 text-center m-auto">OSMO deposits are disabled due to congestion on the Osmosis Network during the Osmosis epoch boundary from 17:00 - 17:30 UTC.</h5>}
+
 {/* {!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>} */}
 
 </div>
