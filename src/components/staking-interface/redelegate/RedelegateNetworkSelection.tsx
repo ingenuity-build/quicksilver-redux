@@ -26,6 +26,8 @@ export default function RedelegateNetworkSelection() {
 
 
     const onNext = () => {
+        console.log('byee')
+        alert("bye")
         // @ts-ignore
         dispatch(increaseRedelegateStep())
 

@@ -265,7 +265,7 @@ const connectToQS = () => {
           <Route path="delegate" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="delegate/:chainid" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="undelegate" element={<Undelegate connectKeplr={connectKeplr} />} />
-          <Route path="redelegate" element={<Redelegate />} /> 
+          <Route path="redelegate" element={<Redelegate connectKeplr={connectKeplr}  />} /> 
         </Route>
                       <Route path="/pools" element={<Pools  />}/>
                       <Route path="/airdrop" element={<Airdrop  />}/>
