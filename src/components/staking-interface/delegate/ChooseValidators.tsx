@@ -9,6 +9,9 @@ import { listenerCancelled } from "@reduxjs/toolkit/dist/listenerMiddleware/exce
 // import osmosis from '../../../assets/osmosis';
 // import qStar from '../../../assets/qStar.png';
 import ValidatorImg from '../../../assets/validator.png';
+import Switch from 'rc-switch';
+import type { SwitchChangeEventHandler } from 'rc-switch';
+import 'rc-switch/assets/index.css'
 
 
 export interface Data {
@@ -67,12 +70,12 @@ export default function ChooseValidators() {
         if(selectedValidatorList.length === 0 ) {
             // let newArray = [];
             // newArray = validators.map((val: any) => { val.active = false; return val});
-            let newData = validators.map((val: any) => 
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => 
             Object.assign({}, val, {active:false})
             )       
             setValidators([...newData].sort(() => Math.random() - 0.5));
         }  else {
-            let newData = validators.map((val: any) => {
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
                 if(selectedValidatorList.find((x: any) => x.address === val.address)) {
                    return Object.assign({}, val, {active: true})
                 } else {
@@ -130,14 +133,56 @@ const onNext = () => {
        
         }
 
+        const onChange: SwitchChangeEventHandler = (value, event) => {
+            // eslint-disable-next-line no-console
+            if(value === true) {
+                let newData = validatorList.map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+            } else if(value === false) {
+                let newData = validatorList.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+
+            }
+          }
+
 
     return (
 
    <div className="validator-selection-pane d-flex flex-column align-items-center">
-        <h2 className="mt-3 choose-heading"> Choose Validators </h2>
-        
-        <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
+        <h2 className="mt-3 mb-2 choose-heading"> Choose Validators </h2>
+        <div className="container-options row mt-3">
+            <div className="col-3 m-3">
+            <span className="mx-4 pl-2 mt-4">
+        Show all Validators
+        <Switch className="mx-2"
+        onChange={onChange}
+      />
+      </span>
+            </div>
+            <div className="col-3 m-3" >
+            <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
+            </div>
+            <div className="col-3 m-3">
 
+            </div>
+  
+
+
+      </div>
           <div className="mt-3 validators row justify-content-center">
           {validatorList.length === 0 && !hasErrors && <p className="text-center"> There's an issue with fetching validator list. Please try again</p>}
           {validators.map((row: any) =>
@@ -164,7 +209,7 @@ const onNext = () => {
 
 <div className="mt-2 button-container">
         <button onClick={onPrevious} className="prev-button mx-3" > Previous</button>
-        <button disabled={selectedValidators.length > 8 || selectedValidators.length === 0 } className="next-button mx-3" onClick={onNext}  >Next</button>
+        <button disabled={selectedValidators.length > 8 || selectedValidators.length === 0 } className="next-button mx-3 mb-5" onClick={onNext}  >Next</button>
     </div>
 </div>
           
