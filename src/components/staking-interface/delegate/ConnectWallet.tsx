@@ -48,11 +48,13 @@ useEffect(() => {
     <>
         <div className="connect-wallet-pane d-flex flex-column align-items-center">
                 <h3 className=" sub-heading"> Choose a Network </h3>
-                <div className="mt-3 mb-5 networks row justify-content-center">
+                <div className="mt-3 mb-5 networks w-75">
+                  <div className="row">
                 {networks.map((network: any) => 
                 <>
                   {/* <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)} {network?.apy * 100}</button> </> */}
-                         <div className="col-4 m-3 network-card" onClick={ () => onButtonClick(network)}>
+                         <div className="col-6" onClick={ () => onButtonClick(network)}>
+                          <div className="network-card m-3">
                          <div className="d-flex align-items-start"> 
                               {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
                         <div className="card-details  w-100 row d-flex align-items-center">
@@ -68,11 +70,11 @@ useEffect(() => {
                           </div>
                   <div className="col-6">
                   <h5 className="text-center font-bold">{(network.apy * 100).toFixed(2)} %</h5>
-                           <p className="text-center">APY <span><img id={network.label}  className="question"  src={Question}/></span></p>
+                           <p className="text-center">Quicksilver APY <span><img id={network.label}  className="question"  src={Question}/></span></p>
                            <ReactTooltip
         anchorId={network.label}
         place="bottom"
-        content={`APY is accrued by an increase in the value of ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} relative to ${network.value.base_denom.slice(1).toUpperCase()} (redemption rate). Total ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} in the wallet does not change.`}
+        content={`Quicksilver autocompounds staking rewards. APY is accrued by an increase in the value of ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} relative to ${network.value.base_denom.slice(1).toUpperCase()} (redemption rate). Total ${network.value.local_denom[1] + network.value.local_denom.slice(2).toUpperCase()} in the wallet does not change.`}
       />
                   </div>
                      
@@ -86,9 +88,11 @@ useEffect(() => {
                          {/* <h4 className="font-bold">  Reward </h4> */}
                          </div>
                          </div>
+                         </div>
                      </div>
                   </>
                 )}
+                </div>
                </div>
               
                 {/* <h4 className="sub-heading"> Deposits will be enabled soon. Stay tuned. </h4> */}

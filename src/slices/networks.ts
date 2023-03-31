@@ -81,10 +81,16 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
+  const labels = {
+    'uqatom' : 'Cosmos Hub',
+    'uqosmo' : 'Osmosis',
+    'uqstars' : 'Stargaze',
+    'uqjunox' : 'Juno',
+    'uqregen': 'Regen'
+  }
 
 
-
-  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: labels[zone.local_denom].toUpperCase() , value: zone, image: images[zone.local_denom]}})
   //  console.log('zones', whitelistedZones);
 
    return whitelistedZones;

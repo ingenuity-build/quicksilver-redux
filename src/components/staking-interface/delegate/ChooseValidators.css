@@ -71,3 +71,16 @@ padding: 1rem;
 ::placeholder {
     color: white;
   }
+
+  button {
+    z-index: 999;
+  }
+
+  .rc-switch-checked {
+    border: 1px solid #D35100 !important;
+    background-color: #D35100 !important;
+  }
+
+  .container-options {
+    width: 90%;
+  }
