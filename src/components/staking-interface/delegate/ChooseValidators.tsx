@@ -164,7 +164,7 @@ const onNext = () => {
 
    <div className="validator-selection-pane d-flex flex-column align-items-center">
         <h2 className="mt-3 mb-2 choose-heading"> Choose Validators </h2>
-        <div className="container-options row mt-3">
+        <div className="container-options row mt-3 justify-content-center align-items-center">
             <div className="col-3 m-3">
             <span className="mx-4 pl-2 mt-4">
         Show all Validators
