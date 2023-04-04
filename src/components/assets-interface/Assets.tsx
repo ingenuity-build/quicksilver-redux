@@ -275,6 +275,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
 {bal.denom === 'uqatom' && <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqregen' && <a href="https://app.osmosis.zone/pool/948" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqstars' && <a href="https://app.osmosis.zone/pool/903" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqosmo' && <a className="pool-text">Pool on Osmosis Coming Soon</a>}
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
