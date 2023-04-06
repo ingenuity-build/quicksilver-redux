@@ -84,3 +84,21 @@ padding: 1rem;
   .container-options {
     width: 90%;
   }
+
+  .active-val {
+    background: #24925D;
+    width: 70px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .inactive-val {
+    background: #DF0808;
+    width: 80px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
