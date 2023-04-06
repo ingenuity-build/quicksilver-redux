@@ -10,13 +10,18 @@ import qJuno from '../../assets/qJuno.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
-import { quicksilver } from "quicksilverjs"
+import { quicksilver, cosmos} from "quicksilverjs"
 import env from "react-dotenv";
 import {  setModalOpen } from '../../slices/connectWalletModal';
+import { MsgGrant } from 'quicksilverjs/types/codegen/cosmos/authz/v1beta1/tx';
+import { GenericAuthorization } from 'quicksilverjs/types/codegen/cosmos/authz/v1beta1/authz';
+import { MsgSubmitClaim } from 'quicksilverjs/types/codegen/quicksilver/participationrewards/v1/messages';
 
 const {
     submitClaim
 } = quicksilver.participationrewards.v1.MessageComposer.withTypeUrl
+
+const { grant } = cosmos.authz.v1beta1.MessageComposer.withTypeUrl
 
 interface IImages {
   [index: string]: string;
@@ -112,12 +117,20 @@ export default function Assets() {
 
     const msgSend = {
       granter: quicksilverAddress,
-      grantee: 'quick1f6g9guyeyzgzjc9l8wg4xl5x0rvxddewjc4rv0',
-     grant: "/quicksilver.participationrewards.v1.MsgSubmitClaim"
-    };
+      grantee: "quick1f6g9guyeyzgzjc9l8wg4xl5x0rvxddewjc4rv0",
+      grant: {
+        authorization: {
+            typeUrl: "/cosmos.authz.v1beta1.GenericAuthorization", 
+            value: {
+              msg: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
+            }
+          }
+        }
+      };
+
     const msgAny = {
         typeUrl: "/cosmos.authz.v1beta1.MsgGrant",
-      value: msgSend,
+        value: msgSend,
     };
     try {
    const broadcastResult = await quicksilverClient.signAndBroadcast(

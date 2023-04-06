@@ -5,7 +5,7 @@ import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, cre
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing"
 import { SigningStargateClientOptions } from "@cosmjs/stargate"
-import { quicksilverProtoRegistry, quicksilverAminoConverters } from "quicksilverjs"
+import { quicksilverProtoRegistry, quicksilverAminoConverters, cosmosProtoRegistry, cosmosAminoConverters } from "quicksilverjs"
 import { StakeAuthorization } from "cosmjs-types/cosmos/staking/v1beta1/authz.js";
 import { GenericAuthorization } from "cosmjs-types/cosmos/authz/v1beta1/authz.js";
 import { MsgGrant, MsgRevoke } from "cosmjs-types/cosmos/authz/v1beta1/tx.js";
@@ -250,13 +250,14 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   
   function createCustomTypes(prefix: string): AminoConverters {
     return {
-      ...createAuthzAminoConverters(),
-      ...createBankAminoConverters(),
-      ...createDistributionAminoConverters(),
-      ...createGovAminoConverters(),
-      ...createStakingAminoConverters(prefix),
-      ...createIbcAminoConverters(),
-      ...createFeegrantAminoConverters(),
+      // ...createAuthzAminoConverters(),
+      // ...createBankAminoConverters(),
+      // ...createDistributionAminoConverters(),
+      // ...createGovAminoConverters(),
+      // ...createStakingAminoConverters(prefix),
+      // ...createIbcAminoConverters(),
+      // ...createFeegrantAminoConverters(),
+      ...cosmosAminoConverters,
       ...createLiquidStakingTypes(),
       ...quicksilverAminoConverters,
     };
@@ -342,10 +343,8 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-
-     ...defaultRegistryTypes,
+     ...cosmosProtoRegistry,
      ...quicksilverProtoRegistry,
-     [ "/cosmos.authz.v1beta1.MsgGrant", MsgGrant],
   ];
 
  export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
