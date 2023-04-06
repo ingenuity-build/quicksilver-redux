@@ -72,7 +72,7 @@ export default function Navbar(props: PropComponent) {
 
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length !== 0) {
          let balance = balances.find((bal: any) => bal.denom === 'uqck');
          if(balance) {
           setQCKBalance((balance.amount)/1000000);

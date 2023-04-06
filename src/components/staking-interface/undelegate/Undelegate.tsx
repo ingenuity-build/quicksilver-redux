@@ -70,7 +70,7 @@ useEffect(() => {
 }, [withdrawals, selectedNetwork])
 
   useEffect(() => {
-    if(balances !== []) {
+    if(balances.length !== 0) {
          let balance = balances.find((bal: any) => bal.denom === selectedNetwork.local_denom);
          if(balance) {
           console.log(balance)
