@@ -124,7 +124,8 @@ export default function Assets() {
             value: {
               msg: "/quicksilver.participationrewards.v1.MsgSubmitClaim",
             }
-          }
+          },
+          expiration: "2023-04-12T00:00:00Z"
         }
       };
 
