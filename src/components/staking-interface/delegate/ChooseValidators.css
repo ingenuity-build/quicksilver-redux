@@ -22,7 +22,7 @@ padding: 1rem;
     cursor: pointer;
 }
 
-.validator-selection-pane .button-container, .validator-selection-pane .validators, .validator-selection-pane input {
+.validator-selection-pane .button-container, .validator-selection-pane .validators, .validator-selection-pane input , .search-container{
     z-index: 3;
 } 
 

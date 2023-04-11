@@ -191,7 +191,7 @@ const onNext = () => {
       </span>
       All Validators
             </div>
-            <div className="col-3 m-3" >
+            <div className="col-3 m-3 search-container" >
             <input className="mt-2 px-2 search" type="text"  value={searchTerm} onChange={handleChange} placeholder="Search Validators"/>
             </div>
             <div className="col-3 m-3">
