@@ -24,16 +24,19 @@ const onBack = () => {
  }
     return (
         <>
-    <div className="connect-wallet-modal p-5">
-        <h5> You are about to delegate to the following inactive validator(s)</h5>
+    <div className="inactive-validator-modal p-5">
+        <h5 className="font-bold mb-3"> You are about to delegate to the following inactive validator(s):</h5>
         {selectedValidatorList.filter((val:any) => val.status !== 'BOND_STATUS_BONDED').map((val: any) => 
 <>  
-<h5> {val.name}</h5>
+<p className="validator-name"> {val.name}</p>
 
 </>
         )}
-<button onClick={onBack}>Go back</button>
-<button onClick={onNext}>Proceed</button>
+        <div className="button-container text-center mt-5">
+        <button  className="proceed-button mx-3" onClick={onNext}>Proceed</button>
+<button className="back-button mx-3" onClick={onBack}>Go back and choose again</button>
+
+</div>
     </div> 
     </>
     );

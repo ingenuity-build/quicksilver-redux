@@ -1,68 +1,40 @@
-.connect-wallet-modal {
+.inactive-validator-modal  {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     background-color: white;
     padding: 1rem;
-    min-width: 30rem;
+    min-width: 40rem;
     z-index: 10;
     position: fixed;
     top: 10vh;
-    left: calc(50% - 15rem);
-  }
-
-  .connect-wallet-modal .keplr {
-    border:1px solid #D35100;
-    background: white;
-    color: #D35100;
-border-radius: 5px;
-font-weight: 600;
-  }
-
-  /* .connect-wallet-modal .cosmos-station {
-    border:none;
-    background: rgba(0, 0, 0, 0.1);;
-    color: rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-
-  } */
-
-  .connect-wallet-modal .keplr:hover {
-    border:1px solid #D35100;
-background: #D35100;
-color: white;
-  }
-
-  .connect-wallet-modal .heading {
+    left: calc(50% - 20rem);
     color: black;
-    font-weight: 400;
   }
 
-  .keplr:disabled {
-    border:1px solid #D35100;
-background: white;
+  .inactive-validator-modal  .validator-name {
+    margin-bottom: 0.5rem;
+  }
+
+  .proceed-button {
+    background: none;
+    border:none;
+border-radius: 5px;
+font-weight: 400;
+font-size: 18px;
 color: #D35100;
+padding: 5px 20px;
   }
 
-  .connect-wallet-modal img {
-    height: 40px !important;
-    margin-right: 1rem;
-    margin-left: 1rem;
+
+  .back-button {
+    background: #D35100;
+border-radius: 5px;
+font-size: 18px;
+line-height: 30px;
+font-weight: 400;
+color: #FFFFFF;
+border: 2px solid #D35100;
+padding: 5px 30px;
+
   }
 
-  .connect-wallet-modal button {
-    text-align: left;
-    /* margin-left: 1rem; */
-  }
-
-  .connect-wallet-modal .wallet-disabled {
-    border: 1px solid lightgray;
-    background: lightgray;
-    cursor: not-allowed;
-   pointer-events: none;
-  }
-
-  .connect-wallet-modal .leap-logo {
-    height: 30px !important;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
