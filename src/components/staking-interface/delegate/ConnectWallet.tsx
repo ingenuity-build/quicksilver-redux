@@ -69,7 +69,7 @@ useEffect(() => {
                            <p className="text-center">Redemption Rate</p>
                           </div>
                   <div className="col-6">
-                  <h5 className="text-center font-bold">{(network.apy * 100).toFixed(2)} %</h5>
+                  <h5 className="text-center font-bold">{ (network.apy * 100).toFixed(2)} %</h5>
                            <p className="text-center">Quicksilver APY <span><img id={network.label}  className="question"  src={Question}/></span></p>
                            <ReactTooltip
         anchorId={network.label}

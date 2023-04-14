@@ -45,35 +45,12 @@ export function fetchNetworks() {
     try {
       const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
-      const cosmos = await fetch(`${env.APY_ZONES_ENDPOINT}/cosmoshub`)
-      const cosmosData = await cosmos.json()
-      let cosmosAPY =  cosmosData.chain.params.estimated_apr;
-      const regen = await fetch(`${env.APY_ZONES_ENDPOINT}/regen`)
-      const regenData = await regen.json()
-      let regenAPY =  regenData.chain.params.estimated_apr;
-      const osmosis = await fetch(`${env.APY_ZONES_ENDPOINT}/osmosis`)
-      const osmosisData = await osmosis.json()
-      let osmosisAPY =  osmosisData.chain.params.estimated_apr;
-      const stargaze = await fetch(`${env.APY_ZONES_ENDPOINT}/stargaze`)
-      const stargazeData = await stargaze.json()
-      let stargazeAPY =  stargazeData.chain.params.estimated_apr;
-      const juno = await fetch(`${env.APY_ZONES_ENDPOINT}/juno`)
-      const junoData = await juno.json()
-      let junoAPY =  junoData.chain.params.estimated_apr;
-      const APY = {
-        'uqatom' : cosmosAPY,
-        'uqosmo' : osmosisAPY,
-        'uqstars' : stargazeAPY,
-        'uqjunox' : junoAPY,
-        'uqregen': regenAPY
-      }
-      console.log('APY', APY);
+      const APR = await fetch('https://data.quicksilver.zone/apr');
+      const APRDATa = await APR.json()
+      let APY = APRDATa.chains;
       let zones = manipulateData(data.zones);
-      console.log('zones', zones)
-      let zonesAPY = zones.map(obj => ({ ...obj, apy: ( (1+ (APY[obj.value.local_denom])/121.66)**121.66 ) - 1 }))
-      // let zonesAPY =  zones.filter((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom], apy: APY[zone.local_denom]}});
-       console.log('zonesAPY', zonesAPY)
-       dispatch(getNetworksSuccess(zonesAPY))
+     let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
+      dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {
       dispatch(getNetworksFailure())
     }

@@ -105,7 +105,9 @@ useEffect(() => {
     console.log('balance', balance)
     if(balance) {
      setZoneBalance((balance.amount)/1000000);
-    } 
+    } else {
+      setZoneBalance(0)
+    }
  
 }
 }, [networkBalances, selectedNetwork])
