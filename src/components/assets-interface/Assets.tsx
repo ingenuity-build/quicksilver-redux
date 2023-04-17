@@ -51,21 +51,21 @@ export default function Assets() {
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
   const {isPoolModalOpen} = useSelector(poolModalSelector)
-  // useEffect(() => {
-  //   if(isQSWalletConnected && networks) {
-  //   let denomArray : Array<string> = [];
-  //   networks.forEach((network: any) => denomArray.push(network.value.local_denom));
-  //   denomArray.push('uqck');
-  //   setDenomArray(denomArray);
-  //   if(!sum) {
-  // fetchSum();
-  //   }
-  // }
-  //   // if(messages.length == 0) {
-  //   //   queryXccLookup();
-  //   // }
+  useEffect(() => {
+    if(isQSWalletConnected && networks) {
+    let denomArray : Array<string> = [];
+    networks.forEach((network: any) => denomArray.push(network.value.local_denom));
+    denomArray.push('uqck');
+    setDenomArray(denomArray);
+    if(!sum) {
+  fetchSum();
+    }
+  }
+    if(messages.length == 0) {
+      queryXccLookup();
+    }
 
-  // }, [balances])
+  }, [balances])
 
   
 
@@ -242,7 +242,7 @@ dispatch(setPoolModalOpen());
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button onClick={onPoolButtonClick} className="claim-button"> Claim</button>
+    <button onClick={onClaimsClick} className="claim-button"> Claim</button>
     </div>
 
   </div>
