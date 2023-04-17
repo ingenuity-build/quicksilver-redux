@@ -47,7 +47,7 @@ h2 {
     z-index: 3;
   }
   img {
-    height:50px;
+    height:75px;
   }
 
   .amount {
@@ -60,7 +60,7 @@ h2 {
     font-style: italic;
   }
 
-  .question {
+  .question{
     height: 25px;
   }
 
@@ -68,4 +68,18 @@ h2 {
     cursor: pointer;
   }
 
- 
+ .pool-text {
+  font-size: 14px;
+text-decoration: none;
+color: #D35100
+ }
+
+ .pool-text:hover {
+  cursor: pointer;
+  color: #D35100;
+ }
+
+ .pool {
+height:12px;
+margin-top: -2px;
+ }

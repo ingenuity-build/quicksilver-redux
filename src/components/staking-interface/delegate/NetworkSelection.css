@@ -1,6 +1,6 @@
 .wallet-details {
     align-items: center;
-    border-radius: 30px;
+    border-radius: 5px;
     width: 60%;
     padding: 20px;
     background: #282828;
@@ -25,7 +25,7 @@
 .prev-button {
     background: none;
     border:none;
-border-radius: 10px;
+border-radius: 5px;
 font-weight: 400;
 font-size: 18px;
 color: #D35100;
@@ -36,7 +36,7 @@ padding: 5px 20px;
 
 .stake-liquid-atoms-button, .stake-existing-delegations-button, .next-button {
 background: #D35100;
-border-radius: 10px;
+border-radius: 5px;
 font-size: 18px;
 line-height: 30px;
 font-weight: 400;
@@ -71,7 +71,7 @@ border: 2px solid #D35100;
  
   .copy-button {
     background: #D35100;
-    border-radius: 10px;
+    border-radius: 5px;
     font-size: 14px;
     font-weight: 400;
     color: #fff;
@@ -81,11 +81,16 @@ border: 2px solid #D35100;
 }
 
 
+
 .custom-class.mb-3.mt-2.css-b62m3t-container {
     margin: 0 !important;
     width: 200px;
 }
 
-.wallet-details {
+.wallet-details{
     z-index: 1;
+}
+
+.prev-button {
+    z-index: 3
 }

@@ -1,6 +1,6 @@
 .unbond {
     background: #D35100;
-border-radius: 10px;
+border-radius: 5px;
 font-size: 18px;
 line-height: 30px;
 font-weight: 400;
@@ -43,4 +43,17 @@ td {
 .Collapsible__contentOuter {
   
     padding-top: 20px !important;
+}
+
+.unbonding-text {
+    z-index: 3
+}
+
+.assets-link a  {
+    color: white;
+}
+
+.assets-link a:hover {
+    color: white;
+    cursor: pointer;
 }

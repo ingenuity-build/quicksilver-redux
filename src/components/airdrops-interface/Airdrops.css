@@ -2,3 +2,32 @@
 color: #D35100;
 font-size: 24px;
 }
+
+.airdrop-text {
+    line-height: 1.5;
+}
+
+.input-box {
+    height: 36px;
+    width: 350px;
+}
+
+.airdrop-container ::placeholder {
+    color: black !important;
+  }
+
+  .airdrop-container {
+    z-index: 3;
+  }
+
+  .network-card {
+    background: #282828;
+    border: 2px solid #282828;
+    border-radius: 5px;
+    padding: 1rem;
+  }
+
+.network-image {
+  height: 75px;
+  padding-left: 16px;
+}

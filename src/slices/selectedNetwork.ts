@@ -37,7 +37,11 @@ export function setSelectedNetworkFunc(val: any) {
     return async (dispatch: any) => {
   
       try {
-        dispatch(setSelectedNetworkSuccess(val.value))
+        if(val !== "Select a network") { 
+          dispatch(setSelectedNetworkSuccess(val.value)) }
+          else {
+            dispatch(setSelectedNetworkSuccess(val))
+          }
       } catch (error) {
         dispatch(setSelectedNetworksFailure())
       }

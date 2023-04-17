@@ -3,12 +3,13 @@ import './Assets.css';
 import {quicksilverSelector} from '../../slices/quicksilver';
 import { useDispatch, useSelector } from 'react-redux'
 import QuicksilverLogo from '../../assets/quicksilver-logo.png';
-import qStar from '../../assets/qStar.png';
+import qStar from '../../assets/qSTAR.svg';
 import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
 import qRegen from '../../assets/qRegen.svg';
 import Question from '../../assets/icons/question-mark.svg';
+import ExternalLink from '../../assets/external-link.svg';
 import { Coin } from "@cosmjs/amino";
 import { QuickSilverChainInfo } from '../../utils/chains';
 import { networksSelector } from '../../slices/networks';
@@ -50,21 +51,21 @@ export default function Assets() {
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
   const {isPoolModalOpen} = useSelector(poolModalSelector)
-  // useEffect(() => {
-  //   if(isQSWalletConnected && networks) {
-  //   let denomArray : Array<string> = [];
-  //   networks.forEach((network: any) => denomArray.push(network.value.local_denom));
-  //   denomArray.push('uqck');
-  //   setDenomArray(denomArray);
-  //   if(!sum) {
-  // fetchSum();
-  //   }
-  // }
-  //   // if(messages.length == 0) {
-  //   //   queryXccLookup();
-  //   // }
+  useEffect(() => {
+    if(isQSWalletConnected && networks) {
+    let denomArray : Array<string> = [];
+    networks.forEach((network: any) => denomArray.push(network.value.local_denom));
+    denomArray.push('uqck');
+    setDenomArray(denomArray);
+    if(!sum) {
+  fetchSum();
+    }
+  }
+    if(messages.length == 0) {
+      queryXccLookup();
+    }
 
-  // }, [balances])
+  }, [balances])
 
   
 
@@ -241,7 +242,7 @@ dispatch(setPoolModalOpen());
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button onClick={onPoolButtonClick} className="claim-button"> Claim</button>
+    <button onClick={onClaimsClick} className="claim-button"> Claim</button>
     </div>
 
   </div>
@@ -252,12 +253,11 @@ These rewards will be distributed on an epochly basis (every 3 days).
   {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
   {balances.filter((bal: any) => (networks.find((y:any) => y.value.local_denom === bal.denom)) || bal.denom === 'uqck').map((bal: Coin, i: number) =>
        
-            <div className="asset-card col-3 m-3" key={i}>
-     
+            <div className={`asset-card col-3 m-3 ${bal.denom !== 'uqck' ? 'order-1' : ''}`} key={i}>
             <img className="d-block mx-auto" src={params[bal.denom]}/>
               <div className="d-flex mt-2 align-items-baseline justify-content-center">
         
-                <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(2)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
+                <h5 className="font-bold"> {(+(bal.amount)/1000000).toFixed(3)} {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h5>
               
                 
 
@@ -265,14 +265,16 @@ These rewards will be distributed on an epochly basis (every 3 days).
 
           
                 </div>
-                {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(2)  } { bal.denom.slice(2).toUpperCase()}</h6>}
+                {bal.denom !== 'uqck' && <h6> ≈ {((networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate) * +(bal.amount)/1000000).toFixed(3)  } { bal.denom.slice(2).toUpperCase()}</h6>}
                 {bal.denom !== 'uqck' && <p className="redemption-rate"> at current redemption rate <span><img id={i.toLocaleString()}  className="question"  src={Question}/></span></p>}
                 {bal.denom !== 'uqck' &&  <ReactTooltip
         anchorId={i.toLocaleString()}
         place="bottom"
-        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(2) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
+        content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.local_denom === bal.denom).value.redemption_rate)).toFixed(4) } ${bal.denom[1] + bal.denom.slice(2).toUpperCase()} per ${bal.denom.slice(2).toUpperCase()} `}
       />}
-
+{bal.denom === 'uqatom' && <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqregen' && <a href="https://app.osmosis.zone/pool/948" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqstars' && <a href="https://app.osmosis.zone/pool/903" target="_blank" className="pool-text">Pool on Osmosis <span><img className="pool"  src={ExternalLink}/></span></a>}
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
