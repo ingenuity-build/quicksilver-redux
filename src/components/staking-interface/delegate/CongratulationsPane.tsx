@@ -51,7 +51,7 @@ export default function CongratulationsPane() {
 {showOsmoMessage && <h5 className="mt-2">   Due to congestion on the Osmosis chain, the minting of qOSMO can take longer than usual.</h5>}
     <h5 className="mt-2">Your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} will arrive in your Quicksilver wallet shortly.</h5>
     <div className="button-container mt-4">
-        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake Another </button>
+        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake Another Asset </button>
         </div>
     </div>
     </>
