@@ -9,7 +9,8 @@ import stakingActiveStepReducer from './stakingActiveStep'
 import redelegateActiveStepReducer from './relegateActiveStep'
 import stakingAllocationReducer from './allocation';
 import existingDelegationsReducer from './existingDelegations';
-import connectWalletModalReducer from './connectWalletModal'
+import connectWalletModalReducer from './connectWalletModal';
+import claimRewardModalReducer from './claimRewardModal';
 import poolsReducer from './pools'
 import unbondingReducer from './unbonding';
 import epochReducer from './epoch';
@@ -17,6 +18,7 @@ import intentReducer from './intents';
 import  poolModalReducer from './poolsWarningModal'
 import airdropsReducer from './airdrops';
 import inactiveValidatorsModalReducer from './inactiveValidatorsModal'
+import claimsReducer from './claims'
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -37,7 +39,10 @@ const rootReducer = combineReducers({
   intents: intentReducer,
   poolModal: poolModalReducer,
   airdrops: airdropsReducer,
-  inactiveValidatorsModal: inactiveValidatorsModalReducer
+  inactiveValidatorsModal: inactiveValidatorsModalReducer,
+  epoch: epochReducer,
+  claims: claimsReducer,
+  claimRewardModal: claimRewardModalReducer
 })
 
 export default rootReducer;
