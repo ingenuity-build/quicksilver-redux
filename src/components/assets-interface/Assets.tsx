@@ -235,14 +235,15 @@ dispatch(setPoolModalOpen());
 <div className="participation-rewards">
     <div className="d-flex p-3 justify-content-center flex-column">
     <h3 className="text-center"> Claim Participation Rewards </h3>
-    <p className="coming-soon text-center"> Coming Soon</p>
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'false' && <p className="coming-soon text-center"> Coming Soon</p>}
     {/* <button onClick={onClaimsClick}> Claim </button> */}
     <p className="text-center p-3" >
     Participation Rewards are QCK token emissions that will reward Protocol users for delegating to decentralized, performant validators that are active in governance.
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    <button onClick={onClaimsClick} className="claim-button"> Claim</button>
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && <button onClick={onClaimsClick} className="claim-button"> Claim</button>}
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'false' && <button className="claim-button"> Claim</button>}
     </div>
 
   </div>
