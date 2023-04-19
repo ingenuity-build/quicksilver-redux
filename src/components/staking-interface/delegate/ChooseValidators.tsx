@@ -176,31 +176,7 @@ const onNext = () => {
             }
           }
 
-        const onChange: SwitchChangeEventHandler = (value, event) => {
-            // eslint-disable-next-line no-console
-            if(value === true) {
-                let newData = validatorList.map((val: any) => {
-                    if(selectedValidators.find((x: any) => x.address === val.address)) {
-                       return Object.assign({}, val, {active: true})
-                    } else {
-                       return Object.assign({}, val, {active:false})
-                    }   
-                }
-                )   
-                setValidators(newData);
-            } else if(value === false) {
-                let newData = validatorList.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
-                    if(selectedValidators.find((x: any) => x.address === val.address)) {
-                       return Object.assign({}, val, {active: true})
-                    } else {
-                       return Object.assign({}, val, {active:false})
-                    }   
-                }
-                )   
-                setValidators(newData);
 
-            }
-          }
 
 
     return (
