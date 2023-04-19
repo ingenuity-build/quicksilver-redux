@@ -332,7 +332,6 @@ export default function Navbar(props: PropComponent) {
 
 
         />
-        {selectedNetwork?.account_prefix}
         {isModalOpen && <ConnectWalletModal loading={props.loading} setLoading={props.setLoading} handleClickOpen={props.handleClickOpen}/>}
             {/* <button onClick={logOut}> LOGOUT </button> */}
         {isQSWalletConnected && <p className="btn connect-wallet px-3 my-2 my-sm-0">  <img alt="Wallet icon" src={Wallet}/> {QCKBalance ? QCKBalance.toFixed(3) : 0}  QCK <img className="logout" onClick={logout} alt="Logout icon" src={Logout}/> </p>}
