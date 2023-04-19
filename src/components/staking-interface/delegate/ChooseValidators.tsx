@@ -77,12 +77,12 @@ export default function ChooseValidators() {
         if(selectedValidatorList.length === 0 ) {
             // let newArray = [];
             // newArray = validators.map((val: any) => { val.active = false; return val});
-            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => 
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => 
             Object.assign({}, val, {active:false})
             )       
             setValidators([...newData].sort(() => Math.random() - 0.5));
         }  else {
-            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
+            let newData = validators.filter((val:any) => val.status === 'BOND_STATUS_BONDED').filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
                 if(selectedValidatorList.find((x: any) => x.address === val.address)) {
                    return Object.assign({}, val, {active: true})
                 } else {
@@ -176,6 +176,32 @@ const onNext = () => {
             }
           }
 
+        const onChange: SwitchChangeEventHandler = (value, event) => {
+            // eslint-disable-next-line no-console
+            if(value === true) {
+                let newData = validatorList.map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+            } else if(value === false) {
+                let newData = validatorList.filter((val:any) => val.status === 'BOND_STATUS_BONDED').map((val: any) => {
+                    if(selectedValidators.find((x: any) => x.address === val.address)) {
+                       return Object.assign({}, val, {active: true})
+                    } else {
+                       return Object.assign({}, val, {active:false})
+                    }   
+                }
+                )   
+                setValidators(newData);
+
+            }
+          }
+
 
     return (
 
@@ -234,7 +260,7 @@ const onNext = () => {
 
 <div className="mt-2 button-container">
         <button onClick={onPrevious} className="prev-button mx-3" > Previous</button>
-        <button disabled={selectedValidators.length > 8 || selectedValidators.length === 0 } className="next-button mx-3 mb-5" onClick={onNext}  >Next</button>
+        <button disabled={selectedValidators.length > 8 || selectedValidators.length === 0 } className="next-button mx-3 mb-5 mb-5" onClick={onNext}  >Next</button>
     </div>
     {isInactiveValsModalOpen && <InactiveValidatorsModal />}
      
