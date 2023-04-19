@@ -4,7 +4,7 @@ import React , { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import './NetworkSelection.css';
 
-import {increaseStakingStep} from '../../../slices/stakingActiveStep';
+import {increaseStakingStep, setStakingStep} from '../../../slices/stakingActiveStep';
 
 
 import { networksSelector, fetchNetworks } from '../../../slices/networks'	;
@@ -78,23 +78,17 @@ useEffect(() => {
 
 
 useEffect(() => {
-
-  if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
-    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
-    console.log('balance', balance)
-    if(balance) {
-     setZoneBalance((balance.amount)/1000000);
-    } 
- 
-}
-}, [networkBalances, selectedNetwork])
+  if(validatorList.length > 0) {
+    setLoadingValidators(false);
+  }
+}, [validatorList])
 
 useEffect(() => {
   if(walletType === 'keplr') {
   window.addEventListener("keplr_keystorechange", () => {
     setQCKBalance(0);
     setZoneBalance(0);
-
+    setQCKBalance(0);
   })
 } else if(walletType === 'leap') {
   window.addEventListener("leap_keystorechange", () => {
@@ -112,9 +106,32 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 }
 }, []);
 
+useEffect(() => {
+
+  if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
+    let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
+    console.log('balance', balance)
+    if(balance) {
+     setZoneBalance((balance.amount)/1000000);
+    } else {
+      setZoneBalance(0)
+    }
+ 
+}
+}, [networkBalances, selectedNetwork])
+
+
+
   let onNext = () => {
         // @ts-expect-error
     dispatch(increaseStakingStep());
+  }
+
+  const onBack = () => {
+                 // @ts-expect-error
+                 dispatch(setStakingStep(1));
+                 // @ts-expect-error
+                 dispatch(setSelectedNetworkFunc("Select a network"));
   }
 
 
@@ -160,11 +177,12 @@ window.cosmostation.cosmos.on("accountChanged", () => {
 
 </div>}
 {showOsmoMessage && <h5 className="mt-5 w-50 text-center m-auto">OSMO deposits are disabled due to congestion on the Osmosis Network during the Osmosis epoch boundary from 17:00 - 17:30 UTC.</h5>}
-
+<div className="button-container">
+{showOsmoMessage && <button onClick={onBack} className="prev-button mx-3 mt-5" > Back</button>}
+</div>
 {/* {!selectedNetwork.liquidity_module && <p className={`mt-4 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`}> Transfer of delegation isn't enabled on this network </p>} */}
 
 </div>
-
 
     </>
 

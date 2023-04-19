@@ -6,7 +6,7 @@
 .allocation-pane .staking-pane {
     z-index: 3;
     align-items: center;
-    border-radius: 30px;
+    border-radius: 5px;
     width: 80%;
     padding: 20px;
     background: #282828;
@@ -18,8 +18,7 @@
 }
 
 .allocation-message {
-    padding-left: 100px;
-    padding-right: 100px;
+  width: 60%;
 }
 
 .percentages {

@@ -21,9 +21,9 @@ export default function Stake() {
   const {selectedNetwork} = useSelector(selectedNetworkSelector);
   useEffect(() => {
     if (selectedNetwork !== "Select a network") {
-        console.log(selectedNetwork.chain_id)
+        console.log(selectedNetwork?.chain_id)
               // @ts-expect-error
-     dispatch(_loadValsAsync(selectedNetwork.chain_id));
+     dispatch(_loadValsAsync(selectedNetwork?.chain_id));
     //          // @ts-expect-error
     //  dispatch(_loadExistingValsAsync(networkAddress, selectedNetwork.chain_id))
     }
@@ -33,7 +33,7 @@ export default function Stake() {
         <>
                      <p className="unbonding-message"> Unbonding will be enabled soon for assets deposited into the Quicksilver Protocol. Until unbonding is enabled, exit a position by migrating qAssets to Osmosis and swapping in the relevant qAsset pool.</p>
             <div className="staking-interface row mx-0">
-            <div className="stepper col-2 d-flex flex-column ">
+            {/* <div className="stepper col-2 d-flex flex-column ">
           
              {location.pathname === '/stake/delegate' && <div className="steps-container">
               <div className="step d-flex mt-5 ml-4 mb-1">
@@ -94,11 +94,11 @@ export default function Stake() {
         </div>
               
               </div>}
-            </div>
-
-            <div className="content col-10">
+            </div> */}
+   
+            <div className="content col-12">
             <div className="mt-5 stake-options d-flex justify-content-center">
-        <Link to="delegate"  className={`${location.pathname === '/stake/delegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
+        <Link to="delegate"  className={`${location.pathname.includes('/stake/delegate')  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`}>Delegate</Link>
 
         {process.env.REACT_APP_ENABLE_SET_INTENT == 'true' && <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>}
         <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
