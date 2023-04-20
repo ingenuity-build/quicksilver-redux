@@ -4,10 +4,10 @@ import Confetti from 'react-confetti'
 import './CongratulationsPane.css';
 import { setStakingStep } from "../../../slices/stakingActiveStep";
 import { useSelector, useDispatch } from 'react-redux'
-import {  setSelectedValidatorList } from "../../../slices/validatorList";
+import {  setSelectedValidatorList  } from "../../../slices/validatorList";
 import Moment from 'moment';
 
-import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
+import { selectedNetworkSelector, setSelectedNetworkFunc} from "../../../slices/selectedNetwork";
 
 
 export default function CongratulationsPane() {
@@ -37,9 +37,11 @@ export default function CongratulationsPane() {
 
       const stakeAnotherNetwork = () => {
             // @ts-expect-error
-        dispatch(setStakingStep(2));
+        dispatch(setStakingStep(1));
                 //    @ts-expect-error
     dispatch(setSelectedValidatorList([]))
+          // @ts-expect-error
+          dispatch(setSelectedNetworkFunc("Select a network"));
 
 
       }
