@@ -45,8 +45,12 @@ export function fetchNetworks() {
     try {
       const response = await fetch(`${env.QUICKSILVER_API}/quicksilver/interchainstaking/v1/zones`)
       const data = await response.json()
-
-      dispatch(getNetworksSuccess(manipulateData(data.zones)))
+      const APR = await fetch('https://data.quicksilver.zone/apr');
+      const APRDATa = await APR.json()
+      let APY = APRDATa.chains;
+      let zones = manipulateData(data.zones);
+     let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
+      dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {
       dispatch(getNetworksFailure())
     }
@@ -54,8 +58,17 @@ export function fetchNetworks() {
 }
 
 const manipulateData = (zones: any) => {
-  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
-   console.log('zones', whitelistedZones);
+  const labels = {
+    'uqatom' : 'Cosmos Hub',
+    'uqosmo' : 'Osmosis',
+    'uqstars' : 'Stargaze',
+    'uqjunox' : 'Juno',
+    'uqregen': 'Regen'
+  }
+
+
+  let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: labels[zone.local_denom].toUpperCase() , value: zone, image: images[zone.local_denom]}})
+  //  console.log('zones', whitelistedZones);
 
    return whitelistedZones;
   //  return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
@@ -68,6 +81,5 @@ const images = {
   'uqstars' : Stargaze,
   'uqjunox' : Juno,
   'uqregen': Regen
-
-
 }
+

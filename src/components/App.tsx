@@ -26,7 +26,6 @@ import { increaseRedelegateStep } from '../slices/relegateActiveStep';
 // @ts-ignore
 import createActivityDetector from 'activity-detector';
 
-
 function useIdle(options: any) {
   const [isIdle, setIsIdle] = React.useState(false)
   React.useEffect(() => {
@@ -38,6 +37,9 @@ function useIdle(options: any) {
   }, [])
   return isIdle
 }
+
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -60,7 +62,7 @@ function App() {
           fetchKeplrDetails(val);
          // setBalances(new Map<string, Map<string, number>>(balances.set(chainId, new Map<string, number>(networkBalances.set(bal.denom, parseInt(bal.amount))))));
         }
-    }, 6000)
+    }, 10000)
     } 
     return () => clearInterval(timer);
   }, [isIdle])
@@ -150,15 +152,6 @@ dispatch(setQuicksilverAddress(bech32));
     }
   }, [walletType])
 
-  let key;
-  useEffect(() => {
-     // @ts-expect-error
-     if(JSON.parse(localStorage.getItem('ChainId'))) {
-         // @ts-expect-error
-       key = JSON.parse(localStorage.getItem('ChainId'))
-      connectKeplr();
-     }
-  }, [key])
 
 
   const connectKeplr = async () => {
@@ -175,15 +168,14 @@ dispatch(setQuicksilverAddress(bech32));
           dispatch(setQSClient(val));
        // @ts-expect-error
       dispatch(setQSWalletConnected())
-         
       setVal(val);
            // @ts-expect-error
     dispatch(setModalClose());
     setLoading(false);
-           // @ts-expect-error
-    dispatch(increaseStakingStep());
-  // @ts-expect-error
-  dispatch(increaseRedelegateStep())
+    //        // @ts-expect-error
+    // dispatch(increaseStakingStep());
+
+  // dispatch(increaseRedelegateStep())
     }, walletType
   );
   }
@@ -270,8 +262,9 @@ const connectToQS = () => {
                       <Route path="/" element={<Landing/>}/>
                 
                       <Route path="/stake" element={<Stake/>} >
-          <Route path="delegate" element={<Delegate/>} />
-          <Route path="undelegate" element={<Undelegate />} />
+          <Route path="delegate" element={<Delegate connectKeplr={connectKeplr}/>} />
+          <Route path="delegate/:chainid" element={<Delegate connectKeplr={connectKeplr}/>} />
+          <Route path="undelegate" element={<Undelegate connectKeplr={connectKeplr} />} />
           <Route path="redelegate" element={<Redelegate />} /> 
         </Route>
                       <Route path="/pools" element={<Pools  />}/>

@@ -21,6 +21,7 @@
     "moment": "^2.29.4",
     "path-browserify": "^1.0.1",
     "quicksilverjs": "^0.8.0",
+    "rc-switch": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap-accordion": "^1.0.0",
     "react-collapsible": "^2.10.0",
@@ -82,7 +83,8 @@
       "REACT_APP_ENABLE_SET_INTENT",
       "REACT_APP_ENABLE_UNBONDING",
       "REACT_APP_ENABLE_CLAIMS",
-      "WHITELISTED_ZONES"
+      "REACT_APP_WHITELISTED_ZONES",
+      "APY_ZONES_ENDPOINT"
     ]
   },
   "homepage": ""
