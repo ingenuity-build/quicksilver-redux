@@ -11,6 +11,6 @@ export default function  Backdrop() {
   dispatch(setModalClose());
 
 }
-    return <div className='backdrop' onClick={onBackdropClick} />;
+    return <div className='backdrop'  />;
   }
   
