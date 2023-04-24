@@ -4,6 +4,8 @@ import './Airdrops.css';
 import { useSelector, useDispatch } from 'react-redux'
 import { networksSelector, fetchNetworks } from '../../slices/networks'
 import {airdropsSelector, fetchStargazeAirdropAllocation} from '../../slices/airdrops';
+import { Tooltip as ReactTooltip} from "react-tooltip";
+import Question from '../../assets/icons/question-mark.svg';
 
 export default function Airdrop() {
   const [address, setAddress] = useState('');
@@ -29,7 +31,14 @@ export default function Airdrop() {
   <div className="assets-interface row mx-0 w-100">
           <div className="mt-3 mb-5 networks w-75 justify-content-center m-auto">
                   <div className="row">
-                    <h2 className="mt-5 text-center mb-4">Airdrops</h2>
+                    <h2 className="mt-5 text-center mb-4">Airdrops<span><img id="airdrop"  className="question"  src={Question}/></span></h2>
+                    <div className="text-center">
+                     <ReactTooltip
+        anchorId="airdrop"
+        place="bottom"
+        content={`Quicksilver performs an airdrop to the community of each onboarded chain. Check back for the latest airdrop news.  `}
+      />
+      </div>
                 {networks.map((network: any) => 
                 <>
                   {/* <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)} {network?.apy * 100}</button> </> */}
