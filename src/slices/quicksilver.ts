@@ -24,6 +24,10 @@ const quicksilverNetworkSlice = createSlice({
         state.isQSWalletConnected = true;
         state.loading = false;
     },
+    setISQSWalletDisconnectedSuccess: state => {
+      state.isQSWalletConnected = false;
+      state.loading = false;
+    },
     setBalancesQSSuccess : (state, { payload }) => {
         state.balances = payload
     },
@@ -35,9 +39,6 @@ const quicksilverNetworkSlice = createSlice({
     },
     setQuicksilverAddressSuccess :  (state, { payload }) => {
       state.quicksilverAddress = payload
-},setISQSWalletDisconnectedSuccess: state => {
-  state.isQSWalletConnected = false;
-  state.loading = false;
 },setWalletTypeSuccess :  (state, { payload }) => {
   state.walletType = payload
 },
@@ -57,6 +58,15 @@ export function setQSWalletConnected() {
           }
         }
     }
+    export function setQSWalletDisconnected() {
+      return async (dispatch: any) => {
+
+          try {
+              dispatch(setISQSWalletDisconnectedSuccess())
+            } catch (error) {
+            }
+          }
+      }
     export function setQSWallet(key: String, val: SigningStargateClient) {
         return async (dispatch: any) => {
             try {
@@ -92,15 +102,7 @@ export function setQSWalletConnected() {
                     }
                 }
 
-                export function setQSWalletDisconnected() {
-                  return async (dispatch: any) => {
-            
-                      try {
-                          dispatch(setISQSWalletDisconnectedSuccess())
-                        } catch (error) {
-                        }
-                      }
-                  }
+               
 
                 export function setWalletType(wallet: any) {
                   return async (dispatch: any) => {

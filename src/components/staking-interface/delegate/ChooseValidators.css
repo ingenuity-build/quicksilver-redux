@@ -22,7 +22,7 @@ padding: 1rem;
     cursor: pointer;
 }
 
-.validator-selection-pane .button-container, .validator-selection-pane .validators, .validator-selection-pane input {
+.validator-selection-pane .button-container, .validator-selection-pane .validators, .validator-selection-pane input , .search-container{
     z-index: 3;
 } 
 
@@ -50,7 +50,7 @@ padding: 1rem;
 }
 
 .search {
-    border-radius: 10px;
+    border-radius: 5px;
     width: 275px;
     padding: 5px;
     height: 45px;
@@ -70,4 +70,35 @@ padding: 1rem;
 
 ::placeholder {
     color: white;
+  }
+
+  button {
+    z-index: 999;
+  }
+
+  .rc-switch-checked {
+    border: 1px solid #D35100 !important;
+    background-color: #D35100 !important;
+  }
+
+  .container-options {
+    width: 90%;
+  }
+
+  .active-val {
+    background: #24925D;
+    width: 70px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 10px;
+    margin-top: 10px;
+  }
+
+  .inactive-val {
+    background: #DF0808;
+    width: 80px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 10px;
+    margin-top: 10px;
   }

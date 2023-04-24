@@ -1,0 +1,40 @@
+.inactive-validator-modal  {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: white;
+    padding: 1rem;
+    min-width: 40rem;
+    z-index: 10;
+    position: fixed;
+    top: 10vh;
+    left: calc(50% - 20rem);
+    color: black;
+  }
+
+  .inactive-validator-modal  .validator-name {
+    margin-bottom: 0.5rem;
+  }
+
+  .proceed-button {
+    background: none;
+    border:none;
+border-radius: 5px;
+font-weight: 400;
+font-size: 18px;
+color: #D35100;
+padding: 5px 20px;
+  }
+
+
+  .back-button {
+    background: #D35100;
+border-radius: 5px;
+font-size: 18px;
+line-height: 30px;
+font-weight: 400;
+color: #FFFFFF;
+border: 2px solid #D35100;
+padding: 5px 30px;
+
+  }
+

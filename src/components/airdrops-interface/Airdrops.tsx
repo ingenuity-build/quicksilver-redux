@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import React from 'react';
 import './Airdrops.css';
 import { useSelector, useDispatch } from 'react-redux'
+import { networksSelector, fetchNetworks } from '../../slices/networks'
 import {airdropsSelector, fetchStargazeAirdropAllocation} from '../../slices/airdrops';
+import { Tooltip as ReactTooltip} from "react-tooltip";
+import Question from '../../assets/icons/question-mark.svg';
 
 export default function Airdrop() {
   const [address, setAddress] = useState('');
@@ -11,52 +14,69 @@ export default function Airdrop() {
   const [unbondingSum, setUnbondingSum] = useState(0);
   const dispatch = useDispatch();
     const { amount, error } = useSelector(airdropsSelector);
+    const { networks} = useSelector(networksSelector);
 
 
-  const fetchAllocation = () => {
-          // @ts-expect-error
-    dispatch(fetchStargazeAirdropAllocation(address))
-    setShowMessage(true)
-  }
+    useEffect(() => {
+
+      // @ts-expect-error
+        dispatch(fetchNetworks())
+  
+  
+      }, [])
+ 
 
     return (
         <>
-          <div className="assets-interface row mx-0">
-        
-      
-     <div className="col-12 max-auto mt-5">
-      <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
-      <h3 className="text-center mt-5 airdrop-heading"> STARGAZE Airdrop </h3>
-      {/* <p className="text-center coming-soon"> Airdrop delivered: March 29, 2023</p> */}
-      <div className="w-50 mt-4 text-center airdrop-container">
-        <h5 className="airdrop-text">
-
-        The Airdrop to the Stargaze Community was completed on <span className="font-bold">March 29, 2023. </span> <br/>
-Eligible addresses received QCK tokens on their Quicksilver network address.
-
-        </h5>
-        <h3 className="text-center mt-5 airdrop-heading"> Coming Up Next
-</h3>
-      <div className="mt-4 text-center airdrop-container">
-        <h5 className="airdrop-text">
-
-        The Cosmos Hub &amp; Regen Network communities will receive QCK airdrops later this year.
-
-        </h5>
-        {/* <input placeholder="starsxxx..." value={address} onChange={handleChange}  className="mt-4 input-box" type="text"/>
-        <button disabled={!address} className="next-button mx-3" onClick={fetchAllocation} >View</button>
-       {showMessage && amount !== '' && amount !== '0' && !error && <h5 className="mt-4">Address will receive <span className="font-bold">{+(amount/1000000)} </span> QCK tokens.</h5>}
-       {showMessage && amount !== '' && amount === '0' &&  !error && <h5 className="mt-4">This address is not eligible for this airdrop. Please provide another address.</h5>}
-       {showMessage && amount !== '' && amount === '0' &&  error && <h5 className="mt-4">Error: {error.charAt(0).toUpperCase() + error.slice(1)}.</h5>} */}
-   
-
-        </div>
-        
+  <div className="assets-interface row mx-0 w-100">
+          <div className="mt-3 mb-5 networks w-75 justify-content-center m-auto">
+                  <div className="row">
+                    <h2 className="mt-5 text-center mb-4">Airdrops<span><img id="airdrop"  className="question"  src={Question}/></span></h2>
+                    <div className="text-center">
+                     <ReactTooltip
+        anchorId="airdrop"
+        place="bottom"
+        content={`Quicksilver performs an airdrop to the community of each onboarded chain. Check back for the latest airdrop news.  `}
+      />
       </div>
-      </div>
-      
-      </div>
-      </div>
+                {networks.map((network: any) => 
+                <>
+                  {/* <button  onClick={() => onButtonClick(network)} className="connect-wallet-button mt-5"><span><img src={network.image}/></span> {network.label} {parseFloat(network.value?.redemption_rate).toFixed(4)} {network?.apy * 100}</button> </> */}
+                         <div className={`col-6 ${network.value.local_denom === 'uqstars' ? 'order-1' : (network.value.local_denom === 'uqatom' ? 'order-2' :  network.value.local_denom === 'uqregen' ? 'order-3' : 'order-4')}`}>
+                          <div className="network-card m-3">
+                         <div className="d-flex align-items-start"> 
+                              {/* <img alt="Validator Icon" src={row.logo ? row.logo : Icon}/> */}
+                        <div className="card-details  w-100 row d-flex align-items-center">
+                          <div className="col-4 pl-1">  <img className="network-image" src={network.image} alt={'Logo'}></img></div>
+                        <div className="col-8"> 
+                        <h4 className="p-2 text-center font-bold"> {network.label} </h4>
+                        <div className="row">
+                          <div className="col-12 text-center">
+                      {network.value.local_denom !== 'uqstars' && <p> Coming Soon</p>}
+                      {network.value.local_denom === 'uqstars' && <p> Airdrop delivered on <span className="font-bold">March 29, 2023 </span></p>}
+
+                          </div>
+                  <div className="col-6">
+
+                  </div>
+
+
+                        </div>
+
+                           </div>
+
+
+
+                         {/* <h4 className="font-bold">  Reward </h4> */}
+                         </div>
+                         </div>
+                         </div>
+                     </div>
+                  </>
+                )}
+                </div>
+               </div>
+               </div>
       </>
       )
 }
