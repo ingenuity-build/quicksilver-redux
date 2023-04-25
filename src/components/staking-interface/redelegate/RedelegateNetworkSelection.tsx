@@ -43,7 +43,7 @@ export default function RedelegateNetworkSelection() {
         <div className="intents mt-5">
             {intents.filter((intent:any) => intent.weight > 0).map((intent: any) => 
             <>
-                <h6 className="mb-2">{validatorList.find((x: any) => x.address === intent.valoper_address ) ? validatorList.find((x: any) => x.address === intent.valoper_address ).name : ''} : {+(100*intent.weight).toFixed(2) } %</h6>
+                <h6 className="mb-2">{validatorList.find((x: any) => x.address === intent.valoper_address ) ? validatorList.find((x: any) => x.address === intent.valoper_address ).name : 'Unknown'} : {+(100*intent.weight).toFixed(2) } %</h6>
                 </>
             )}
         </div>
@@ -51,8 +51,8 @@ export default function RedelegateNetworkSelection() {
         <button className="mt-4 reset-intent m-auto" onClick={onNext}> RESET INTENT</button>
       
         </div>}
-        {selectedNetwork !== "Select a network" && intents.length === 0 &&  <div>
-        <p> You have not set the intent yet. Please click on the button. </p>
+        {selectedNetwork !== "Select a network" && intents.length === 0 &&  <div className="text-center intent">
+        <p className="mt-5"> You have not set the intent yet. Please click on the button. </p>
 
         <button className="mt-4 reset-intent" onClick={onNext}> SET INTENT</button>
   

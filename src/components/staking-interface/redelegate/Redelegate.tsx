@@ -13,7 +13,7 @@ import RedelegateAllocations from './RedelegateAllocations';
 //   submitClaim
 // } = quicksilver.interchainstaking.v1.MsgSignalIntent
 
-export default function Redelegate() {
+export default function Redelegate(props: any) {
   const dispatch = useDispatch();
   const redelegateStep = useSelector(redelegateActiveStep);
 
@@ -57,7 +57,7 @@ export default function Redelegate() {
     //     <button onClick={ () => Redelegate()}>REDELEGATE!</button> 
     //     </div>
     <>       
-        {redelegateStep === 1 && <ConnectWallet/>}
+        {redelegateStep === 1 && <ConnectWallet connectKeplr={props.connectKeplr}/>}
         {redelegateStep === 2 && <RedelegateNetworkSelection/>}
         {redelegateStep === 3 && <RedelegateValidators  />}
         {redelegateStep === 4 && <RedelegateAllocations/>}
