@@ -11,6 +11,7 @@ import { GenericAuthorization } from "cosmjs-types/cosmos/authz/v1beta1/authz.js
 import { MsgGrant, MsgRevoke } from "cosmjs-types/cosmos/authz/v1beta1/tx.js";
 
 
+
 import * as _m0 from "protobufjs/minimal";
 import Long from "long";
 
@@ -250,16 +251,15 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
   
   function createCustomTypes(prefix: string): AminoConverters {
     return {
-      // ...createAuthzAminoConverters(),
-      // ...createBankAminoConverters(),
-      // ...createDistributionAminoConverters(),
-      // ...createGovAminoConverters(),
-      // ...createStakingAminoConverters(prefix),
-      // ...createIbcAminoConverters(),
-      // ...createFeegrantAminoConverters(),
+      ...createAuthzAminoConverters(),
+      ...createBankAminoConverters(),
+      ...createDistributionAminoConverters(),
+      ...createGovAminoConverters(),
+      ...createStakingAminoConverters(prefix),
+      ...createIbcAminoConverters(),
+      ...createFeegrantAminoConverters(),
       ...cosmosAminoConverters,
       ...createLiquidStakingTypes(),
-      ...quicksilverAminoConverters,
     };
   }
    
@@ -343,7 +343,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
 
   export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
     ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-     ...cosmosProtoRegistry,
+     ...defaultRegistryTypes,
      ...quicksilverProtoRegistry,
   ];
 
