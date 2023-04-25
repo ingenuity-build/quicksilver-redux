@@ -61,7 +61,7 @@ background: #FFFFFF;
     padding-left: 16px;;
 }
 
-.network-card:hover {
+.connect-wallet-pane  .network-card:hover {
     cursor: pointer;
     border: 2px solid #D35100;
 }

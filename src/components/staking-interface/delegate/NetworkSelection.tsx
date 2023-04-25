@@ -15,6 +15,7 @@ import { validatorListSelector } from "../../../slices/validatorList";
 import Moment from 'moment';
 
 
+
 export default function NetworkSelection() {
     const dispatch = useDispatch()
     const { networks, hasErrors } = useSelector(networksSelector);
@@ -68,6 +69,14 @@ if (Moment(time, 'HH:mm').isBetween(beforeTime, afterTime)) {
   setShowOsmoMessage(false);
  }
 }, [selectedNetwork])
+
+useEffect(() => {
+  if(validatorList.length > 0) {
+    setLoadingValidators(false);
+  }
+}, [validatorList])
+
+
 
 useEffect(() => {
   if(validatorList.length > 0) {
@@ -168,6 +177,7 @@ useEffect(() => {
   {selectedNetwork.liquidity_module  && <button className={`stake-existing-delegations-button mx-3 ${selectedNetwork === "Select a network" ? 'd-none' : ''}`} > Stake Existing Delegations </button>}
 
 </div>}
+
 {showOsmoMessage && <h5 className="mt-5 w-50 text-center m-auto">OSMO deposits are disabled due to congestion on the Osmosis Network during the Osmosis epoch boundary from 17:00 - 17:30 UTC.</h5>}
 <div className="button-container">
 {showOsmoMessage && <button onClick={onBack} className="prev-button mx-3 mt-5" > Back</button>}

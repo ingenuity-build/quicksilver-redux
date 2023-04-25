@@ -20,7 +20,7 @@ font-size: 24px;
     z-index: 3;
   }
 
-  .network-card {
+  .assets-interface .network-card {
     background: #282828;
     border: 2px solid #282828;
     border-radius: 5px;
@@ -31,3 +31,11 @@ font-size: 24px;
   height: 75px;
   padding-left: 16px;
 }
+
+  .airdrop-heading {
+    color :#D35100
+  }
+
+  .assets-interface .networks{
+    z-index:3
+  }

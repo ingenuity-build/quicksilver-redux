@@ -4,10 +4,10 @@ import Confetti from 'react-confetti'
 import './CongratulationsPane.css';
 import { setStakingStep } from "../../../slices/stakingActiveStep";
 import { useSelector, useDispatch } from 'react-redux'
-import {  setSelectedValidatorList } from "../../../slices/validatorList";
+import {  setSelectedValidatorList  } from "../../../slices/validatorList";
 import Moment from 'moment';
 
-import { selectedNetworkSelector} from "../../../slices/selectedNetwork";
+import { selectedNetworkSelector, setSelectedNetworkFunc} from "../../../slices/selectedNetwork";
 
 
 export default function CongratulationsPane() {
@@ -37,9 +37,11 @@ export default function CongratulationsPane() {
 
       const stakeAnotherNetwork = () => {
             // @ts-expect-error
-        dispatch(setStakingStep(2));
+        dispatch(setStakingStep(1));
                 //    @ts-expect-error
     dispatch(setSelectedValidatorList([]))
+          // @ts-expect-error
+          dispatch(setSelectedNetworkFunc("Select a network"));
 
 
       }
@@ -51,7 +53,7 @@ export default function CongratulationsPane() {
 {showOsmoMessage && <h5 className="mt-2">   Due to congestion on the Osmosis chain, the minting of qOSMO can take longer than usual.</h5>}
     <h5 className="mt-2">Your {selectedNetwork.local_denom[1] + selectedNetwork.local_denom.slice(2).toUpperCase()} will arrive in your Quicksilver wallet shortly.</h5>
     <div className="button-container mt-4">
-        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake Another </button>
+        <button onClick={stakeAnotherNetwork} className="stake mx-2"> Stake Another Asset </button>
         </div>
     </div>
     </>
