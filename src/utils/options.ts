@@ -262,6 +262,33 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...createLiquidStakingTypes(),
     };
   }
+
+  export function createAuthzExecAminoConverters(registry, aminoTypes) {
+    return {
+      "/cosmos.authz.v1beta1.MsgExec": {
+        aminoType: "cosmos-sdk/MsgExec",
+        toAmino: ({ grantee, msgs }) => ({
+          grantee,
+          msgs: msgs.map(({typeUrl, value}) => {
+            const msgType = registry.lookupType(typeUrl)
+            return aminoTypes.toAmino({ typeUrl, value: msgType.decode(value) })
+          })
+        }),
+        fromAmino: ({ grantee, msgs }) => ({
+          grantee,
+          msgs: msgs.map(({type, value}) => {
+            const proto = aminoTypes.fromAmino({ type, value })
+            const typeUrl = proto.typeUrl
+            const msgType = registry.lookupType(typeUrl)
+            return {
+              typeUrl,
+              value: msgType.encode(msgType.fromPartial(proto.value)).finish()
+            }
+          })
+        }),
+      },
+    };
+  }
    
 
   function createBaseMsgTokenizeShares(): MsgTokenizeShares {
@@ -347,7 +374,9 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
      ...quicksilverProtoRegistry,
   ];
 
- export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+  let aminoTypes = new AminoTypes(customTypes)
+
+ export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes({...createCustomTypes("cosmos"), ...createAuthzExecAminoConverters(this.registry, aminoTypes)}}) }
 // function createAuthzAuthorizationAminoConverter() {
 //   throw new Error("Function not implemented.");
 // }
