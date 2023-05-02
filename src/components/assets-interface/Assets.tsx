@@ -271,7 +271,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
   {/* {sum === 0 && <h5 className="mt-4">Calculating...</h5>} */}
   {hasErrors && <p className="text-center"> There's an issue with fetching the network list. Please try again.</p>}
    {/* {sum !==0 && <h5 className="mt-4"><span className="amount">$ {sum.toFixed(4)} </span>in {balances.length} assets across Quicksilver chain</h5>} */}
-  {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
+  {/* {balances.length > 0 && <div className="mt-3 validators row w-100 justify-content-start text-center">
   {newBalances.filter((bal: any) => (networks.find((y:any) => y.value.local_denom === bal.denom)) || bal.denom === 'uqck').map((bal: Coin, i: number) =>
        
             <div className={`asset-card col-3 m-3 ${bal.denom !== 'uqck' ? 'order-1' : ''}`} key={i}>
@@ -302,7 +302,67 @@ content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.l
          
   )}
 
-</div>}
+</div>} */}
+<div className="mt-3 validators row w-100 justify-content-start text-center">
+  <div className="col-6">
+    <div className="asset-card">
+    <div className="m-3 mt-2 d-flex justify-content-center align-items-center">
+      <img src={QuicksilverLogo}/> 
+      <h3 className='font-bold'> QCK</h3>
+    </div>
+    <div className="mt-4 d-flex flex-column  justify-content-center align-items-center">
+      <h4>234234.4543 </h4>
+      <h6> Quicksilver Balance</h6>
+    </div>
+    <p className="mt-2 invisible"> 1 qSTARS = 1.003 STARS at current redemption rate</p>
+    <div className="mt-4 d-flex justify-content-center align-items-center">
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>
+    </div>
+    </div>
+  </div>
+  <div className="col-6">
+    <div className="asset-card"> 
+    <div className="mt-2 d-flex justify-content-center align-items-center">
+    
+      <img src={QuicksilverLogo}/> 
+      <h3 className='font-bold'> QCK</h3>
+    </div>
+    <div className="mt-4 d-flex justify-content-center align-items-center">
+      <div>
+      <h4>234234.4543 </h4>
+      <h6> Quicksilver Balance</h6>
+      </div>
+      <div>
+      <h4>234234.4543 </h4>
+      <h6> Other chain Balance</h6>
+      </div>
+    </div>
+    <p className="mt-2"> 1 qSTARS = 1.003 STARS at current redemption rate</p>
+    <div className="mt-4 d-flex justify-content-center align-items-center">
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>
+    </div>
+    </div>
+  </div>
+  <div className="asset-card col-5 m-3">
+    <div className="mt-2 d-flex justify-content-center align-items-center">
+      <img src={QuicksilverLogo}/> 
+      <h3 className='font-bold'> QCK</h3>
+    </div>
+    <div className="mt-4 d-flex flex-column  justify-content-center align-items-center">
+      <h3>234234.4543 </h3>
+      <h6> Quicksilver Balance</h6>
+    </div>
+    <div className="mt-4 d-flex justify-content-center align-items-center">
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>
+    <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>
+    </div>
+  </div>
+</div>
 {balances.length === 0 && <div className="row w-100 justify-content-start">
   <h5 className="mt-5"> You currently do not have any assets on the Quicksilver chain.</h5>
 </div>}
