@@ -132,10 +132,10 @@ export const TestChainInfos: ChainInfo[] = [
     },
   },
   {
-    chainId: "osmo-test-4",
+    chainId: "osmo-test-5",
     chainName: "Osmosis Testnet",
-    rpc: "https://rpc.osmo-test-4.test.quicksilver.zone",
-    rest: "https://lcd.osmo-test-4.test.quicksilver.zone",
+    rpc: "https://rpc.osmo-test-5.test.quicksilver.zone",
+    rest: "https://lcd.osmo-test-5.test.quicksilver.zone",
     
     bip44: {
         coinType: 118,
