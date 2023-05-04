@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import moment from 'moment'
-import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters } from "@cosmjs/stargate"
+import { AminoConverter , AminoTypes, AminoConverters, defaultRegistryTypes as defaultStargateTypes, createBankAminoConverters , createDistributionAminoConverters, createGovAminoConverters, createStakingAminoConverters, createIbcAminoConverters, createFeegrantAminoConverters } from "@cosmjs/stargate"
 import { AminoMsg, Coin } from "@cosmjs/amino";
 import { GeneratedType, Registry} from "@cosmjs/proto-signing"
 import { SigningStargateClientOptions } from "@cosmjs/stargate"
@@ -162,11 +162,8 @@ export function createAuthzAminoConverters() {
           }
         }
       },
-      
       fromAmino: ({ granter, grantee, grant }) => {
-        //@ts-ignore45
         const protoType = Object.keys(grantConverter).find(type => grantConverter[type].aminoType === grant.authorization.type)
-         //@ts-ignore
         const converter = grantConverter[protoType]
         return {
           granter,
@@ -261,6 +258,18 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
       ...cosmosAminoConverters,
       ...createLiquidStakingTypes(),
     };
+  }
+
+
+  const customTypes = {
+    ...createAuthzAminoConverters(),
+    ...createBankAminoConverters(),
+    ...createDistributionAminoConverters(),
+    ...createGovAminoConverters(),
+    ...createStakingAminoConverters("cosmos"),
+    ...createIbcAminoConverters(),
+    ...createFeegrantAminoConverters(),
+    ...createLiquidStakingTypes(),
   }
 
   export function createAuthzExecAminoConverters(registry, aminoTypes) {
@@ -368,15 +377,12 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     },
   };
 
-  export const customTypes: ReadonlyArray<[string, GeneratedType]> = [
-    ["/cosmos.staking.v1beta1.MsgTokenizeShares", MsgTokenizeShares],
-     ...defaultRegistryTypes,
-     ...quicksilverProtoRegistry,
-  ];
 
-  let aminoTypes = new AminoTypes(customTypes)
 
- export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes({...createCustomTypes("cosmos"), ...createAuthzExecAminoConverters(this.registry, aminoTypes)}}) }
+
+   let aminoTypes = new AminoTypes(customTypes);
+  let registry = new Registry(defaultStargateTypes);
+ export const options: SigningStargateClientOptions = { registry : registry, aminoTypes : ({...customTypes, ...createAuthzExecAminoConverters(registry, aminoTypes)}) }
 // function createAuthzAuthorizationAminoConverter() {
 //   throw new Error("Function not implemented.");
 // }
