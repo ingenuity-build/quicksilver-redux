@@ -273,7 +273,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
           
                 </div>
                 <p className={`text-center ${bal.denom == 'uqck' ? 'invisible' : ''}`}>
-                  1 {bal.denom[1] + bal.denom.slice(2).toUpperCase()  } = {(+(networks.find((y:any) => y.value.local_denom === bal.denom)?.value.redemption_rate)).toFixed(4) } at current redemption rate 
+                  1 {bal.denom[1] + bal.denom.slice(2).toUpperCase()  } = {(+(networks.find((y:any) => y.value.local_denom === bal.denom)?.value.redemption_rate)).toFixed(4) } {bal.denom.slice(2).toUpperCase()  }  at current redemption rate 
                 </p>
 
 {bal.denom === 'uqatom' && <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
