@@ -83,3 +83,12 @@ color: #D35100
 height:12px;
 margin-top: -2px;
  }
+
+ .quicksilver-bal {
+  font-size: 12px;
+  color: #898989;
+ }
+
+ .asset-detail {
+  z-index: 4;
+ }

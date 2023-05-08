@@ -8,7 +8,7 @@
     background: #1A1A1A;
     position: fixed !important;
     width:100vw !important;
-    z-index: 4;
+    z-index: 1000;
 }
 
 .navbar-nav .nav-item a {
