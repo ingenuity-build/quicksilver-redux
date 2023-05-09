@@ -77,25 +77,25 @@ export default function Assets() {
   }
   
 
-  }, [balances ,networks,,quicksilverAddress,isQSWalletConnected,currentEpochAssets])
+  }, [networks,quicksilverAddress,isQSWalletConnected])
 
-  useEffect(() => {
-    if(existingClaims.length !== 0) {
+//   useEffect(() => {
+//     if(existingClaims.length !== 0) {
 
-existingClaims.forEach((claim) => {
-  // obj[claim.chain_id] = (obj[claim.chain_id]['total'] || obj[claim.chain_id]['total']) + parseInt(claim.amount);
-if(obj[claim.chain_id]) {
-  obj[claim.chain_id]['total'] = obj[claim.chain_id]['total'] + parseInt(claim.amount)
-} else {
-  obj[claim.chain_id] = { total : parseInt(claim.amount)}
-}
-    })
-    displayClaims(obj)
-  }
+// existingClaims.forEach((claim) => {
+//   // obj[claim.chain_id] = (obj[claim.chain_id]['total'] || obj[claim.chain_id]['total']) + parseInt(claim.amount);
+// if(obj[claim.chain_id]) {
+//   obj[claim.chain_id]['total'] = obj[claim.chain_id]['total'] + parseInt(claim.amount)
+// } else {
+//   obj[claim.chain_id] = { total : parseInt(claim.amount)}
+// }
+//     })
+//     displayClaims(obj)
+//   }
 
 
 
-}, [existingClaims])
+// }, [existingClaims])
 
 
 const displayClaims =  (obj: any) => {
@@ -120,10 +120,10 @@ const displayClaims =  (obj: any) => {
 
  let newBalanceArray = {};
  useEffect(() => {
-  balances.forEach((balance) => {
+  // balances.forEach((balance) => {
 
-    newBalanceArray[balance.denom] = { "quicksilver" : balance.amount}
-  })
+  //   newBalanceArray[balance.denom] = { "quicksilver" : balance.amount}
+  // })
 
        Object.keys(currentEpochAssets).forEach((key, i) => {
         currentEpochAssets[key].forEach((asset1: any) => {
@@ -133,12 +133,13 @@ const displayClaims =  (obj: any) => {
             } else {
               newBalanceArray[asset2.denom] = { [key]: asset2.amount}
             }
+            console.log('New Balance Array', newBalanceArray);
 
   });
 })
 })
 
-console.log('New Balance Array', newBalanceArray);
+
 setBalanceDetails(newBalanceArray)
 let newObj = {};
 Object.keys(newBalanceArray).forEach((key,i) => {
@@ -160,7 +161,7 @@ console.log('array', objArray);
 
 setNewBalances(objArray)
 
-}, [balances,currentEpochAssets])
+}, [currentEpochAssets])
 
   const onButtonClick = () => {
     // @ts-expect-error
@@ -210,7 +211,7 @@ dispatch(setPoolModalOpen());
 }
 
   const fetchData = (id: any, amount: number) => {
-    console.log(id, amount)
+
     let balance: number = +(balances.find((bal: any) => bal.denom === id)?.amount)/1000000;
           if(id !== 'uqck') {
            let network  = networks.find((y:any) => y.value.local_denom === id); 
@@ -304,7 +305,7 @@ content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.l
 
 </div>} */}
 <div className="mt-3 validators row w-100 justify-content-start text-center">
-  <div className="col-6">
+  {/* <div className="col-6">
     <div className="asset-card">
     <div className="m-3 mt-2 d-flex justify-content-center align-items-center">
       <img src={QuicksilverLogo}/> 
@@ -361,7 +362,8 @@ content={`The current redemption rate is ${(+(networks.find((y:any) => y.value.l
     <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>
     <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>
     </div>
-  </div>
+  </div> */}
+{}
 </div>
 {balances.length === 0 && <div className="row w-100 justify-content-start">
   <h5 className="mt-5"> You currently do not have any assets on the Quicksilver chain.</h5>
