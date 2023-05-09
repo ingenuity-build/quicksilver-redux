@@ -100,13 +100,18 @@ export type Exact<P, I extends P> = P extends Builtin
 
 const dateConverter = {
   toAmino(date){
+    if(date) {
+    console.log('date', date.seconds)
     return moment(date.seconds.toNumber() * 1000).utc().format()
+    }
   },
   fromAmino(date){
+    if(date) {
     return {
       seconds: moment(date).unix(),
       nanos: 0
     }
+  }
   }
 }
 
@@ -164,6 +169,8 @@ export function createAuthzAminoConverters() {
       },
       fromAmino: ({ granter, grantee, grant }) => {
         const protoType = Object.keys(grantConverter).find(type => grantConverter[type].aminoType === grant.authorization.type)
+
+        // @ts-ignore
         const converter = grantConverter[protoType]
         return {
           granter,
@@ -382,7 +389,7 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
 
    let aminoTypes = new AminoTypes(customTypes);
   let registry = new Registry(defaultStargateTypes);
- export const options: SigningStargateClientOptions = { registry : registry, aminoTypes : ({...customTypes, ...createAuthzExecAminoConverters(registry, aminoTypes)}) }
+ export const options: SigningStargateClientOptions = { registry : registry, aminoTypes : new AminoTypes({...customTypes, ...createAuthzExecAminoConverters(registry, aminoTypes)}) }
 // function createAuthzAuthorizationAminoConverter() {
 //   throw new Error("Function not implemented.");
 // }
