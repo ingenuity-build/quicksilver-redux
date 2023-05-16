@@ -95,7 +95,7 @@ useEffect(() => {
                 </div>
                </div>
               
-                {/* <h4 className="sub-heading"> Deposits will be enabled soon. Stay tuned. </h4> */}
+                <h6 className="zone-message"> Cosmos Hub deposits will be enabled soon. Stay tuned. </h6>
                 </div>
     </>
   )
