@@ -95,7 +95,7 @@ useEffect(() => {
                 </div>
                </div>
               
-                <h6 className="zone-message"> Cosmos Hub deposits will be enabled soon. Stay tuned. </h6>
+                <h6 className="zone-message"> Cosmoshub deposits will be enabled soon. Stay tuned. </h6>
                 </div>
     </>
   )
