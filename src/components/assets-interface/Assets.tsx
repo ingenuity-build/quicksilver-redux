@@ -66,7 +66,7 @@ export default function Assets() {
   }
 
       queryXccLookup();
-    
+      setError('');
 
   }, [balances, quicksilverAddress])
 
@@ -259,7 +259,7 @@ dispatch(setPoolModalOpen());
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && <button onClick={onClaimsClick} className="claim-button"> Claim</button>}
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && <button disabled={noAssets} onClick={onClaimsClick} className="claim-button"> Claim</button>}
     {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && noAssets && <p className="text-center mt-2"> You do not have any assets in the previous epoch to claim against.</p>}
 
     {process.env.REACT_APP_ENABLE_CLAIMS === 'false' && <button className="claim-button"> Claim</button>}
