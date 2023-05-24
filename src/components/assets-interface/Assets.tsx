@@ -285,7 +285,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
 {bal.denom === 'uqck' && walletType === 'cosmostation' && <a href="https://wallet.cosmostation.io/cosmos" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>}
 
 
-<div className="d-flex mt-2 justify-content-around">
+{/* <div className="d-flex mt-2 justify-content-around">
 {bal.denom === 'uqatom' && <a href=" https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2FFA602364BEC305A696CBDF987058E99D8B479F0318E47314C49173E8838C5BAC" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqregen' && <a href="https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F79A676508A2ECA1021EDDC7BB9CF70CEEC9514C478DA526A5A8B3E78506C2206" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqstars' && <a href=" https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F46C83BB054E12E189882B5284542DB605D94C99827E367C9192CF0579CD5BC83" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
@@ -296,7 +296,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
 {bal.denom === 'uqstars' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqregen" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqosmo' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqosmo" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && <a href="https://tfm.com/bridge?chainTo=osmosis-1&chainFrom=quicksilver-2&token0=uqck" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
-               </div>
+               </div> */}
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}
             </div>
 
