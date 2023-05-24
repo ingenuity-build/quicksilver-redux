@@ -103,7 +103,7 @@ export default function RedelegateAllocations() {
                 quicksilverAddress,
                   [msg],
                  {
-                    "gas": "300000",
+                    "gas": "400000",
                     "amount": [
                       {
                         "denom": "uqck",
