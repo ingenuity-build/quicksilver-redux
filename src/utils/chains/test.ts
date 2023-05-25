@@ -24,12 +24,6 @@ export const TestQuickSilverChainInfo : ChainInfo = {
             coinGeckoId: "quicksilver",
         },
         {
-            coinDenom: "qMUON",
-            coinMinimalDenom: "uqmuon",
-            coinDecimals: 6,
-            coinGeckoId: "cosmos",
-        },
-        {
             coinDenom: "qOSMO",
             coinMinimalDenom: "uqosmo",
             coinDecimals: 6,
@@ -85,52 +79,6 @@ export const TestQuickSilverChainInfo : ChainInfo = {
 
 export const TestChainInfos: ChainInfo[] = [
     TestQuickSilverChainInfo,
-{
-    chainId: "fauxgaia-1",
-    chainName: "FauxGaia Testnet",
-    rpc: "https://rpc.fauxgaia-1.test.quicksilver.zone",
-    rest: "https://lcd.fauxgaia-1.test.quicksilver.zone",
-    
-    bip44: {
-        coinType: 118,
-    },
-    bech32Config: {
-        bech32PrefixAccAddr: "cosmos",
-        bech32PrefixAccPub: "cosmospub",
-        bech32PrefixValAddr: "cosmosvaloper",
-        bech32PrefixValPub: "cosmosvaloperpub",
-        bech32PrefixConsAddr: "cosmosvalcons",
-        bech32PrefixConsPub: "cosmosvalconspub",
-    },
-    currencies: [
-        {
-            coinDenom: "MUON",
-            coinMinimalDenom: "umuon",
-            coinDecimals: 6,
-            coinGeckoId: "cosmos",
-        },
-    ],
-    feeCurrencies: [
-        {
-            coinDenom: "MUON",
-            coinMinimalDenom: "umuon",
-            coinDecimals: 6,
-            coinGeckoId: "cosmos",
-        },
-    ],
-    stakeCurrency: {
-        coinDenom: "MUON",
-        coinMinimalDenom: "umuon",
-        coinDecimals: 6,
-        coinGeckoId: "cosmos",
-    },
-    coinType: 118,
-    gasPriceStep: {
-        low: 0.00,
-        average: 0.015,
-        high: 0.03,
-    },
-  },
   {
     chainId: "osmo-test-5",
     chainName: "Osmosis Testnet",

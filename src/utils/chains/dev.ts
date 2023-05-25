@@ -1,7 +1,7 @@
 import { ChainInfo } from "@keplr-wallet/types";
 
 export const DevQuickSilverChainInfo : ChainInfo = {
-    chainId: "quicktest-1",
+    chainId: "magic-1",
     chainName: "Quicksilver Dev",
     rpc: "https://rpc.dev.quicksilver.zone",
     rest: "https://lcd.dev.quicksilver.zone",
@@ -41,6 +41,18 @@ export const DevQuickSilverChainInfo : ChainInfo = {
             coinDecimals: 6,
             coinGeckoId: "osmosis",
         },
+        {
+            coinDenom: "qREGEN",
+            coinMinimalDenom: "uqregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
+        {
+            coinDenom: "qJUNOX",
+            coinMinimalDenom: "uqjunox",
+            coinDecimals: 6,
+            coinGeckoId: "juno",
+        },
     ],
     feeCurrencies: [
         {
@@ -66,44 +78,45 @@ export const DevQuickSilverChainInfo : ChainInfo = {
 
 export const DevChainInfos: ChainInfo[] = [
     DevQuickSilverChainInfo,
-{
-    chainId: "quickgaia-1",
-    chainName: "Quicksilver Dev Gaia Test",
-    rpc: "https://rpc.quickgaia-1.dev.quicksilver.zone",
-    rest: "https://lcd.quickgaia-1.dev.quicksilver.zone",
+  {
+    chainId: "osmo-test-5",
+    chainName: "Osmosis Testnet",
+    rpc: "https://rpc.osmo-test-5.dev.quicksilver.zone",
+    rest: "https://lcd.osmo-test-5.dev.quicksilver.zone",
     
     bip44: {
         coinType: 118,
     },
     bech32Config: {
-        bech32PrefixAccAddr: "cosmos",
-        bech32PrefixAccPub: "cosmospub",
-        bech32PrefixValAddr: "cosmosvaloper",
-        bech32PrefixValPub: "cosmosvaloperpub",
-        bech32PrefixConsAddr: "cosmosvalcons",
-        bech32PrefixConsPub: "cosmosvalconspub",
+        bech32PrefixAccAddr: "osmo",
+        bech32PrefixAccPub: "osmopub",
+        bech32PrefixValAddr: "osmovaloper",
+        bech32PrefixValPub: "osmovaloperpub",
+        bech32PrefixConsAddr: "osmovalcons",
+        bech32PrefixConsPub: "osmovalconspub",
     },
     currencies: [
         {
-            coinDenom: "ATOM",
-            coinMinimalDenom: "uatom",
+            coinDenom: "OSMO",
+            coinMinimalDenom: "uosmo",
             coinDecimals: 6,
-            coinGeckoId: "cosmos",
+            coinGeckoId: "osmosis",
         },
     ],
     feeCurrencies: [
         {
-            coinDenom: "ATOM",
-            coinMinimalDenom: "uatom",
+            coinDenom: "OSMO",
+            coinMinimalDenom: "uosmo",
             coinDecimals: 6,
-            coinGeckoId: "cosmos",
+            coinGeckoId: "osmosis",
         },
     ],
     stakeCurrency: {
-        coinDenom: "ATOM",
-        coinMinimalDenom: "uatom",
+        
+        coinDenom: "OSMO",
+        coinMinimalDenom: "uosmo",
         coinDecimals: 6,
-        coinGeckoId: "cosmos",
+        coinGeckoId: "osmosis",
     },
     coinType: 118,
     gasPriceStep: {
@@ -113,10 +126,57 @@ export const DevChainInfos: ChainInfo[] = [
     },
   },
   {
-    chainId: "quickstar-1",
-    chainName: "Quicksilver Dev Stargaze Test",
-    rpc: "https://rpc.quickstar-1.dev.quicksilver.zone",
-    rest: "https://lcd.quickstar-1.dev.quicksilver.zone",
+    chainId: "regen-redwood-1",
+    chainName: "Regen Testnet",
+    rpc: "https://rpc.regen-redwood-1.dev.quicksilver.zone",
+    rest: "https://lcd.regen-redwood-1.dev.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "regen",
+        bech32PrefixAccPub: "regenpub",
+        bech32PrefixValAddr: "regenvaloper",
+        bech32PrefixValPub: "regenvaloperpub",
+        bech32PrefixConsAddr: "regenvalcons",
+        bech32PrefixConsPub: "regenvalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "REGEN",
+            coinMinimalDenom: "uregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "REGEN",
+            coinMinimalDenom: "uregen",
+            coinDecimals: 6,
+            coinGeckoId: "regen",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "REGEN",
+        coinMinimalDenom: "uregen",
+        coinDecimals: 6,
+        coinGeckoId: "regen",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.00,
+        average: 0.015,
+        high: 0.03,
+    },
+  },
+  {
+    chainId: "elgafar-1",
+    chainName: "Stargaze Testnet",
+    rpc: "https://rpc.elgafar-1.dev.quicksilver.zone",
+    rest: "https://lcd.elgafar-1.dev.quicksilver.zone",
     
     bip44: {
         coinType: 118,
@@ -146,6 +206,7 @@ export const DevChainInfos: ChainInfo[] = [
         },
     ],
     stakeCurrency: {
+        
         coinDenom: "STARS",
         coinMinimalDenom: "ustars",
         coinDecimals: 6,
@@ -153,57 +214,103 @@ export const DevChainInfos: ChainInfo[] = [
     },
     coinType: 118,
     gasPriceStep: {
-        low: 0.00,
+        low: 0.01,
         average: 0.015,
         high: 0.03,
     },
   },
   {
-    chainId: "quickosmo-1",
-    chainName: "Quicksilver Dev OSMO Test",
-    rpc: "https://rpc.quickosmo-1.dev.quicksilver.zone",
-    rest: "https://lcd.quickosmo-1.dev.quicksilver.zone",
+    chainId: "theta-testnet-001",
+    chainName: "Cosmos Hub Test",
+    rpc: "https://rpc.theta-testnet-001.dev.quicksilver.zone",
+    rest: "https://lcd.theta-testnet-001.dev.quicksilver.zone",
     
     bip44: {
         coinType: 118,
     },
     bech32Config: {
-        bech32PrefixAccAddr: "osmo",
-        bech32PrefixAccPub: "osmopub",
-        bech32PrefixValAddr: "osmovaloper",
-        bech32PrefixValPub: "osmovaloperpub",
-        bech32PrefixConsAddr: "osmovalcons",
-        bech32PrefixConsPub: "osmovalconspub",
+        bech32PrefixAccAddr: "cosmos",
+        bech32PrefixAccPub: "cosmospub",
+        bech32PrefixValAddr: "cosmosvaloper",
+        bech32PrefixValPub: "cosmosvaloperpub",
+        bech32PrefixConsAddr: "cosmosvalcons",
+        bech32PrefixConsPub: "cosmosvalconspub",
     },
     currencies: [
         {
-            coinDenom: "OSMOSIS",
-            coinMinimalDenom: "uosmo",
+            coinDenom: "ATOM",
+            coinMinimalDenom: "uatom",
             coinDecimals: 6,
-            coinGeckoId: "osmosis",
+            coinGeckoId: "cosmos",
         },
     ],
     feeCurrencies: [
         {
-            coinDenom: "OSMOSIS",
-            coinMinimalDenom: "uosmo",
+            coinDenom: "ATOM",
+            coinMinimalDenom: "uatom",
             coinDecimals: 6,
-            coinGeckoId: "osmosis",
+            coinGeckoId: "cosmos",
         },
     ],
     stakeCurrency: {
         
-        coinDenom: "OSMOSIS",
-        coinMinimalDenom: "uosmo",
+        coinDenom: "ATOM",
+        coinMinimalDenom: "uatom",
         coinDecimals: 6,
-        coinGeckoId: "osmosis",
+        coinGeckoId: "cosmos",
     },
     coinType: 118,
     gasPriceStep: {
-        low: 0.00,
+        low: 0.01,
         average: 0.015,
         high: 0.03,
     },
-  }
+  }, 
+  {
+    chainId: "uni-6",
+    chainName: "Juno Testnet",
+    rpc: "https://rpc.uni-6.dev.quicksilver.zone",
+    rest: "https://lcd.uni-6.dev.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "juno",
+        bech32PrefixAccPub: "junopub",
+        bech32PrefixValAddr: "junovaloper",
+        bech32PrefixValPub: "junovaloperpub",
+        bech32PrefixConsAddr: "junovalcons",
+        bech32PrefixConsPub: "junovalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "JUNOX",
+            coinMinimalDenom: "ujunox",
+            coinDecimals: 6,
+            coinGeckoId: "juno-network",
+        },
+    ],
+    feeCurrencies: [
+        {
+           coinDenom: "JUNOX",
+            coinMinimalDenom: "ujunox",
+            coinDecimals: 6,
+            coinGeckoId: "juno-network",
+        },
+    ],
+    stakeCurrency: {
+        
+        coinDenom: "JUNOX",
+            coinMinimalDenom: "ujunox",
+            coinDecimals: 6,
+            coinGeckoId: "juno-network",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.01,
+        average: 0.015,
+        high: 0.03,
+    }
+}
 ]
-
