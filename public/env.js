@@ -1,7 +1,7 @@
 window.env = {
-  "NODE_ENV": "test",
-  "QUICKSILVER_API": "https://lcd.test.quicksilver.zone",
-  "ZONE_URL": "test.quicksilver.zone",
+  "NODE_ENV": "dev",
+  "QUICKSILVER_API": "https://lcd.dev.quicksilver.zone",
+  "ZONE_URL": "dev.quicksilver.zone",
   "REACT_APP_ENABLE_SET_INTENT": "true",
   "REACT_APP_ENABLE_UNBONDING": "true",
   "REACT_APP_ENABLE_CLAIMS": "true",
