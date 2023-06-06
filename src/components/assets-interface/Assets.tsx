@@ -19,6 +19,7 @@ import {  poolModalSelector, setPoolModalOpen } from '../../slices/poolsWarningM
 import {  setModalOpen } from '../../slices/connectWalletModal';
 import PoolsMessage from './PoolsMessageModal';
 import { Tooltip as ReactTooltip} from "react-tooltip";
+import { SpinnerCircular } from 'spinners-react';
 
 
 const {
@@ -46,11 +47,13 @@ export default function Assets() {
   const dispatch = useDispatch();
   const [sum, setsum] = useState<number>(0);
   const [showAssets, setShowAssets] = useState(true);
-
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
   const {balances, isQSWalletConnected, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
   const { networks, hasErrors } = useSelector(networksSelector);
   const [denomArray, setDenomArray] = useState<Array<string>>([])
   const {isPoolModalOpen} = useSelector(poolModalSelector)
+  const [noAssets, setNoAssets] = useState(false);
   useEffect(() => {
     if(isQSWalletConnected && networks) {
     let denomArray : Array<string> = [];
@@ -61,11 +64,11 @@ export default function Assets() {
   fetchSum();
     }
   }
-    if(messages.length == 0) {
-      queryXccLookup();
-    }
 
-  }, [balances])
+      queryXccLookup();
+      setError('');
+
+  }, [balances, quicksilverAddress])
 
   
 
@@ -112,7 +115,14 @@ dispatch(setPoolModalOpen());
       const data = await res.json();
         messages = data.messages;
         // update assets
+        if(messages.length === 0) {
+          setNoAssets(true);
+        } 
+        else {
+          setNoAssets(false);
+        }
       } 
+      
       catch(err) {
         console.log(err)
       }
@@ -124,10 +134,10 @@ dispatch(setPoolModalOpen());
   // }
   const onClaimsClick = async (e: any) => {
 
-    if (messages.length == 0) {
-      alert("nope!")
-      return
-    }
+    // if (messages.length == 0) {
+    //   alert("nope!")
+    //   return
+    // }
 
     let msg = [];
     // @ts-ignore
@@ -163,15 +173,15 @@ dispatch(setPoolModalOpen());
     // }
     
     try {
-
+      setLoading(true);
    const broadcastResult = await quicksilverClient.signAndBroadcast(
     quicksilverAddress,
       [...msg],
      {
-        "gas": "400000",
+        "gas": (50000 + ((messages.length) * 50000)).toString(),
         "amount": [
           {
-            "denom": "umuon",
+            "denom": "uqck",
             "amount": "300"
           }
         ]
@@ -182,8 +192,15 @@ dispatch(setPoolModalOpen());
     if(broadcastResult.code === 0 ) {
 
     }
+    else {
+      setLoading(false);
+      console.log(broadcastResult);
+    setError('The transaction failed! Please try again.');
+  }
 } catch(err: any) {
-
+  setLoading(false);
+  console.log(err);
+  setError('The transaction failed! Please try again.');
   console.log(err);
 
 }
@@ -242,9 +259,19 @@ dispatch(setPoolModalOpen());
 <br/> <br/>
 These rewards will be distributed on an epochly basis (every 3 days).
     </p>
-    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && <button onClick={onClaimsClick} className="claim-button"> Claim</button>}
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && <button disabled={noAssets} onClick={onClaimsClick} className="claim-button"> Claim</button>}
+    {process.env.REACT_APP_ENABLE_CLAIMS === 'true' && noAssets && <p className="text-center mt-2"> You do not have any assets in the previous epoch to claim against.</p>}
+
     {process.env.REACT_APP_ENABLE_CLAIMS === 'false' && <button className="claim-button"> Claim</button>}
+    <div className="text-center mt-2">
+    <div className="spinner">
+        {loading && <SpinnerCircular />}
+        </div>
+        {loading && <p className="mt-3"> Transaction in progress... </p>}
+        {error !== '' && !loading && <p className="mt-3"> {error}</p>}
+      </div>
     </div>
+  
 
   </div>
   <h3 className="mt-5 text-center">My Assets</h3> 
