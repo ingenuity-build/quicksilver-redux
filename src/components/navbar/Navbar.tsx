@@ -267,6 +267,8 @@ export default function Navbar(props: PropComponent) {
        dispatch(fetchNetworks())
                // @ts-expect-error
        dispatch(setStakingStep(1));
+                // @ts-expect-error
+                dispatch(setRedelegateStep(1));
                     // @ts-expect-error
                     dispatch(setSelectedNetworkFunc("Select a network"));
          // @ts-expect-error

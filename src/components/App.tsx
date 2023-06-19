@@ -258,14 +258,14 @@ const connectToQS = () => {
       <div className={location.pathname !== '/' ? 'mobile-message p-3' : 'mobile-message-landing p-3'}> 
     <h4>The current display window is too small. Minimum supported resolution is 1280 pixels wide.</h4> 
     </div>
-   <Routes>
+  <Routes>
                       <Route path="/" element={<Landing/>}/>
                 
                       <Route path="/stake" element={<Stake/>} >
           <Route path="delegate" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="delegate/:chainid" element={<Delegate connectKeplr={connectKeplr}/>} />
           <Route path="undelegate" element={<Undelegate connectKeplr={connectKeplr} />} />
-          <Route path="redelegate" element={<Redelegate />} /> 
+          <Route path="redelegate" element={<Redelegate connectKeplr={connectKeplr} />} /> 
         </Route>
                       <Route path="/pools" element={<Pools  />}/>
                       <Route path="/airdrop" element={<Airdrop  />}/>

@@ -17,6 +17,7 @@ import intentReducer from './intents';
 import  poolModalReducer from './poolsWarningModal'
 import airdropsReducer from './airdrops';
 import inactiveValidatorsModalReducer from './inactiveValidatorsModal'
+import inactiveValidatorsRedelegateModalReducer from './inactiveValidatorsRedelegateModal'
 
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -37,7 +38,8 @@ const rootReducer = combineReducers({
   intents: intentReducer,
   poolModal: poolModalReducer,
   airdrops: airdropsReducer,
-  inactiveValidatorsModal: inactiveValidatorsModalReducer
+  inactiveValidatorsModal: inactiveValidatorsModalReducer,
+  inactiveValidatorsRedelegateModal: inactiveValidatorsRedelegateModalReducer
 })
 
 export default rootReducer;

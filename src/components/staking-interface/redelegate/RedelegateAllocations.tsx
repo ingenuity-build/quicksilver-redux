@@ -33,12 +33,19 @@ export default function RedelegateAllocations() {
       }
         
         else {
-          let temp =  redelegateValidatorList.reduce((acc: any, curr: any) => {
-                    acc[curr.address] = {...curr, value: 1}
-                    return acc;
-            }, allocationProp);
+          // let temp =  redelegateValidatorList.reduce((acc: any, curr: any) => {
+          //           acc[curr.address] = {...curr, value: 1}
+          //           return acc;
+          //   }, allocationProp);
   
-            setAllocationProp(temp);
+          //   setAllocationProp(temp);
+            let value = +(100/redelegateValidatorList.length);
+            let temp =  redelegateValidatorList.reduce((acc: any, curr: any) => {
+                      acc[curr.address] = {...curr, value: +(value/100) * 100}
+                      return acc;
+              }, allocationProp);
+              setSum(100);
+              setAllocationProp(temp);
           }
            
     }, [])
@@ -103,7 +110,7 @@ export default function RedelegateAllocations() {
                 quicksilverAddress,
                   [msg],
                  {
-                    "gas": "300000",
+                    "gas": "400000",
                     "amount": [
                       {
                         "denom": "uqck",
@@ -139,14 +146,15 @@ export default function RedelegateAllocations() {
     
 
     return  (
-    <div className="mt-5 d-flex flex-column justify-content-center align-items-center">
-      {!transactionSuccessful && <div className="redelegate-pane">
-      <h4 className="text-center"> Allocate Intent</h4>  
-      {!transactionSuccessful && <div className="d-flex flex-column align-items-end mt-2">
+    <div className="mt-5 allocation-pane d-flex flex-column align-items-center">
+      {!transactionSuccessful && <div className="staking-pane d-flex flex-column mt-4 pt-5 ">
+  
+      <h4 className="text-center "> Allocate Intent</h4>  
+      {!transactionSuccessful && <div className="d-flex flex-column mt-2 align-items-end" >
      
         {redelegateValidatorList.length > 1 && redelegateValidatorList.map((val: any) => <>   
         <div className="d-flex mt-3">
-            <h5 className=" mx-2">{val.name}</h5>
+            <p className=" mx-2">{val.name}</p>
             <input style={{accentColor: '#D35100'}} className="mx-2" onChange={handleAllocationChange} type="range" value={Object.keys(allocationProp).length ? allocationProp[val.address]['value'] : 1 } name={val.address} min="1" max="100"   />
             <input className="mx-2" onChange={handleAllocationChange} value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
            </div>
@@ -156,7 +164,7 @@ export default function RedelegateAllocations() {
             {redelegateValidatorList.length === 1 && 
             redelegateValidatorList.map((val: any) => <>   
             <div className="d-flex mt-3">
-                <h5 className=" mx-2">{val.name}</h5>
+                <p className=" mx-2">{val.name}</p>
                 <input style={{accentColor: '#D35100'}} className="mx-2" type="range" value={Object.keys(allocationProp).length ? allocationProp[val.address]['value'] : 1 } name={val.address} min="1" max="100"   />
                 <input className="mx-2"  value={Object.keys(allocationProp).length ? allocationProp[val.address]['value']: '1' } name={val.address}  type="number" min="1" step=".5"></input>%
                </div>
@@ -189,6 +197,7 @@ export default function RedelegateAllocations() {
 
         
         </div>
+        
     )
         }
       

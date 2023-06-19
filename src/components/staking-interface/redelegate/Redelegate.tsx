@@ -1,21 +1,35 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {quicksilverSelector} from '../../../slices/quicksilver';
 import { useSelector, useDispatch } from 'react-redux'
 import { quicksilver } from "quicksilverjs"
 import ConnectWallet from '../delegate/ConnectWallet';
-import {redelegateActiveStep} from '../../../slices/relegateActiveStep';
+import {redelegateActiveStep, setRedelegateStep} from '../../../slices/relegateActiveStep';
 import RedelegateNetworkSelection from './RedelegateNetworkSelection';
 import RedelegateValidators from './RedelegateValidators';
 import RedelegateAllocations from './RedelegateAllocations';
+import { setRedelegateValidatorList} from "../../../slices/validatorList";
 
 
 // const {
 //   submitClaim
 // } = quicksilver.interchainstaking.v1.MsgSignalIntent
 
-export default function Redelegate() {
+export default function Redelegate(props: any) {
   const dispatch = useDispatch();
   const redelegateStep = useSelector(redelegateActiveStep);
+
+  useEffect(() => {
+    if(redelegateStep > 1) {
+       // @ts-expect-error
+    dispatch(setRedelegateStep(2));
+        // @ts-expect-error
+    dispatch(setRedelegateValidatorList([]))
+    } else {
+         // @ts-expect-error
+        dispatch(setRedelegateStep(1))
+    }
+
+}, [])
 
     const {isQSWalletConnected, balances, quicksilverClient, quicksilverAddress} = useSelector(quicksilverSelector);
     // const Redelegate =  async () => {
@@ -57,7 +71,7 @@ export default function Redelegate() {
     //     <button onClick={ () => Redelegate()}>REDELEGATE!</button> 
     //     </div>
     <>       
-        {redelegateStep === 1 && <ConnectWallet/>}
+        {redelegateStep === 1 && <ConnectWallet connectKeplr={props.connectKeplr}/>}
         {redelegateStep === 2 && <RedelegateNetworkSelection/>}
         {redelegateStep === 3 && <RedelegateValidators  />}
         {redelegateStep === 4 && <RedelegateAllocations/>}
