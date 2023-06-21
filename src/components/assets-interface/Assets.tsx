@@ -263,10 +263,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
               </div>
               <div className="d-flex flex-column mt-4 align-items-center justify-content-center">
 
-             {bal.denom !== 'uqck' &&  <h5 className="mb-0 font-bold"> {(+(bal.amount)/1000000).toFixed(3)} {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </h5>}
-
-             {bal.denom === 'uqck' &&  <h5 className="mb-0 font-bold"> {(+(bal.amount)/1000000).toFixed(3)} { bal.denom.slice(1).toUpperCase()} </h5>}
-                           
+              <h5 className="mb-0 font-bold"> {(+(bal.amount)/1000000).toFixed(3)} {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </h5>
               <p className="mt-0 quicksilver-bal">QUICKSILVER BALANCE</p>
               
                 
@@ -327,3 +324,5 @@ These rewards will be distributed on an epochly basis (every 3 days).
     )
 
 }
+
+
