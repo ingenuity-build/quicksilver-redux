@@ -102,9 +102,10 @@ export default function Stake() {
 
         {process.env.REACT_APP_ENABLE_SET_INTENT == 'true' && <Link to="redelegate" className={`${location.pathname === '/stake/redelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Set Intent</Link>}
         <Link to="undelegate" className={`${location.pathname === '/stake/undelegate'  ? 'active-link mx-3 px-2' : 'mx-3 px-2 link'}`} >Undelegate</Link>
+        <h6 className="zone-message"> Deposits are disabled during the ongoing Cosmos Hub upgrade. </h6>
         </div>
 
-        
+    
             <Outlet/>
 
                 </div>
