@@ -95,7 +95,7 @@ useEffect(() => {
                 </div>
                </div>
               
-                {/* <h4 className="sub-heading"> Deposits will be enabled soon. Stay tuned. </h4> */}
+
                 </div>
     </>
   )

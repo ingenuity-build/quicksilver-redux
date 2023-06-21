@@ -65,3 +65,9 @@ background: #FFFFFF;
     cursor: pointer;
     border: 2px solid #D35100;
 }
+
+
+.zone-message {
+    position: fixed;
+    bottom: 60px;
+}
