@@ -71,7 +71,7 @@ export default function SummaryValidators() {
           )
       }
       )
-      out = Buffer.from(out).toString('base64');
+      out = Buffer.from([0x02, out.length, ...Buffer.from(out)]).toString('base64');
       console.log(out);
       return validators;
   }
