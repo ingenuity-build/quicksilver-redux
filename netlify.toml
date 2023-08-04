@@ -39,6 +39,6 @@
   ZONE_URL = "dev.quicksilver.zone"
   REACT_APP_WHITELISTED_ZONES = "uni-6,elgafar-1,osmo-test-5,theta-testnet-001,regen-redwood-1"
   REACT_APP_ENABLE_UNBONDING="true"
-  REACT_APP_ENABLE_SET_INTENT="false"
+  REACT_APP_ENABLE_SET_INTENT="true"
   REACT_APP_ENABLE_CLAIMS="true"
   APY_ZONES_ENDPOINT="https://chains.cosmos.directory"
