@@ -8,6 +8,7 @@ import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
 import qRegen from '../../assets/qRegen.svg';
+import qSomm from '../../assets/qSomm.png';
 import Question from '../../assets/icons/question-mark.svg';
 import ExternalLink from '../../assets/external-link.svg';
 import { Coin } from "@cosmjs/amino";
@@ -37,6 +38,7 @@ params['uqjunox'] = qJuno;
 params['uqjuno'] = qJuno;
 params['uqosmo'] = qOsmo;
 params['uqregen'] = qRegen;
+params['uqsomm'] = qSomm;
 
 
   let messages = []

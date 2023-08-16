@@ -5,6 +5,7 @@ import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';
 import Juno from '../assets/Juno.png';
 import Regen from '../assets/Regen.png'
+import Sommelier from '../assets/sommelier.png'
 
 export const initialState = {
   loading: false,
@@ -49,7 +50,7 @@ export function fetchNetworks() {
       const APRDATa = await APR.json()
       let APY = APRDATa.chains;
       let zones = manipulateData(data.zones);
-     let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
+      let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
       dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {
       dispatch(getNetworksFailure())
@@ -63,7 +64,8 @@ const manipulateData = (zones: any) => {
     'uqosmo' : 'Osmosis',
     'uqstars' : 'Stargaze',
     'uqjunox' : 'Juno',
-    'uqregen': 'Regen'
+    'uqregen': 'Regen',
+    'uqsomm': 'Sommelier'
   }
 
 
@@ -80,6 +82,7 @@ const images = {
   'uqosmo' : Osmosis,
   'uqstars' : Stargaze,
   'uqjunox' : Juno,
-  'uqregen': Regen
+  'uqregen': Regen,
+  'uqsomm': Sommelier
 }
 
