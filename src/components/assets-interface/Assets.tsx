@@ -278,7 +278,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
                 <p className={`text-center quicksilver-bal'`}>
                   1 {bal.denom[1] + bal.denom.slice(2).toUpperCase()  } = {(+(networks.find((y:any) => y.value.local_denom === bal.denom)?.value.redemption_rate)).toFixed(4) } {bal.denom.slice(2).toUpperCase()  }  at current redemption rate 
                 </p>
-                } else {
+                ||
                   <p className={`text-center quicksilver-bal'`}>&nbsp;</p>
                 }
 
