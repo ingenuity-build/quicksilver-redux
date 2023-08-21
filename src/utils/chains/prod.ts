@@ -311,7 +311,7 @@ export const ProdChainInfos: ChainInfo[] = [
         average: 0.015,
         high: 0.03,
     }
-  }/*,
+  },
   {
     chainId: "sommelier-3",
     chainName: "Sommelier",
@@ -357,6 +357,6 @@ export const ProdChainInfos: ChainInfo[] = [
         average: 0.015,
         high: 0.03,
     }
-  }*/
+  }
 ]
 
