@@ -111,9 +111,8 @@ useEffect(() => {
 
   if(networkBalances.length > 0 && selectedNetwork !== "Select a network"  ) {
     let balance = networkBalances.find((bal: any) => bal.denom === selectedNetwork.base_denom);
-    console.log('balance', balance)
     if(balance) {
-     setZoneBalance((balance.amount)/1000000);
+      setZoneBalance((balance.amount)/1000000);
     } else {
       setZoneBalance(0)
     }
@@ -124,15 +123,15 @@ useEffect(() => {
 
 
   let onNext = () => {
-        // @ts-expect-error
-    dispatch(increaseStakingStep());
+      // @ts-expect-error
+      dispatch(increaseStakingStep());
   }
 
   const onBack = () => {
-                 // @ts-expect-error
-                 dispatch(setStakingStep(1));
-                 // @ts-expect-error
-                 dispatch(setSelectedNetworkFunc("Select a network"));
+      // @ts-expect-error
+      dispatch(setStakingStep(1));
+      // @ts-expect-error
+      dispatch(setSelectedNetworkFunc("Select a network"));
   }
 
 

@@ -5,6 +5,7 @@ import Osmosis from '../assets/Osmosis.png';
 import Stargaze from '../assets/Stargaze.png';
 import Juno from '../assets/Juno.png';
 import Regen from '../assets/Regen.png'
+import Sommelier from '../assets/sommelier.png'
 
 export const initialState = {
   loading: false,
@@ -49,7 +50,7 @@ export function fetchNetworks() {
       const APRDATa = await APR.json()
       let APY = APRDATa.chains;
       let zones = manipulateData(data.zones);
-     let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
+      let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
       dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {
       dispatch(getNetworksFailure())
@@ -63,12 +64,13 @@ const manipulateData = (zones: any) => {
     'uqosmo' : 'Osmosis',
     'uqstars' : 'Stargaze',
     'uqjunox' : 'Juno',
-    'uqregen': 'Regen'
+    'uqregen': 'Regen',
+    'uqsomm': 'Sommelier'
   }
 
 
   let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: labels[zone.local_denom].toUpperCase() , value: zone, image: images[zone.local_denom]}})
-  //  console.log('zones', whitelistedZones);
+  console.log('zones', whitelistedZones);
 
    return whitelistedZones;
   //  return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
@@ -80,6 +82,7 @@ const images = {
   'uqosmo' : Osmosis,
   'uqstars' : Stargaze,
   'uqjunox' : Juno,
-  'uqregen': Regen
+  'uqregen': Regen,
+  'uqsomm': Sommelier
 }
 

@@ -53,6 +53,12 @@ export const ProdQuickSilverChainInfo : ChainInfo = {
             coinDecimals: 6,
             coinGeckoId: "regen",
         },
+        {
+            coinDenom: "qSOMM",
+            coinMinimalDenom: "uqsomm",
+            coinDecimals: 6,
+            coinGeckoId: "sommelier",
+        },
     ],
     feeCurrencies: [
         {
@@ -168,8 +174,8 @@ export const ProdChainInfos: ChainInfo[] = [
         average: 0.015,
         high: 0.03,
     },
-  }
-  ,{
+  },
+  {
     chainId: "osmosis-1",
     chainName: "Osmosis",
     rpc: "https://rpc.osmosis-1.quicksilver.zone",
@@ -247,8 +253,7 @@ export const ProdChainInfos: ChainInfo[] = [
             coinGeckoId: "stargaze",
         },
     ],
-    stakeCurrency: {
-        
+    stakeCurrency: {  
         coinDenom: "STARS",
         coinMinimalDenom: "ustars",
         coinDecimals: 6,
@@ -288,15 +293,14 @@ export const ProdChainInfos: ChainInfo[] = [
     ],
     feeCurrencies: [
         {
-           coinDenom: "JUNO",
+            coinDenom: "JUNO",
             coinMinimalDenom: "ujuno",
             coinDecimals: 6,
             coinGeckoId: "juno-network",
         },
     ],
     stakeCurrency: {
-        
-        coinDenom: "JUNO",
+            coinDenom: "JUNO",
             coinMinimalDenom: "ujuno",
             coinDecimals: 6,
             coinGeckoId: "juno-network",
@@ -307,6 +311,52 @@ export const ProdChainInfos: ChainInfo[] = [
         average: 0.015,
         high: 0.03,
     }
-}
+  },
+  {
+    chainId: "sommelier-3",
+    chainName: "Sommelier",
+    rpc: "https://rpc.sommelier-3.quicksilver.zone",
+    rest: "https://lcd.sommelier-3.quicksilver.zone",
+    
+    bip44: {
+        coinType: 118,
+    },
+    bech32Config: {
+        bech32PrefixAccAddr: "somm",
+        bech32PrefixAccPub: "sommpub",
+        bech32PrefixValAddr: "sommvaloper",
+        bech32PrefixValPub: "sommvaloperpub",
+        bech32PrefixConsAddr: "sommvalcons",
+        bech32PrefixConsPub: "sommvalconspub",
+    },
+    currencies: [
+        {
+            coinDenom: "SOMM",
+            coinMinimalDenom: "usomm",
+            coinDecimals: 6,
+            coinGeckoId: "sommelier",
+        },
+    ],
+    feeCurrencies: [
+        {
+            coinDenom: "SOMM",
+            coinMinimalDenom: "usomm",
+            coinDecimals: 6,
+            coinGeckoId: "sommelier",
+        },
+    ],
+    stakeCurrency: {
+        coinDenom: "SOMM",
+        coinMinimalDenom: "usomm",
+        coinDecimals: 6,
+        coinGeckoId: "sommelier",
+    },
+    coinType: 118,
+    gasPriceStep: {
+        low: 0.01,
+        average: 0.015,
+        high: 0.03,
+    }
+  }
 ]
 

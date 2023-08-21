@@ -8,6 +8,7 @@ import qAtom from '../../assets/qAtom.svg';
 import qOsmo from '../../assets/qOsmo.svg';
 import qJuno from '../../assets/qJuno.svg';
 import qRegen from '../../assets/qRegen.svg';
+import qSomm from '../../assets/qSomm.png';
 import Question from '../../assets/icons/question-mark.svg';
 import ExternalLink from '../../assets/external-link.svg';
 import { Coin } from "@cosmjs/amino";
@@ -37,6 +38,7 @@ params['uqjunox'] = qJuno;
 params['uqjuno'] = qJuno;
 params['uqosmo'] = qOsmo;
 params['uqregen'] = qRegen;
+params['uqsomm'] = qSomm;
 
 
   let messages = []
@@ -257,7 +259,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
             <div className={`col-4 asset-detail ${bal.denom !== 'uqck' ? 'order-1' : ''}`} key={i}>
               <div className="asset-card m-2 mt-4"> 
               <div className="d-flex justify-content-center align-items-center">
-            <img className="d-block" src={params[bal.denom]}/>
+            <img className="d-block denom-logo" src={params[bal.denom]}/>
             <h3 >  {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h3>
             {bal.denom === 'uqck' && <h3 className="text-center mx-2"> QCK</h3>}
               </div>
@@ -272,14 +274,19 @@ These rewards will be distributed on an epochly basis (every 3 days).
 
           
                 </div>
-                <p className={`text-center ${bal.denom == 'uqck' ? 'invisible' : ''}`}>
+                {bal.denom != 'uqck' && 
+                <p className={`text-center quicksilver-bal`}>
                   1 {bal.denom[1] + bal.denom.slice(2).toUpperCase()  } = {(+(networks.find((y:any) => y.value.local_denom === bal.denom)?.value.redemption_rate)).toFixed(4) } {bal.denom.slice(2).toUpperCase()  }  at current redemption rate 
                 </p>
+                ||
+                  <p className={`text-center quicksilver-bal`}>&nbsp;</p>
+                }
 
 {bal.denom === 'uqatom' && <a href="https://app.osmosis.zone/pool/944" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqregen' && <a href="https://app.osmosis.zone/pool/948" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqstars' && <a href="https://app.osmosis.zone/pool/903" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqosmo' && <a href="https://app.osmosis.zone/pool/956" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqsomm' && <a href="https://app.osmosis.zone/pool/1087" target="_blank" className="pool-text">Osmosis Pool <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && walletType === 'keplr' && <a href="http://wallet.keplr.app/" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && walletType === 'leap' && <a href="https://cosmos.leapwallet.io/home" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && walletType === 'cosmostation' && <a href="https://wallet.cosmostation.io/cosmos" target="_blank" className="pool-text">Stake QCK <span><img className="pool"  src={ExternalLink}/></span></a>}
@@ -289,12 +296,14 @@ These rewards will be distributed on an epochly basis (every 3 days).
 {bal.denom === 'uqatom' && <a href=" https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2FFA602364BEC305A696CBDF987058E99D8B479F0318E47314C49173E8838C5BAC" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqregen' && <a href="https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F79A676508A2ECA1021EDDC7BB9CF70CEEC9514C478DA526A5A8B3E78506C2206" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqstars' && <a href=" https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F46C83BB054E12E189882B5284542DB605D94C99827E367C9192CF0579CD5BC83" target="_blank" className="pool-text">Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqsomm' && <a href="https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2FEAF76AD1EEF7B16D167D87711FB26ABE881AC7D9F7E6D0CF313D5FA530417208" target="_blank" className="pool-text"> Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqosmo' && <a href="https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F42D24879D4569CE6477B7E88206ADBFE47C222C6CAD51A54083E4A72594269FC" target="_blank" className="pool-text"> Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && <a href="https://tfm.com/bridge?chainFrom=osmosis-1&chainTo=quicksilver-2&token0=ibc%2F635CB83EF1DFE598B10A3E90485306FD0D47D34217A4BE5FD9977FA010A5367D" target="_blank" className="pool-text"> Deposit <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqatom' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqatom" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqregen' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqregen" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqstars' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqregen" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqosmo' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqosmo" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
+{bal.denom === 'uqsomm' && <a href="https://tfm.com/bridge?chainFrom=quicksilver-2&chainTo=osmosis-1&token0=uqsomm" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
 {bal.denom === 'uqck' && <a href="https://tfm.com/bridge?chainTo=osmosis-1&chainFrom=quicksilver-2&token0=uqck" target="_blank" className="pool-text">Withdraw <span><img className="pool"  src={ExternalLink}/></span></a>}
                </div>
                 {/* {bal.denom === 'uqstars' && <button onClick={onPoolButtonClick} className="w-100 prev-button"> Use {bal.denom[1] + bal.denom.slice(2).toUpperCase()} </button>} */}

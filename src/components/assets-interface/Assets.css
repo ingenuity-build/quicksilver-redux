@@ -50,6 +50,11 @@ h2 {
     height:75px;
   }
 
+  .denom-logo {
+    height: 75px;
+    padding: 10px;
+  }
+
   .amount {
     color: #D35100;
     font-weight: bold; 
