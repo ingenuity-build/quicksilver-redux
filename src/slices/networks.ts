@@ -70,7 +70,7 @@ const manipulateData = (zones: any) => {
 
 
   let whitelistedZones =  zones.filter((zone: any) => zone.deposit_address !== null).filter((zone: any) => env.REACT_APP_WHITELISTED_ZONES.split(",").includes(zone.chain_id)).map((zone: any) => { return { label: labels[zone.local_denom].toUpperCase() , value: zone, image: images[zone.local_denom]}})
-  //  console.log('zones', whitelistedZones);
+  console.log('zones', whitelistedZones);
 
    return whitelistedZones;
   //  return zones.filter((zone: any) => zone.deposit_address !== null).map((zone: any) => { return { label: zone.account_prefix.toUpperCase() , value: zone, image: images[zone.local_denom]}})
