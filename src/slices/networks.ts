@@ -50,6 +50,7 @@ export function fetchNetworks() {
       const APRDATa = await APR.json()
       let APY = APRDATa.chains;
       let zones = manipulateData(data.zones);
+      console.log("zones mf", zones)
       let zonesAPY = zones.map(obj => ({ ...obj, apy: APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id) !== undefined? (APRDATa.chains.find((chain: any) => chain.chain_id === obj.value.chain_id).apr) : '0'}))
       dispatch(getNetworksSuccess(zonesAPY))
     } catch (error) {

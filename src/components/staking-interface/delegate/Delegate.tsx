@@ -39,7 +39,8 @@ export default function Delegate(props: any) {
 
 
       useEffect(() => {
-        console.log("params and zones", params, process.env.REACT_APP_WHITELISTED_ZONES)
+        console.log("params", params)
+        console.log("zones", process.env.REACT_APP_WHITELISTED_ZONES)
         // @ts-expect-error
         if( isQSWalletConnected && process.env.REACT_APP_WHITELISTED_ZONES?.split(",").includes(params.chainid) ) {
                 let network = networks.find((y:any) => y.value.chain_id === params?.chainid);
