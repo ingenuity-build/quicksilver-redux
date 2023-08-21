@@ -259,7 +259,7 @@ These rewards will be distributed on an epochly basis (every 3 days).
             <div className={`col-4 asset-detail ${bal.denom !== 'uqck' ? 'order-1' : ''}`} key={i}>
               <div className="asset-card m-2 mt-4"> 
               <div className="d-flex justify-content-center align-items-center">
-            <img className="d-block" src={params[bal.denom]}/>
+            <img className="d-block denom-logo" src={params[bal.denom]}/>
             <h3 >  {bal.denom !== 'uqck' && <span>{bal.denom[1] + bal.denom.slice(2).toUpperCase()}</span>}</h3>
             {bal.denom === 'uqck' && <h3 className="text-center mx-2"> QCK</h3>}
               </div>
