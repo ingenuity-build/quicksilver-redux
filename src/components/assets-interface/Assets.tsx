@@ -178,7 +178,7 @@ dispatch(setPoolModalOpen());
     quicksilverAddress,
       [...msg],
      {
-        "gas": (50000 + ((messages.length) * 50000)).toString(),
+        "gas": (100000 + ((messages.length) * 50000)).toString(),
         "amount": [
           {
             "denom": "uqck",
