@@ -143,13 +143,13 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
     tokenizedShareOwner: string;
   }
   
-  function createCustomTypes(prefix: string): AminoConverters {
+  function createCustomTypes(): AminoConverters {
     return {
       ...createAuthzAminoConverters(),
       ...createBankAminoConverters(),
       ...createDistributionAminoConverters(),
       ...createGovAminoConverters(),
-      ...createStakingAminoConverters(prefix),
+      ...createStakingAminoConverters(),
       ...createIbcAminoConverters(),
       ...createFeegrantAminoConverters(),
       ...createLiquidStakingTypes(),
@@ -241,4 +241,4 @@ export function createLiquidStakingTypes(): Record<string, AminoConverter | "not
      ...quicksilverProtoRegistry
   ];
 
- export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes("cosmos")) }
+ export const options: SigningStargateClientOptions = { registry : new Registry(customTypes), aminoTypes : new AminoTypes(createCustomTypes()) }

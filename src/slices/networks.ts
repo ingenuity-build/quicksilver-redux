@@ -64,6 +64,7 @@ const manipulateData = (zones: any) => {
     'uqosmo' : 'Osmosis',
     'uqstars' : 'Stargaze',
     'uqjunox' : 'Juno',
+    'uqjuno' : 'Juno',
     'uqregen': 'Regen',
     'uqsomm': 'Sommelier'
   }
@@ -82,6 +83,7 @@ const images = {
   'uqosmo' : Osmosis,
   'uqstars' : Stargaze,
   'uqjunox' : Juno,
+  'uqjuno' : Juno,
   'uqregen': Regen,
   'uqsomm': Sommelier
 }
